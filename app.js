@@ -4,7 +4,7 @@ var Bmob = require('utils/bmob.js');
 
 //app.js
 App({
-
+//test 刘一宁
   onLaunch: function () {
     var user = new Bmob.User() //开始注册用户
     user.auth()
