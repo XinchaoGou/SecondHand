@@ -1,14 +1,36 @@
 {
-  "pages":[
-    "pages/index/index"
+  "pages": [
+    "pages/home/home",
+    "pages/search/search",
+    "pages/offer/offer",
+    "pages/me/me"
   ],
-  "window":{
+  "window": {
     "navigationBarTextStyle": "white",
     "navigationBarBackgroundColor": "#118fff",
     "navigationBarTitleText": "留德华",
     "backgroundColor": "#fff"
   },
- 
+  "tabBar": {
+    "list": [
+      {
+        "pagePath": "pages/home/home",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/search/search",
+        "text": "搜索"
+      },
+      {
+        "pagePath": "pages/offer/offer",
+        "text": "发布"
+      },
+      {
+        "pagePath": "pages/me/me",
+        "text": "我的"
+      }
+    ]
+  },
   "networkTimeout": {
     "request": 10000,
     "downloadFile": 10000
