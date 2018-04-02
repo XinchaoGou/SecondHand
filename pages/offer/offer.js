@@ -1,4 +1,6 @@
 // pages/offer/offer.js
+
+var that;
 Page({
 
   /**
@@ -34,7 +36,11 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    that = this;
+    that.setData({//初始化数据
+      src: "",
+      isSrc: false,
+    })
   },
 
   /**
