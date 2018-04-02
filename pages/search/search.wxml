@@ -1,59 +1,31 @@
 <!--pages/search/search.wxml-->
 <view class="container">
 
+  <view class="header">
 
-<view class="section">
+      <view class="header-block1">
+      
+        <icon type="search" size="25" color="gray" bindtap="tosubsearch"/>
+       
 
-  <view class="section-title">
-    <text class="text-title">地理范围</text>
-  </view>
-
-  <view class="section-item">
-    <text class="text-title" bindtap="primary" width="100%">Karlsruhe</text>
-  </view>
-
-</view>
-
-<view class="section">
-
-  <view class="section-title">
-    <text class="text-title">类别</text>
-  </view>
-
-  <view class="section-item">
-    <text class="text-title" bindtap="primary" width="100%">所有种类</text>
-  </view>
-
-</view>
-
-<view class="section">
-
-  <view class="section-title">
-    <text class="text-title">价格区间</text>
-  </view>
-
-  <view class="section-item">
-    <text class="text-title" bindtap="primary">Karlsruhe</text>
-  </view>
-
-</view>
-
-<view class="section">
-
-  <view class="section-title">
-    <text class="text-title">排列顺序</text>
-  </view>
-
-  <view class="section-item">
-    <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
-      <view class="text-title">
-        当前选择：{{array[index]}}
+        <view class="section-search-title">
+          <text class="text1">定向搜索</text>
+        </view>
       </view>
-    </picker>
+
+      <view class="header-block2">
+        <text class="top-text">所有种类</text>
+        <text class="bottom-text">地理位置</text>
+      </view>
+
+      <view class="header-block3">
+        <image class="icon" src="../../images/icon2.png"/>
+      </view>
   </view>
 
 
-</view>
+
+ 
 </view>
 
 
