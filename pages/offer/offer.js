@@ -7,7 +7,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    //发布标题
+    //表单验证相关
     showTopTips: false,
     TopTips: '',
     //物品类别
