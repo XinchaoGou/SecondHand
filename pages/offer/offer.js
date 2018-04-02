@@ -21,6 +21,13 @@ Page({
     noteMaxLen: 200,//备注最多字数
     //物品图片
 
+
+    //阅读并同意填写联系方式
+    isAgree: false,
+    showInput: false,//显示输入真实姓名,
+    //发布须知
+    notice_status: false,
+
   },
 
   /**
@@ -118,6 +125,39 @@ Page({
       src: ""
     })
   },
+
+  /**
+   * 发布须知
+   * by xinchao
+   */
+  //同意相关条例
+  bindAgreeChange: function (e) {
+    this.setData({
+      isAgree: !!e.detail.value.length,
+      showInput: !this.data.showInput
+    });
+  },
+
+  /**
+   * 发布须知
+   * by xinchao
+   */
+  tapNotice: function (e) {
+    if (e.target.id == 'notice') {
+      this.hideNotice();
+    }
+  },
+  showNotice: function (e) {
+    this.setData({
+      'notice_status': true
+    });
+  },
+  hideNotice: function (e) {
+    this.setData({
+      'notice_status': false
+    });
+  },
+
 
   /**
    * 生命周期函数--监听页面初次渲染完成

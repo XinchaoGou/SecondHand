@@ -61,30 +61,31 @@
 
     <view class="mod-a mt20"></view>
 
+    <!-- 联系方式 -->
     <view class="mod-a mt20" wx:if="{{showInput}}">
-      <!-- 真实姓名 -->
+      <!-- 微信号 -->
       <view class="mod t-name">
-        <text class="key">真实姓名</text>
-        <input name="realname" class="input" maxlength="100" placeholder="请输入真实姓名" value="{{realname}}" />
+        <text class="key">微信号</text>
+        <input name="realname" class="input" maxlength="100" placeholder="请输入微信号" value="{{realname}}" />
         <image class="arrow-r" src="/images/arrow-r-0.png"></image>
       </view>
+
       <view class="mod-a"></view>
+      <!-- 手机号码 -->
       <view class="mod t-name">
-        <picker name="contactWay" bindchange="bindAccountChange" value="{{accountIndex}}" range="{{accounts}}">
-          <view class="select">{{accounts[accountIndex]}}</view>
-        </picker>
+        <text class="key">手机号</text>
         <input name="contactValue" class="input" placeholder="请输入号码" value="{{contactValue}}" />
         <image class="arrow-r" src="/images/arrow-r-0.png"></image>
       </view>
-      <view class="add_pic t-code" bindtap="uploadCodePic" wx-if="{{!isCodeSrc}}">
-        <view class='code'>上传活动群二维码（选）</view>
+
+      <view class="mod-a"></view>
+      <!-- 邮箱 -->
+      <view class="mod t-name">
+        <text class="key">邮箱</text>
+        <input name="contactValue" class="input" placeholder="请输入邮箱" value="{{contactValue}}" />
+        <image class="arrow-r" src="/images/arrow-r-0.png"></image>
       </view>
-      <view wx:if="{{isCodeSrc}}" class="image_box">
-        <view class="picPre">
-          <image src="{{codeSrc}}" mode="aspectFit"></image>
-          <view bindtap="clearCodePic"></view>
-        </view>
-      </view>
+
     </view>
 
     <view class="mod-a mt20">
@@ -97,21 +98,22 @@
             </view>
             阅读并同意
             <view bindtap="showNotice" class="weui-agree__link">
-              《发起须知》</view>
+              《发步须知》</view>
           </view>
         </label>
       </checkbox-group>
       <view class="submit-btn">
-        <button class='button' loading="{{isLoading}}" hover-start-time="200" disabled="{{isdisabled}}" formType="submit">发起</button>
+        <button class='button' loading="{{isLoading}}" hover-start-time="200" disabled="{{isdisabled}}" formType="submit">发布</button>
       </view>
     </view>
   </form>
 </view>
-<!-- 发起须知 -->
+
+<!-- 发布须知 -->
 <view class="notice" id="notice" wx:if="{{notice_status}}" bindtap="tapNotice">
   <view class="box">
     <view class="box-hd">
-      <text class="box-title">发起须知</text>
+      <text class="box-title">发布须知</text>
       <image class="box-close" src="/images/more/close.png" bindtap="hideNotice"></image>
     </view>
     <view class="box-bd">
