@@ -17,14 +17,15 @@
       <view class="mod t-sign-time">
         <text class="key">物品类别</text>
         <picker bindchange="bindTypeChange" value="{{typeIndex}}" range="{{types}}">
-          <view class="value" name="types">{{types[typeIndex]}}
+          <view class="value" name="types">
+            {{types[typeIndex]}}
             <image class="arrow-r" src="/images/arrow-r-0.png"></image>
           </view>
         </picker>
       </view>
 
       <!-- 交易地点 -->
-      <view class="mod t-address" bindtap="chooseLocation">
+      <view class="mod t-address">
         <text class="key">交易地点</text>
         <text name="address" class="value" bindtap="addressChange" value="{{address}}">{{address}}</text>
         <image class="arrow-r" src="/images/arrow-r-0.png"></image>
@@ -36,16 +37,18 @@
         <input name="price" class="input" maxlength="100" placeholder="请输入价格" value="{{price}}" />
         <image class="arrow-r" src="/images/arrow-r-0.png"></image>
       </view>
-      
+
     </view>
 
-    <!-- 活动内容 -->
+    <!-- 物品内容详情 -->
     <view class="mod-a mt20">
       <view class="mod-big my-nick">
-        <textarea name="content" class="weui-textarea" placeholder="请输入活动内容" value="{{content}}" style="height: 7em" bindinput="bindTextAreaChange" maxlength="{{noteMaxLen}}" />
+        <textarea name="content" class="weui-textarea" placeholder="请输入物品详情" value="{{content}}" style="height: 7em" bindinput="bindTextAreaChange" maxlength="{{noteMaxLen}}" />
         <view class="chnumber">{{noteNowLen}}/{{noteMaxLen}}</view>
       </view>
     </view>
+
+    <!-- 物品图片 TODO-->
     <view class="add_pic" bindtap="uploadPic" wx-if="{{!isSrc}}">
       <view>添加图片（选）</view>
     </view>
@@ -55,7 +58,9 @@
         <view bindtap="clearPic"></view>
       </view>
     </view>
+
     <view class="mod-a mt20"></view>
+
     <view class="mod-a mt20" wx:if="{{showInput}}">
       <!-- 真实姓名 -->
       <view class="mod t-name">

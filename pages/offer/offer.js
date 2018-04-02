@@ -15,6 +15,12 @@ Page({
     address: '点击选择位置',
     longitude: 0, //经度
     latitude: 0,//纬度
+    //物品内容
+    content: "",
+    noteNowLen: 0,//备注当前字数
+    noteMaxLen: 200,//备注最多字数
+    //物品图片
+
   },
 
   /**
@@ -43,7 +49,7 @@ Page({
   },
 
   /**
-   * 选择地点
+   * 选择交易地点
    * by xinchao
    */
   addressChange: function (e) {
@@ -67,6 +73,49 @@ Page({
       },
       complete: function (e) {
       }
+    })
+  },
+
+  /**
+   * 物品内容，字数改变触发事件
+   * by xinchao
+   */
+  bindTextAreaChange: function (e) {
+    var that = this
+    var value = e.detail.value,
+      len = parseInt(value.length);
+    if (len > that.data.noteMaxLen)
+      return;
+    that.setData({
+      content: value, noteNowLen: len
+    })
+  },
+
+  /**
+   * 物品图片
+   * by xinchao
+   */
+  //上传活动图片
+  uploadPic: function () {//选择图标
+    wx.chooseImage({
+      count: 1, // 默认9
+      sizeType: ['compressed'], //压缩图
+      sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+      success: function (res) {
+        // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
+        var tempFilePaths = res.tempFilePaths
+        that.setData({
+          isSrc: true,
+          src: tempFilePaths
+        })
+      }
+    })
+  },
+  //删除图片
+  clearPic: function () {//删除图片
+    that.setData({
+      isSrc: false,
+      src: ""
     })
   },
 
