@@ -3,7 +3,8 @@
     "pages/home/home",
     "pages/search/search",
     "pages/offer/offer",
-    "pages/me/me"
+    "pages/me/me",
+    "pages/search_sublevel1/search_sublevel1"
   ],
   "window": {
     "navigationBarTextStyle": "white",
