@@ -1,13 +1,14 @@
-// pages/offer/offer.js
-
+var Bmob = require("../../utils/bmob.js");
+var common = require('../../template/loadingBox.js');
 var that;
+// pages/offer/offer.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    //发布标题
+    //表单验证相关 TODO
     showTopTips: false,
     TopTips: '',
     //物品类别
@@ -17,13 +18,15 @@ Page({
     address: '点击选择位置',
     longitude: 0, //经度
     latitude: 0,//纬度
+    //物品价格 TODO
+    // price: 0,
     //物品内容
     content: "",
     noteNowLen: 0,//备注当前字数
     noteMaxLen: 200,//备注最多字数
     //物品图片
-
-
+    isSrc: false,
+    src: "",
     //阅读并同意填写联系方式
     isAgree: false,
     showInput: false,//显示输入真实姓名,
@@ -47,12 +50,92 @@ Page({
    * 提交表单
    * by xinchao
    */
-  submitForm: function (event) {
+  submitForm: function (e) {
+
+    //阅读发布须知
+    if (that.data.showInput == false) {
+      wx.showModal({
+        title: '提示',
+        content: '请先阅读《发布须知》'
+      })
+      return;
+    }
+
+    //发布内容相关
+    var title = e.detail.value.title;//发布标题
+    var typeIndex = that.data.typeIndex;
+    var types = that.data.types;
+    var typeName = types[typeIndex]; //物品类别
+    var address = that.data.address;//交易地点
+    var price = e.detail.value.price;//物品价格
+    var content = e.detail.value.content;//物品内容
+    //发布人联系方式
+    var wxNumber = e.detail.value.wxNumber;//微信号
+    var phoneNumber = e.detail.value.phoneNumber;//手机号
+    var eMail = e.detail.value.eMail;//邮箱
+
+    //表单验证 TODO
+
+    //上传表单数据到数据库
+    var Offer = Bmob.Object.extend("Offer");
+    var offer = new Offer();
+    offer.set("title", title);
+    offer.set("typeName", typeName);
+    offer.set("address", address);
+    offer.set("price", parseInt(price));
+    offer.set("content", content);
+    offer.set("wxNumber", wxNumber);
+    offer.set("phoneNumber", parseInt(phoneNumber));
+    offer.set("eMail", eMail);
+    //添加数据，第一个入口参数是null
+    offer.save(null, {
+      success: function (result) {
+        //添加成功，返回成功之后的objectId(注意，返回的属性名字是id,而不是objectId)
+        console.log("发布成功, objectId:" + result.id);
+        common.dataLoading("发起成功", "success", function () {
+          //重置表单
+          that.setData({
+            //表单验证相关 TODO
+            showTopTips: false,
+            TopTips: '',
+            //物品类别
+            types: ["电子产品", "学习资料", "家具", "其他"],
+            typeIndex: "0",
+            //交易地点
+            address: '点击选择位置',
+            longitude: 0, //经度
+            latitude: 0,//纬度
+            //物品价格 TODO
+            // price: 0,
+            //物品内容
+            content: "",
+            noteNowLen: 0,//备注当前字数
+            noteMaxLen: 200,//备注最多字数
+            //物品图片
+            isSrc: false,
+            src: "",
+            //阅读并同意填写联系方式
+            isAgree: false,
+            showInput: false,//显示输入真实姓名,
+            //发布须知
+            notice_status: false,
+
+          })
+        });
+      },
+      error: function (result, error) {
+        // 添加失败
+        console.log(error);
+        common.dataLoading("发起失败", "loading");
+      }
+    });
+
+
 
   },
 
   /**
-   * 改变活动类别
+   * 改变物品类别
    * by xinchao
    */
   bindTypeChange: function (e) {
@@ -133,10 +216,9 @@ Page({
   },
 
   /**
-   * 发布须知
+   * 阅读并同意
    * by xinchao
    */
-  //同意相关条例
   bindAgreeChange: function (e) {
     this.setData({
       isAgree: !!e.detail.value.length,
