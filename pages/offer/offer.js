@@ -63,7 +63,9 @@ Page({
 
     //发布内容相关
     var title = e.detail.value.title;//发布标题
-    //var typeName = that.data.types[typeIndex];//物品类别
+    var typeIndex = that.data.typeIndex;
+    var types = that.data.types;
+    var typeName = types[typeIndex]; //物品类别
     var address = that.data.address;//交易地点
     var price = e.detail.value.price;//物品价格
     var content = e.detail.value.content;//物品内容
@@ -78,15 +80,18 @@ Page({
     var Offer = Bmob.Object.extend("Offer");
     var offer = new Offer();
     offer.set("title", title);
-    offer.set("content", content);
+    offer.set("typeName", typeName);
     offer.set("address", address);
-    //offer.set("typeName",typeName);
+    offer.set("price", parseInt(price));
+    offer.set("content", content);
+    offer.set("wxNumber", wxNumber);
+    offer.set("phoneNumber", parseInt(phoneNumber));
+    offer.set("eMail", eMail);
     //添加数据，第一个入口参数是null
     offer.save(null, {
       success: function (result) {
-        // 添加成功，返回成功之后的objectId（注意：返回的属性名字是id，不是objectId），你还可以在Bmob的Web管理后台看到对应的数据
-        console.log("发布成功, objectId:" + result.id);
         //添加成功，返回成功之后的objectId(注意，返回的属性名字是id,而不是objectId)
+        console.log("发布成功, objectId:" + result.id);
         common.dataLoading("发起成功", "success", function () {
           //重置表单
           that.setData({
@@ -120,7 +125,7 @@ Page({
       },
       error: function (result, error) {
         // 添加失败
-        console.log('发布失败');
+        console.log(error);
         common.dataLoading("发起失败", "loading");
       }
     });

@@ -37,7 +37,7 @@
       <!-- 物品价格 TODO-->
       <view class="mod t-name">
         <text class="key">物品价格</text>
-        <input name="price" class="input" maxlength="100" placeholder="请输入价格" value="{{price}}" />
+        <input name="price" type="number" class="input" maxlength="100" placeholder="请输入价格" value="{{price}}" />
         <image class="arrow-r" src="/images/arrow-r-0.png"></image>
       </view>
 
@@ -79,7 +79,7 @@
       <!-- 手机号码 -->
       <view class="mod t-name">
         <text class="key">手机号</text>
-        <input name="phoneNumber" class="input" placeholder="请输入号码" value="{{phoneNumber}}" />
+        <input name="phoneNumber" type="number" class="input" placeholder="请输入号码" value="{{phoneNumber}}" />
         <image class="arrow-r" src="/images/arrow-r-0.png"></image>
       </view>
 
