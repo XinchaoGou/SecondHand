@@ -1,23 +1,19 @@
 {
   "pages": [
-    "pages/home/home",
     "pages/search/search",
+    "pages/home/home", 
     "pages/offer/offer",
     "pages/me/me",
     "pages/search_sublevel1/search_sublevel1"
   ],
   "window": {
     "navigationBarTextStyle": "white",
-    "navigationBarBackgroundColor": "#118fff",
-    "navigationBarTitleText": "留德华",
+    "navigationBarBackgroundColor":"32A189",
+    "navigationBarTitleText": "卡鲁二手交流平台",
     "backgroundColor": "#fff"
   },
   "tabBar": {
     "list": [
-      {
-        "pagePath": "pages/home/home",
-        "text": "首页"
-      },
       {
         "pagePath": "pages/search/search",
         "text": "搜索"
@@ -30,7 +26,12 @@
         "pagePath": "pages/me/me",
         "text": "我的"
       }
-    ]
+    ],
+    "borderStyle":"white",
+    "color":"black",
+    "selectedColor":"white",
+    "backgroundColor":"#32A189"
+    
   },
   "networkTimeout": {
     "request": 10000,

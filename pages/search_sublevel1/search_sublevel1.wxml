@@ -2,65 +2,58 @@
 <view class="container">
 
 
-<view class="section">
+  <view class="section">
 
-  <view class="section-title">
-    <text class="text-title">地理范围</text>
+    <view class="section-title">
+      <text class="text-title">地理范围</text>
+    </view>
+
+    <view class="section-item">
+      <text class="text-title" bindtap="primary" width="100%">Karlsruhe</text>
+    </view>
+
   </view>
 
-  <view class="section-item">
-    <text class="text-title2" bindtap="primary" width="100%">Karlsruhe</text>
+  <view class="section">
+
+    <view class="section-title">
+      <text class="text-title">类别</text>
+    </view>
+
+    <view class="section-item">
+      <text class="text-title" bindtap="primary" width="100%">所有种类</text>
+      <image class="enter-icon" src='../../images/more/enter.png' />
+    </view>
+
   </view>
+
+  <view class="section">
+
+    <view class="section-title">
+      <text class="text-title">价格区间</text>
+    </view>
+
+    <view class="section-item">
+      <input class="text-title" type="number" placeholder="价格最低" auto-focus/>
+      <input class="text-title" type="number" placeholder="价格最高" auto-focus/>
+    </view>
+
+  </view>
+
+  <view class="section">
+
+    <view class="section-title">
+      <text class="text-title">排列顺序</text>
+    </view>
+
+    <view class="section-item">
+      <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
+        <view class="text-title">{{array[index]}}</view>
+      </picker>
+    </view>
+
+
+  </view>
+
 
 </view>
-
-<view class="section">
-
-  <view class="section-title">
-    <text class="text-title">类别</text>
-  </view>
-
-  <view class="section-item">
-    <text class="text-title2" bindtap="primary" width="100%">所有种类</text>
-  </view>
-
-</view>
-
-<view class="section">
-
-  <view class="section-title">
-    <text class="text-title">价格区间</text>
-  </view>
-
-  <view class="section-item2"> 
-    <input class="text-title2" type="number" placeholder="价格最低" auto-focus/>
-    <input class="text-title2" type="number" placeholder="价格最高" auto-focus/>
-  </view>
-
-</view>
-
-<view class="section">
-
-  <view class="section-title">
-    <text class="text-title">排列顺序</text>
-  </view>
-
-  <view class="section-item">
-    <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
-      <view class="text-title2">
-        当前选择：{{array[index]}}
-      </view>
-    </picker>
-  </view>
-
-
-</view>
-
-<button  size="{{defaultSize}}"  bindtap="confirm" >确认</button>
-<button  size="{{primarySize}}"  bindtap="back">返回</button>
-
-</view>
-
-
-
-

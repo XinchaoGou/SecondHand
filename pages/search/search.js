@@ -5,27 +5,10 @@ Page({
    * 页面的初始数据
    */
   data: {
-
-    array: ['按距离远近','按发布时间', '按价格从低到高', '按价格从高到低'],
-    objectArray: [
-      {
-        id: 0,
-        name: '按距离远近'
-      },
-      {
-        id: 1,
-        name: '按发布时间'
-      },
-      {
-        id: 2,
-        name: '按价格从低到高'
-      },
-      {
-        id: 3,
-        name: '按价格从高到低'
-      }
-    ],
-    index: 0,
+    
+   
+    /*定义search页面加载内容的数组*/
+    contentItems:['','','','']
   },
 
   /**
@@ -85,6 +68,6 @@ Page({
   },
   
   tosubsearch: function(){
-    wx.redirectTo({url:'../search_sublevel1/search_sublevel1'})
+    wx.navigateTo({url:'../search_sublevel1/search_sublevel1'})
   }
 })

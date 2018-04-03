@@ -5,7 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    /*定义选择组件wiper的数据 */
     array: ['按距离远近', '按发布时间', '按价格从低到高', '按价格从高到低'],
     objectArray: [
       {
@@ -85,14 +85,10 @@ Page({
   },
 
   confirm: function(){
-    wx.switchtab({
-      url: '../search/search',
-    })
+    wx.navigateBack()
   },
 
   back: function(){
-    wx.switchtab({
-      url: '../search/search',
-    })
+    wx.navigateBack()
   }
 })
