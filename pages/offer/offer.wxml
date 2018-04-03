@@ -1,9 +1,9 @@
 <!--pages/offer/offer.wxml-->
 <!-- 二手信息发布 -->
 <view class="add-page">
+  <!-- 表单验证 -->
+  <view class="weui-toptips weui-toptips_warn" wx:if="{{showTopTips}}">{{TopTips}}</view>
   <form bindsubmit="submitForm">
-    <!-- 表单验证 -->
-    <view class="weui-toptips weui-toptips_warn" wx:if="{{showTopTips}}">{{TopTips}}</view>
 
     <!-- 发布标题 -->
     <view class="mod-a">
@@ -70,7 +70,7 @@
       <!-- 微信号 -->
       <view class="mod t-name">
         <text class="key">微信号</text>
-        <input name="realname" class="input" maxlength="100" placeholder="请输入微信号" value="{{realname}}" />
+        <input name="wxNumber" class="input" maxlength="100" placeholder="请输入微信号" value="{{wxNumber}}" />
         <image class="arrow-r" src="/images/arrow-r-0.png"></image>
       </view>
 
@@ -79,7 +79,7 @@
       <!-- 手机号码 -->
       <view class="mod t-name">
         <text class="key">手机号</text>
-        <input name="contactValue" class="input" placeholder="请输入号码" value="{{contactValue}}" />
+        <input name="phoneNumber" class="input" placeholder="请输入号码" value="{{phoneNumber}}" />
         <image class="arrow-r" src="/images/arrow-r-0.png"></image>
       </view>
 
@@ -88,7 +88,7 @@
       <!-- 邮箱 -->
       <view class="mod t-name">
         <text class="key">邮箱</text>
-        <input name="contactValue" class="input" placeholder="请输入邮箱" value="{{contactValue}}" />
+        <input name="eMail" class="input" placeholder="请输入邮箱" value="{{eMail}}" />
         <image class="arrow-r" src="/images/arrow-r-0.png"></image>
       </view>
 
@@ -105,7 +105,7 @@
             </view>
             阅读并同意
             <view bindtap="showNotice" class="weui-agree__link">
-              《发步须知》
+              《发布须知》
             </view>
           </view>
         </label>
