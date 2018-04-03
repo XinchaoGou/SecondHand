@@ -9,7 +9,7 @@
     </view>
 
     <view class="section-item">
-      <text class="text-title" bindtap="primary" width="100%">Karlsruhe</text>
+      <text class="text-title" style="color:gray"bindtap="primary" width="100%">Karlsruhe</text>
     </view>
 
   </view>
@@ -21,11 +21,11 @@
     </view>
 
     <view class="section-item">
-      <text class="text-title" bindtap="primary" width="100%">所有种类</text>
+      <text class="text-title" style="color:gray" bindtap="primary" width="100%">所有种类</text>
       <image class="enter-icon" src='../../images/more/enter.png' />
     </view>
 
-  </view>
+  </view> 
 
   <view class="section">
 
@@ -48,7 +48,7 @@
 
     <view class="section-item">
       <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
-        <view class="text-title">{{array[index]}}</view>
+        <view class="text-title" style="color:gray">{{array[index]}}</view>
       </picker>
     </view>
 

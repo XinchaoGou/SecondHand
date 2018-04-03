@@ -2,28 +2,23 @@
 <view class="container">
 
   <view class="header"><!--头部搜索-->
-    <view class="header-block1"><!--头部搜索block1-->
-      <icon type="search" size="25" color="#888888" bindtap="tosubsearch" />
+    <!--头部搜索block1-->
+    <view class="header-block" bindtap="tosubsearch">
+      <icon type="search" size="15" color="#888888" />
+    
+
+        <text class="top-text"style="padding-left:10px">所有种类</text>
     </view>
 
-    <view class="header-block2"><!--头部搜索block2-->
-      <view>
-        <text class="top-text">所有种类</text>
-      </view>
-      <view>
-        <text class="bottom-text">地理位置</text>
-      </view>
-    </view>
-
-    <view class="header-block3"><!--头部搜索block3-->
-      <image class="icon" src="../../images/icon2.png" />
-    </view>
+    <!--view class="header-block3"><!--头部搜索block3-->
+      <!--image class="icon" src="../../images/icon2.png" />
+    </view-->
   </view>
 
   <view class="content"><!--二手信息加载区域-->
     <view class="content-item" wx:for="{{contentItems}}">
 
-      <image style="height:100px; width:150px" src='../../images/test/drucker.jpg' />
+      <image style="height:100px; width:150px;padding-left:3%" src='../../images/test/drucker.jpg' />
 
       <view class="content-block2">
         <text class='content-text-title'>二手打印机</text>
@@ -35,6 +30,5 @@
       </view>
     </view>
   </view>
-
 
 </view>

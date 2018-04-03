@@ -8,7 +8,7 @@ Page({
     
    
     /*定义search页面加载内容的数组*/
-    contentItems:['','','','']
+    contentItems:['','','','','','']
   },
 
   /**
