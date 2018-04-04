@@ -11,22 +11,25 @@
 } 
 
 .header{
-  width:85%;
+  width:100%;
   height:35px; 
+  display: flex;
+  flex-direction:row;
+  justify-content:space-between;
+  box-sizing: border-box;
+}
+.header-block1{
+  width:85%;
+  padding-left:10px;
   background-color:white;
   border-radius:5px;
-}
-.header-block{
-  padding-top:6px;
-  padding-left:10px;
   display: flex;
   flex-direction:row;
   justify-content:flex-start;
-  align-items:flex-start;
+  align-items:center;
 }
 
-
-.header-block3{
+.header-block2{
   width:15%; 
 }
 
@@ -56,6 +59,7 @@
   border-radius:10px;
   margin-top:5px;
   margin-bottom:5px;
+  box-sizing: border-box;
 }
   /*border-top:1px;
   border-style:solid;

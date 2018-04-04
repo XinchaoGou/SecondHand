@@ -15,15 +15,21 @@
     "list": [
       {
         "pagePath": "pages/search/search",
-        "text": "搜索"
+        "text": "搜索",
+        "iconPath": "images/test/tar-home.png",
+        "selectedIconPath": "images/test/tar-home-on.png"
       },
       {
         "pagePath": "pages/offer/offer",
-        "text": "发布"
+        "text": "发布",
+        "iconPath": "images/test/tar-about.png",
+        "selectedIconPath": "images/test/tar-about-on.png"
       },
       {
         "pagePath": "pages/me/me",
-        "text": "我的"
+        "text": "我的",
+        "iconPath": "images/test/tar-topic.png",
+        "selectedIconPath": "images/test/tar-topic-on.png"
       }
     ],
     "borderStyle":"white",
