@@ -6,7 +6,7 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-around;
-  padding: 10px 0;
+  padding: 5px 0;
   box-sizing: border-box;
 } 
 
@@ -14,6 +14,7 @@
   width:85%;
   height:35px; 
   background-color:white;
+  border-radius:5px;
 }
 .header-block{
   padding-top:6px;
@@ -52,6 +53,7 @@
   align-items: center;
   justify-content: space-between;
   background-color:white;
+  border-radius:10px;
   margin-top:5px;
   margin-bottom:5px;
 }
@@ -59,7 +61,8 @@
   border-style:solid;
   border-color:rgb(50, 161, 137);*/
 .content-block1{
-  padding-left: 5%;
+  padding-left:3%;
+
 }
 .content-block2{
   width:50%;

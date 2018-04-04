@@ -27,9 +27,9 @@
       }
     ],
     "borderStyle":"white",
-    "color":"black",
-    "selectedColor":"white",
-    "backgroundColor":"#32A189"
+    "color":"gray",
+    "selectedColor":"black",
+    "backgroundColor":"#EFEFF4"
     
   },
   "networkTimeout": {
