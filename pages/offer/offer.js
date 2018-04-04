@@ -67,6 +67,9 @@ Page({
     var types = that.data.types;
     var typeName = types[typeIndex]; //物品类别
     var address = that.data.address;//交易地点
+    var longitude = that.data.longitude; //经度
+    var latitude = that.data.latitude;//纬度
+    var location = new Bmob.GeoPoint({latitude: latitude, longitude: longitude});
     var price = e.detail.value.price;//物品价格
     var content = e.detail.value.content;//物品内容
     //发布人联系方式
@@ -82,11 +85,19 @@ Page({
     offer.set("title", title);
     offer.set("typeName", typeName);
     offer.set("address", address);
+    offer.set("location",location);
     offer.set("price", parseInt(price));
     offer.set("content", content);
     offer.set("wxNumber", wxNumber);
     offer.set("phoneNumber", parseInt(phoneNumber));
     offer.set("eMail", eMail);
+    if (that.data.isSrc == true) {
+      var name = that.data.src; //上传图片的别名
+      var file = new Bmob.File(name, that.data.src);
+      file.save();
+      offer.set("picture", file);
+    }
+
     //添加数据，第一个入口参数是null
     offer.save(null, {
       success: function (result) {
