@@ -26,7 +26,8 @@ Page({
     noteMaxLen: 200,//备注最多字数
     //物品图片
     isSrc: false,
-    src: "",
+    is9: false,
+    tempFilePaths: [],
     //阅读并同意填写联系方式
     isAgree: false,
     showInput: false,//显示输入真实姓名,
@@ -40,10 +41,6 @@ Page({
    */
   onLoad: function (options) {
     that = this;
-    that.setData({//初始化数据
-      src: "",
-      isSrc: false,
-    })
   },
 
   /**
@@ -69,7 +66,7 @@ Page({
     var address = that.data.address;//交易地点
     var longitude = that.data.longitude; //经度
     var latitude = that.data.latitude;//纬度
-    var location = new Bmob.GeoPoint({latitude: latitude, longitude: longitude});
+    var location = new Bmob.GeoPoint({ latitude: latitude, longitude: longitude });
     var price = e.detail.value.price;//物品价格
     var content = e.detail.value.content;//物品内容
     //发布人联系方式
@@ -85,17 +82,22 @@ Page({
     offer.set("title", title);
     offer.set("typeName", typeName);
     offer.set("address", address);
-    offer.set("location",location);
+    offer.set("location", location);
     offer.set("price", parseInt(price));
     offer.set("content", content);
     offer.set("wxNumber", wxNumber);
     offer.set("phoneNumber", parseInt(phoneNumber));
     offer.set("eMail", eMail);
+
     if (that.data.isSrc == true) {
-      var name = that.data.src; //上传图片的别名
-      var file = new Bmob.File(name, that.data.src);
-      file.save();
-      offer.set("picture", file);
+      // var name = that.data.src; //上传图片的别名
+      // var file = new Bmob.File(name, that.data.src);
+      // file.save();
+      // offer.set("picture", file);
+      for (let i = 0; i < tempFilePaths.length; i++) {
+        const element = tempFilePaths[i];
+
+      }
     }
 
     //添加数据，第一个入口参数是null
@@ -104,7 +106,7 @@ Page({
         //添加成功，返回成功之后的objectId(注意，返回的属性名字是id,而不是objectId)
         console.log("发布成功, objectId:" + result.id);
         common.dataLoading("发起成功", "success", function () {
-          //重置表单
+          //重置表单 TODO
           that.setData({
             //表单验证相关 TODO
             showTopTips: false,
@@ -124,7 +126,6 @@ Page({
             noteMaxLen: 200,//备注最多字数
             //物品图片
             isSrc: false,
-            src: "",
             //阅读并同意填写联系方式
             isAgree: false,
             showInput: false,//显示输入真实姓名,
@@ -205,24 +206,35 @@ Page({
   //上传活动图片
   uploadPic: function () {//选择图标
     wx.chooseImage({
-      count: 1, // 默认9
+      count: 9 - that.data.tempFilePaths.length, // 默认9
       sizeType: ['compressed'], //压缩图
       sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
       success: function (res) {
         // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
-        var tempFilePaths = res.tempFilePaths
+        var tempFilePaths = that.data.tempFilePaths;
+        var resTempFilePaths = res.tempFilePaths;
+        for (let i = 0; i < resTempFilePaths.length; i++) {
+          tempFilePaths.push(resTempFilePaths[i]);
+        }
         that.setData({
           isSrc: true,
-          src: tempFilePaths
+          tempFilePaths: tempFilePaths
         })
+        //超过9张图片取消添加按钮
+        if (tempFilePaths.length >= 9) {
+          that.setData({
+            is9: true,
+          })
+        }
       }
     })
   },
-  //删除图片
+  //删除图片 TODO
   clearPic: function () {//删除图片
     that.setData({
       isSrc: false,
-      src: ""
+      is9: false,
+      tempFilePaths: []
     })
   },
 
