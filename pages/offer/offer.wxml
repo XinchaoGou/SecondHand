@@ -8,9 +8,9 @@
     <!-- 发布标题 -->
     <view class="mod-a">
       <view class="mod t-name">
-        <text class="key">发布标题</text>
-        <input name="title" class="input" maxlength="100" placeholder="请输入标题" value="{{title}}" />
-        <image class="arrow-r" src="/images/arrow-r-0.png"></image>
+        <text class="section-title">发布标题</text>
+        <input name="title" class="section-input" maxlength="100" placeholder="请输入标题" value="{{title}}" />
+        <image class="arrow-r" src="../../images/more/enter.png" />
       </view>
     </view>
 
@@ -18,29 +18,29 @@
     <view class="mod-a mt20">
       <!-- 物品类别 -->
       <view class="mod t-sign-time">
-        <text class="key">物品类别</text>
+        <text class="section-title">物品类别</text>
         <picker bindchange="bindTypeChange" value="{{typeIndex}}" range="{{types}}">
           <view class="value" name="types">
             {{types[typeIndex]}}
-            <image class="arrow-r" src="/images/arrow-r-0.png"></image>
+            <image class="arrow-r" src="../../images/more/enter.png" />
           </view>
         </picker>
       </view>
 
       <!-- 交易地点 -->
       <view class="mod t-address">
-        <text class="key">交易地点</text>
+        <text class="section-title">交易地点</text>
         <text name="address" class="value" bindtap="addressChange" value="{{address}}">{{address}}</text>
-        <image class="arrow-r" src="/images/arrow-r-0.png"></image>
+        <image class="arrow-r" src="../../images/more/enter.png" />
       </view>
 
       <!-- 物品价格 TODO-->
       <view class="mod t-name">
-        <text class="key">物品价格</text>
+        <text class="section-title">物品价格</text>
         <input name="price" type="number" class="input" maxlength="100" placeholder="请输入价格" value="{{price}}" />
-        <image class="arrow-r" src="/images/arrow-r-0.png"></image>
-      </view>
+        <image class="arrow-r" src="../../images/more/enter.png" />
 
+      </view>
     </view>
 
     <!-- 物品内容详情 -->
@@ -115,9 +115,9 @@
         <button class='button' loading="{{isLoading}}" hover-start-time="200" disabled="{{isdisabled}}" formType="submit">发布</button>
       </view>
     </view>
+
   </form>
 </view>
-
 <!-- 发布须知 -->
 <view class="notice" id="notice" wx:if="{{notice_status}}" bindtap="tapNotice">
   <view class="box">
