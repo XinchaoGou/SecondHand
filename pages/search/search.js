@@ -10,7 +10,8 @@ Page({
 
     /*定义search页面加载内容的数组*/
     contentItems: [],
-    location: null
+    location: null,
+    isHideLoadMore: true
   },
 
   /**
@@ -25,7 +26,8 @@ Page({
     offer.find({
       success: function (results) {
         console.log("共查询到 " + results.length + " 条记录");
-        var offerArray = that.data.contentItems;
+        //var offerArray = that.data.contentItems;
+        var offerArray = new Array();
         // 循环处理查询到的数据
         for (var i = 0; i < results.length; i++) {
           var object = results[i];
@@ -84,16 +86,31 @@ Page({
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
+   * by xinchao
    */
   onPullDownRefresh: function () {
-
+    var that = this;
+    wx.showNavigationBarLoading() //在标题栏中显示加载
+    this.onLoad();
+    // complete
+    wx.hideNavigationBarLoading() //完成停止加载
+    wx.stopPullDownRefresh() //停止下拉刷新
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-
+    var that = this;
+    that.setData({
+      isHideLoadMore: false
+    });
+    console.log("已经触底");
+    //模拟加载
+    setTimeout(function()
+    {
+      console.log("模拟结束");
+    },1500);
   },
 
   /**
@@ -124,7 +141,7 @@ Page({
         var latitude = res.latitude;
         var location = new Bmob.GeoPoint({ latitude: latitude, longitude: longitude });
         that.setData({
-          location : location
+          location: location
         })
         console.log(that.data.location);
       },
@@ -133,6 +150,5 @@ Page({
       complete: function (e) {
       }
     })
-
   }
 })

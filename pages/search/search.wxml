@@ -5,12 +5,13 @@
     <!--头部搜索-->
     <!--头部搜索block1-->
     <view class="header-block1" bindtap="tosubsearch">
-      <image style="height:25px;width:25px"src="../../images/test/search.png" />
+      <image style="height:25px;width:25px" src="../../images/test/search.png" />
       <text class="top-text" style="padding-left:10px">所有种类</text>
     </view>
 
-    <view class="header-block2" bindtap="setLocation"><!--头部搜索block2-->
-        <image style="height:40px;width:40px"src="../../images/test/location.png" />
+    <view class="header-block2" bindtap="setLocation">
+      <!--头部搜索block2-->
+      <image style="height:40px;width:40px" src="../../images/test/location.png" />
     </view>
 
   </view>
@@ -18,10 +19,11 @@
   <view class="content">
     <!--二手信息加载区域-->
     <view class="content-item" wx:for="{{contentItems}}">
+      <!--二手物品图片-->
       <view class="content-block1">
         <image style="height:100px; width:150px;border-radius:5px;" src="{{item.src}}" />
       </view>
-
+      <!--二手物品交易信息-->
       <view class="content-block2">
         <text class='content-text-title'>{{item.title}}</text>
         <view>
@@ -31,6 +33,13 @@
         <text class='content-text-price'>{{item.price}}</text>
       </view>
     </view>
+
+    <!--加载更多-->
+    <view class="weui-loadmore" hidden="{{isHideLoadMore}}">
+      <view class="weui-loading"></view>
+      <view class="weui-loadmore__tips">正在加载</view>
+    </view>
   </view>
+
 
 </view>
