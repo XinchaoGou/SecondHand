@@ -119,7 +119,7 @@ Page({
       offer.set("typeName", typeName);
       offer.set("address", address);
       offer.set("location", location);
-      offer.set("price", parseInt(price));
+      offer.set("price", parseFloat(price));
       offer.set("content", content);
       offer.set("wxNumber", wxNumber);
       offer.set("phoneNumber", parseInt(phoneNumber));

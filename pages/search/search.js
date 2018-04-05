@@ -13,7 +13,7 @@ Page({
     location: null,
     isHideLoadMore: true,
     pageindex: 0, //第几次加载
-    callbackcount: 4, //设置每页返回数据的多少
+    callbackcount: 10, //设置每页返回数据的多少
     searchLoadingComplete: false
   },
 
@@ -24,12 +24,12 @@ Page({
     var that = this;
     that.searchFromCloud(0, that.data.callbackcount);
     that.setData({
-      //重置数据
+      //重置数据 TODO与data保持一致！
       contentItems: [],
       location: null,
       isHideLoadMore: true,
       pageindex: 0, //第几次加载
-      callbackcount: 4, //设置每页返回数据的多少
+      callbackcount: 10, //设置每页返回数据的多少
       searchLoadingComplete: false
     })
   },
