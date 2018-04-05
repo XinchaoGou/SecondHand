@@ -11,7 +11,10 @@ Page({
     /*定义search页面加载内容的数组*/
     contentItems: [],
     location: null,
-    isHideLoadMore: true
+    isHideLoadMore: true,
+    pageindex: 0, //第几次加载
+    callbackcount: 4, //设置每页返回数据的多少
+    searchLoadingComplete: false
   },
 
   /**
@@ -19,41 +22,16 @@ Page({
    */
   onLoad: function (options) {
     var that = this;
-    //查询数据库获得发布物品信息
-    var Offer = Bmob.Object.extend("Offer");
-    var offer = new Bmob.Query(Offer);
-    // 查询所有数据
-    offer.find({
-      success: function (results) {
-        console.log("共查询到 " + results.length + " 条记录");
-        //var offerArray = that.data.contentItems;
-        var offerArray = new Array();
-        // 循环处理查询到的数据
-        for (var i = 0; i < results.length; i++) {
-          var object = results[i];
-          var title = object.get('title');
-          var price = object.get('price');
-          var address = object.get('address');
-          var urls = object.get('picUrlArray');
-          var mDate = object.createdAt;
-          var offerItem = {
-            title: title,
-            price: price,
-            address: address,
-            src: urls[0],
-            date: mDate
-          }
-          offerArray.push(offerItem);
-        }
-        //存储到本地
-        that.setData({
-          contentItems: offerArray
-        })
-      },
-      error: function (error) {
-        console.log("查询失败: " + error.code + " " + error.message);
-      }
-    });
+    that.searchFromCloud(0, that.data.callbackcount);
+    that.setData({
+      //重置数据
+      contentItems: [],
+      location: null,
+      isHideLoadMore: true,
+      pageindex: 0, //第几次加载
+      callbackcount: 4, //设置每页返回数据的多少
+      searchLoadingComplete: false
+    })
   },
 
   /**
@@ -105,6 +83,19 @@ Page({
     that.setData({
       isHideLoadMore: false
     });
+    var newPageIndex = that.data.pageindex + 1;
+    that.searchFromCloud(newPageIndex, that.data.callbackcount);
+    //未搜索到底则递增分页
+    if (!that.data.searchLoadingComplete) {
+      that.setData({
+        pageindex: newPageIndex,
+        isHideLoadMore: true
+      })
+    } else {
+      that.setData({
+        isHideLoadMore: true
+      });
+    }
   },
 
   /**
@@ -126,7 +117,7 @@ Page({
    * 设置搜索地址
    * by xinchao
    */
-  setLocation: function (params) {
+  setLocation: function () {
     var that = this;
     wx.chooseLocation({
       success: function (res) {
@@ -144,5 +135,68 @@ Page({
       complete: function (e) {
       }
     })
+  },
+
+  /**
+   * 查询服务器
+   * pageindex: 分页页码
+   * callbackcount : 每页返回数据数目
+   * by xinchao
+   */
+  searchFromCloud: function (pageindex, callbackcount) {
+
+    var that = this;
+    //查询数据库获得发布物品信息
+    var Offer = Bmob.Object.extend("Offer");
+    var query = new Bmob.Query(Offer);
+    //设置查询分页大小
+    console.log(pageindex, callbackcount);
+    query.limit(callbackcount);
+    query.skip(callbackcount * pageindex);
+    // 查询所有数据
+    query.find({
+      success: function (results) {
+        if (results.length == 0) {
+          that.setData({
+            searchLoadingComplete: true
+          })
+        } else {
+          console.log("共查询到 " + results.length + " 条记录");
+          //var offerArray = that.data.contentItems;
+          var offerArray;
+          if (pageindex > 0) {
+            offerArray = that.data.contentItems;
+          } else {
+            offerArray = new Array();
+          }
+          // 循环处理查询到的数据
+          for (var i = 0; i < results.length; i++) {
+            var object = results[i];
+            var title = object.get('title');
+            var price = object.get('price');
+            var address = object.get('address');
+            var urls = object.get('picUrlArray');
+            var mDate = object.createdAt;
+            var offerItem = {
+              title: title,
+              price: price,
+              address: address,
+              src: urls[0],
+              date: mDate
+            }
+            offerArray.push(offerItem);
+            console.log(offerArray);
+          }
+          //存储到本地
+          that.setData({
+            contentItems: offerArray
+          })
+        }
+      },
+      error: function (error) {
+        console.log("查询失败: " + error.code + " " + error.message);
+      }
+    });
   }
+
 })
