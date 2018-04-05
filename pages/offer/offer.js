@@ -65,125 +65,138 @@ Page({
       isdisabled: true
     })
 
-    const promise = new Promise(function (resolve, reject) {
-      //发布照片
-      var urlArr = new Array();
-      var tempFilePaths = that.data.tempFilePaths;
-      var imgLength = tempFilePaths.length;
-      if (imgLength > 0) {
-        //日期作为图片名的一部分
-        var newDate = new Date();
-        var newDateStr = newDate.toLocaleDateString();
+    //表单验证
+    if (that.showTopTips(e)) {
+      const promise = new Promise(function (resolve, reject) {
 
-        var j = 0;
-        for (var i = 0; i < imgLength; i++) {
-          var tempFilePath = [tempFilePaths[i]];
-          var extension = /\.([^.]*)$/.exec(tempFilePath[0]);
-          if (extension) {
-            extension = extension[1].toLowerCase();
-          }
-          var name = newDateStr + "." + extension;//上传的图片的别名
+        //发布照片
+        var urlArr = new Array();
+        var tempFilePaths = that.data.tempFilePaths;
+        var imgLength = tempFilePaths.length;
+        console.log("进入了a")
+        if (imgLength > 0) {
+          //日期作为图片名的一部分
+          var newDate = new Date();
+          var newDateStr = newDate.toLocaleDateString();
 
-          var file = new Bmob.File(name, tempFilePath);
-          file.save().then(function (res) {
-            var url = res.url();
-            urlArr.push(url);
-            j++;
-            if (imgLength == j) {
-              console.log("成功上传图片");
-              resolve(urlArr);
+          var j = 0;
+          for (var i = 0; i < imgLength; i++) {
+            var tempFilePath = [tempFilePaths[i]];
+            var extension = /\.([^.]*)$/.exec(tempFilePath[0]);
+            if (extension) {
+              extension = extension[1].toLowerCase();
             }
+            var name = newDateStr + "." + extension;//上传的图片的别名
 
-          }, function (error) {
-            console.log(error);
-            reject(error);
-          });
+            var file = new Bmob.File(name, tempFilePath);
+            file.save().then(function (res) {
+              var url = res.url();
+              urlArr.push(url);
+              j++;
+              if (imgLength == j) {
+                console.log("成功上传图片");
+                resolve(urlArr);
+              }
+
+            }, function (error) {
+              console.log(error);
+              reject(error);
+            });
+          }
+          console.log("进入了b")
         }
-      }
-    });
-
-    promise.then(function (urlArr) {
-      //发布内容相关
-      var title = e.detail.value.title;//发布标题
-      var typeIndex = that.data.typeIndex;
-      var types = that.data.types;
-      var typeName = types[typeIndex]; //物品类别
-      var address = that.data.address;//交易地点
-      var longitude = that.data.longitude; //经度
-      var latitude = that.data.latitude;//纬度
-      var location = new Bmob.GeoPoint({ latitude: latitude, longitude: longitude });
-      var price = e.detail.value.price;//物品价格
-      var content = e.detail.value.content;//物品内容
-      //发布人联系方式
-      var wxNumber = e.detail.value.wxNumber;//微信号
-      var phoneNumber = e.detail.value.phoneNumber;//手机号
-      var eMail = e.detail.value.eMail;//邮箱
-      var picUrlArray = urlArr; //
-      //上传表单数据到数据库
-      var Offer = Bmob.Object.extend("Offer");
-      var offer = new Offer();
-      offer.set("title", title);
-      offer.set("typeName", typeName);
-      offer.set("address", address);
-      offer.set("location", location);
-      offer.set("price", parseFloat(price));
-      offer.set("content", content);
-      offer.set("wxNumber", wxNumber);
-      offer.set("phoneNumber", parseInt(phoneNumber));
-      offer.set("eMail", eMail);
-      offer.set("picUrlArray", picUrlArray);
-
-      //添加数据，第一个入口参数是null
-      offer.save(null, {
-        success: function (result) {
-          //添加成功，返回成功之后的objectId(注意，返回的属性名字是id,而不是objectId)
-          console.log("发布成功, objectId:" + result.id);
-          common.dataLoading("发起成功", "success", function () {
-            //重置表单 TODO
-            that.setData({
-              //表单验证相关 TODO
-              showTopTips: false,
-              TopTips: '',
-              //物品类别
-              types: ["电子产品", "学习资料", "家具", "其他"],
-              typeIndex: "0",
-              //交易地点
-              address: '点击选择位置',
-              longitude: 0, //经度
-              latitude: 0,//纬度
-              //物品价格 TODO
-              // price: 0,
-              //物品内容
-              content: "",
-              noteNowLen: 0,//备注当前字数
-              noteMaxLen: 200,//备注最多字数
-              //物品图片
-              isSrc: false,
-              is9: false,
-              tempFilePaths: [],
-              //阅读并同意填写联系方式
-              isAgree: false,
-              showInput: false,//显示输入真实姓名,
-              //发布须知
-              notice_status: false,
-              //发布按钮禁用
-              isdisabled: false
-
-            })
-          });
-        },
-        error: function (result, error) {
-          // 添加失败
-          console.log(error);
-          common.dataLoading("发起失败", "loading");
+        else{
+          //没传图片的时候
+          resolve(urlArr);
         }
       });
-      // success
-    }, function (error) {
-      // failure
-      console.log(error);
-      common.dataLoading("发起失败", "loading");
-    });
+
+      promise.then(function (urlArr) {
+        console.log("进入了c")
+        //发布内容相关
+        var title = e.detail.value.title;//发布标题
+        var typeIndex = that.data.typeIndex;
+        var types = that.data.types;
+        var typeName = types[typeIndex]; //物品类别
+        var address = that.data.address;//交易地点
+        var longitude = that.data.longitude; //经度
+        var latitude = that.data.latitude;//纬度
+        var location = new Bmob.GeoPoint({ latitude: latitude, longitude: longitude });
+        var price = e.detail.value.price;//物品价格
+        var content = e.detail.value.content;//物品内容
+        //发布人联系方式
+        var wxNumber = e.detail.value.wxNumber;//微信号
+        var phoneNumber = e.detail.value.phoneNumber;//手机号
+        var eMail = e.detail.value.eMail;//邮箱
+        var picUrlArray = urlArr; //
+        //上传表单数据到数据库
+        var Offer = Bmob.Object.extend("Offer");
+        var offer = new Offer();
+        offer.set("title", title);
+        offer.set("typeName", typeName);
+        offer.set("address", address);
+        offer.set("location", location);
+        offer.set("price", parseFloat(price));
+        offer.set("content", content);
+        offer.set("wxNumber", wxNumber);
+        if (phoneNumber != "") {
+          offer.set("phoneNumber", parseInt(phoneNumber));
+        }
+        offer.set("eMail", eMail);
+        offer.set("picUrlArray", picUrlArray);
+        console.log("进入了")
+        //添加数据，第一个入口参数是null
+        offer.save(null, {
+          success: function (result) {
+            //添加成功，返回成功之后的objectId(注意，返回的属性名字是id,而不是objectId)
+            console.log("发布成功, objectId:" + result.id);
+            common.dataLoading("发起成功", "success", function () {
+              //重置表单 TODO
+              that.setData({
+                //表单验证相关 TODO
+                showTopTips: false,
+                TopTips: '',
+                //物品类别
+                types: ["电子产品", "学习资料", "家具", "其他"],
+                typeIndex: "0",
+                //交易地点
+                address: '点击选择位置',
+                longitude: 0, //经度
+                latitude: 0,//纬度
+                //物品价格 TODO
+                // price: 0,
+                //物品内容
+                content: "",
+                noteNowLen: 0,//备注当前字数
+                noteMaxLen: 200,//备注最多字数
+                //物品图片
+                isSrc: false,
+                is9: false,
+                tempFilePaths: [],
+                //阅读并同意填写联系方式
+                isAgree: false,
+                showInput: false,//显示输入真实姓名,
+                //发布须知
+                notice_status: false,
+                //发布按钮禁用
+                isdisabled: false
+
+              })
+            });
+          },
+          error: function (result, error) {
+            // 添加失败
+            console.log(error);
+            common.dataLoading("发起失败", "loading");
+          }
+        });
+        // success
+      }, function (error) {
+        // failure
+        console.log(error);
+        common.dataLoading("发起失败", "loading");
+      });
+    }
   },
 
   /**
@@ -309,7 +322,65 @@ Page({
     });
   },
 
+  /**
+   * 表单验证
+   * by xinchao
+   */
+  showTopTips: function (e) {
+    var that = this;
+    var title = e.detail.value.title;//发布标题
+    var address = that.data.address;//交易地点
+    var price = e.detail.value.price;//物品价格
+    var content = e.detail.value.content;//物品内容
+    //发布人联系方式
+    var wxNumber = e.detail.value.wxNumber;//微信号
+    var phoneNumber = e.detail.value.phoneNumber;//手机号
+    var eMail = e.detail.value.eMail;//邮箱
+    var flag = true;
 
+    if (title == "") {
+      flag = false;
+      this.setData({
+        showTopTips: true,
+        TopTips: '请输入标题'
+      });
+    }
+    else if (address == '点击选择位置') {
+      flag = false;
+      this.setData({
+        showTopTips: true,
+        TopTips: '请选择交易地点'
+      });
+    }
+    else if (price == "") {
+      flag = false;
+      this.setData({
+        showTopTips: true,
+        TopTips: '请输入价格'
+      });
+    }
+    else if (content == "") {
+      flag = false;
+      this.setData({
+        showTopTips: true,
+        TopTips: '请输入物品详情介绍'
+      });
+    }
+    else if ((wxNumber == "") && (eMail == "") && (phoneNumber == "")) {
+      flag = false;
+      this.setData({
+        showTopTips: true,
+        TopTips: '请至少输入一个联系方式'
+      });
+    }
+    setTimeout(function () {
+      that.setData({
+        showTopTips: false
+      });
+    }, 700);
+
+    return flag;
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
