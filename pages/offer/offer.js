@@ -67,6 +67,10 @@ Page({
 
     //表单验证
     if (that.showTopTips(e)) {
+
+      wx.showLoading({
+        title: '加载中',
+      })
       const promise = new Promise(function (resolve, reject) {
 
         //发布照片
@@ -105,7 +109,7 @@ Page({
           }
           console.log("进入了b")
         }
-        else{
+        else {
           //没传图片的时候
           resolve(urlArr);
         }
@@ -150,6 +154,7 @@ Page({
           success: function (result) {
             //添加成功，返回成功之后的objectId(注意，返回的属性名字是id,而不是objectId)
             console.log("发布成功, objectId:" + result.id);
+            wx.hideLoading();
             common.dataLoading("发起成功", "success", function () {
               //重置表单 TODO
               that.setData({
@@ -178,7 +183,7 @@ Page({
                 showInput: false,//显示输入真实姓名,
                 //发布须知
                 notice_status: false,
-                //发布按钮禁用
+                //发布按钮启用
                 isdisabled: false
 
               })
@@ -187,14 +192,24 @@ Page({
           error: function (result, error) {
             // 添加失败
             console.log(error);
+            wx.hideLoading();
             common.dataLoading("发起失败", "loading");
+            that.setData({
+              //发布按钮启用
+              isdisabled: false
+            })
           }
         });
         // success
       }, function (error) {
         // failure
         console.log(error);
+        wx.hideLoading();
         common.dataLoading("发起失败", "loading");
+        that.setData({
+          //发布按钮启用
+          isdisabled: false
+        })
       });
     }
   },
@@ -375,10 +390,10 @@ Page({
     }
     setTimeout(function () {
       that.setData({
-        showTopTips: false
+        showTopTips: false,
+        isdisabled: false    //设置重启按钮
       });
     }, 700);
-
     return flag;
   },
   /**
