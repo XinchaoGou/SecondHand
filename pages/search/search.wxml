@@ -9,7 +9,7 @@
       <text class="top-text" style="padding-left:10px">所有种类</text>
     </view>
 
-    <view class="header-block2"><!--头部搜索block2-->
+    <view class="header-block2" bindtap="setLocation"><!--头部搜索block2-->
         <image style="height:40px;width:40px"src="../../images/test/location.png" />
     </view>
 

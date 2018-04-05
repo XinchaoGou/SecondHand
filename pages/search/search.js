@@ -9,7 +9,8 @@ Page({
 
 
     /*定义search页面加载内容的数组*/
-    contentItems: []
+    contentItems: [],
+    location: null
   },
 
   /**
@@ -34,15 +35,14 @@ Page({
           var urls = object.get('picUrlArray');
           var mDate = object.createdAt;
           var offerItem = {
-            title : title,
-            price : price,
-            address : address,
-            src : urls[0],
-            date : mDate
+            title: title,
+            price: price,
+            address: address,
+            src: urls[0],
+            date: mDate
           }
           offerArray.push(offerItem);
         }
-
         //存储到本地
         that.setData({
           contentItems: offerArray
@@ -103,7 +103,36 @@ Page({
 
   },
 
+  /**
+   * 跳转搜索设置
+   * by yining
+   */
   tosubsearch: function () {
     wx.navigateTo({ url: '../search_sublevel1/search_sublevel1' })
+  },
+
+  /**
+   * 设置搜索地址
+   * by xinchao
+   */
+  setLocation: function (params) {
+    var that = this;
+    wx.chooseLocation({
+      success: function (res) {
+        //电脑调试的时候，经纬度为空，手机上可以运行
+        var longitude = res.longitude;
+        var latitude = res.latitude;
+        var location = new Bmob.GeoPoint({ latitude: latitude, longitude: longitude });
+        that.setData({
+          location : location
+        })
+        console.log(that.data.location);
+      },
+      fail: function (e) {
+      },
+      complete: function (e) {
+      }
+    })
+
   }
 })
