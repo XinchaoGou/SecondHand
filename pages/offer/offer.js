@@ -33,6 +33,8 @@ Page({
     showInput: false,//显示输入真实姓名,
     //发布须知
     notice_status: false,
+    //发布按钮禁用
+    isdisabled: false
 
   },
 
@@ -57,6 +59,11 @@ Page({
       })
       return;
     }
+
+    //设置禁用按钮
+    that.setData({
+      isdisabled: true
+    })
 
     const promise = new Promise(function (resolve, reject) {
       //发布照片
@@ -159,6 +166,8 @@ Page({
               showInput: false,//显示输入真实姓名,
               //发布须知
               notice_status: false,
+              //发布按钮禁用
+              isdisabled: false
 
             })
           });
