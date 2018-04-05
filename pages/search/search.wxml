@@ -19,16 +19,16 @@
     <!--二手信息加载区域-->
     <view class="content-item" wx:for="{{contentItems}}">
       <view class="content-block1">
-        <image style="height:100px; width:150px;border-radius:5px;" src='../../images/test/drucker.jpg' />
+        <image style="height:100px; width:150px;border-radius:5px;" src="{{item.src}}" />
       </view>
 
       <view class="content-block2">
-        <text class='content-text-title'>二手打印机</text>
+        <text class='content-text-title'>{{item.title}}</text>
         <view>
-          <text class='content-text-location'>卡尔斯鲁厄市中心</text>
-          <text class='content-text-offertime'>刚刚</text>
+          <text class='content-text-location'>{{item.address}}</text>
+          <text class='content-text-offertime'>{{item.date}}</text>
         </view>
-        <text class='content-text-price'>30欧</text>
+        <text class='content-text-price'>{{item.price}}</text>
       </view>
     </view>
   </view>
