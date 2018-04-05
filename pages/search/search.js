@@ -105,12 +105,6 @@ Page({
     that.setData({
       isHideLoadMore: false
     });
-    console.log("已经触底");
-    //模拟加载
-    setTimeout(function()
-    {
-      console.log("模拟结束");
-    },1500);
   },
 
   /**
