@@ -170,6 +170,7 @@ Page({
           // 循环处理查询到的数据
           for (var i = 0; i < results.length; i++) {
             var object = results[i];
+            var id = object.get('id');
             var title = object.get('title');
             var price = object.get('price');
             var address = object.get('address');
@@ -178,15 +179,16 @@ Page({
               //设置为默认图片 url数组注意
               urls = ['../../images/test/camera.png'];
             }
-            //时间计算
-            var mDate = Utils.getDateDiff(object.createdAt);
-            
+            //时间计算,德国时间加6小时为中国时间
+            var mDate = Utils.getDateDiffWithJetLag(object.createdAt , 6);
+
             var offerItem = {
               title: title,
               price: price,
               address: address,
               src: urls[0],
-              date: mDate
+              date: mDate,
+              id : id
             }
             offerArray.push(offerItem);
             console.log(offerArray);

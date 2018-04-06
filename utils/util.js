@@ -26,44 +26,21 @@ function getDateTimeStamp(dateStr) {
   return Date.parse(dateStr.replace(/-/gi, "/"));
 }
 //格式化时间
-function getDateDiff(dateStr) {
-  var publishTime = getDateTimeStamp(dateStr) / 1000,
-    d_seconds,
-    d_minutes,
-    d_hours,
-    d_days,
-    //添加周，月份和年份 by xinchao
-    d_weeks,
-    d_months,
-    d_years,
+function getDateDiffWithJetLag(dateStr, jetLag) {
+  var publishTime = getDateTimeStamp(dateStr) / 1000;
+  var d_seconds;
+  var d_minutes;
+  var d_hours;
+  var d_days;
+  //添加周，月份和年份 by xinchao
+  var d_weeks;
+  var d_months
+  var d_years;
 
-    timeNow = parseInt(new Date().getTime() / 1000),
-    d,
+  var d;
+  var timeNow = parseInt(new Date().getTime() / 1000) + jetLag * 60 * 60;
 
-    date = new Date(publishTime * 1000),
-    Y = date.getFullYear(),
-    M = date.getMonth() + 1,
-    D = date.getDate(),
-    H = date.getHours(),
-    m = date.getMinutes(),
-    s = date.getSeconds();
-  //小于10的在前面补0
-  if (M < 10) {
-    M = '0' + M;
-  }
-  if (D < 10) {
-    D = '0' + D;
-  }
-  if (H < 10) {
-    H = '0' + H;
-  }
-  if (m < 10) {
-    m = '0' + m;
-  }
-  if (s < 10) {
-    s = '0' + s;
-  }
-
+  console.log(timeNow);
   d = timeNow - publishTime;
   d_days = parseInt(d / 86400);
   d_hours = parseInt(d / 3600);
@@ -73,8 +50,8 @@ function getDateDiff(dateStr) {
   d_weeks = parseInt(d_days / 7);
   d_months = parseInt(d_days / 30);
   d_years = parseInt(d_days / 365);
-  console.log(d_years,d_months,d_days,d_hours,d_minutes,d_seconds,d)
-  if (d_years  > 0) {
+
+  if (d_years > 0) {
     return d_years + '年前';
   } else if (d_years <= 0 && d_months > 6) {
     return '半年前';
@@ -110,7 +87,7 @@ function buttonClicked(self) {
 
 module.exports = {
   formatTime: formatTime,
-  getDateDiff: getDateDiff,
+  getDateDiffWithJetLag: getDateDiffWithJetLag,
   buttonClicked: buttonClicked,
 }
 
