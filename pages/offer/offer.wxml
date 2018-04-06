@@ -9,9 +9,8 @@
     <view class="mod-a">
       <view class="mod t-name">
         <text class="section-title">发布标题</text>
-        <view class="section-right">
-          <input name="title" class="input" maxlength="100" placeholder-style="color:#b2b2b2" placeholder="请输入标题" value="{{title}}" />
-        </view>
+        <input name="title" class="section-input" maxlength="100" placeholder="请输入标题" value="{{title}}" />
+        <image class="arrow-r" src="../../images/more/enter.png" />
       </view>
     </view>
 
@@ -30,27 +29,25 @@
 
       <!-- 交易地点 -->
       <view class="mod t-address">
-        <text class="section-title">地点</text>
-        <view class="section-right">
-          <text name="address" class="value" bindtap="addressChange" value="{{address}}">{{address}}</text>
-          <image class="arrow-r" src="../../images/more/enter.png" />
-        </view>
+        <text class="section-title">交易地点</text>
+        <text name="address" class="value" bindtap="addressChange" value="{{address}}">{{address}}</text>
+        <image class="arrow-r" src="../../images/more/enter.png" />
       </view>
 
       <!-- 物品价格 TODO-->
       <view class="mod t-name">
-        <text class="section-title">价格</text>
-        <view class="section-right">
-          <input name="price" type="number" class="input" maxlength="100" placeholder-style="color:#b2b2b2" placeholder="请输入价格" value="{{price}}" />
-          <text class="euro">€</text>
-        </view>
+        <text class="section-title">物品价格</text>
+        <input name="price" type="number" class="input" maxlength="100" placeholder="请输入价格" value="{{price}}" />
+        <image class="arrow-r" src="../../images/more/enter.png" />
+
       </view>
     </view>
 
     <!-- 物品内容详情 -->
     <view class="mod-a mt20">
       <view class="mod-big my-nick">
-        <textarea name="content" class="weui-textarea" placeholder="请输入物品详情" value="{{content}}" style="height:200rpx;font-size:11pt" bindinput="bindTextAreaChange" maxlength="{{noteMaxLen}}" />
+        <textarea name="content" class="weui-textarea" placeholder="请输入物品详情" value="{{content}}" style="height: 7em" bindinput="bindTextAreaChange"
+          maxlength="{{noteMaxLen}}" />
         <view class="chnumber">{{noteNowLen}}/{{noteMaxLen}}</view>
       </view>
     </view>
@@ -67,7 +64,7 @@
       <view>添加图片（选）</view>
     </view>
 
-  
+    <view class="mod-a mt20"></view>
 
     <!-- 联系方式 -->
     <view class="mod-a mt20" wx:if="{{showInput}}">

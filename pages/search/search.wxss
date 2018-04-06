@@ -6,13 +6,13 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-around;
-  padding: 20rpx 0;
+  padding: 5px 0;
   box-sizing: border-box;
 } 
 
 .header{
   width:100%;
-  height:70rpx;
+  height:35px; 
   display: flex;
   flex-direction:row;
   justify-content:space-between;
@@ -20,10 +20,9 @@
 }
 .header-block1{
   width:85%;
-  height:70rpx; 
-  padding-left:20rpx;
+  padding-left:10px;
   background-color:white;
-  border-radius:10rpx;
+  border-radius:5px;
   display: flex;
   flex-direction:row;
   justify-content:flex-start;
@@ -34,9 +33,13 @@
   width:15%; 
 }
 
-.text{
-  color: #b2b2b2;
+.top-text{
+  color: #888888;
   font-size:11pt;
+}
+.bottom-text{
+  color:#888888;
+  font-size:9pt;
 }
 .icon{
   width:80rpx;
@@ -47,31 +50,35 @@
 }
 .content-item{
   width:100%;
-  height:240rpx;
+  height:120px;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
   background-color:white;
-  border-radius:20rpx;
-  margin-top:20rpx;
-  margin-bottom:20rpx;
+  border-radius:10px;
+  margin-top:5px;
+  margin-bottom:5px;
   box-sizing: border-box;
-  padding:3%;
 }
+  /*border-top:1px;
+  border-style:solid;
+  border-color:rgb(50, 161, 137);*/
+.content-block1{
+  padding-left:3%;
 
-
+}
 .content-block2{
   width:50%;
-  height:200rpx;
-  display:flex;
+  height:100px;
+  display: flex;
   flex-direction: column;
   align-items:flex-start;
   justify-content: space-between;
+  padding-left: 5%;
 }
 .content-text-title{
   font-size:11pt;
-  color:#32A189;
 }
 .content-text-location{
   font-size:9pt;
@@ -84,7 +91,6 @@
 .content-text-price{
   font-size:10pt;
 }
-<<<<<<< HEAD
 
 /*  加载更多   */
 .weui-loading {
@@ -109,18 +115,3 @@
   display: inline-block;
   vertical-align: middle;
 }
-=======
-.location-time{
-  display:flex;
-  flex-direction:column;
-  justify-content:flex-start;
-}/*问题：是否这里可以采用text-align来达到相同的效果*/
-.content-bottom{
-  width:90%;
-  display:flex;
-  flex-direction:row;
-  justify-content:space-between;
-  align-items:flex-end;
-}
-
->>>>>>> by_yining
