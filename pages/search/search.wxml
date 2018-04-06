@@ -5,12 +5,13 @@
     <!--头部搜索-->
     <!--头部搜索block1-->
     <view class="header-block1" bindtap="tosubsearch">
-      <image style="height:50rpx;width:50rpx"src="../../images/test/search.png" />
+      <image style="height:50rpx;width:50rpx" src="../../images/test/search.png" />
       <text class="text" style="padding-left:20rpx">所有种类</text>
     </view>
 
-    <view class="header-block2"><!--头部搜索block2-->
-        <image style="height:80rpx;width:80rpx"src="../../images/test/location.png" />
+    <view class="header-block2">
+      <!--头部搜索block2-->
+      <image style="height:80rpx;width:80rpx" src="../../images/test/location.png" />
     </view>
 
   </view>
@@ -18,9 +19,9 @@
   <view class="content">
     <!--二手信息加载区域-->
     <view class="content-item" wx:for="{{contentItems}}">
-     
-        <image style="height:210rpx; width:280rpx;border-radius:10rpx;" src='../../images/test/drucker.jpg' />
-      
+
+      <image style="height:210rpx; width:280rpx;border-radius:10rpx;" src='../../images/test/drucker.jpg' />
+
 
       <view class="content-block2">
         <text class='content-text-title'>二手打印机</text>
@@ -28,7 +29,10 @@
           <text class='content-text-location'>卡尔斯鲁厄市中心</text>
           <text class='content-text-offertime'>刚刚</text>
         </view>
-        <text class='content-text-price'>30欧</text>
+        <view class="content-bottom">
+          <text class='content-text-price'>30欧</text>
+          <image class="favourite" style="height:50rpx; width:50rpx" bindtap="favourite_touch" src='../../images/test/favouriteoff.png' />
+        </view>
       </view>
     </view>
   </view>

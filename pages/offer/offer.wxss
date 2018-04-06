@@ -348,7 +348,7 @@ overflow:hidden;
 }
 /*以下是yining新添加的样式*/
 .section-title{
-  font-size:12pt;
+  font-size:11pt;
 }
 .image-box{
   display:flex;
@@ -360,6 +360,7 @@ overflow:hidden;
 .euro{
   font-size:11pt;
   margin-left: 10rpx;
+  color:#b2b2b2;
 }
 .section-right{
   display:flex;
@@ -367,4 +368,3 @@ overflow:hidden;
   justify-content:flex-start;
   align-items:center;
 }
-

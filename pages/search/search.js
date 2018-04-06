@@ -8,7 +8,8 @@ Page({
     
    
     /*定义search页面加载内容的数组*/
-    contentItems:['','','','','','']
+    contentItems:['','','','','',''],
+    favouriteshow:true
   },
 
   /**
@@ -69,5 +70,8 @@ Page({
   
   tosubsearch: function(){
     wx.navigateTo({url:'../search_sublevel1/search_sublevel1'})
+  },
+  favourite_touch: function(){
+
   }
 })
