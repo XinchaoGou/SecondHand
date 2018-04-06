@@ -2,13 +2,70 @@
 
 <view class="container">
 
-  <swiper indicator-dots="{{true}}" autoplay="{{false}}" style="width:100%">
-    <block wx:for="{{imgUrls}}">
-      <swiper-item>
-        <image src="{{item}}" class="slide-image" width="355" height="150" />
-      </swiper-item>
-    </block>
-  </swiper>
+  <!--1. 图片幻灯片显示模块-->
+  <view class="swiper">
+    <swiper indicator-dots="{{true}}" indicator-active-color="#32A189" autoplay="{{false}}" style="width:100%">
+      <block wx:for="{{imgUrls}}">
+        <swiper-item>
+          <image src="{{item}}" class="slide-image" width="100%" height="200" image-align="center" />
+          <!--此处需要查询image-align的相关功能-->
+        </swiper-item>
+      </block>
+    </swiper>
+
+    <!--1.1 图片幻灯片底部文字显示模块-->
+    <view class="swiper-bottom">
+      <text class="swiper-text">€ 30</text>
+      <text class="swiper-text">3 张图片</text>
+    </view>
+  </view>
+
+  <!--2. 发布人联系方式和喜爱收藏显示模块-->
+
+
+  <!--3. 发布内容主标题和描述文字显示模块-->
+  <view class="offer-title-description">
+
+    <view class="offer-contact">
+      <button class="contact-but">微信联系卖主</button>
+      <view class="contact-middle">
+        <image src="../../images/test/phonecall.png" style="width:80rpx;height:80rpx" />
+        <text class="offer-title-11">给卖主打电话</text>
+      </view>
+      <image src="../../images/test/favouriteoff.png" class="favourite" />
+    </view>
+
+    <text class="offer-titel">waldstadt好房4月5号-9月25号zwischen</text>
+    <text class="offer-description">waldstadt好房4月5号-9月25号zwischen，可an，房间20平左右，带小阳台，周围环境很好，步行五分钟以内post，edeka，penny，sparkasse，dm一应俱全，步行到车站5分钟，4号线10分钟直达kit南校区。室友两个kit中国学生，一男一女，人很nett。要求爱干净，能定期做值日，有兴趣的私聊</text>
+  </view>
+
+  <!--4. 发布内容其他信息诸如：时间，地点，价格，种类等显示模块-->
+  <view class="offer-info">
+    <view class="offer-section">
+      <text class="offer-title-11">发布日期</text>
+      <text>这里是日期</text>
+    </view>
+    <view class="offer-section">
+      <text class="offer-title-11">价格</text>
+      <text>这里是价格</text>
+    </view>
+    <view class="offer-section">
+      <text class="offer-title-11">物品种类</text>
+      <text>这里是种类</text>
+    </view>
+  </view>
+
+  <!--5.发布内容地图-->
+  <view class="offer-info">
+    <view class="offer-section">
+      <text class="offer-title-11">地点</text>
+      <text>这里是地点</text>
+
+    </view>
+  </view>
+
+
+
 
 
 
