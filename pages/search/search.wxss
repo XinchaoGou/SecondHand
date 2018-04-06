@@ -76,6 +76,10 @@
 .content-text-location{
   font-size:9pt;
   color:"#888888";
+  width:80pt;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow:ellipsis;
 }
 .content-text-offertime{
   font-size:9pt;

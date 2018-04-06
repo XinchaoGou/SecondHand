@@ -33,7 +33,7 @@
         </view>
 
         <view class="content-bottom">
-          <text class='content-text-price'>{{item.price}}</text>
+          <text class='content-text-price'>{{item.price}} €</text>
           <image wx:if="{{favouriteshow}}" class="favourite" style="height:50rpx; width:50rpx" bindtap="favourite_touch" src='../../images/test/favouriteoff.png' />
           <image wx:else class="favourite" style="height:50rpx; width:50rpx" bindtap="favourite_touch"src='../../images/test/favouriteon.png'/>
         </view>
