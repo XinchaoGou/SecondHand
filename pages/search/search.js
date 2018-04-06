@@ -106,13 +106,6 @@ Page({
 
   },
 
-  /**
-   * 跳转搜索设置
-   * by yining
-   */
-  tosubsearch: function () {
-    wx.navigateTo({ url: '../search_sublevel1/search_sublevel1' })
-  },
 
   /**
    * 设置搜索地址
