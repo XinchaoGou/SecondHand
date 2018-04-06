@@ -19,23 +19,29 @@
   <view class="content">
     <!--二手信息加载区域-->
     <view class="content-item" wx:for="{{contentItems}}">
-
-      <image style="height:210rpx; width:280rpx;border-radius:10rpx;" src='../../images/test/drucker.jpg' />
-
-
+      <!--二手物品图片-->
+    
+        <image style="height:210rpx; width:280rpx;border-radius:10rpx;" src="{{item.src}}" />
+      
+      <!--二手物品交易信息-->
       <view class="content-block2">
-        <text class='content-text-title'>二手打印机</text>
+
+        <text class='content-text-title'>{{item.title}}</text>
         <view class="location-time">
-          <text class='content-text-location'>卡尔斯鲁厄市中心</text>
-          <text class='content-text-offertime'>刚刚</text>
+          <text class='content-text-location'>{{item.address}}</text>
+          <text class='content-text-offertime'>{{item.date}}</text>
         </view>
+
         <view class="content-bottom">
-          <text class='content-text-price'>30欧</text>
+          <text class='content-text-price'>{{item.price}}</text>
           <image wx:if="{{favouriteshow}}" class="favourite" style="height:50rpx; width:50rpx" bindtap="favourite_touch" src='../../images/test/favouriteoff.png' />
           <image wx:else class="favourite" style="height:50rpx; width:50rpx" bindtap="favourite_touch"src='../../images/test/favouriteon.png'/>
         </view>
+
       </view>
+
     </view>
+
   </view>
 
 </view>
