@@ -174,8 +174,8 @@ Page({
             var address = object.get('address');
             var urls = object.get('picUrlArray');
             if (urls == "") {
-              //设置为默认图片 TODO
-              console.log("图片为空，设置为默认图片TODO");
+              //设置为默认图片 url数组注意
+              urls = ['../../images/test/camera.png'];
             }
             var mDate = object.createdAt;
             var offerItem = {
