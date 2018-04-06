@@ -28,18 +28,15 @@ font-size:14px;
   text-align: center;
   font-size: 16px;
   border: 0 none;
-  background: #32A189;
+  background: #118fff;
   color: #fff;
   margin: 30rpx auto;
   border-radius: 50px;
 }
 
 .add_pic {
-  margin-top:20rpx;
   padding: 0 40rpx;
   background: #fff;
-  font-size:11pt;
-  border-radius:20rpx;
 }
 
 .add_pic view {
@@ -118,17 +115,16 @@ font-size:14px;
   padding: 0 20rpx;
   border: 1px solid #f0f0f0;
   background-color: white;
-  border-radius:20rpx;
+  border-radius:5px;
 }
 
 .mod{
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items:center;
+  align-items: center;
   height: 90rpx;
   padding: 0 20rpx;
-  flex-wrap:nowrap;
 }
 
 .mod-big{
@@ -142,7 +138,7 @@ font-size:14px;
 }
 .chnumber{
   position:absolute;
-  right:10px;
+  right:0;
   bottom:0;
   color:#b2b2b2;
   text-align:right;
@@ -151,9 +147,8 @@ font-size:14px;
 .arrow-r{
   width: 9rpx;
   height: 17rpx;
-  margin-left: 6pt;
+  margin-left: 10rpx;
 }
-
 .arrow-d{
   width: 17rpx;
   height: 9rpx;
@@ -161,32 +156,21 @@ font-size:14px;
 }
 
 .value{
-  color:#b2b2b2;
+  color: #b2b2b2;
 }
 .t-sign-time .value{
-  text-align: right;
-  width: 510rpx;
-  overflow: hidden;
-  font-size:11pt;
-  height: 44rpx;
-  color:black;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 .t-early .value{
   padding-right: 20rpx;
 }
-.t-name .value, .t-address .value{
+.t-name .input, .t-address .value{
   text-align: right;
   width: 510rpx;
   overflow: hidden;
   color: #b2b2b2;
-  font-size:11pt; 
-}
-
-.t-name .input{
-  text-align: right;
-  width: 510rpx;
-  overflow: hidden;
-  font-size:11pt;
   height: 44rpx;
 }
 
@@ -349,23 +333,8 @@ overflow:hidden;
 /*以下是yining新添加的样式*/
 .section-title{
   font-size:11pt;
-  color:#32A189;
 }
-.image-box{
-  display:flex;
-  flex-direction:row;
-  justify-content:space-around;
-  align-items:center;
-  flex-wrap:wrap;
-}
-.euro{
+.section-input{
   font-size:11pt;
-  margin-left: 10rpx;
-  color:#b2b2b2;
-}
-.section-right{
-  display:flex;
-  flex-direction:row;
-  justify-content:flex-start;
-  align-items:center;
+  color:lightgray;
 }

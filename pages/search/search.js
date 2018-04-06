@@ -9,17 +9,12 @@ Page({
 
 
     /*定义search页面加载内容的数组*/
-<<<<<<< HEAD
     contentItems: [],
     location: null,
     isHideLoadMore: true,
     pageindex: 0, //第几次加载
     callbackcount: 10, //设置每页返回数据的多少
     searchLoadingComplete: false
-=======
-    contentItems:['','','','','',''],
-    favouriteshow:true
->>>>>>> by_yining
   },
 
   /**
@@ -141,7 +136,6 @@ Page({
       }
     })
   },
-<<<<<<< HEAD
 
   /**
    * 查询服务器
@@ -205,20 +199,4 @@ Page({
     });
   }
 
-=======
-  /*通往搜索sublevel1子页面入口，出现了问题，堆栈方面的，需要后续处理 by yining*/
-  tosubsearch: function(){
-    wx.navigateTo({url:'../search_sublevel1/search_sublevel1'})
-  },
-
-  /*点击切换favourite图标 by yining*/
-  favourite_touch: function(){
-    var isshow=this.data.favouriteshow;
-    this.setData({favouriteshow:!isshow})
-  },
-  /*通往搜索section子页面入口，出现了问题，堆栈方面的，需要后续处理 ，暂时设置的便于前端设计，后续要更改by_yining*/
-  to_page_search_section: function () {
-    wx.navigateTo({ url: '../search_section/search_section' })
-  },
->>>>>>> by_yining
 })
