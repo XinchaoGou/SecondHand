@@ -10,8 +10,9 @@
     </view>
 
     <view class="header-block2">
-      <!--头部搜索block2--><!--location图标上暂时设置前往search-section页面的接口，以后需要修改-->
-      <image style="height:80rpx;width:80rpx" src="../../images/test/location.png" bindtap="to_page_search_section"/>
+      <!--头部搜索block2-->
+      <!--location图标上暂时设置前往search-section页面的接口，以后需要修改-->
+      <image style="height:80rpx;width:80rpx" src="../../images/test/location.png" bindtap="to_page_search_section" />
     </view>
 
   </view>
@@ -20,9 +21,9 @@
     <!--二手信息加载区域-->
     <view class="content-item" wx:for="{{contentItems}}">
       <!--二手物品图片-->
-    
-        <image style="height:210rpx; width:280rpx;border-radius:10rpx;" src="{{item.src}}" />
-      
+
+      <image style="height:210rpx; width:280rpx;border-radius:10rpx;" src="{{item.src}}" />
+
       <!--二手物品交易信息-->
       <view class="content-block2">
 
@@ -34,14 +35,21 @@
 
         <view class="content-bottom">
           <text class='content-text-price'>{{item.price}} €</text>
-          <image wx:if="{{favouriteshow}}" class="favourite" style="height:50rpx; width:50rpx" bindtap="favourite_touch" src='../../images/test/favouriteoff.png' />
-          <image wx:else class="favourite" style="height:50rpx; width:50rpx" bindtap="favourite_touch"src='../../images/test/favouriteon.png'/>
+          <image wx:if="{{favouriteshow}}" class="favourite" style="height:50rpx; width:50rpx" bindtap="favourite_touch" src='../../images/test/favouriteoff.png'
+          />
+          <image wx:else class="favourite" style="height:50rpx; width:50rpx" bindtap="favourite_touch" src='../../images/test/favouriteon.png'
+          />
         </view>
 
       </view>
 
     </view>
 
+  </view>
+
+  <view class="weui-loadmore" hidden="{{isHideLoadMore}}">
+    <view class="weui-loading"></view>
+    <view class="weui-loadmore__tips">正在加载</view>
   </view>
 
 </view>
