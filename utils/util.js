@@ -32,6 +32,11 @@ function getDateDiff(dateStr) {
     d_minutes,
     d_hours,
     d_days,
+    //添加周，月份和年份 by xinchao
+    d_weeks,
+    d_months,
+    d_years,
+
     timeNow = parseInt(new Date().getTime() / 1000),
     d,
 
@@ -64,8 +69,20 @@ function getDateDiff(dateStr) {
   d_hours = parseInt(d / 3600);
   d_minutes = parseInt(d / 60);
   d_seconds = parseInt(d);
-
-  if (d_days > 0 && d_days < 3) {
+  //添加月份和年份 by xinchao
+  d_weeks = parseInt(d_days / 7);
+  d_months = parseInt(d_days / 30);
+  d_years = parseInt(d_days / 365);
+  console.log(d_years,d_months,d_days,d_hours,d_minutes,d_seconds,d)
+  if (d_years  > 0) {
+    return d_years + '年前';
+  } else if (d_years <= 0 && d_months > 6) {
+    return '半年前';
+  } else if (d_years <= 0 && d_months > 0) {
+    return d_months + '月前';
+  } else if (d_years <= 0 && d_months <= 0 && d_weeks > 0) {
+    return d_weeks + '周前';
+  } else if (d_years <= 0 && d_months <= 0 && d_weeks <= 0 && d_days > 0) {
     return d_days + '天前';
   } else if (d_days <= 0 && d_hours > 0) {
     return d_hours + '小时前';
@@ -77,10 +94,6 @@ function getDateDiff(dateStr) {
     } else {
       return d_seconds + '秒前';
     }
-  } else if (d_days >= 3 && d_days < 30) {
-    return M + '-' + D + ' ' + H + ':' + m;
-  } else if (d_days >= 30) {
-    return Y + '-' + M + '-' + D + ' ' + H + ':' + m;
   }
 }
 

@@ -1,5 +1,6 @@
 // pages/search/search.js
 var Bmob = require("../../utils/bmob.js");
+var Utils = require("../../utils/util.js");
 Page({
 
   /**
@@ -13,7 +14,7 @@ Page({
     location: null,
     isHideLoadMore: false,
     pageindex: 0, //第几次加载
-    callbackcount: 10, //设置每页返回数据的多少
+    callbackcount: 5, //设置每页返回数据的多少
     searchLoadingComplete: false,
     favouriteshow: true
   },
@@ -92,7 +93,7 @@ Page({
         pageindex: newPageIndex,
         //isHideLoadMore: true
       })
-    } 
+    }
     else {
       //加载完毕，已全部加载
       that.setData({
@@ -177,7 +178,9 @@ Page({
               //设置为默认图片 url数组注意
               urls = ['../../images/test/camera.png'];
             }
-            var mDate = object.createdAt;
+            //时间计算
+            var mDate = Utils.getDateDiff(object.createdAt);
+            
             var offerItem = {
               title: title,
               price: price,
