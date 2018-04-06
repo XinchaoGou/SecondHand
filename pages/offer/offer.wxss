@@ -349,6 +349,7 @@ overflow:hidden;
 /*以下是yining新添加的样式*/
 .section-title{
   font-size:11pt;
+  color:#32A189;
 }
 .image-box{
   display:flex;
