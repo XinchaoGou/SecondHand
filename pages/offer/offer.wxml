@@ -52,16 +52,16 @@
       </view>
     </view>
 
+    <!-- 物品图片 TODO-->
+    <view class="add_pic" bindtap="uploadPic" wx-if="{{!isSrc}}">
+      <view>添加图片（选）</view>
+    </view>
     <!-- 显示以添加图片 TODO-->
-    <view wx:if="{{isSrc}}" class="image_box" wx:for="{{tempFilePaths}}">
+    <view wx:if="{{isSrc}}" class="image_box">
       <view class="picPre">
-        <image src="{{item}}" mode="aspectFit"></image>
+        <image src="{{src}}" mode="aspectFit"></image>
         <view bindtap="clearPic"></view>
       </view>
-    </view>
-    <!-- 物品图片 TODO-->
-    <view class="add_pic" bindtap="uploadPic" wx-if="{{!is9}}">
-      <view>添加图片（选）</view>
     </view>
 
     <view class="mod-a mt20"></view>
@@ -72,7 +72,7 @@
       <view class="mod t-name">
         <text class="key">微信号</text>
         <input name="wxNumber" class="input" maxlength="100" placeholder="请输入微信号" value="{{wxNumber}}" />
-        <image class="arrow-r" src="../../images/more/enter.png"></image>
+        <image class="arrow-r" src="/images/arrow-r-0.png"></image>
       </view>
 
       <view class="mod-a"></view>
@@ -81,7 +81,7 @@
       <view class="mod t-name">
         <text class="key">手机号</text>
         <input name="phoneNumber" type="number" class="input" placeholder="请输入号码" value="{{phoneNumber}}" />
-        <image class="arrow-r" src="../../images/more/enter.png"></image>
+        <image class="arrow-r" src="/images/arrow-r-0.png"></image>
       </view>
 
       <view class="mod-a"></view>
@@ -90,7 +90,7 @@
       <view class="mod t-name">
         <text class="key">邮箱</text>
         <input name="eMail" class="input" placeholder="请输入邮箱" value="{{eMail}}" />
-        <image class="arrow-r" src="../../images/more/enter.png"></image>
+        <image class="arrow-r" src="/images/arrow-r-0.png"></image>
       </view>
 
     </view>
