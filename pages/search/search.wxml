@@ -5,13 +5,13 @@
     <!--头部搜索-->
     <!--头部搜索block1-->
     <view class="header-block1" bindtap="tosubsearch">
-      <image style="height:25px;width:25px" src="../../images/test/search.png" />
-      <text class="top-text" style="padding-left:10px">所有种类</text>
+      <image style="height:50rpx;width:50rpx" src="../../images/test/search.png" />
+      <text class="text" style="padding-left:20rpx">所有种类</text>
     </view>
 
-    <view class="header-block2" bindtap="setLocation">
-      <!--头部搜索block2-->
-      <image style="height:40px;width:40px" src="../../images/test/location.png" />
+    <view class="header-block2">
+      <!--头部搜索block2--><!--location图标上暂时设置前往search-section页面的接口，以后需要修改-->
+      <image style="height:80rpx;width:80rpx" src="../../images/test/location.png" bindtap="to_page_search_section"/>
     </view>
 
   </view>
@@ -19,27 +19,23 @@
   <view class="content">
     <!--二手信息加载区域-->
     <view class="content-item" wx:for="{{contentItems}}">
-      <!--二手物品图片-->
-      <view class="content-block1">
-        <image style="height:100px; width:150px;border-radius:5px;" src="{{item.src}}" />
-      </view>
-      <!--二手物品交易信息-->
-      <view class="content-block2">
-        <text class='content-text-title'>{{item.title}}</text>
-        <view>
-          <text class='content-text-location'>{{item.address}}</text>
-          <text class='content-text-offertime'>{{item.date}}</text>
-        </view>
-        <text class='content-text-price'>{{item.price}}</text>
-      </view>
-    </view>
 
-    <!--加载更多-->
-    <view class="weui-loadmore" hidden="{{isHideLoadMore}}">
-      <view class="weui-loading"></view>
-      <view class="weui-loadmore__tips">正在加载</view>
+      <image style="height:210rpx; width:280rpx;border-radius:10rpx;" src='../../images/test/drucker.jpg' />
+
+
+      <view class="content-block2">
+        <text class='content-text-title'>二手打印机</text>
+        <view class="location-time">
+          <text class='content-text-location'>卡尔斯鲁厄市中心</text>
+          <text class='content-text-offertime'>刚刚</text>
+        </view>
+        <view class="content-bottom">
+          <text class='content-text-price'>30欧</text>
+          <image wx:if="{{favouriteshow}}" class="favourite" style="height:50rpx; width:50rpx" bindtap="favourite_touch" src='../../images/test/favouriteoff.png' />
+          <image wx:else class="favourite" style="height:50rpx; width:50rpx" bindtap="favourite_touch"src='../../images/test/favouriteon.png'/>
+        </view>
+      </view>
     </view>
   </view>
-
 
 </view>
