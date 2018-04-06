@@ -3,9 +3,7 @@
     "pages/search/search", 
     "pages/offer/offer",
     "pages/me/me",
-    "pages/search_sublevel1/search_sublevel1",
-    "pages/search_section/search_section"
-    
+    "pages/search_sublevel1/search_sublevel1"
   ],
   "window": {
     "navigationBarTextStyle": "white",
@@ -17,7 +15,7 @@
     "list": [
       {
         "pagePath": "pages/search/search",
-        "text": "首页",
+        "text": "搜索",
         "iconPath": "images/test/tar-home.png",
         "selectedIconPath": "images/test/tar-home-on.png"
       },
