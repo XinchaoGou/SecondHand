@@ -40,7 +40,6 @@ function getDateDiffWithJetLag(dateStr, jetLag) {
   var d;
   var timeNow = parseInt(new Date().getTime() / 1000) + jetLag * 60 * 60;
 
-  console.log(timeNow);
   d = timeNow - publishTime;
   d_days = parseInt(d / 86400);
   d_hours = parseInt(d / 3600);

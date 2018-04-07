@@ -8,7 +8,6 @@ Page({
    */
   data: {
 
-
     /*定义search页面加载内容的数组*/
     contentItems: [],
     location: null,
@@ -16,7 +15,7 @@ Page({
     pageindex: 0, //第几次加载
     callbackcount: 10, //设置每页返回数据的多少
     searchLoadingComplete: false,
-    favouriteshow: true
+    //favouriteshow: true
   },
 
   /**
@@ -32,7 +31,7 @@ Page({
       isHideLoadMore: false,
       pageindex: 0, //第几次加载
       callbackcount: 10, //设置每页返回数据的多少
-      searchLoadingComplete: false
+      searchLoadingComplete: false,
     })
   },
 
@@ -82,16 +81,12 @@ Page({
    */
   onReachBottom: function () {
     var that = this;
-    // that.setData({
-    //   isHideLoadMore: false
-    // });
     var newPageIndex = that.data.pageindex + 1;
     that.searchFromCloud(newPageIndex, that.data.callbackcount);
     //未搜索到底则递增分页
     if (!that.data.searchLoadingComplete) {
       that.setData({
         pageindex: newPageIndex,
-        //isHideLoadMore: true
       })
     }
     else {
@@ -180,7 +175,7 @@ Page({
               urls = ['../../images/test/camera.png'];
             }
             //时间计算,德国时间加6小时为中国时间
-            var mDate = Utils.getDateDiffWithJetLag(object.createdAt , 6);
+            var mDate = Utils.getDateDiffWithJetLag(object.createdAt, 6);
 
             var offerItem = {
               title: title,
@@ -188,7 +183,8 @@ Page({
               address: address,
               src: urls[0],
               date: mDate,
-              id : id
+              id: id,
+              favouriteshow: false
             }
             offerArray.push(offerItem);
             console.log(offerArray);
@@ -210,14 +206,35 @@ Page({
   },
 
   /*点击切换favourite图标 by yining*/
-  favourite_touch: function (e) {
+  favourite_touch: function (event) {
     var that = this;
-    var isshow = this.data.favouriteshow;
-    this.setData({ favouriteshow: !isshow })
+    var postId = event.currentTarget.dataset.favouriteid;
+    var objectId = that.data.contentItems[postId].id;  // 获得数据库对应objectId
+    console.log(postId, objectId);
+    //修改收藏图片显示
+    var isshow = this.data.contentItems[postId].favouriteshow;
+    var str = 'contentItems['+postId+'].favouriteshow';
+    this.setData({
+      [str]: !isshow
+    })
+    //修改数据库收藏 TODO
   },
   /*通往搜索section子页面入口，出现了问题，堆栈方面的，需要后续处理 ，暂时设置的便于前端设计，后续要更改by_yining*/
   to_page_search_section: function () {
     wx.navigateTo({ url: '../search_section/search_section' })
+  },
+
+  /**
+   * 点击某一个条目查看详情
+   * by xinchao
+   */
+  itemTap: function (event) {
+    var that = this;
+    var postId = event.currentTarget.dataset.postid;
+    var objectId = that.data.contentItems[postId].id;  // 获得数据库对应objectId
+    // console.log(postId,objectId);
+
+
   }
 
 })
