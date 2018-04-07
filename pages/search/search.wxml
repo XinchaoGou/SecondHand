@@ -10,16 +10,16 @@
     </view>
 
     <view class="header-block2">
-      <!--头部搜索block2-->
-      <!--location图标上暂时设置前往search-section页面的接口，以后需要修改-->
-      <image style="height:80rpx;width:80rpx" src="../../images/test/location.png" bindtap="to_page_search_section" />
+      <!--头部搜索block2--><!--location图标上暂时设置前往search-section页面的接口，以后需要修改-->
+      <image style="height:40rpx;width:30rpx" src="../../images/test/location.png" bindtap="to_page_search_section"/>
+      <text class="location-text">Karlsruhe</text>
     </view>
 
   </view>
 
   <view class="content">
     <!--二手信息加载区域-->
-    <view class="content-item" wx:for="{{contentItems}}">
+    <view class="content-item" wx:for="{{contentItems}}" catchtap="itemTap" data-postId="{{index}}">
       <!--二手物品图片-->
 
       <image style="height:210rpx; width:280rpx;border-radius:10rpx;" src="{{item.src}}" />

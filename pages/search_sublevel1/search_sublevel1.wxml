@@ -1,31 +1,19 @@
 <!--pages/search/search.wxml-->
 <view class="container">
 
-
+  <!--地理范围显示模块-->
   <view class="section">
-
-    <view class="section-title">
-      <text class="text-title">地理范围</text>
-    </view>
-
-    <view class="section-item">
-      <text class="text-title" style="color:gray"bindtap="primary" width="100%">Karlsruhe</text>
-    </view>
-
+    <text class="text-title">地理范围</text>
+    <text class="text-title" style="color:gray" bindtap="primary" width="100%">Karlsruhe</text>
   </view>
 
   <view class="section">
-
-    <view class="section-title">
-      <text class="text-title">类别</text>
-    </view>
-
+    <text class="text-title">类别</text>
     <view class="section-item">
       <text class="text-title" style="color:gray" bindtap="primary" width="100%">所有种类</text>
       <image class="enter-icon" src="../../images/more/enter.png" />
     </view>
-
-  </view> 
+  </view>
 
   <view class="section">
 
@@ -41,18 +29,12 @@
   </view>
 
   <view class="section">
-
-    <view class="section-title">
-      <text class="text-title">排列顺序</text>
-    </view>
-
+    <text class="text-title">排列顺序</text>
     <view class="section-item">
       <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
         <view class="text-title" style="color:gray">{{array[index]}}</view>
       </picker>
     </view>
-
-
   </view>
 
 

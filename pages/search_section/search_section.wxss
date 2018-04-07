@@ -6,7 +6,6 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-around;
-  padding: 0rpx 0;
   box-sizing: border-box;
 } 
 .swiper{
@@ -36,6 +35,7 @@
   flex-direction:column;
   justify-content:space-between;
   position:relative;
+  margin-bottom:20rpx;
 }
 .offer-titel{
   color:#32A189;
