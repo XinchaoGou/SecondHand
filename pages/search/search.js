@@ -232,7 +232,10 @@ Page({
     var that = this;
     var postId = event.currentTarget.dataset.postid;
     var objectId = that.data.contentItems[postId].id;  // 获得数据库对应objectId
-    // console.log(postId,objectId);
+    //跳转条目详情
+    wx.navigateTo({
+      url: '../search_section/search_section?id=' + objectId
+    })
 
 
   }
