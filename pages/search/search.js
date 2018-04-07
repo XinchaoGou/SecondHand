@@ -69,6 +69,7 @@ Page({
    */
   onPullDownRefresh: function () {
     var that = this;
+    wx.vibrateShort();  // 使手机振动15ms  
     wx.showNavigationBarLoading() //在标题栏中显示加载
     this.onLoad();
     // complete
