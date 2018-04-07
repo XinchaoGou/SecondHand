@@ -40,7 +40,7 @@
         </view>
 
         <view class="content-bottom">
-          <text class='content-text-price'>{{item.price}} €</text>
+          <text class='content-text-price'>€ {{item.price}}</text>
 
           <view class="favourite" catchtap="favourite_touch" data-favouriteid="{{index}}">
             <image wx:if="{{item.favouriteshow}}" style="height:50rpx; width:50rpx" src='../../images/test/favouriteon.png' />
@@ -63,4 +63,5 @@
   <view class="weui-load" hidden="{{!searchLoadingComplete}}">
     <text class="weui-loadmore__tips" style="padding-bottom:20rpx;font-size:10pt;color:gray;">当前内容已全部加载</text>
   </view>
+  
 </view>
