@@ -14,7 +14,7 @@ Page({
     location: null,
     isHideLoadMore: false,
     pageindex: 0, //第几次加载
-    callbackcount: 5, //设置每页返回数据的多少
+    callbackcount: 10, //设置每页返回数据的多少
     searchLoadingComplete: false,
     favouriteshow: true
   },
@@ -170,7 +170,7 @@ Page({
           // 循环处理查询到的数据
           for (var i = 0; i < results.length; i++) {
             var object = results[i];
-            var id = object.get('id');
+            var id = object.id;
             var title = object.get('title');
             var price = object.get('price');
             var address = object.get('address');
@@ -210,7 +210,8 @@ Page({
   },
 
   /*点击切换favourite图标 by yining*/
-  favourite_touch: function () {
+  favourite_touch: function (e) {
+    var that = this;
     var isshow = this.data.favouriteshow;
     this.setData({ favouriteshow: !isshow })
   },
