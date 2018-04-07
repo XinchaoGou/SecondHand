@@ -174,8 +174,8 @@ Page({
               //设置为默认图片 url数组注意
               urls = ['../../images/test/camera.png'];
             }
-            //时间计算,德国时间加6小时为中国时间
-            var mDate = Utils.getDateDiffWithJetLag(object.createdAt, 6);
+            //考虑时差，换算
+            var mDate = Utils.getDateDiffWithJetLag(object.createdAt);
 
             var offerItem = {
               title: title,
@@ -205,7 +205,10 @@ Page({
     wx.navigateTo({ url: '../search_sublevel1/search_sublevel1' })
   },
 
-  /*点击切换favourite图标 by yining*/
+  /**
+   * 点击收藏图标绑定事件，修改图标，修改数据库
+   * by xinchao
+   */
   favourite_touch: function (event) {
     var that = this;
     var postId = event.currentTarget.dataset.favouriteid;
@@ -218,10 +221,6 @@ Page({
       [str]: !isshow
     })
     //修改数据库收藏 TODO
-  },
-  /*通往搜索section子页面入口，出现了问题，堆栈方面的，需要后续处理 ，暂时设置的便于前端设计，后续要更改by_yining*/
-  to_page_search_section: function () {
-    wx.navigateTo({ url: '../search_section/search_section' })
   },
 
   /**

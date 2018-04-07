@@ -42,7 +42,7 @@
   <!--4. 发布内容其他信息诸如：时间，地点，价格，种类等显示模块-->
   <view class="offer-info">
     <view class="offer-section">
-      <text class="offer-title-11">发布日期</text>
+      <text class="offer-title-11">发布时间</text>
       <text>{{date}}</text>
     </view>
     <view class="offer-section">

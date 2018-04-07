@@ -8,15 +8,15 @@ Page({
    * 页面的初始数据
    */
   data: {
-    title : "testwaldstadt好房4月5号-9月25号zwischen",
-    price : 0,
-    type : "test这里是种类",
-    address : "test这里是地点",
-    content : "test，可an，房间20平左右，带小阳台，周围环境很好，步行五分钟以内post，edeka，penny，sparkasse，dm一应俱全，步行到车站5分钟，4号线10分钟直达kit南校区。室友两个kit中国学生，一男一女，人很nett。要求爱干净，能定期做值日，有兴趣的私聊",
+    title: "",
+    price: 0,
+    type: "",
+    address: "",
+    content: "",
     urls: [],
-    picNumber : 0,
-    mDate : "",
-    
+    picNumber: 0,
+    date: "",
+
   },
 
   /**
@@ -44,18 +44,18 @@ Page({
         }
         //计算照片张数
         var picNumber = urls.length;
-        //时间计算,德国时间加6小时为中国时间 TODO
-        var mDate = Utils.getDateDiffWithJetLag(result.createdAt, 6);
+        //时间计算
+        var date = Utils.getDateDiffWithJetLag(result.createdAt);
 
         that.setData({
-          title : title,
-          price : price,
-          type : type,
-          address : address,
-          content : content,
+          title: title,
+          price: price,
+          type: type,
+          address: address,
+          content: content,
           urls: urls,
-          picNumber : picNumber,
-          mDate : mDate,
+          picNumber: picNumber,
+          date: date,
         })
 
       },

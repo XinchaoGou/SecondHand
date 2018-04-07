@@ -12,7 +12,8 @@
     <view class="header-block2">
       <!--头部搜索block2-->
       <!--location图标上暂时设置前往search-section页面的接口，以后需要修改-->
-      <image style="height:40rpx;width:30rpx" src="../../images/test/location.png" bindtap="to_page_search_section" />
+      <!--已经修改 by xinchao-->
+      <image style="height:40rpx;width:30rpx" src="../../images/test/location.png"/>
       <text class="location-text">Karlsruhe</text>
     </view>
 
