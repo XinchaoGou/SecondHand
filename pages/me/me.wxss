@@ -1,1 +1,236 @@
 /* pages/me/me.wxss */
+page {
+  background-color: #f4f4f4;
+}
+
+.container {
+  height:100%;
+  width:100%;
+  background-color:rgb(239, 239,244);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: space-around;
+  box-sizing: border-box;
+  position:fixed;
+} 
+.scroll{
+  width:100%;
+  height:100%;
+}
+
+/*头像--背景样式，引入*/
+.head-background {
+  margin-top: -40rpx;
+  width: 100%;
+  -webkit-filter: blur(5px);
+  -moz-filter: blur(5px);
+  -o-filter: blur(5px);
+  -ms-filter: blur(5px);
+  filter: blur(5px);
+  z-index: -9999;
+}
+
+.returnBar {
+  position: absolute;
+  width: 100%;
+}
+
+.leftArrow {
+  width: 22rpx;
+  height: 38rpx;
+  margin-top: 20rpx;
+  margin-left: 20rpx;
+  float: left;
+}
+
+.bell {
+  width: 38rpx;
+  height: 46rpx;
+  margin-top: 20rpx;
+  margin-right: 20rpx;
+  float: right;
+}
+/*头像--图片样式 引入*/
+.userinfo-bgImg {
+  width: 100%;
+  height: 400rpx;
+}
+/*用户信息--背景样式 引入*/
+.userinfo {
+  /*display: flex;*/
+  width: 100%;
+  height: 120rpx;
+  flex-direction: column;
+  background: #f4f4f4;
+  margin-top: -7rpx;
+  padding-bottom: 15rpx;
+}
+/*用户信息--图片样式 引入*/
+.userinfo-avatar {
+  float: left;
+  width: 160rpx;
+  height: 160rpx;
+  margin: 20rpx;
+  border-radius: 50%;
+  margin-top: -80rpx;
+  margin-bottom: 0;
+}
+/*用户信息--昵称--文字样式 引入*/
+.userinfo-nickname {
+  font-size: 32rpx;
+  color: #555;
+  padding: 24rpx 20rpx 0 0;
+  float: left;
+}
+/*用户信息--昵称--文字样式 该样式引入*/
+.userProfile {
+  width: 60%;
+  float: left;
+  font-size: 24rpx;
+  color: #666;
+  margin-top: 12rpx;
+}
+
+.usermotto {
+  width: 100%;
+  height: 144rpx;
+  background-color: white;
+}
+
+.edit {
+  width: 40rpx;
+  height: 40rpx;
+  padding: 24rpx 20rpx 0 20rpx;
+  float: left;
+}
+
+.myNumber {
+  width: 100rpx;
+  height: 100rpx;
+  margin-left: 20rpx;
+  margin-top: 20rpx;
+  display: block;
+  float: left;
+}
+
+.user-number {
+  float: left;
+  margin-left: 24rpx;
+  font-size: 26rpx;
+  line-height: 148rpx;
+  font-family: PingFangSC-Regular;
+  color: #555;
+}
+
+.number {
+  float: left;
+  margin-left: 12rpx;
+  line-height: 148rpx;
+  color: red;
+}
+
+.userItem {
+  width: 100%;
+  height: 90rpx;
+  border-bottom: 1px solid #eee;
+  background-color: white;
+}
+
+.interval {
+  margin-bottom: 20rpx;
+}
+
+.userItemImg {
+  width: 50rpx;
+  height: 50rpx;
+  margin-left: 20rpx;
+  margin-top: 24rpx;
+  display: block;
+  float: left;
+}
+
+.userItemText {
+  float: left;
+  line-height: 90rpx;
+  margin-left: 20rpx;
+  font-size: 11pt;
+  color: #32A189;
+}
+
+.userItemArrow {
+  width: 16rpx;
+  height: 26rpx;
+  float: right;
+  margin-top: 36rpx;
+  margin-right: 24rpx;
+}
+
+.foot {
+  width: 100%;
+  height: 160rpx;
+  position: relative;
+}
+
+/*以下从search页面移植过来的样式*/
+.content{
+  width:100%;
+}
+.content-item{
+  width:100%;
+  height:240rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  background-color:white;
+  border-radius:20rpx;
+  margin-bottom:20rpx;
+  box-sizing: border-box;
+  padding:20rpx;
+}
+
+
+.content-block2{
+  width:50%;
+  height:200rpx;
+  display:flex;
+  flex-direction: column;
+  align-items:flex-start;
+  justify-content: space-between;
+}
+.content-text-title{
+  font-size:11pt;
+  color:#32A189;
+}
+.content-text-location{
+  font-size:9pt;
+  color:"#888888";
+  width:80pt;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow:ellipsis;
+}
+.content-text-offertime{
+  font-size:9pt;
+  color:"#888888";
+}
+.content-text-price{
+  font-size:10pt;
+}
+.location-time{
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-start;
+}/*问题：是否这里可以采用text-align来达到相同的效果*/
+.content-bottom{
+  width:90%;
+  display:flex;
+  flex-direction:row;
+  justify-content:space-between;
+  align-items:flex-end;
+}
+.location-text{
+  font-size:6pt;
+}
+/*以上是从search页面移植过来的样式*/

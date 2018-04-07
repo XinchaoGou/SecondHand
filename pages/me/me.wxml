@@ -1,2 +1,95 @@
 <!--pages/me/me.wxml-->
-<text>pages/me/me.wxml</text>
+<view class="container">
+  <!-- 1.头像背景 -->
+  <scroll-view class="scroll" scroll-y>
+
+  <view class="head-background">
+    <image class="userinfo-bgImg" src="{{userInfo.avatarUrl}}"></image>
+  </view>
+
+  <!-- 2.用户信息 -->
+  <view class="userinfo">
+    <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover" />
+    <text class="userinfo-nickname">{{name}}</text>
+    <text class="userProfile" id="userProfile">{{introduction}}</text>
+  </view>
+
+  <!-- 3.我的收藏 -->
+  <view class="userItem">
+    <image class="userItemImg" src="../../images/test/favouriteon.png" />
+    <text class="userItemText">我的收藏</text>
+    <image class="userItemArrow" src="../../images/test/right.png" />
+  </view>
+
+  <!--4.可隐藏显示的----收藏信息加载区域-->
+  <view class="content" wx:if="{{showFavourite}}">
+
+    <!--4.1 收藏--分条---信息加载区域-->
+    <view class="content-item" wx:for="{{contentItems}}" catchtap="itemTap" data-postid="{{index}}">
+      <!--二手物品图片-->
+
+      <image style="height:210rpx; width:280rpx;border-radius:10rpx;" src="{{item.src}}" />
+
+      <!--二手物品交易信息-->
+      <view class="content-block2">
+
+        <text class='content-text-title'>{{item.title}}</text>
+        <view class="location-time">
+          <text class='content-text-location'>{{item.address}}</text>
+          <text class='content-text-offertime'>{{item.date}}</text>
+        </view>
+
+        <view class="content-bottom">
+          <text class='content-text-price'>€ {{item.price}}</text>
+
+        </view>
+
+      </view>
+
+    </view>
+
+  </view>
+
+  <!--5.我的发布-->
+  <view class="userItem" bindtap="detail2">
+    <image class="userItemImg" src="../../images/test/favouriteon.png"/>
+    <text class="userItemText">我的发布</text>
+    <image class="userItemArrow" src="../../images/test/right.png"/>
+  </view>
+
+  <!--6.可隐藏显示的---发布信息加载区域-->
+  <view class="content" wx:if="{{showOffer}}">
+
+
+    <!--6.1 发布---分条---信息加载区域-->
+    <view class="content-item" wx:for="{{contentItems}}" catchtap="itemTap" data-postid="{{index}}">
+      <!--二手物品图片-->
+
+      <image style="height:210rpx; width:280rpx;border-radius:10rpx;" src="{{item.src}}" />
+
+      <!--二手物品交易信息-->
+      <view class="content-block2">
+
+        <text class='content-text-title'>{{item.title}}</text>
+        <view class="location-time">
+          <text class='content-text-location'>{{item.address}}</text>
+          <text class='content-text-offertime'>{{item.date}}</text>
+        </view>
+
+        <view class="content-bottom">
+          <text class='content-text-price'>€ {{item.price}}</text>
+
+        </view>
+
+      </view>
+
+    </view>
+
+  </view>
+
+  <view class="interval" bindtap="collection">
+  </view>
+
+  </scroll-view>
+
+</view>

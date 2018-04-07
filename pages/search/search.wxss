@@ -12,6 +12,7 @@
 .header{
   width:100%;
   padding:20rpx;
+  padding-bottom:0rpx;
   box-sizing: border-box;
   display: flex;
   flex-direction:row;
@@ -135,7 +136,7 @@
 /*yining*/
 .loadingNum{
   padding-left:20rpx;
-  padding-bottom:20rpx;
+  padding-bottom:10rpx;
 }
 .loading-text{
   font-size:9pt;
