@@ -47,6 +47,7 @@
 }
 .offer-description{
   font-size:11pt;
+  text-indent:22pt;
 }
 .offer-info{
   box-sizing: border-box;

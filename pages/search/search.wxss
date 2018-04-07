@@ -132,3 +132,18 @@
   vertical-align: middle;
 }
 
+/*yining*/
+.loadingNum{
+  padding-left:20rpx;
+  padding-bottom:20rpx;
+}
+.loading-text{
+  font-size:9pt;
+  color:gray;
+}
+.weui-load{
+  width: 100%;
+  text-align: center;
+}
+
+
