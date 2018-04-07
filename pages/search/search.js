@@ -15,6 +15,7 @@ Page({
     pageindex: 0, //第几次加载
     callbackcount: 10, //设置每页返回数据的多少
     searchLoadingComplete: false,
+    totalCount: 0
     //favouriteshow: true
   },
 
@@ -23,6 +24,24 @@ Page({
    */
   onLoad: function (options) {
     var that = this;
+    //查询条目数量
+    var Offer = Bmob.Object.extend("Offer");
+    var query = new Bmob.Query(Offer);
+    query.count({
+      success: function(count) {
+        // 查询成功，返回记录数量
+        console.log("共有 " + count + " 条记录");
+        that.setData({
+          totalCount : count
+        })
+      },
+      error: function(error) {
+        // 查询失败
+        console.log("查询总条目数错误");
+        console.log(error);
+      }
+    });
+    //查询数据
     that.searchFromCloud(0, that.data.callbackcount);
     that.setData({
       //重置数据 TODO与data保持一致！
@@ -217,7 +236,7 @@ Page({
     console.log(postId, objectId);
     //修改收藏图片显示
     var isshow = this.data.contentItems[postId].favouriteshow;
-    var str = 'contentItems['+postId+'].favouriteshow';
+    var str = 'contentItems[' + postId + '].favouriteshow';
     this.setData({
       [str]: !isshow
     })
