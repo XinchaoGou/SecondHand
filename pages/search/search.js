@@ -1,5 +1,6 @@
 // pages/search/search.js
 var Bmob = require("../../utils/bmob.js");
+var Utils = require("../../utils/util.js");
 Page({
 
   /**
@@ -92,7 +93,7 @@ Page({
         pageindex: newPageIndex,
         //isHideLoadMore: true
       })
-    } 
+    }
     else {
       //加载完毕，已全部加载
       that.setData({
@@ -169,21 +170,25 @@ Page({
           // 循环处理查询到的数据
           for (var i = 0; i < results.length; i++) {
             var object = results[i];
+            var id = object.id;
             var title = object.get('title');
             var price = object.get('price');
             var address = object.get('address');
             var urls = object.get('picUrlArray');
             if (urls == "") {
-              //设置为默认图片 TODO
-              console.log("图片为空，设置为默认图片TODO");
+              //设置为默认图片 url数组注意
+              urls = ['../../images/test/camera.png'];
             }
-            var mDate = object.createdAt;
+            //时间计算,德国时间加6小时为中国时间
+            var mDate = Utils.getDateDiffWithJetLag(object.createdAt , 6);
+
             var offerItem = {
               title: title,
               price: price,
               address: address,
               src: urls[0],
-              date: mDate
+              date: mDate,
+              id : id
             }
             offerArray.push(offerItem);
             console.log(offerArray);
@@ -205,7 +210,8 @@ Page({
   },
 
   /*点击切换favourite图标 by yining*/
-  favourite_touch: function () {
+  favourite_touch: function (e) {
+    var that = this;
     var isshow = this.data.favouriteshow;
     this.setData({ favouriteshow: !isshow })
   },
