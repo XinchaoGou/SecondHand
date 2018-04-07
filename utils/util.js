@@ -26,21 +26,29 @@ function getDateTimeStamp(dateStr) {
   return Date.parse(dateStr.replace(/-/gi, "/"));
 }
 //格式化时间
-function getDateDiffWithJetLag(dateStr, jetLag) {
+function getDateDiffWithJetLag(dateStr) {
   var publishTime = getDateTimeStamp(dateStr) / 1000;
   var d_seconds;
   var d_minutes;
   var d_hours;
   var d_days;
+  var d;
   //添加周，月份和年份 by xinchao
   var d_weeks;
   var d_months
   var d_years;
 
-  var d;
-  var timeNow = parseInt(new Date().getTime() / 1000) + jetLag * 60 * 60;
+  //东8区，东时区记做正数
+  var zoneOffset = 8;
+  //算出时差,并转换为毫秒：
+  var offset = new Date().getTimezoneOffset() * 60 * 1000;
+  //算出现在的时间：
+  var nowDate = new Date().getTime();
+  //此时东8区的时间
+  var currentZoneDate = new Date(nowDate + offset + zoneOffset * 60 * 60 * 1000);
+  var timeNow = parseInt(currentZoneDate / 1000);
 
-  console.log(timeNow);
+
   d = timeNow - publishTime;
   d_days = parseInt(d / 86400);
   d_hours = parseInt(d / 3600);

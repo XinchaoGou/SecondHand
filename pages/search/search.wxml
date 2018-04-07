@@ -10,8 +10,10 @@
     </view>
 
     <view class="header-block2">
-      <!--头部搜索block2--><!--location图标上暂时设置前往search-section页面的接口，以后需要修改-->
-      <image style="height:40rpx;width:30rpx" src="../../images/test/location.png" bindtap="to_page_search_section"/>
+      <!--头部搜索block2-->
+      <!--location图标上暂时设置前往search-section页面的接口，以后需要修改-->
+      <!--已经修改 by xinchao-->
+      <image style="height:40rpx;width:30rpx" src="../../images/test/location.png"/>
       <text class="location-text">Karlsruhe</text>
     </view>
 
@@ -19,7 +21,7 @@
 
   <view class="content">
     <!--二手信息加载区域-->
-    <view class="content-item" wx:for="{{contentItems}}" catchtap="itemTap" data-postId="{{index}}">
+    <view class="content-item" wx:for="{{contentItems}}" catchtap="itemTap" data-postid="{{index}}">
       <!--二手物品图片-->
 
       <image style="height:210rpx; width:280rpx;border-radius:10rpx;" src="{{item.src}}" />
@@ -35,10 +37,14 @@
 
         <view class="content-bottom">
           <text class='content-text-price'>{{item.price}} €</text>
-          <image wx:if="{{favouriteshow}}" class="favourite" style="height:50rpx; width:50rpx" bindtap="favourite_touch" src='../../images/test/favouriteoff.png'
-          />
-          <image wx:else class="favourite" style="height:50rpx; width:50rpx" bindtap="favourite_touch" src='../../images/test/favouriteon.png'
-          />
+
+          <view class="favourite" catchtap="favourite_touch" data-favouriteid="{{index}}">
+            <image wx:if="{{item.favouriteshow}}" style="height:50rpx; width:50rpx" src='../../images/test/favouriteon.png'
+            />
+            <image wx:else  style="height:50rpx; width:50rpx" src='../../images/test/favouriteoff.png'
+            />
+          </view>
+
         </view>
 
       </view>
