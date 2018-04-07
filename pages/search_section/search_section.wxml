@@ -50,7 +50,7 @@
       </view>
       <view class="offer-section">
         <text class="offer-title-11">价格</text>
-        <text class="offer-cont-11">{{price}}</text>
+        <text class="offer-cont-11">{{price}} €</text>
       </view>
       <view class="offer-section">
         <text class="offer-title-11">物品种类</text>
