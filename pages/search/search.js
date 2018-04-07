@@ -28,14 +28,14 @@ Page({
     var Offer = Bmob.Object.extend("Offer");
     var query = new Bmob.Query(Offer);
     query.count({
-      success: function(count) {
+      success: function (count) {
         // 查询成功，返回记录数量
         console.log("共有 " + count + " 条记录");
         that.setData({
-          totalCount : count
+          totalCount: count
         })
       },
-      error: function(error) {
+      error: function (error) {
         // 查询失败
         console.log("查询总条目数错误");
         console.log(error);
@@ -126,7 +126,7 @@ Page({
 
 
   /**
-   * 设置搜索地址
+   * 设置搜索地址 TODO
    * by xinchao
    */
   setLocation: function () {

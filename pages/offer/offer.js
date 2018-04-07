@@ -132,7 +132,11 @@ Page({
         var wxNumber = e.detail.value.wxNumber;//微信号
         var phoneNumber = e.detail.value.phoneNumber;//手机号
         var eMail = e.detail.value.eMail;//邮箱
-        var picUrlArray = urlArr; //
+        var picUrlArray = urlArr; //图片url
+        //关联发布人
+        var User = Bmob.Object.extend("_User");
+        var publisher = Bmob.Object.createWithoutData("_User", Bmob.User.current().id);
+    
         //上传表单数据到数据库
         var Offer = Bmob.Object.extend("Offer");
         var offer = new Offer();
@@ -143,6 +147,7 @@ Page({
         offer.set("price", parseFloat(price));
         offer.set("content", content);
         offer.set("wxNumber", wxNumber);
+        offer.set("publisher", publisher);
         if (phoneNumber != "") {
           offer.set("phoneNumber", parseInt(phoneNumber));
         }
