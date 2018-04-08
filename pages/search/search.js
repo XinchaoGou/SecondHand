@@ -14,8 +14,9 @@ Page({
     isHideLoadMore: false,
     pageindex: 0, //第几次加载
     callbackcount: 10, //设置每页返回数据的多少
-    searchLoadingComplete: false,
-    totalCount: 0
+    searchLoadingComplete: false, //加载完所有条目
+    totalCount: 0, //查询到的总数目
+    favour: [], //收藏的objectId列表
   },
 
   /**
@@ -40,16 +41,38 @@ Page({
         console.log(error);
       }
     });
+    //查询用户收藏列表
+    var user = Bmob.User.current();
+    console.log(user.id);
+    var relation = user.relation("like");
+    var likeQuery = relation.query();
+    likeQuery.find({
+      success: function (list) {
+        console.log("查询到" + list.length);
+        console.log(list)
+        // list contains post liked by the current user which have the title "I'm Hungry".
+      }
+    });
+
+    // relation.query().find({
+    //   success: function (list) {
+    //     console.log("查询到" + list.length);
+    //     console.log(list)
+    //     // list contains the posts that the current user likes.
+    //   }
+    // });
+
     //查询数据
     that.searchFromCloud(0, that.data.callbackcount);
     that.setData({
       //重置数据 TODO与data保持一致！
+      /*定义search页面加载内容的数组*/
       contentItems: [],
       location: null,
       isHideLoadMore: false,
       pageindex: 0, //第几次加载
       callbackcount: 10, //设置每页返回数据的多少
-      searchLoadingComplete: false,
+      searchLoadingComplete: false, //加载完所有条目
     })
   },
 
@@ -164,6 +187,7 @@ Page({
     console.log(pageindex, callbackcount);
     query.limit(callbackcount);
     query.skip(callbackcount * pageindex);
+    query.descending('createdAt'); //按时间降序排列
     // 查询所有数据
     query.find({
       success: function (results) {
@@ -196,6 +220,7 @@ Page({
             //考虑时差，换算
             var mDate = Utils.getDateDiffWithJetLag(object.createdAt);
 
+
             var offerItem = {
               title: title,
               price: price,
@@ -206,7 +231,6 @@ Page({
               favouriteshow: false
             }
             offerArray.push(offerItem);
-            console.log(offerArray);
           }
           //存储到本地
           that.setData({
