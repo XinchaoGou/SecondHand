@@ -233,7 +233,6 @@ Page({
     var that = this;
     var postId = event.currentTarget.dataset.favouriteid;
     var objectId = that.data.contentItems[postId].id;  // 获得数据库对应objectId
-    console.log(postId, objectId);
     //修改收藏图片显示
     var isshow = this.data.contentItems[postId].favouriteshow;
     var str = 'contentItems[' + postId + '].favouriteshow';
@@ -241,6 +240,28 @@ Page({
       [str]: !isshow
     })
     //修改数据库收藏 TODO
+
+    //获取实例
+    var Offer = Bmob.Object.extend("Offer");
+    var query = new Bmob.Query(Offer);
+    query.get(objectId, {
+      success: function (result) {
+        //将对应ObjectId 的 Offer关联到收藏
+        var user = Bmob.User.current();
+        var relation = user.relation("like");
+        relation.add(result);
+        user.save();
+      },
+      error: function (object, error) {
+        // 查询失败
+        console.log(error);
+      }
+    });
+   
+
+
+    
+
   },
 
   /**
