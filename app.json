@@ -29,8 +29,8 @@
       {
         "pagePath": "pages/me/me",
         "text": "我的",
-        "iconPath": "images/test/tar-topic.png",
-        "selectedIconPath": "images/test/tar-topic-on.png"
+        "iconPath": "images/test/useroff.png",
+        "selectedIconPath": "images/test/useron.png"
       }
     ],
     "borderStyle":"white",

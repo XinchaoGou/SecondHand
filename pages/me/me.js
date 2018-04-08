@@ -15,7 +15,10 @@ Page({
     //imgUrl: null,
     //address: 'China',
     //index: 1,
-    userInfo: {}
+    userInfo: {},
+    //页面隐藏设计添加的变量，by yining
+    showOffer:false,
+    showFavourite:false
   },
 
   detail: function () {
@@ -59,4 +62,18 @@ Page({
       }
     })
   },
+  //页面隐藏设计添加的函数，by yining
+  tofavourite: function(){
+    var switch1 = this.data.showFavourite;
+    this.setData({
+      showFavourite: !switch1
+    })    
+  },
+
+  tooffer:function(){
+    var switch2 = this.data.showOffer;
+    this.setData({
+      showOffer: !switch2
+    }) 
+  }
 })

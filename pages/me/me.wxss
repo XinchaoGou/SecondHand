@@ -142,8 +142,8 @@ page {
 }
 
 .userItemImg {
-  width: 50rpx;
-  height: 50rpx;
+  width: 40rpx;
+  height: 40rpx;
   margin-left: 20rpx;
   margin-top: 24rpx;
   display: block;
@@ -175,6 +175,7 @@ page {
 /*以下从search页面移植过来的样式*/
 .content{
   width:100%;
+  min-height:300rpx;
 }
 .content-item{
   width:100%;

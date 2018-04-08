@@ -15,7 +15,7 @@
   </view>
 
   <!-- 3.我的收藏 -->
-  <view class="userItem">
+  <view class="userItem" catchtap="tofavourite">
     <image class="userItemImg" src="../../images/test/favouriteon.png" />
     <text class="userItemText">我的收藏</text>
     <image class="userItemArrow" src="../../images/test/right.png" />
@@ -51,8 +51,8 @@
   </view>
 
   <!--5.我的发布-->
-  <view class="userItem" bindtap="detail2">
-    <image class="userItemImg" src="../../images/test/favouriteon.png"/>
+  <view class="userItem" catchtap="tooffer">
+    <image class="userItemImg" src="../../images/test/offer.png"/>
     <text class="userItemText">我的发布</text>
     <image class="userItemArrow" src="../../images/test/right.png"/>
   </view>
