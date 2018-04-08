@@ -16,7 +16,6 @@ Page({
     callbackcount: 10, //设置每页返回数据的多少
     searchLoadingComplete: false,
     totalCount: 0
-    //favouriteshow: true
   },
 
   /**
@@ -236,10 +235,6 @@ Page({
     //修改收藏图片显示
     var isshow = this.data.contentItems[postId].favouriteshow;
     var str = 'contentItems[' + postId + '].favouriteshow';
-    this.setData({
-      [str]: !isshow
-    })
-    //修改数据库收藏 TODO
 
     //获取实例
     var Offer = Bmob.Object.extend("Offer");
@@ -249,7 +244,14 @@ Page({
         //将对应ObjectId 的 Offer关联到收藏
         var user = Bmob.User.current();
         var relation = user.relation("like");
-        relation.add(result);
+        //实现数据库端like的同步
+        if (!isshow) {
+          //点击之前为false，点击之后为true，表示收藏
+          relation.add(result);
+        } else {
+          //取消收藏
+          relation.remove(result);
+        }
         user.save();
       },
       error: function (object, error) {
@@ -257,10 +259,17 @@ Page({
         console.log(error);
       }
     });
-   
+
+    this.setData({
+      [str]: !isshow
+    })
+    //修改数据库收藏 TODO
 
 
-    
+
+
+
+
 
   },
 
