@@ -14,9 +14,9 @@ Page({
     isHideLoadMore: false,
     pageindex: 0, //第几次加载
     callbackcount: 10, //设置每页返回数据的多少
-    searchLoadingComplete: false,
-    totalCount: 0
-    //favouriteshow: true
+    searchLoadingComplete: false, //加载完所有条目
+    totalCount: 0, //查询到的总数目
+    favour: [], //收藏的objectId列表
   },
 
   /**
@@ -41,16 +41,38 @@ Page({
         console.log(error);
       }
     });
+    //查询用户收藏列表
+    var user = Bmob.User.current();
+    console.log(user.id);
+    var relation = user.relation("like");
+    var likeQuery = relation.query();
+    likeQuery.find({
+      success: function (list) {
+        console.log("查询到" + list.length);
+        console.log(list)
+        // list contains post liked by the current user which have the title "I'm Hungry".
+      }
+    });
+
+    // relation.query().find({
+    //   success: function (list) {
+    //     console.log("查询到" + list.length);
+    //     console.log(list)
+    //     // list contains the posts that the current user likes.
+    //   }
+    // });
+
     //查询数据
     that.searchFromCloud(0, that.data.callbackcount);
     that.setData({
       //重置数据 TODO与data保持一致！
+      /*定义search页面加载内容的数组*/
       contentItems: [],
       location: null,
       isHideLoadMore: false,
       pageindex: 0, //第几次加载
       callbackcount: 10, //设置每页返回数据的多少
-      searchLoadingComplete: false,
+      searchLoadingComplete: false, //加载完所有条目
     })
   },
 
@@ -165,6 +187,7 @@ Page({
     console.log(pageindex, callbackcount);
     query.limit(callbackcount);
     query.skip(callbackcount * pageindex);
+    query.descending('createdAt'); //按时间降序排列
     // 查询所有数据
     query.find({
       success: function (results) {
@@ -197,6 +220,7 @@ Page({
             //考虑时差，换算
             var mDate = Utils.getDateDiffWithJetLag(object.createdAt);
 
+
             var offerItem = {
               title: title,
               price: price,
@@ -207,7 +231,6 @@ Page({
               favouriteshow: false
             }
             offerArray.push(offerItem);
-            console.log(offerArray);
           }
           //存储到本地
           that.setData({
@@ -233,14 +256,45 @@ Page({
     var that = this;
     var postId = event.currentTarget.dataset.favouriteid;
     var objectId = that.data.contentItems[postId].id;  // 获得数据库对应objectId
-    console.log(postId, objectId);
     //修改收藏图片显示
     var isshow = this.data.contentItems[postId].favouriteshow;
     var str = 'contentItems[' + postId + '].favouriteshow';
+
+    //获取实例
+    var Offer = Bmob.Object.extend("Offer");
+    var query = new Bmob.Query(Offer);
+    query.get(objectId, {
+      success: function (result) {
+        //将对应ObjectId 的 Offer关联到收藏
+        var user = Bmob.User.current();
+        var relation = user.relation("like");
+        //实现数据库端like的同步
+        if (!isshow) {
+          //点击之前为false，点击之后为true，表示收藏
+          relation.add(result);
+        } else {
+          //取消收藏
+          relation.remove(result);
+        }
+        user.save();
+      },
+      error: function (object, error) {
+        // 查询失败
+        console.log(error);
+      }
+    });
+
     this.setData({
       [str]: !isshow
     })
     //修改数据库收藏 TODO
+
+
+
+
+
+
+
   },
 
   /**
