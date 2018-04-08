@@ -143,7 +143,7 @@ font-size:14px;
 .mod-big{
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   height: 250rpx;
   padding: 0 20rpx;
@@ -154,6 +154,7 @@ font-size:14px;
   right:10px;
   bottom:0;
   color:#b2b2b2;
+  font-size:11pt;
   text-align:right;
 }
 
@@ -377,5 +378,18 @@ overflow:hidden;
   flex-direction:row;
   justify-content:flex-start;
   align-items:center;
+}
+.section{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items:center;
+  height: 90rpx;
+  padding: 0 40rpx;
+  flex-wrap:nowrap;
+
+  border: 1px solid #f0f0f0;
+  background-color: white;
+  border-radius:20rpx;
 }
 

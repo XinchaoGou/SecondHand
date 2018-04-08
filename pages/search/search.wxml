@@ -1,7 +1,7 @@
 <!--pages/search/search.wxml-->
 <view class="container">
 
-  <scroll-view class="scroll" scroll-y>
+  <scroll-view class="scroll" bindscrolltoupper="touchTOP" bindscrolltolower="touchBottom" scroll-y>
     <view class="header">
       <!--头部搜索-->
       <!--头部搜索block1-->
@@ -17,7 +17,6 @@
         <image style="height:40rpx;width:30rpx" src="../../images/test/location.png" />
         <text class="location-text">Karlsruhe</text>
       </view>
-
     </view>
 
     <view class="loadingNum">
@@ -60,5 +59,6 @@
     <view class="weui-load" hidden="{{!searchLoadingComplete}}">
       <text class="weui-loadmore__tips" style="padding-bottom:20rpx;font-size:10pt;color:gray;">当前内容已全部加载</text>
     </view>
+    
   </scroll-view>
 </view>

@@ -1,25 +1,26 @@
 <!--pages/offer/offer.wxml-->
 <!-- 二手信息发布 -->
+
 <view class="container">
   <scroll-view class="scroll" scroll-y>
-    <!-- 表单验证 -->
+    <!-- 表单验证--输入错误提示模块-->
     <view class="weui-toptips weui-toptips_warn" wx:if="{{showTopTips}}">{{TopTips}}</view>
     <form bindsubmit="submitForm">
 
       <!-- 发布标题 -->
-      <view class="mod-a">
-        <view class="mod t-name">
-          <text class="section-title">发布标题</text>
-          <view class="section-right">
-            <input name="title" class="input" maxlength="100" placeholder-style="color:#b2b2b2" placeholder="请输入标题" value="{{title}}" />
-          </view>
+
+      <view class="section t-name">
+        <text class="section-title">发布标题</text>
+        <view class="section-right">
+          <input name="title" class="input" maxlength="100" placeholder-style="color:#b2b2b2" placeholder="请输入标题" value="{{title}}" />
         </view>
       </view>
 
+
       <!-- 物品类别，交易地点及物品价格 -->
-      <view class="mod-a mt20">
+      
         <!-- 物品类别 -->
-        <view class="mod t-sign-time">
+        <view class="section t-sign-time">
           <text class="section-title">物品类别</text>
           <picker bindchange="bindTypeChange" value="{{typeIndex}}" range="{{types}}">
             <view class="value" name="types">
@@ -30,7 +31,7 @@
         </view>
 
         <!-- 交易地点 -->
-        <view class="mod t-address">
+        <view class="section t-address">
           <text class="section-title">地点</text>
           <view class="section-right">
             <text name="address" class="value" bindtap="addressChange" value="{{address}}">{{address}}</text>
@@ -39,19 +40,19 @@
         </view>
 
         <!-- 物品价格 TODO-->
-        <view class="mod t-name">
+        <view class="section t-name">
           <text class="section-title">价格</text>
           <view class="section-right">
             <input name="price" type="number" class="input" maxlength="100" placeholder-style="color:#b2b2b2" placeholder="请输入价格" value="{{price}}" />
             <text class="euro">€</text>
           </view>
         </view>
-      </view>
+    
 
       <!-- 物品内容详情 -->
       <view class="mod-a mt20">
         <view class="mod-big my-nick">
-          <textarea name="content" class="weui-textarea" placeholder="请输入物品详情" value="{{content}}" style="height:200rpx;font-size:11pt" bindinput="bindTextAreaChange" maxlength="{{noteMaxLen}}" />
+          <textarea name="content" class="weui-textarea" placeholder-style="color:#b2b2b2;font-size:11pt" placeholder="请输入物品详情" value="{{content}}" style="height:200rpx;font-size:11pt" bindinput="bindTextAreaChange" maxlength="{{noteMaxLen}}" />
           <view class="chnumber">{{noteNowLen}}/{{noteMaxLen}}</view>
         </view>
       </view>
