@@ -5,10 +5,10 @@
   <scroll-view class="scroll" scroll-y>
     <!--1. 图片幻灯片显示模块-->
     <view class="swiper">
-      <swiper indicator-dots="{{true}}" indicator-active-color="#32A189" autoplay="{{false}}" style="width:100%">
+      <swiper indicator-dots="{{true}}" indicator-active-color="#32A189" autoplay="{{false}}" class="swiper1">
         <block wx:for="{{urls}}">
           <swiper-item>
-            <image src="{{item}}" class="slide-image" />
+            <image src="{{item}}" class="slide-image" mode="center"/>
             <!--此处需要查询image-align的相关功能-->
           </swiper-item>
         </block>
