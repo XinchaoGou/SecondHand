@@ -372,6 +372,34 @@ Page({
     wx.navigateTo({
       url: '../search_section/search_section?id=' + objectId
     })
+  },
+
+  touchTOP: function (event) {
+    var that = this;
+    wx.vibrateShort();  // 使手机振动15ms  
+    wx.showNavigationBarLoading() //在标题栏中显示加载
+    this.onLoad();
+    // complete
+    wx.hideNavigationBarLoading() //完成停止加载
+    wx.stopPullDownRefresh() //停止下拉刷新
+  },
+
+  touchBottom: function (event) {
+    var that = this;
+    var newPageIndex = that.data.pageindex + 1;
+    that.searchFromCloud(newPageIndex, that.data.callbackcount);
+    //未搜索到底则递增分页
+    if (!that.data.searchLoadingComplete) {
+      that.setData({
+        pageindex: newPageIndex,
+      })
+    }
+    else {
+      //加载完毕，已全部加载
+      that.setData({
+        isHideLoadMore: true
+      });
+    }
   }
 
 })
