@@ -34,7 +34,6 @@ Page({
     } else {
       favor = true;
     }
-    console.log(favor);
     that.setData({
       offerId: objectId,
       favouriteshow: favor
@@ -51,12 +50,7 @@ Page({
         var type = result.get('typeName');
         var address = result.get('address');
         var content = result.get('content');
-        // var phoneNumber = parseInt(result.get('phoneNumber'));
         var phoneNumber = result.get('phoneNumber');
-        if (phoneNumber == null) {
-
-          console.log("电话号码为");
-        }
         var urls = result.get('picUrlArray');
         if (urls == "") {
           //设置为默认图片 url数组注意
@@ -142,8 +136,9 @@ Page({
     var that = this;
     var phoneNumber = that.data.phoneNumber;
     if (phoneNumber == null) {
-
       console.log("电话号码为空");
+      // TODO电话号码为空
+
     } else {
 
       phoneNumber = that.data.phoneNumber.toString();
