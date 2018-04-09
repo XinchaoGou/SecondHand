@@ -27,8 +27,8 @@
 
       <!--2.1  发布人联系方式和喜爱收藏显示模块-->
       <view class="offer-contact">
-        <button class="contact-but" catchtap="wx-contact">微信联系卖主</button>
-        <view class="contact-middle" catchtap="phone-contact">
+        <button class="contact-but" catchtap="wx_contact">微信联系卖主</button>
+        <view class="contact-middle" catchtap="phone_contact">
           <image src="../../images/test/phonecall.png" style="width:80rpx;height:80rpx" />
           <text class="offer-title-11">给卖主打电话</text>
         </view>
