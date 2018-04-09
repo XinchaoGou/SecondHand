@@ -16,9 +16,9 @@ Page({
     urls: [],
     picNumber: 0,
     date: "",
-    phoneNumber: "",
+    phoneNumber: 0,
     favouriteshow: false,
-    offerId : ""
+    offerId: ""
 
   },
 
@@ -31,13 +31,13 @@ Page({
     var favor = false;
     if (options.favor == 'false') {
       favor = false;
-    } else{
+    } else {
       favor = true;
     }
     console.log(favor);
     that.setData({
-      offerId : objectId,
-      favouriteshow : favor
+      offerId: objectId,
+      favouriteshow: favor
     })
     //查询数据
     var Offer = Bmob.Object.extend("Offer");
@@ -53,6 +53,10 @@ Page({
         var content = result.get('content');
         // var phoneNumber = parseInt(result.get('phoneNumber'));
         var phoneNumber = result.get('phoneNumber');
+        if (phoneNumber == null) {
+
+          console.log("电话号码为");
+        }
         var urls = result.get('picUrlArray');
         if (urls == "") {
           //设置为默认图片 url数组注意
@@ -136,16 +140,24 @@ Page({
    */
   phone_contact: function () {
     var that = this;
-    var phoneNumber = that.data.phoneNumber.toString();
-    wx.makePhoneCall({  
-      phoneNumber: phoneNumber, //此号码并非真实电话号码，仅用于测试  
-      success:function(){  
-        console.log("拨打电话成功！")  
-      },  
-      fail:function(){  
-        console.log("拨打电话失败！")  
-      }  
-    })  
+    var phoneNumber = that.data.phoneNumber;
+    if (phoneNumber == null) {
+
+      console.log("电话号码为空");
+    } else {
+
+      phoneNumber = that.data.phoneNumber.toString();
+
+      wx.makePhoneCall({
+        phoneNumber: phoneNumber, //此号码并非真实电话号码，仅用于测试  
+        success: function () {
+          console.log("拨打电话成功！")
+        },
+        fail: function () {
+          console.log("拨打电话失败！")
+        }
+      })
+    }
   },
 
   /**
@@ -155,11 +167,13 @@ Page({
   favourite_touch: function (event) {
     var that = this;
     //修改收藏图片显示
-    var isshow = this.data.favouriteshow;
+    var isshow = that.data.favouriteshow;
 
-    this.setData({
+    that.setData({
       favouriteshow: !isshow
     })
+
+
 
     //获取实例
     var Offer = Bmob.Object.extend("Offer");
