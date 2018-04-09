@@ -10,7 +10,7 @@
     "navigationBarTextStyle": "white",
     "navigationBarBackgroundColor":"32A189",
     "navigationBarTitleText": "卡鲁二手交流平台",
-    "backgroundColor": "#fff"
+    "backgroundColor": "#EFEFF4"
   },
   "tabBar": {
     "list": [
