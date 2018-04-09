@@ -14,7 +14,7 @@
         <view class="section t-name">
           <text class="section-title">发布标题</text>
         </view>
-        <view class="section t-name">
+        <view class="section underline t-name">
           <input name="title" class="input" maxlength="30" placeholder-style="color:#b2b2b2" placeholder="请输入标题" value="{{title}}" />
         </view>
       </view>
@@ -23,7 +23,7 @@
       <!--2.2 物品类别，交易地点及物品价格 -->
       <view class="section-big style1">
         <!-- 2.2.1 物品类别 -->
-        <view class="section t-sign-time">
+        <view class="section underline t-sign-time">
           <text class="section-title">物品类别</text>
           <picker bindchange="bindTypeChange" value="{{typeIndex}}" range="{{types}}">
             <view class="value" name="types">
@@ -38,14 +38,13 @@
           <text class="section-title">地点</text>
         </view>
         <!-- 2.2.3 交易地点换行 -->
-        <view class="section t-address" catchtap="addressChange">
-
+        <view class="section underline t-address" catchtap="addressChange">
           <text name="address" class="title" value="{{address}}">{{address}}</text>
           <image class="arrow-r" src="../../images/more/enter.png" />
         </view>
 
         <!-- 2.2.4 物品价格 TODO-->
-        <view class="section t-name">
+        <view class="section underline t-name">
           <text class="section-title">价格</text>
           <view class="section-right">
             <input name="price" type="number" class="value" maxlength="100" placeholder-class="inputStyle" placeholder="请输入价格" value="{{price}}" />
@@ -55,23 +54,31 @@
       </view>
 
       <!-- 2.3 物品内容以及添加图片--显示模块 -->
-      <!-- 2.3.1 物品图片 TODO-->
       <view class="section-big style1 mt20">
-        <view class="mod-big my-nick">
-          <textarea name="content" class="weui-textarea " placeholder-style="color:#b2b2b2;font-size:11pt" placeholder="请输入物品详情" value="{{content}}" style="height:200rpx;font-size:11pt" bindinput="bindTextAreaChange" maxlength="{{noteMaxLen}}" />
+
+
+        <!-- 2.3.1 显示已添加图片 TODO-->
+        <scroll-view class="scroll-x" scroll-x>
+          <block wx:if="{{isSrc}}">
+            <view class="picPre">
+              <image src="{{src}}" mode="aspectFit"></image>
+              <view bindtap="clearPic"></view>
+            </view>
+          </block>
+          <!-- 2.3.2 物品图片 TODO-->
+          <view class="add_pic" bindtap="uploadPic" wx-if="{{!isSrc}}">
+            <view>添加图片（选）</view>
+          </view>
+        </scroll-view>
+
+        <!-- 2.3.3 物品详情--多行文字输入模块-->
+        <view class="mod-big underline my-nick">
+          <textarea name="content" class="weui-textarea" placeholder-style="color:#b2b2b2;font-size:11pt" placeholder="请输入物品详情" value="{{content}}" style="height:200rpx;font-size:11pt" bindinput="bindTextAreaChange" maxlength="{{noteMaxLen}}" />
           <view class="chnumber">{{noteNowLen}}/{{noteMaxLen}}</view>
         </view>
-        <!-- 2.3.2 物品图片 TODO-->
-        <view class="add_pic" bindtap="uploadPic" wx-if="{{!isSrc}}">
-          <view>添加图片（选）</view>
-        </view>
-        <!-- 2.3.3 显示以添加图片 TODO-->
-        <view wx:if="{{isSrc}} " class="image_box ">
-          <view class="picPre ">
-            <image src="{{src}} " mode="aspectFit "></image>
-            <view bindtap="clearPic "></view>
-          </view>
-        </view>
+
+
+
       </view>
 
       <!-- 3.联系方式 -->
