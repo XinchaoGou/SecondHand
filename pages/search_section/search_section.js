@@ -18,7 +18,8 @@ Page({
     date: "",
     phoneNumber: 0,
     favouriteshow: false,
-    offerId: ""
+    offerId: "",
+    postId: 0,
 
   },
 
@@ -28,6 +29,7 @@ Page({
   onLoad: function (options) {
     var that = this;
     var objectId = options.id;
+    var postId = options.postId;
     var favor = false;
     if (options.favor == 'false') {
       favor = false;
@@ -36,7 +38,8 @@ Page({
     }
     that.setData({
       offerId: objectId,
-      favouriteshow: favor
+      favouriteshow: favor,
+      postId : postId
     })
     //查询数据
     var Offer = Bmob.Object.extend("Offer");
@@ -167,6 +170,15 @@ Page({
     that.setData({
       favouriteshow: !isshow
     })
+    //修改父视图中的值
+    var searchPage = getCurrentPages()[getCurrentPages().length - 2];
+    var postId = that.data.postId;
+    var str = 'contentItems[' + postId + '].favouriteshow';
+
+    searchPage.setData({
+      [str]: !isshow
+    })
+
 
 
 

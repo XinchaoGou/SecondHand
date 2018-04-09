@@ -371,7 +371,8 @@ Page({
     console.log(favor);
     //跳转条目详情
     wx.navigateTo({
-      url: '../search_section/search_section?id=' + objectId + '&favor=' + favor
+      url: '../search_section/search_section?id=' + objectId + '&favor=' + favor 
+      + '&postId=' + postId
     })
   },
 
