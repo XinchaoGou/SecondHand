@@ -357,7 +357,6 @@ Page({
         console.log(error);
       }
     });
-
   },
 
   /**
@@ -368,12 +367,15 @@ Page({
     var that = this;
     var postId = event.currentTarget.dataset.postid;
     var objectId = that.data.contentItems[postId].id;  // 获得数据库对应objectId
+    var favor = that.data.contentItems[postId].favouriteshow;
+    console.log(favor);
     //跳转条目详情
     wx.navigateTo({
-      url: '../search_section/search_section?id=' + objectId
+      url: '../search_section/search_section?id=' + objectId + '&favor=' + favor
     })
   },
 
+  //TODO 可以删除
   touchTOP: function (event) {
     // var that = this;
     // wx.vibrateShort();  // 使手机振动15ms  
@@ -383,23 +385,23 @@ Page({
     // wx.hideNavigationBarLoading() //完成停止加载
     // wx.stopPullDownRefresh() //停止下拉刷新
   },
-
+  //TODO 可以删除
   touchBottom: function (event) {
-    var that = this;
-    var newPageIndex = that.data.pageindex + 1;
-    that.searchFromCloud(newPageIndex, that.data.callbackcount);
-    //未搜索到底则递增分页
-    if (!that.data.searchLoadingComplete) {
-      that.setData({
-        pageindex: newPageIndex,
-      })
-    }
-    else {
-      //加载完毕，已全部加载
-      that.setData({
-        isHideLoadMore: true
-      });
-    }
+    // var that = this;
+    // var newPageIndex = that.data.pageindex + 1;
+    // that.searchFromCloud(newPageIndex, that.data.callbackcount);
+    // //未搜索到底则递增分页
+    // if (!that.data.searchLoadingComplete) {
+    //   that.setData({
+    //     pageindex: newPageIndex,
+    //   })
+    // }
+    // else {
+    //   //加载完毕，已全部加载
+    //   that.setData({
+    //     isHideLoadMore: true
+    //   });
+    // }
   }
 
 })

@@ -32,7 +32,10 @@
           <image src="../../images/test/phonecall.png" style="width:80rpx;height:80rpx" />
           <text class="offer-title-11">给卖主打电话</text>
         </view>
-        <image src="../../images/test/favouriteoff.png" class="favourite" catchtap="favourite_switch" />
+        <view class="favourite" catchtap="favourite_touch">
+          <image wx:if="{{favouriteshow}}" style="height:50rpx; width:50rpx" src='../../images/test/favouriteon.png' />
+          <image wx:else style="height:50rpx; width:50rpx" src='../../images/test/favouriteoff.png' />
+        </view>
       </view>
 
       <!--2.2  发布内容主标题和描述文字显示模块-->

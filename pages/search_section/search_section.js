@@ -16,7 +16,9 @@ Page({
     urls: [],
     picNumber: 0,
     date: "",
-    phoneNumber: ""
+    phoneNumber: "",
+    favouriteshow: false,
+    offerId : ""
 
   },
 
@@ -26,6 +28,17 @@ Page({
   onLoad: function (options) {
     var that = this;
     var objectId = options.id;
+    var favor = false;
+    if (options.favor == 'false') {
+      favor = false;
+    } else{
+      favor = true;
+    }
+    console.log(favor);
+    that.setData({
+      offerId : objectId,
+      favouriteshow : favor
+    })
     //查询数据
     var Offer = Bmob.Object.extend("Offer");
     var query = new Bmob.Query(Offer);
@@ -123,7 +136,7 @@ Page({
    */
   phone_contact: function () {
     var that = this;
-    var phoneNumber = this.data.phoneNumber.toString();
+    var phoneNumber = that.data.phoneNumber.toString();
     wx.makePhoneCall({  
       phoneNumber: phoneNumber, //此号码并非真实电话号码，仅用于测试  
       success:function(){  
@@ -134,4 +147,43 @@ Page({
       }  
     })  
   },
+
+  /**
+   * 点击收藏图标绑定事件，修改图标，修改数据库
+   * by xinchao
+   */
+  favourite_touch: function (event) {
+    var that = this;
+    //修改收藏图片显示
+    var isshow = this.data.favouriteshow;
+
+    this.setData({
+      favouriteshow: !isshow
+    })
+
+    //获取实例
+    var Offer = Bmob.Object.extend("Offer");
+    var query = new Bmob.Query(Offer);
+    query.get(that.data.offerId, {
+      success: function (result) {
+        //将对应ObjectId 的 Offer关联到收藏
+        var user = Bmob.User.current();
+        var relation = user.relation("like");
+        //实现数据库端like的同步
+        if (!isshow) {
+          //点击之前为false，点击之后为true，表示收藏
+          relation.add(result);
+        } else {
+          //取消收藏
+          relation.remove(result);
+        }
+        user.save();
+      },
+      error: function (object, error) {
+        // 查询失败
+        console.log(error);
+      }
+    });
+  },
+
 })
