@@ -39,10 +39,9 @@ font-size:14px;
 }
 
 .add_pic view {
-  display: inline-block;
   margin-top: 20rpx;
-  width: 430rpx;
-  height: 200rpx;
+  width: 180rpx;
+  height: 180rpx;
   line-height: 200rpx;
   text-align: center;
   background: url(http://bmob-cdn-14867.b0.upaiyun.com/2017/11/23/e93d28a14095af18801d3c1c68e08fe7.png) no-repeat left center;
@@ -72,8 +71,7 @@ font-size:14px;
 }
 
 .picPre {
-  width: 50%;
-  margin: 0 auto;
+  width: 180rpx;
   position: relative;
   box-sizing: border-box;
 }
@@ -404,11 +402,15 @@ overflow:hidden;
 .inputStyle{
   color:#b2b2b2;font-size:11pt
 }
-.scroll-x{
+.scrollx{
+  width:100%;
+}
+.scrollstyle{
   width:100%;
   display:flex;
   flex-direction:row;
   justify-content:flex-start;
   align-items:center;
   flex-wrap:nowrap;
+  padding-top:20rpx;
 }

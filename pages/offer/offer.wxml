@@ -53,21 +53,23 @@
         </view>
       </view>
 
-      <!-- 2.3 物品内容以及添加图片--显示模块 -->
+      <!-- 2.3 物品内容以及添加图片显示模块 -->
       <view class="section-big style1 mt20">
 
 
         <!-- 2.3.1 显示已添加图片 TODO-->
-        <scroll-view class="scroll-x" scroll-x>
-          <block wx:if="{{isSrc}}">
-            <view class="picPre">
-              <image src="{{src}}" mode="aspectFit"></image>
-              <view bindtap="clearPic"></view>
+        <scroll-view class="scrollx" scroll-x>
+          <view class="scrollstyle underline">
+            <view wx:if="{{isSrc}}">
+              <view class="picPre">
+                <image src="{{src}}" mode="aspectFit" />
+                <view bindtap="clearPic"></view>
+              </view>
             </view>
-          </block>
-          <!-- 2.3.2 物品图片 TODO-->
-          <view class="add_pic" bindtap="uploadPic" wx-if="{{!isSrc}}">
-            <view>添加图片（选）</view>
+            <!-- 2.3.2 物品图片 TODO-->
+            <view class="add_pic" bindtap="uploadPic" wx-if="true">
+              <view></view>
+            </view>
           </view>
         </scroll-view>
 

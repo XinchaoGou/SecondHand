@@ -13,6 +13,7 @@
 } 
 .swiper{
   width:100%;
+  
   position:relative;
 }
 .swiper-bottom{
@@ -122,4 +123,8 @@
 }
 .slide-image{
   width:100%;
+  height:600rpx;
+}
+.swiper1{
+  height:600rpx;
 }
