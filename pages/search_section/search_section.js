@@ -16,6 +16,7 @@ Page({
     urls: [],
     picNumber: 0,
     date: "",
+    phoneNumber: ""
 
   },
 
@@ -37,6 +38,8 @@ Page({
         var type = result.get('typeName');
         var address = result.get('address');
         var content = result.get('content');
+        // var phoneNumber = parseInt(result.get('phoneNumber'));
+        var phoneNumber = result.get('phoneNumber');
         var urls = result.get('picUrlArray');
         if (urls == "") {
           //设置为默认图片 url数组注意
@@ -56,6 +59,7 @@ Page({
           urls: urls,
           picNumber: picNumber,
           date: date,
+          phoneNumber: phoneNumber
         })
 
       },
@@ -112,5 +116,22 @@ Page({
    */
   onShareAppMessage: function () {
 
-  }
+  },
+
+  /**
+   * 打电话
+   */
+  phone_contact: function () {
+    var that = this;
+    var phoneNumber = this.data.phoneNumber.toString();
+    wx.makePhoneCall({  
+      phoneNumber: phoneNumber, //此号码并非真实电话号码，仅用于测试  
+      success:function(){  
+        console.log("拨打电话成功！")  
+      },  
+      fail:function(){  
+        console.log("拨打电话失败！")  
+      }  
+    })  
+  },
 })
