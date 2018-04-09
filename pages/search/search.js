@@ -25,47 +25,50 @@ Page({
   onLoad: function (options) {
     var that = this;
     //查询条目数量
-    var Offer = Bmob.Object.extend("Offer");
-    var query = new Bmob.Query(Offer);
-    query.count({
-      success: function (count) {
-        // 查询成功，返回记录数量
-        console.log("共有 " + count + " 条记录");
-        that.setData({
-          totalCount: count
-        })
-      },
-      error: function (error) {
-        // 查询失败
-        console.log("查询总条目数错误");
-        console.log(error);
-      }
-    });
+    that.searchTotalCount();
     //查询用户收藏列表
-    var user = Bmob.User.current();
-    console.log(user.id);
-    var relation = user.relation("like");
-    var likeQuery = relation.query();
-    likeQuery.find({
-      success: function (list) {
-        console.log("查询到" + list.length);
-        console.log(list)
-        // list contains post liked by the current user which have the title "I'm Hungry".
-      }
+    const promise = new Promise(function (resolve, reject) {
+      //查询用户收藏列表
+      var User = Bmob.Object.extend("_User");
+      var query = new Bmob.Query(User);
+      query.get(Bmob.User.current().id, {
+        success: function (result) {
+          // 查询成功
+          console.log("查询当前用户成功");
+          var relation = result.relation('like');
+          var query = relation.query();
+          query.find({
+            success: function (list) {
+              console.log("查询到" + list.length + "条收藏");
+              var favourArray = [];
+              for (let i = 0; i < list.length; i++) {
+                favourArray.push(list[i].id);
+              }
+              that.setData({
+                favour: favourArray
+              });
+              resolve(favourArray);
+            }
+          });
+        },
+        error: function (object, error) {
+          // 查询失败
+          console.log("查询当前用户失败");
+          reject(error);
+        }
+      });
+    });
+    //查询数据
+    promise.then(function(favourArray) {
+      // success
+      that.searchFromCloud(0, that.data.callbackcount);
+    }, function(error) {
+      // failure
+      console.log(error);
     });
 
-    // relation.query().find({
-    //   success: function (list) {
-    //     console.log("查询到" + list.length);
-    //     console.log(list)
-    //     // list contains the posts that the current user likes.
-    //   }
-    // });
-
-    //查询数据
-    that.searchFromCloud(0, that.data.callbackcount);
+    //重置数据 TODO与data保持一致！
     that.setData({
-      //重置数据 TODO与data保持一致！
       /*定义search页面加载内容的数组*/
       contentItems: [],
       location: null,
@@ -172,6 +175,67 @@ Page({
   },
 
   /**
+   * 查询条目数量 TODO  封装
+   * by xinchao
+   */
+  searchTotalCount: function () {
+    var that = this;
+    //查询条目数量
+    var Offer = Bmob.Object.extend("Offer");
+    var query = new Bmob.Query(Offer);
+    query.count({
+      success: function (count) {
+        // 查询成功，返回记录数量
+        console.log("共有 " + count + " 条记录");
+        that.setData({
+          totalCount: count
+        })
+      },
+      error: function (error) {
+        // 查询失败
+        console.log("查询总条目数错误");
+        console.log(error);
+      }
+    });
+  },
+
+  /**
+   * 查询用户收藏列表 TOTO 封装
+   * by xinchao
+   */
+  searchFavouriteList: function () {
+    var that = this;
+    //查询用户收藏列表
+    var User = Bmob.Object.extend("_User");
+    var query = new Bmob.Query(User);
+    query.get(Bmob.User.current().id, {
+      success: function (result) {
+        // 查询成功
+        console.log("查询当前用户成功");
+        var relation = result.relation('like');
+        var query = relation.query();
+        query.find({
+          success: function (list) {
+            // list contains post liked by the current user which have the title "I'm Hungry".
+            console.log("查询到" + list.length + "条收藏");
+            var favourArray = [];
+            for (let i = 0; i < list.length; i++) {
+              favourArray.push(list[i].id);
+            }
+            that.setData({
+              favour: favourArray
+            });
+          }
+        });
+      },
+      error: function (object, error) {
+        // 查询失败
+        console.log("查询当前用户失败");
+      }
+    });
+  },
+
+  /**
    * 查询服务器
    * pageindex: 分页页码
    * callbackcount : 每页返回数据数目
@@ -220,6 +284,12 @@ Page({
             //考虑时差，换算
             var mDate = Utils.getDateDiffWithJetLag(object.createdAt);
 
+            //收藏
+            var favouriteshow = false;
+            console.log(id, );
+            if (that.data.favour.indexOf(id) > -1) {
+              favouriteshow = true;
+            }
 
             var offerItem = {
               title: title,
@@ -228,7 +298,7 @@ Page({
               src: urls[0],
               date: mDate,
               id: id,
-              favouriteshow: false
+              favouriteshow: favouriteshow
             }
             offerArray.push(offerItem);
           }
@@ -260,6 +330,10 @@ Page({
     var isshow = this.data.contentItems[postId].favouriteshow;
     var str = 'contentItems[' + postId + '].favouriteshow';
 
+    this.setData({
+      [str]: !isshow
+    })
+
     //获取实例
     var Offer = Bmob.Object.extend("Offer");
     var query = new Bmob.Query(Offer);
@@ -284,17 +358,6 @@ Page({
       }
     });
 
-    this.setData({
-      [str]: !isshow
-    })
-    //修改数据库收藏 TODO
-
-
-
-
-
-
-
   },
 
   /**
@@ -309,8 +372,6 @@ Page({
     wx.navigateTo({
       url: '../search_section/search_section?id=' + objectId
     })
-
-
   }
 
 })
