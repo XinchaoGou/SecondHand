@@ -141,12 +141,12 @@ font-size:14px;
 }
 
 .mod-big{
+  width:100%;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   height: 250rpx;
-  padding: 0 20rpx;
   position:relative;
 }
 .chnumber{
@@ -157,11 +157,11 @@ font-size:14px;
   font-size:11pt;
   text-align:right;
 }
-
+/*选择箭头定义样式*/
 .arrow-r{
   width: 9rpx;
   height: 17rpx;
-  margin-left: 6pt;
+  margin-left: 12rpx;
 }
 
 .arrow-d{
@@ -175,6 +175,7 @@ font-size:14px;
 }
 .t-sign-time .value{
   text-align: right;
+  right:11pt;
   width: 510rpx;
   overflow: hidden;
   font-size:11pt;
@@ -193,11 +194,9 @@ font-size:14px;
 }
 
 .t-name .input{
-  text-align: right;
-  width: 510rpx;
+  width: 100%;
   overflow: hidden;
   font-size:11pt;
-  height: 44rpx;
 }
 
 .t-address, .t-sign-time, .t-time{
@@ -296,6 +295,7 @@ overflow:hidden;
 .confirm-btn:active {
   opacity: .8;
 }
+/*点击同意后的发布须知--弹窗样式*/
 .notice {
   position: absolute;
   z-index: 100;
@@ -370,8 +370,8 @@ overflow:hidden;
 }
 .euro{
   font-size:11pt;
-  margin-left: 10rpx;
   color:#b2b2b2;
+  margin-left:10rpx;
 }
 .section-right{
   display:flex;
@@ -380,16 +380,38 @@ overflow:hidden;
   align-items:center;
 }
 .section{
+  width:100%;
+  box-sizing: border-box;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items:center;
   height: 90rpx;
-  padding: 0 40rpx;
   flex-wrap:nowrap;
-
+  border-bottom: 1px solid #f0f0f0;
+}
+.pad{
+  padding: 0 40rpx;
+}
+.style1{
   border: 1px solid #f0f0f0;
   background-color: white;
   border-radius:20rpx;
 }
-
+.section-big{
+  width:100%;
+  box-sizing: border-box;
+  display:flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items:flex-start;
+  padding: 0 40rpx;
+  margin-top:20rpx;
+}
+.title{
+  font-size:11pt;
+  color:#b2b2b2;
+}
+.inputStyle{
+  color:#b2b2b2;font-size:11pt
+}

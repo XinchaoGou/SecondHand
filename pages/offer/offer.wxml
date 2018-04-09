@@ -3,23 +3,26 @@
 
 <view class="container">
   <scroll-view class="scroll" scroll-y>
-    <!-- 表单验证--输入错误提示模块-->
+    <!-- 1.表单验证--输入错误提示模块--正常情况下隐藏-->
     <view class="weui-toptips weui-toptips_warn" wx:if="{{showTopTips}}">{{TopTips}}</view>
     <form bindsubmit="submitForm">
 
-      <!-- 发布标题 -->
+      <!-- 2.发布内容主页面-->
 
-      <view class="section t-name">
-        <text class="section-title">发布标题</text>
-        <view class="section-right">
-          <input name="title" class="input" maxlength="100" placeholder-style="color:#b2b2b2" placeholder="请输入标题" value="{{title}}" />
+      <!-- 2.1 发布标题 -->
+      <view class="section-big style1">
+        <view class="section t-name">
+          <text class="section-title">发布标题</text>
+        </view>
+        <view class="section t-name">
+          <input name="title" class="input" maxlength="30" placeholder-style="color:#b2b2b2" placeholder="请输入标题" value="{{title}}" />
         </view>
       </view>
 
 
-      <!-- 物品类别，交易地点及物品价格 -->
-      
-        <!-- 物品类别 -->
+      <!--2.2 物品类别，交易地点及物品价格 -->
+      <view class="section-big style1">
+        <!-- 2.2.1 物品类别 -->
         <view class="section t-sign-time">
           <text class="section-title">物品类别</text>
           <picker bindchange="bindTypeChange" value="{{typeIndex}}" range="{{types}}">
@@ -30,99 +33,102 @@
           </picker>
         </view>
 
-        <!-- 交易地点 -->
+        <!-- 2.2.2 交易地点 -->
         <view class="section t-address">
           <text class="section-title">地点</text>
-          <view class="section-right">
-            <text name="address" class="value" bindtap="addressChange" value="{{address}}">{{address}}</text>
-            <image class="arrow-r" src="../../images/more/enter.png" />
-          </view>
+        </view>
+        <!-- 2.2.3 交易地点换行 -->
+        <view class="section t-address" catchtap="addressChange">
+
+          <text name="address" class="title" value="{{address}}">{{address}}</text>
+          <image class="arrow-r" src="../../images/more/enter.png" />
         </view>
 
-        <!-- 物品价格 TODO-->
+        <!-- 2.2.4 物品价格 TODO-->
         <view class="section t-name">
           <text class="section-title">价格</text>
           <view class="section-right">
-            <input name="price" type="number" class="input" maxlength="100" placeholder-style="color:#b2b2b2" placeholder="请输入价格" value="{{price}}" />
+            <input name="price" type="number" class="value" maxlength="100" placeholder-class="inputStyle" placeholder="请输入价格" value="{{price}}" />
             <text class="euro">€</text>
           </view>
         </view>
-    
+      </view>
 
-      <!-- 物品内容详情 -->
-      <view class="mod-a mt20">
+      <!-- 2.3 物品内容以及添加图片--显示模块 -->
+      <!-- 2.3.1 物品图片 TODO-->
+      <view class="section-big style1 mt20">
         <view class="mod-big my-nick">
-          <textarea name="content" class="weui-textarea" placeholder-style="color:#b2b2b2;font-size:11pt" placeholder="请输入物品详情" value="{{content}}" style="height:200rpx;font-size:11pt" bindinput="bindTextAreaChange" maxlength="{{noteMaxLen}}" />
+          <textarea name="content" class="weui-textarea " placeholder-style="color:#b2b2b2;font-size:11pt" placeholder="请输入物品详情" value="{{content}}" style="height:200rpx;font-size:11pt" bindinput="bindTextAreaChange" maxlength="{{noteMaxLen}}" />
           <view class="chnumber">{{noteNowLen}}/{{noteMaxLen}}</view>
         </view>
-      </view>
-
-      <!-- 物品图片 TODO-->
-      <view class="add_pic" bindtap="uploadPic" wx-if="{{!isSrc}}">
-        <view>添加图片（选）</view>
-      </view>
-      <!-- 显示以添加图片 TODO-->
-      <view wx:if="{{isSrc}}" class="image_box">
-        <view class="picPre">
-          <image src="{{src}}" mode="aspectFit"></image>
-          <view bindtap="clearPic"></view>
+        <!-- 2.3.2 物品图片 TODO-->
+        <view class="add_pic" bindtap="uploadPic" wx-if="{{!isSrc}}">
+          <view>添加图片（选）</view>
+        </view>
+        <!-- 2.3.3 显示以添加图片 TODO-->
+        <view wx:if="{{isSrc}} " class="image_box ">
+          <view class="picPre ">
+            <image src="{{src}} " mode="aspectFit "></image>
+            <view bindtap="clearPic "></view>
+          </view>
         </view>
       </view>
 
-
-
-      <!-- 联系方式 -->
+      <!-- 3.联系方式 -->
+      <!--点击同意后showInput取反，点击同意后方才显示，否则隐藏-->
       <view class="mod-a mt20" wx:if="{{showInput}}">
         <!-- 微信号 -->
-        <view class="mod t-name">
+        <view class="mod t-name ">
           <text class="key">微信号</text>
-          <input name="wxNumber" class="input" maxlength="100" placeholder="请输入微信号" value="{{wxNumber}}" />
-          <image class="arrow-r" src="../../images/more/enter.png"></image>
+          <input name="wxNumber " class="input" maxlength="30" placeholder="请输入微信号 " value="{{wxNumber}} " />
+          <image class="arrow-r " src="../../images/more/enter.png "></image>
         </view>
-
-        <view class="mod-a"></view>
 
         <!-- 手机号码 -->
         <view class="mod t-name">
-          <text class="key">手机号</text>
-          <input name="phoneNumber" type="number" class="input" placeholder="请输入号码" value="{{phoneNumber}}" />
-          <image class="arrow-r" src="../../images/more/enter.png"></image>
+          <text class="key ">手机号</text>
+          <input name="phoneNumber " type="number " class="input" placeholder="请输入号码 " value="{{phoneNumber}}" />
+          <image class="arrow-r " src="../../images/more/enter.png "></image>
         </view>
 
-        <view class="mod-a"></view>
+        <view class="mod-a "></view>
 
         <!-- 邮箱 -->
         <view class="mod t-name">
-          <text class="key">邮箱</text>
-          <input name="eMail" class="input" placeholder="请输入邮箱" value="{{eMail}}" />
-          <image class="arrow-r" src="../../images/more/enter.png"></image>
+          <text class="key ">邮箱</text>
+          <input name="eMail " class="input " placeholder="请输入邮箱 " value="{{eMail}} " />
+          <image class="arrow-r " src="../../images/more/enter.png "></image>
         </view>
 
       </view>
 
       <!-- 阅读并同意 -->
-      <view class="mod-a mt20">
-        <checkbox-group bindchange="bindAgreeChange">
-          <label class="weui-agree" for="weuiAgree">
-            <view class="weui-agree__text">
-              <checkbox class="weui-agree__checkbox" id="weuiAgree" value="agree" checked="{{isAgree}}" />
-              <view class="weui-agree__checkbox-icon">
-                <icon class="weui-agree__checkbox-icon-check" type="success_no_circle" size="9" wx:if="{{isAgree}}"></icon>
+      <view class="mod-a mt20 ">
+        <!--bindAgreeChange为点击同意的事件监听-->
+        <checkbox-group bindchange="bindAgreeChange ">
+          <label class="weui-agree " for="weuiAgree ">
+            <view class="weui-agree__text ">
+              <checkbox class="weui-agree__checkbox " id="weuiAgree " value="agree " checked="{{isAgree}} " />
+              <view class="weui-agree__checkbox-icon ">
+                <icon class="weui-agree__checkbox-icon-check " type="success_no_circle " size="9 " wx:if="{{isAgree}} "></icon>
               </view>
               阅读并同意
-              <view bindtap="showNotice" class="weui-agree__link">
+              <view bindtap="showNotice " class="weui-agree__link ">
                 《发布须知》
               </view>
             </view>
           </label>
         </checkbox-group>
-        <view class="submit-btn">
-          <button class='button' loading="{{isLoading}}" hover-start-time="200" disabled="{{isdisabled}}" formType="submit">发布</button>
+        <view class="submit-btn ">
+          <button class='button' loading="{{isLoading}} " hover-start-time="200 " disabled="{{isdisabled}} " formType="submit ">发布</button>
         </view>
+
       </view>
+
     </form>
   </scroll-view>
 </view>
+
 <!-- 发布须知 -->
 <view class="notice" id="notice" wx:if="{{notice_status}}" bindtap="tapNotice">
   <view class="box">
