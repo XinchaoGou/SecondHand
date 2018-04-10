@@ -49,9 +49,34 @@ Page({
 
     query.find({
       success: function (results) {
-        console.log("查询到" + results.length + "条收藏");
+        console.log("查询到" + results.length + "条发布");
+        var offerArray = [];
+        for (let i = 0; i < results.length; i++) {
+          var object = results[i];
+          var id = object.id;
+          var title = object.get('title');
+          var price = object.get('price');
+          var address = object.get('address');
+          var urls = object.get('picUrlArray');
+          if (urls == "") {
+            //设置为默认图片 url数组注意
+            urls = ['../../images/test/camera.png'];
+          }
+          //考虑时差，换算
+          var mDate = Utils.getDateDiffWithJetLag(object.createdAt);
+          var offerItem = {
+            title: title,
+            price: price,
+            address: address,
+            src: urls[0],
+            date: mDate,
+            id: id,
+          }
+          offerArray.push(offerItem);
+        }
+
         that.setData({
-          offerItems: results
+          offerItems: offerArray
         })
       },
       error: function (error) {
