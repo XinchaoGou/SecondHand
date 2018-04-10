@@ -60,14 +60,14 @@
         <!-- 2.3.1 显示已添加图片 TODO-->
         <scroll-view class="scrollx" scroll-x>
           <view class="scrollstyle underline">
-            <view wx:if="{{isSrc}}">
+            <view wx:if="{{isSrc}}" wx:for="{{tempFilePaths}}" >
               <view class="picPre">
-                <image src="{{src}}" mode="aspectFit" />
-                <view bindtap="clearPic"></view>
+                <image src="{{item}}" mode="aspectFit" />
+                <view bindtap="clearPic" data-clearid="{{index}}"></view>
               </view>
             </view>
             <!-- 2.3.2 物品图片 TODO-->
-            <view class="add_pic" bindtap="uploadPic" wx-if="true">
+            <view class="add_pic" bindtap="uploadPic" wx-if="{{!is9}}">
               <view></view>
             </view>
           </view>

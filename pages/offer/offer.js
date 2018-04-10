@@ -303,11 +303,21 @@ Page({
     })
   },
   //删除图片 TODO
-  clearPic: function () {//删除图片
+  clearPic: function (event) {//删除图片
+    var that = this;
+    var postId = event.currentTarget.dataset.clearid;
+    var tFilePaths = that.data.tempFilePaths;
+    console.log(tFilePaths.splice(postId, 1));
+    // tFilePaths = ;
+
+//     var arr = ['a','b','c','d'];
+// arr.splice(1,1);
+// console.log(arr);  
+//['a','c','d']; 
+
     that.setData({
-      isSrc: false,
       is9: false,
-      tempFilePaths: []
+      tempFilePaths: tFilePaths
     })
   },
 
