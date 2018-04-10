@@ -8,7 +8,8 @@ Page({
     warnSize: 'default',
     imgUrl: null,
     userInfo: {},
-    contentItems: [],
+    favorItems: [],
+    offerItems: [],
 
     //页面隐藏设计添加的变量，by yining
     showOffer: false,
@@ -27,9 +28,37 @@ Page({
       })
     })
     that.searchFavouriteList();
+    that.searchOfferList();
   },
 
+  /*
+   * 查询用户的所有发布
+   * by xinchao
+   */
+  searchOfferList: function () {
+    var that = this;
+    var currentUser = Bmob.User.current();
+    var objectId = currentUser.id;
 
+    var Offer = Bmob.Object.extend("Offer");
+    var query = new Bmob.Query(Offer);
+    var isme = new Bmob.User();
+    isme.id = objectId;     //当前用户的objectId
+    query.equalTo("publisher", isme);
+    query.descending('createdAt');  //排序
+
+    query.find({
+      success: function (results) {
+        console.log("查询到" + results.length + "条收藏");
+        that.setData({
+          offerItems: results
+        })
+      },
+      error: function (error) {
+        console.log("查询失败: " + error.code + " " + error.message);
+      }
+    });
+  },
 
   /**
    * 查询用户收藏列表封装
@@ -71,12 +100,12 @@ Page({
                 src: urls[0],
                 date: mDate,
                 id: id,
-                favouriteshow: true
+                // favouriteshow: true
               }
               favourArray.push(offerItem);
             }
             that.setData({
-              contentItems: favourArray
+              favorItems: favourArray
             });
           }
         });
