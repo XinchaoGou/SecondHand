@@ -4,14 +4,13 @@
   <scroll-view class="scroll" scroll-y>
 
   <view class="head-background">
-    <image class="userinfo-bgImg" src="{{userInfo.avatarUrl}}"></image>
+    <image class="userinfo-bgImg" src="{{imgUrl}}"></image>
   </view>
 
   <!-- 2.用户信息 -->
   <view class="userinfo">
-    <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover" />
+    <image class="userinfo-avatar" src="{{imgUrl}}" background-size="cover" />
     <text class="userinfo-nickname">{{name}}</text>
-    <text class="userProfile" id="userProfile">{{introduction}}</text>
   </view>
 
   <!-- 3.我的收藏 -->

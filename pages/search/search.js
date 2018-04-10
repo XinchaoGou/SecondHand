@@ -286,7 +286,6 @@ Page({
 
             //收藏
             var favouriteshow = false;
-            console.log(id, );
             if (that.data.favour.indexOf(id) > -1) {
               favouriteshow = true;
             }
