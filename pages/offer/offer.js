@@ -307,13 +307,8 @@ Page({
     var that = this;
     var postId = event.currentTarget.dataset.clearid;
     var tFilePaths = that.data.tempFilePaths;
-    console.log(tFilePaths.splice(postId, 1));
-    // tFilePaths = ;
-
-//     var arr = ['a','b','c','d'];
-// arr.splice(1,1);
-// console.log(arr);  
-//['a','c','d']; 
+    tFilePaths.splice(postId, 1);
+    
 
     that.setData({
       is9: false,
