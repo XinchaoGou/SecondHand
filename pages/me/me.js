@@ -30,12 +30,21 @@ Page({
 
   },
 
-    //TODO
-    onShow: function () {
-      var that = this;
-      that.searchFavouriteList();
-      that.searchOfferList();
-    },
+  //TODO
+  onShow: function () {
+    var that = this;
+    that.searchFavouriteList();
+    that.searchOfferList();
+  },
+
+  //分享 TODO
+  onShareAppMessage: function () {
+    return {
+      title: '自定义分享标题',
+      desc: '自定义分享描述',
+      path: '/page/user?id=123'
+    }
+  },
 
   /*
    * 查询用户的所有发布
@@ -148,6 +157,40 @@ Page({
     });
   },
 
+  /**
+   * 点击某一个收藏条目查看详情
+   * by xinchao
+   */
+  favorItemTap: function (event) {
+    var that = this;
+    var postId = event.currentTarget.dataset.postid;
+    var objectId = that.data.favorItems[postId].id;  // 获得数据库对应objectId
+    var favor = that.data.favorItems[postId].favouriteshow;
+    console.log(favor);
+    //跳转条目详情
+    wx.navigateTo({
+      url: '../search_section/search_section?id=' + objectId + '&favor=' + favor
+        + '&postId=' + postId
+    })
+  },
+
+  /**
+   * 点击某一个发布条目查看详情
+   * by xinchao
+   */
+  offerItemTap: function (event) {
+    var that = this;
+    var postId = event.currentTarget.dataset.postid;
+    var objectId = that.data.offerItems[postId].id;  // 获得数据库对应objectId
+    var favor = that.data.offerItems[postId].favouriteshow;
+    console.log(favor);
+    //跳转条目详情
+    wx.navigateTo({
+      url: '../search_section/search_section?id=' + objectId + '&favor=' + favor
+        + '&postId=' + postId
+    })
+  },
+
   //页面隐藏设计添加的函数，by yining
   tofavourite: function () {
     var that = this;
@@ -165,12 +208,4 @@ Page({
     })
   },
 
-  //分享 TODO
-  onShareAppMessage: function () {
-    return {
-      title: '自定义分享标题',
-      desc: '自定义分享描述',
-      path: '/page/user?id=123'
-    }
-  },
 })

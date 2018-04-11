@@ -24,7 +24,7 @@
   <view class="content" wx:if="{{showFavourite}}">
 
     <!--4.1 收藏--分条---信息加载区域-->
-    <view class="content-item" wx:for="{{favorItems}}" catchtap="itemTap" data-postid="{{index}}">
+    <view class="content-item" wx:for="{{favorItems}}" catchtap="favorItemTap" data-postid="{{index}}">
       <!--二手物品图片-->
 
       <image style="height:210rpx; width:280rpx;border-radius:10rpx;" src="{{item.src}}" />
@@ -61,7 +61,7 @@
 
 
     <!--6.1 发布---分条---信息加载区域-->
-    <view class="content-item" wx:for="{{offerItems}}" catchtap="itemTap" data-postid="{{index}}">
+    <view class="content-item" wx:for="{{offerItems}}" catchtap="offerItemTap" data-postid="{{index}}">
       <!--二手物品图片-->
 
       <image style="height:210rpx; width:280rpx;border-radius:10rpx;" src="{{item.src}}" />
