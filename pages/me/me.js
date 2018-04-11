@@ -27,9 +27,15 @@ Page({
         imgUrl: userInfo.avatarUrl
       })
     })
-    that.searchFavouriteList();
-    that.searchOfferList();
+
   },
+
+    //TODO
+    onShow: function () {
+      var that = this;
+      that.searchFavouriteList();
+      that.searchOfferList();
+    },
 
   /*
    * 查询用户的所有发布
@@ -159,10 +165,6 @@ Page({
     })
   },
 
-  //TODO
-  onShow: function () {
-
-  },
   //分享 TODO
   onShareAppMessage: function () {
     return {
