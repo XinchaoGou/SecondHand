@@ -115,6 +115,7 @@ Page({
         console.log("查询当前用户成功");
         var relation = result.relation('like');
         var query = relation.query();
+        query.descending('createdAt');  //排序
         query.find({
           success: function (list) {
             // list contains post liked by the current user which have the title "I'm Hungry".
@@ -133,7 +134,7 @@ Page({
               }
               //考虑时差，换算
               var mDate = Utils.getDateDiffWithJetLag(object.createdAt);
-              var offerItem = {
+              var favorItem = {
                 title: title,
                 price: price,
                 address: address,
@@ -142,7 +143,7 @@ Page({
                 id: id,
                 // favouriteshow: true
               }
-              favourArray.push(offerItem);
+              favourArray.push(favorItem);
             }
             that.setData({
               favorItems: favourArray
@@ -182,7 +183,9 @@ Page({
     var that = this;
     var postId = event.currentTarget.dataset.postid;
     var objectId = that.data.offerItems[postId].id;  // 获得数据库对应objectId
-    var favor = that.data.offerItems[postId].favouriteshow;
+    // var favor = that.data.offerItems[postId].favouriteshow;
+    //TODO
+    var favor = false;
     console.log(favor);
     //跳转条目详情
     wx.navigateTo({
