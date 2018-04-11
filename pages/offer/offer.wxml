@@ -62,7 +62,7 @@
           <view class="scrollstyle underline">
             <view wx:if="{{isSrc}}" wx:for="{{tempFilePaths}}" >
               <view class="picPre">
-                <image src="{{item}}" mode="aspectFit" />
+                <image src="{{item}}" mode="aspectFill" />
                 <view bindtap="clearPic" data-clearid="{{index}}"></view>
               </view>
             </view>

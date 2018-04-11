@@ -72,21 +72,23 @@ font-size:14px;
 
 .picPre {
   width: 180rpx;
-  position: relative;
   box-sizing: border-box;
+  position: relative;
+  margin-right:25rpx;
 }
 
 .picPre image {
   width: 100%;
   height: 180rpx;
+  border:2px solid #32A189;
 }
 
 .picPre view {
   position: absolute;
-  right: 0px;
+  right: -20rpx;
   top: -20rpx;
-  width: 15px;
-  height: 15px;
+  width: 50rpx;
+  height: 50rpx;
   background: url(http://bmob-cdn-14867.b0.upaiyun.com/2017/11/23/b93323e440f4c3998034dbb9011a1e1d.png) no-repeat;
   background-size: cover;
 }
@@ -140,7 +142,7 @@ font-size:14px;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  height: 250rpx;
+  min-height: 300rpx;
   position:relative;
 }
 .chnumber{
