@@ -27,8 +27,23 @@ Page({
         imgUrl: userInfo.avatarUrl
       })
     })
+
+  },
+
+  //TODO
+  onShow: function () {
+    var that = this;
     that.searchFavouriteList();
     that.searchOfferList();
+  },
+
+  //分享 TODO
+  onShareAppMessage: function () {
+    return {
+      title: '自定义分享标题',
+      desc: '自定义分享描述',
+      path: '/page/user?id=123'
+    }
   },
 
   /*
@@ -100,6 +115,7 @@ Page({
         console.log("查询当前用户成功");
         var relation = result.relation('like');
         var query = relation.query();
+        query.descending('createdAt');  //排序
         query.find({
           success: function (list) {
             // list contains post liked by the current user which have the title "I'm Hungry".
@@ -118,7 +134,7 @@ Page({
               }
               //考虑时差，换算
               var mDate = Utils.getDateDiffWithJetLag(object.createdAt);
-              var offerItem = {
+              var favorItem = {
                 title: title,
                 price: price,
                 address: address,
@@ -127,7 +143,7 @@ Page({
                 id: id,
                 // favouriteshow: true
               }
-              favourArray.push(offerItem);
+              favourArray.push(favorItem);
             }
             that.setData({
               favorItems: favourArray
@@ -140,6 +156,42 @@ Page({
         console.log("查询当前用户失败");
       }
     });
+  },
+
+  /**
+   * 点击某一个收藏条目查看详情
+   * by xinchao
+   */
+  favorItemTap: function (event) {
+    var that = this;
+    var postId = event.currentTarget.dataset.postid;
+    var objectId = that.data.favorItems[postId].id;  // 获得数据库对应objectId
+    var favor = that.data.favorItems[postId].favouriteshow;
+    console.log(favor);
+    //跳转条目详情
+    wx.navigateTo({
+      url: '../search_section/search_section?id=' + objectId + '&favor=' + favor
+        + '&postId=' + postId
+    })
+  },
+
+  /**
+   * 点击某一个发布条目查看详情
+   * by xinchao
+   */
+  offerItemTap: function (event) {
+    var that = this;
+    var postId = event.currentTarget.dataset.postid;
+    var objectId = that.data.offerItems[postId].id;  // 获得数据库对应objectId
+    // var favor = that.data.offerItems[postId].favouriteshow;
+    //TODO
+    var favor = false;
+    console.log(favor);
+    //跳转条目详情
+    wx.navigateTo({
+      url: '../search_section/search_section?id=' + objectId + '&favor=' + favor
+        + '&postId=' + postId
+    })
   },
 
   //页面隐藏设计添加的函数，by yining
@@ -159,16 +211,4 @@ Page({
     })
   },
 
-  //TODO
-  onShow: function () {
-
-  },
-  //分享 TODO
-  onShareAppMessage: function () {
-    return {
-      title: '自定义分享标题',
-      desc: '自定义分享描述',
-      path: '/page/user?id=123'
-    }
-  },
 })
