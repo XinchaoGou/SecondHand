@@ -11,6 +11,8 @@ Page({
     //表单验证相关 TODO
     showTopTips: false,
     TopTips: '',
+    //发布标题
+    focus: false,
     //物品类别
     types: ["电子产品", "学习资料", "家具", "其他"],
     typeIndex: "0",
@@ -422,6 +424,13 @@ Page({
       })
     }
   },
+
+  inputTap: function () {
+    this.setData({
+      focus: true
+    })
+  },
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

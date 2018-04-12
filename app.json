@@ -7,8 +7,8 @@
     "pages/search_sublevel1/search_sublevel1"
   ],
   "window": {
+    "navigationBarBackgroundColor": "#32A189",
     "navigationBarTextStyle": "white",
-    "navigationBarBackgroundColor":"32A189",
     "navigationBarTitleText": "卡鲁二手交流平台",
     "backgroundColor": "#EFEFF4"
   },
@@ -33,11 +33,10 @@
         "selectedIconPath": "images/test/useron.png"
       }
     ],
-    "borderStyle":"white",
-    "color":"gray",
-    "selectedColor":"black",
-    "backgroundColor":"#EFEFF4"
-    
+    "color":"#888888",
+    "selectedColor":"#000000",
+    "backgroundColor":"#EFEFF4",
+    "borderStyle": "white"
   },
   "networkTimeout": {
     "request": 10000,

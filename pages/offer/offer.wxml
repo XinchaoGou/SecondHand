@@ -10,12 +10,12 @@
     <!-- 2.发布内容主页面-->
 
     <!-- 2.1 发布标题 -->
-    <view class="section-big style1">
+    <view class="section-big style1" bindtap="inputTap">
       <view class="section t-name">
         <text class="section-title">发布标题</text>
       </view>
       <view class="section underline t-name">
-        <input name="title" class="input" maxlength="30" placeholder-style="color:#b2b2b2" placeholder="请输入标题" value="{{title}}" />
+        <input name="title" class="input" maxlength="30"  placeholder="请输入标题" value="{{title}}" focus="{{focus}}" />
       </view>
     </view>
 
@@ -34,14 +34,17 @@
       </view>
 
       <!-- 2.2.2 交易地点 -->
-      <view class="section t-address">
-        <text class="section-title">地点</text>
-      </view>
-      <!-- 2.2.3 交易地点换行 -->
-      <view class="section underline t-address" catchtap="addressChange">
-        <text name="address" class="title" value="{{address}}">{{address}}</text>
-        <image class="arrow-r" src="../../images/more/enter.png" />
-      </view>
+      <block catchtap="addressChange">
+        <view class="section">
+          <text class="section-title">地点</text>
+        </view>
+        <!-- 2.2.3 交易地点换行 -->
+        <view class="section underline t-name">
+          <text name="address" class="input" value="{{address}}">{{address}}</text>
+          <image class="arrow-r" src="../../images/more/enter.png" />
+        </view>
+      </block>
+
 
       <!-- 2.2.4 点选是否设置物品价格 TODO-->
       <view class="section t-name">
@@ -55,7 +58,7 @@
       <!-- 2.2.4.1 价格设置 -->
 
       <view wx:if="{{priceHide}}" class="section underline t-name">
-        <input name="price" type="number" class="input" maxlength="100" placeholder-class="inputStyle" placeholder="请输入价格" value="{{price}}" />
+        <input name="price" type="number" class="input" maxlength="100" confirm-hold="false" placeholder-class="inputStyle" placeholder="请输入价格" value="{{price}}" confirm-type="done" />
         <text class="euro">€</text>
       </view>
     </view>
@@ -81,9 +84,12 @@
     </view>
 
     <!-- 2.3.3 物品详情--多行文字输入模块-->
-    <view class="section-big style3 mt20">
+    <view class="section-big style1 mt20">
+      <view class="section t-name">
+        <text class="section-title">物品详情</text>
+      </view>
       <view class="section2 underline my-nick">
-        <textarea name="content" class="textarea" placeholder-class="inputStyle" placeholder="请输入物品详情" value="{{content}}" bindinput="bindTextAreaChange" maxlength="{{noteMaxLen}}" />
+        <textarea name="content" class="textarea" placeholder-class="inputStyle" placeholder="请输入物品详情，字数限制在200字以内" value="{{content}}" bindinput="bindTextAreaChange" maxlength="{{noteMaxLen}}" />
         <view class="chnumber">{{noteNowLen}}/{{noteMaxLen}}</view>
       </view>
     </view>
