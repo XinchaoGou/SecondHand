@@ -165,7 +165,7 @@ font-size:14px;
   overflow: hidden;
   font-size:11pt;
   height: 44rpx;
-  color:black;
+  color:#353535;
 }
 .t-early .value{
   padding-right: 20rpx;
@@ -174,7 +174,7 @@ font-size:14px;
   text-align: right;
   width: 510rpx;
   overflow: hidden;
-  color:#888888;
+  color:#353535;
   font-size:11pt; 
 }
 
@@ -182,7 +182,7 @@ font-size:14px;
   width: 100%;
   overflow: hidden;
   font-size:11pt;
-  color: #888888;
+  color: #353535;
   text-align: left;
 }
 
@@ -356,7 +356,7 @@ overflow:hidden;
 }
 .euro{
   font-size:11pt;
-  color:black;
+  color:#353535;
   margin-left:10rpx;
 }
 .section-right{
@@ -447,6 +447,7 @@ overflow:hidden;
   left:0rpx;
   width:100%;
   font-size:11pt;
+  color:#353535;
 }
 .section2{
   width:100%;
