@@ -9,7 +9,7 @@
 
   <!-- 2.用户信息 -->
   <view class="userinfo">
-    <image class="userinfo-avatar" src="{{imgUrl}}" background-size="cover" />
+    <image background-size="cover" class="userinfo-avatar" src="{{imgUrl}}" />
     <text class="userinfo-nickname">{{name}}</text>
   </view>
 
@@ -17,7 +17,8 @@
   <view class="userItem" catchtap="tofavourite">
     <image class="userItemImg" src="../../images/test/favouriteon.png" />
     <text class="userItemText">我的收藏</text>
-    <image class="userItemArrow" src="../../images/test/right.png" />
+    <image wx:if="{{!showFavourite}}" class="userItemArrow" src="../../images/test/right.png" />
+    <image wx:else class="userItemArrow1" src="../../images/more/down.png"/>
   </view>
 
   <!--4.可隐藏显示的----收藏信息加载区域-->
@@ -27,7 +28,7 @@
     <view class="content-item" wx:for="{{favorItems}}" catchtap="itemTap" data-postid="{{index}}">
       <!--二手物品图片-->
 
-      <image style="height:210rpx; width:280rpx;border-radius:10rpx;" src="{{item.src}}" />
+      <image mode="aspectFill" style="height:210rpx; width:280rpx;border-radius:10rpx;" src="{{item.src}}" />
 
       <!--二手物品交易信息-->
       <view class="content-block2">
@@ -53,7 +54,8 @@
   <view class="userItem" catchtap="tooffer">
     <image class="userItemImg" src="../../images/test/offer.png"/>
     <text class="userItemText">我的发布</text>
-    <image class="userItemArrow" src="../../images/test/right.png"/>
+    <image wx:if="{{!showOffer}}" class="userItemArrow" src="../../images/test/right.png"/>
+    <image wx:else class="userItemArrow1" src="../../images/more/down.png"/>
   </view>
 
   <!--6.可隐藏显示的---发布信息加载区域-->

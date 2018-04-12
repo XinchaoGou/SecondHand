@@ -1,8 +1,4 @@
 /* pages/me/me.wxss */
-page {
-  background-color: #f4f4f4;
-}
-
 .container {
   height:100%;
   width:100%;
@@ -29,11 +25,7 @@ page {
   -ms-filter: blur(5px);
   filter: blur(5px);
   z-index: -9999;
-}
-
-.returnBar {
-  position: absolute;
-  width: 100%;
+  position: relative;
 }
 
 .leftArrow {
@@ -58,16 +50,15 @@ page {
 }
 /*用户信息--背景样式 引入*/
 .userinfo {
-  /*display: flex;*/
   width: 100%;
-  height: 120rpx;
-  flex-direction: column;
-  background: #f4f4f4;
+  height: 100rpx;
+  background:rgb(239,239,244);
   margin-top: -7rpx;
   padding-bottom: 15rpx;
 }
 /*用户信息--图片样式 引入*/
 .userinfo-avatar {
+  position: absolute;
   float: left;
   width: 160rpx;
   height: 160rpx;
@@ -78,9 +69,9 @@ page {
 }
 /*用户信息--昵称--文字样式 引入*/
 .userinfo-nickname {
-  font-size: 32rpx;
-  color: #555;
-  padding: 24rpx 20rpx 0 0;
+  font-size: 13pt;
+  color: #32A189;
+  padding: 24rpx 20rpx 0 200rpx;
   float: left;
 }
 /*用户信息--昵称--文字样式 该样式引入*/
@@ -133,7 +124,7 @@ page {
 .userItem {
   width: 100%;
   height: 90rpx;
-  border-bottom: 1px solid #eee;
+  border-top: 1px solid rgb(239,239,244);
   background-color: white;
 }
 
@@ -146,7 +137,6 @@ page {
   height: 40rpx;
   margin-left: 20rpx;
   margin-top: 24rpx;
-  display: block;
   float: left;
 }
 
@@ -165,7 +155,13 @@ page {
   margin-top: 36rpx;
   margin-right: 24rpx;
 }
-
+.userItemArrow1 {
+  width: 40rpx;
+  height: 35rpx;
+  float: right;
+  margin-top: 36rpx;
+  margin-right: 14rpx;
+}
 .foot {
   width: 100%;
   height: 160rpx;
@@ -176,6 +172,8 @@ page {
 .content{
   width:100%;
   min-height:300rpx;
+  padding-top:20rpx;
+  background-color:white;
 }
 .content-item{
   width:100%;
@@ -184,7 +182,6 @@ page {
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  background-color:white;
   border-radius:20rpx;
   margin-bottom:20rpx;
   box-sizing: border-box;

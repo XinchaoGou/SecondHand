@@ -20,6 +20,7 @@ Page({
     latitude: 0,//纬度
     //物品价格 TODO
     // price: 0,
+    priceHide:false,
     //物品内容
     content: "",
     noteNowLen: 0,//备注当前字数
@@ -405,6 +406,21 @@ Page({
       });
     }, 700);
     return flag;
+  },
+
+  /*
+  * 设置价格switch组件事件监听函数，by yining
+  */ 
+  switch1Change: function (e) {
+    if (e.detail.value == false) {
+      this.setData({
+        priceHide: false
+      })
+    } else if (e.detail.value == true) {
+      this.setData({
+        priceHide: true
+      })
+    }
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
