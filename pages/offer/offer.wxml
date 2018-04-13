@@ -94,7 +94,7 @@
         <view class="chnumber">{{noteNowLen}}/{{noteMaxLen}}</view>
       </view>
     </view>
-
+    <view class="mod-a mt20"></view>
     <!-- 3.联系方式 -->
     <!--点击同意后showInput取反，点击同意后方才显示，否则隐藏-->
     <view class="section-big style1 mt20" wx:if="{{showInput}}">
@@ -112,6 +112,7 @@
         <image class="arrow-r" src="../../images/more/enter.png"></image>
       </view>
 
+      <!--此处加入另外一个视图防止上推时出现bug-->
       <view class="mod-a"></view>
 
       <!-- 邮箱 -->
@@ -134,16 +135,15 @@
               <icon class="weui-agree__checkbox-icon-check" type="success_no_circle" size="9" wx:if="{{isAgree}}"></icon>
             </view>
             阅读并同意
-            <view bindtap="showNotice" class="weui-agree__link">
+            <view catchtap="showNotice" class="weui-agree__link">
               《发布须知》
             </view>
           </view>
         </label>
       </checkbox-group>
       <view class="submit-btn">
-        <button class='button' loading="{{isLoading}}" hover-start-time="200" disabled="{{isdisabled}}" formType="submit">发布</button>
+        <button class="button" loading="{{isLoading}}" hover-start-time="200" disabled="{{isdisabled}}" formType="submit">发布</button>
       </view>
-
     </view>
 
   </form>
@@ -151,11 +151,11 @@
 </view>
 
 <!-- 发布须知 -->
-<view class="notice" id="notice" wx:if="{{notice_status}}" bindtap="tapNotice">
+<view class="notice" id="notice" wx:if="{{notice_status}}" bindtap="hideNotice">
   <view class="box">
     <view class="box-hd">
       <text class="box-title">发布须知</text>
-      <image class="box-close" src="/images/more/close.png" bindtap="hideNotice"></image>
+      <image class="box-close" src="/images/more/close.png" catchtap="hideNotice"></image>
     </view>
     <view class="box-bd">
       <view class="notice-q">1、为什么需要填写联系方式等信息？</view>
