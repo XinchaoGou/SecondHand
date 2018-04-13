@@ -24,8 +24,18 @@ Page({
     //地图加载相关
     latitude: 0,
     longitude: 0,
-    markers : [],
-
+    markers: [],
+    controls: [{
+      id: 1,
+      iconPath: '/images/icon/wx.png',
+      position: {
+        left: 20,
+        top: 20,
+        width: 50,
+        height: 50
+      },
+      clickable: true
+    }]
   },
 
   /**
@@ -44,7 +54,7 @@ Page({
     that.setData({
       offerId: objectId,
       favouriteshow: favor,
-      postId : postId
+      postId: postId
     })
     //查询数据
     var Offer = Bmob.Object.extend("Offer");
@@ -88,8 +98,8 @@ Page({
           phoneNumber: phoneNumber,
 
           //地图相关
-          latitude : latitude,
-          longitude : longitude,
+          latitude: latitude,
+          longitude: longitude,
           [StrLatitude]: latitude,
           [StrLongitude]: longitude,
           [StrName]: title,
@@ -222,6 +232,28 @@ Page({
         console.log(error);
       }
     });
+  },
+
+  /**
+   * 点击地图置位控件
+   * by xinchao
+   */
+  controltap: function (event) {
+    var that = this;
+    var StrLatitude = 'markers[0].latitude';
+    var StrLongitude = 'markers[0].longitude';
+    var StrName = 'markers[0].name';
+    var latitude = that.data.latitude;
+    var longitude = that.data.longitude;
+    var title = that.data.title;
+    that.setData({
+      //地图相关
+      latitude: latitude,
+      longitude: longitude,
+      [StrLatitude]: latitude,
+      [StrLongitude]: longitude,
+      [StrName]: title,
+    })
   },
 
 })
