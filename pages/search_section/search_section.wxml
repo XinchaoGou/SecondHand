@@ -8,7 +8,7 @@
     <swiper indicator-dots="{{true}}" indicator-active-color="#32A189" autoplay="{{false}}" class="swiper1">
       <block wx:for="{{urls}}">
         <swiper-item>
-          <image src="{{item}}" class="slide-image" mode="center" />
+          <image src="{{item}}" class="slide-image" mode="center" bindtap="imgOverView" data-index="{{index}}"/>
           <!--此处需要查询image-align的相关功能-->
         </swiper-item>
       </block>
