@@ -22,8 +22,8 @@ Page({
     postId: 0,
 
     //地图加载相关
-    latitude: 23.099994,
-    longitude: 113.324520,
+    latitude: 0,
+    longitude: 0,
     markers : [],
 
   },
@@ -74,6 +74,7 @@ Page({
         var longitude = location.longitude;
         var StrLatitude = 'markers[0].latitude';
         var StrLongitude = 'markers[0].longitude';
+        var StrName = 'markers[0].name';
 
         that.setData({
           title: title,
@@ -91,9 +92,8 @@ Page({
           longitude : longitude,
           [StrLatitude]: latitude,
           [StrLongitude]: longitude,
+          [StrName]: title,
 
-
-          
         })
 
       },
