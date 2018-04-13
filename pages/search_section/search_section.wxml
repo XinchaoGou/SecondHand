@@ -2,7 +2,7 @@
 
 
 <view class="container">
-  <scroll-view class="scroll" scroll-y>
+  <!--scroll-view class="scroll" scroll-y-->
     <!--1. 图片幻灯片显示模块-->
     <view class="swiper">
       <swiper indicator-dots="{{true}}" indicator-active-color="#32A189" autoplay="{{false}}" class="swiper1">
@@ -72,5 +72,5 @@
       </view>
     </view>
 
-  </scroll-view>
+  <!--/scroll-view-->
 </view>
