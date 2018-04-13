@@ -21,6 +21,11 @@ Page({
     offerId: "",
     postId: 0,
 
+    //地图加载相关
+    latitude: 23.099994,
+    longitude: 113.324520,
+    markers : [],
+
   },
 
   /**
@@ -63,6 +68,12 @@ Page({
         var picNumber = urls.length;
         //时间计算
         var date = Utils.getDateDiffWithJetLag(result.createdAt);
+        //地图数据
+        var location = result.get('location');
+        var latitude = location.latitude;
+        var longitude = location.longitude;
+        var StrLatitude = 'markers[0].latitude';
+        var StrLongitude = 'markers[0].longitude';
 
         that.setData({
           title: title,
@@ -73,7 +84,16 @@ Page({
           urls: urls,
           picNumber: picNumber,
           date: date,
-          phoneNumber: phoneNumber
+          phoneNumber: phoneNumber,
+
+          //地图相关
+          latitude : latitude,
+          longitude : longitude,
+          [StrLatitude]: latitude,
+          [StrLongitude]: longitude,
+
+
+          
         })
 
       },
@@ -178,9 +198,6 @@ Page({
     searchPage.setData({
       [str]: !isshow
     })
-
-
-
 
     //获取实例
     var Offer = Bmob.Object.extend("Offer");

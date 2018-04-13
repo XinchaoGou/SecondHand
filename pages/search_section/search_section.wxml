@@ -3,74 +3,80 @@
 
 <view class="container">
   <!--scroll-view class="scroll" scroll-y-->
-    <!--1. 图片幻灯片显示模块-->
-    <view class="swiper">
-      <swiper indicator-dots="{{true}}" indicator-active-color="#32A189" autoplay="{{false}}" class="swiper1">
-        <block wx:for="{{urls}}">
-          <swiper-item>
-            <image src="{{item}}" class="slide-image" mode="center"/>
-            <!--此处需要查询image-align的相关功能-->
-          </swiper-item>
-        </block>
-      </swiper>
+  <!--1. 图片幻灯片显示模块-->
+  <view class="swiper">
+    <swiper indicator-dots="{{true}}" indicator-active-color="#32A189" autoplay="{{false}}" class="swiper1">
+      <block wx:for="{{urls}}">
+        <swiper-item>
+          <image src="{{item}}" class="slide-image" mode="center" />
+          <!--此处需要查询image-align的相关功能-->
+        </swiper-item>
+      </block>
+    </swiper>
 
-      <!--1.1 图片幻灯片底部文字显示模块-->
-      <view class="swiper-bottom">
-        <text class="swiper-text">€ {{price}}</text>
-        <text class="swiper-text">{{picNumber}} 张图片</text>
-      </view>
-
+    <!--1.1 图片幻灯片底部文字显示模块-->
+    <view class="swiper-bottom">
+      <text class="swiper-text">€ {{price}}</text>
+      <text class="swiper-text">{{picNumber}} 张图片</text>
     </view>
 
-    <!--2. 发布人联系方式和喜爱收藏;发布内容主标题和描述文字显示模块-->
-    <view class="offer-title-description">
+  </view>
 
-      <!--2.1  发布人联系方式和喜爱收藏显示模块-->
-      <view class="offer-contact">
-        <button class="contact-but" catchtap="wx_contact">微信联系卖主</button>
-        <view class="contact-middle" catchtap="phone_contact">
-          <image src="../../images/test/phonecall.png" style="width:80rpx;height:80rpx" />
-          <text class="offer-title-11">给卖主打电话</text>
-        </view>
-        <view class="favourite" catchtap="favourite_touch">
-          <image wx:if="{{favouriteshow}}" style="height:50rpx; width:50rpx" src='../../images/test/favouriteon.png' />
-          <image wx:else style="height:50rpx; width:50rpx" src='../../images/test/favouriteoff.png' />
-        </view>
+  <!--2. 发布人联系方式和喜爱收藏;发布内容主标题和描述文字显示模块-->
+  <view class="offer-title-description">
+
+    <!--2.1  发布人联系方式和喜爱收藏显示模块-->
+    <view class="offer-contact">
+      <button class="contact-but" catchtap="wx_contact">微信联系卖主</button>
+      <view class="contact-middle" catchtap="phone_contact">
+        <image src="../../images/test/phonecall.png" style="width:80rpx;height:80rpx" />
+        <text class="offer-title-11">给卖主打电话</text>
       </view>
-
-      <!--2.2  发布内容主标题和描述文字显示模块-->
-      <text class="offer-titel">{{title}}</text>
-      <text class="offer-description">{{content}}</text>
-
-    </view>
-
-    <!--3. 发布内容其他信息诸如：时间，地点，价格，种类等显示模块-->
-    <view class="offer-info">
-
-      <view class="offer-section">
-        <text class="offer-title-11">发布时间</text>
-        <text class="offer-cont-11">{{date}}</text>
-      </view>
-      <view class="offer-section">
-        <text class="offer-title-11">价格</text>
-        <text class="offer-cont-11">{{price}} €</text>
-      </view>
-      <view class="offer-section">
-        <text class="offer-title-11">物品种类</text>
-        <text class="offer-cont-11">{{type}}</text>
-      </view>
-
-    </view>
-
-    <!--4.发布内容地图-->
-    <view class="offer-info">
-      <view class="offer-section">
-        <text class="offer-title-11">地点</text>
-      </view>
-      <view class="offer-section">
-        <text class="offer-cont-11">{{address}}</text>
+      <view class="favourite" catchtap="favourite_touch">
+        <image wx:if="{{favouriteshow}}" style="height:50rpx; width:50rpx" src='../../images/test/favouriteon.png' />
+        <image wx:else style="height:50rpx; width:50rpx" src='../../images/test/favouriteoff.png' />
       </view>
     </view>
+
+    <!--2.2  发布内容主标题和描述文字显示模块-->
+    <text class="offer-titel">{{title}}</text>
+    <text class="offer-description">{{content}}</text>
+
+  </view>
+
+  <!--3. 发布内容其他信息诸如：时间，地点，价格，种类等显示模块-->
+  <view class="offer-info">
+
+    <view class="offer-section">
+      <text class="offer-title-11">发布时间</text>
+      <text class="offer-cont-11">{{date}}</text>
+    </view>
+    <view class="offer-section">
+      <text class="offer-title-11">价格</text>
+      <text class="offer-cont-11">{{price}} €</text>
+    </view>
+    <view class="offer-section">
+      <text class="offer-title-11">物品种类</text>
+      <text class="offer-cont-11">{{type}}</text>
+    </view>
+
+  </view>
+
+  <!--4.发布内容地图-->
+  <view class="offer-info">
+    <view class="offer-section">
+      <text class="offer-title-11">地点</text>
+    </view>
+    <view class="offer-section">
+      <text class="offer-cont-11">{{address}}</text>
+    </view>
+  </view>
 
   <!--/scroll-view-->
 </view>
+<map id="map" 
+ longitude="{{longitude}}" 
+ latitude="{{latitude}}" 
+ markers="{{markers}}" 
+ style="width: 100%; height: 300px;"
+ show-location ></map>
