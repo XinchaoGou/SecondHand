@@ -256,4 +256,30 @@ Page({
     })
   },
 
+  /**
+   * 点击图片放大预览
+   * by xinchao
+   */
+  imgOverView: function (event) {
+    var index = event.currentTarget.dataset.index;
+    var that = this;
+    var urls = that.data.urls;
+    //图片预览
+    wx.previewImage({
+      current: urls[index], // 当前显示图片的链接，不填则默认为 urls 的第一张
+      urls: urls,
+
+      success: function(res){
+        // success
+      },
+      fail: function() {
+        // fail
+      },
+      complete: function() {
+        // complete
+      }
+    })
+  },
+
+
 })
