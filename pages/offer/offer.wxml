@@ -3,9 +3,9 @@
 
 <view class="container">
   <!--scroll-view class="scroll" scroll-y-->
-  
+
   <form bindsubmit="submitForm">
-  
+
     <!-- 1.表单验证--输入错误提示模块--正常情况下隐藏-->
     <view class="weui-toptips weui-toptips_warn" wx:if="{{showTopTips}}">{{TopTips}}</view>
     <!-- 2.发布内容主页面-->
@@ -24,14 +24,13 @@
     <!--2.2 物品类别，交易地点及物品价格 -->
     <view class="section-big style2">
       <!-- 2.2.1 物品类别 -->
-      <view class="section underline t-sign-time">
+      <view class="section underline type">
         <text class="section-title">物品类别</text>
-        <picker bindchange="bindTypeChange" value="{{typeIndex}}" range="{{types}}">
-          <view class="value" name="types">
-            {{types[typeIndex]}}
-            <image class="arrow-r" src="../../images/more/enter.png" />
-          </view>
+        <picker bindchange="bindTypeChange" class="section-right" value="{{typeIndex}}" range="{{types}}">
+          <text class="value" name="types">{{types[typeIndex]}}</text>
+          <image class="arrow-r" src="../../images/more/enter.png" />
         </picker>
+        
       </view>
 
       <!-- 2.2.2 交易地点 -->

@@ -657,6 +657,7 @@ icon {
 
 .weui-agree__link {
   display: inline;
+  font-size:11pt;
   color: #586c94;
 }
 
