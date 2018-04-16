@@ -21,7 +21,15 @@
     </swiper-item>
     <swiper-item>
       <scroll-view scroll-y="true" class="scoll-h">
-        <view class="section-large">生活百货</view>
+        <view class="section-large">
+          <text class="section-title">办公用品</text>
+          <view class="section">
+            <view wx:for="{{contentItems11}}" class="item">
+              <view class="image"></view>
+              <text class="item-title">{{item}}</text>
+            </view>
+          </view>
+        </view>
       </scroll-view>
     </swiper-item>
     <swiper-item>
