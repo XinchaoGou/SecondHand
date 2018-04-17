@@ -26,6 +26,19 @@ Page({
       }
     ],
     index: 0,
+    priceHide: false
+  },
+
+  switch1Change: function (e) {
+    if (e.detail.value == false) {
+      this.setData({
+        priceHide: false
+      })
+    } else if (e.detail.value == true) {
+      this.setData({
+        priceHide: true
+      })
+    }
   },
 
   /**
@@ -90,5 +103,9 @@ Page({
 
   back: function(){
     wx.navigateBack()
+  },
+
+  toSublevel2: function () {
+    wx.navigateTo({ url: '../search_sublevel2/search_sublevel2' })
   }
 })

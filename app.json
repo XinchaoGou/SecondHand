@@ -4,12 +4,14 @@
     "pages/search_section/search_section",
     "pages/offer/offer",
     "pages/me/me",
-    "pages/search_sublevel1/search_sublevel1"
+    "pages/search_sublevel1/search_sublevel1",
+    "pages/search_sublevel2/search_sublevel2"
+    
   ],
   "window": {
     "navigationBarBackgroundColor": "#32A189",
-    "navigationBarTextStyle": "white",
-    "navigationBarTitleText": "卡鲁二手",
+    "navigationBarTextStyle": "#000000",
+    "navigationBarTitleText": "德国二手",
     "backgroundColor": "#EFEFF4"
   },
   "tabBar": {

@@ -1,40 +1,46 @@
 <!--pages/search/search.wxml-->
 <view class="container">
 
-  <!--地理范围显示模块-->
-  <view class="section">
-    <text class="text-title">地理范围</text>
-    <text class="text-title" style="color:gray" bindtap="primary" width="100%">Karlsruhe</text>
-  </view>
 
-  <view class="section">
-    <text class="text-title">类别</text>
-    <view class="section-item">
-      <text class="text-title" style="color:gray" bindtap="primary" width="100%">所有种类</text>
-      <image class="enter-icon" src="../../images/more/enter.png" />
+  <view class="section-big style1">
+    <!--地理范围显示模块-->
+    <view class="section">
+      <text class="section-title">所在城市</text>
     </view>
-  </view>
-
-  <view class="section">
-
-    <view class="section-title">
-      <text class="text-title">价格区间</text>
+    <view class="section underline">
+      <text class="text-title" bindtap="primary">Karlsruhe</text>
     </view>
 
-    <view class="section-item">
-      <input class="text-title" type="number" placeholder="价格最低" auto-focus/>
-      <input class="text-title" type="number" placeholder="价格最高" auto-focus/>
+    <view class="section underline" catchtap="toSublevel2">
+      <text class="section-title">物品类别</text>
+      <view class="section-right">
+        <text class="text-title2" bindtap="primary">所有种类</text>
+        <image class="arrow-r" src="../../images/more/enter.png" />
+      </view>
     </view>
 
-  </view>
+    <view class="section t-name">
+      <view>
+        <text class="section-title">设置价格区间</text>
+      </view>
+      <switch type="switch" color="#32A189" bindchange="switch1Change" name="switchHide" />
+    </view>
 
-  <view class="section">
-    <text class="text-title">排列顺序</text>
-    <view class="section-item">
-      <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
-        <view class="text-title" style="color:gray">{{array[index]}}</view>
+
+    <view wx:if="{{priceHide}}" class="section">
+      <view class="body-view">
+        <slider activeColor="#32A189" block-color="#32A189" step="10" bindchange="slider4change" min="50" max="200" />
+      </view>
+      <text class="euro">20~50 €</text>
+    </view>
+
+    <view class="section underline">
+      <text class="section-title">排列顺序</text>
+      <picker class="section-right" bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
+        <text class="text-title">{{array[index]}}</text>
+        <image class="arrow-r" src="../../images/more/enter.png" />
       </picker>
     </view>
   </view>
-  
+
 </view>

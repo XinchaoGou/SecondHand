@@ -44,10 +44,20 @@
   justify-content:space-between;
   align-items:center;
 }
-
+.text-block{
+  padding-left:20rpx;
+  display: flex;
+  flex-direction:column;
+  justify-content:space-around;
+  align-items:flex-start;
+}
 .text{
-  color: #b2b2b2;
+  color:#353535;
   font-size:11pt;
+}
+.text2{
+  color:#353535;
+  font-size:9pt;
 }
 .icon{
   width:80rpx;
