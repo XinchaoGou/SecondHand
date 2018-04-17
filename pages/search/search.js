@@ -24,7 +24,7 @@ Page({
      * DATE_DESCEND
      * DISTANCE_DESCEND
      */
-    searchCondition: 'DISTANCE_DESCEND',
+    searchCondition: 'PRICE_DESCEND',
     maxDistance: 500,
   },
 
@@ -33,6 +33,11 @@ Page({
    */
   onLoad: function (options) {
     var that = this;
+    // console.log('search Onload' + options);
+    // if (options.id == '转发') {
+    //   console.log('options.id '+options.id );
+    // }
+    // console.log('不是转发');
     //获取当前地理位置
     that.getLocation();
     //查询条目数量
@@ -199,9 +204,9 @@ Page({
     var Offer = Bmob.Object.extend("Offer");
     var query = new Bmob.Query(Offer);
     //当前用户位置，40.0改为微信获取到的位置
-    var point = that.data.location;
-    var maxDistance = that.data.maxDistance;
-    query.withinKilometers("location", point, maxDistance);  //位置周围3000米的数据
+    // var point = that.data.location;
+    // var maxDistance = that.data.maxDistance;
+    // query.withinKilometers("location", point, maxDistance);  //位置周围3000米的数据
 
     query.count({
       success: function (count) {

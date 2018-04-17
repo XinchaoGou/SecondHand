@@ -159,7 +159,21 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
+    // var that = this;
+    // var title = that.data.title;
+    // var offerId = '转发';
+    
+    // return {
+    //   title: title,
+    //   path: 'pages/search_section/search_section?id='+offerId + '&favor=' + false
+    //   + '&postId=' + 0,
+    //   success: function(res) {
+    //     // 转发成功
+    //   },
+    //   fail: function(res) {
+    //     // 转发失败
+    //   }
+    // }
   },
 
   /**
