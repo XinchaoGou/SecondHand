@@ -31,7 +31,7 @@
       <view class="body-view">
         <slider activeColor="#32A189" block-color="#32A189" step="10" bindchange="slider4change" min="50" max="200" />
       </view>
-      <text class="euro">20~50 €</text>
+      <text class="euro">20~50€</text>
     </view>
 
     <view class="section underline">

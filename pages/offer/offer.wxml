@@ -30,7 +30,7 @@
           <text class="value" name="types">{{types[typeIndex]}}</text>
           <image class="arrow-r" src="../../images/more/enter.png" />
         </picker>
-        
+
       </view>
 
       <!-- 2.2.2 交易地点 -->
@@ -93,7 +93,7 @@
         <view class="chnumber">{{noteNowLen}}/{{noteMaxLen}}</view>
       </view>
     </view>
-    <view class="mod-a mt20"></view>
+
     <!-- 3.联系方式 -->
     <!--点击同意后showInput取反，点击同意后方才显示，否则隐藏-->
     <view class="section-big style1 mt20" wx:if="{{showInput}}">
@@ -111,8 +111,7 @@
         <image class="arrow-r" src="../../images/more/enter.png"></image>
       </view>
 
-      <!--此处加入另外一个视图防止上推时出现bug-->
-      <view class="mod-a"></view>
+
 
       <!-- 邮箱 -->
       <view class="section underline t-name">
@@ -122,6 +121,8 @@
       </view>
 
     </view>
+    <!--此处加入另外一个视图防止上推时出现bug-->
+    <!--view class="mod-a"></view-->
 
     <!-- 阅读并同意 -->
     <view class="mod-a mt20">
@@ -131,7 +132,7 @@
           <view class="weui-agree__text">
             <checkbox class="weui-agree__checkbox" id="weuiAgree" value="agree" checked="{{isAgree}}" />
             <view class="weui-agree__checkbox-icon">
-              <icon class="weui-agree__checkbox-icon-check" type="success_no_circle" size="9" wx:if="{{isAgree}}"></icon>
+              <icon class="weui-agree__checkbox-icon-check" type="success_no_circle" size="16" color="#32A189" wx:if="{{isAgree}}"></icon>
             </view>
             阅读并同意
             <view catchtap="showNotice" class="weui-agree__link">
@@ -145,9 +146,11 @@
       </view>
     </view>
 
+
+
   </form>
-  <!--/scroll-view-->
 </view>
+<!--/scroll-view-->
 
 <!-- 发布须知 -->
 <view class="notice" id="notice" wx:if="{{notice_status}}" bindtap="hideNotice">
@@ -169,5 +172,4 @@
       </view>
     </view>
   </view>
-
 </view>

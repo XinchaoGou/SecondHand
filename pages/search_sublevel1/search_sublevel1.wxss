@@ -1,6 +1,7 @@
 /* pages/search_sublevel1/search_sublevel1.wxss */
 /* pages/search/search.wxss */
-.page{
+page{
+  height:100%;
   background-color: #EFEFF4;
 }
 .text-title{

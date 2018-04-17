@@ -7,7 +7,10 @@ Page({
     right: false,//判断右滑布尔数
     currentTab: 0, //预设当前项的值
     scrollLeft: 0, //tab标题的滚动条位置
-    rpxR:0//获取px/rpx换算比例
+    rpxR:0,//获取px/rpx换算比例
+    contentItems11: ['打印机', '投影机', '笔', '收款机', '记事本','电纸书'],
+    contentItems12: ['打印机', '投影机', '笔', '收款机', '记事本', '电纸书'],
+    contentItems13: ['打印机', '投影机', '笔', '收款机', '记事本', '电纸书'],
   },
   // 滚动切换标签样式
   switchTab: function (e) {

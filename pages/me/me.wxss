@@ -126,6 +126,7 @@
   height: 90rpx;
   border-top: 1px solid rgb(239,239,244);
   background-color: white;
+  position:relative;
 }
 
 .interval {
@@ -135,17 +136,18 @@
 .userItemImg {
   width: 40rpx;
   height: 40rpx;
-  margin-left: 20rpx;
-  margin-top: 24rpx;
-  float: left;
+  left: 20rpx;
+  top: 24rpx;
+  position:absolute;
 }
 
 .userItemText {
   float: left;
   line-height: 90rpx;
-  margin-left: 20rpx;
+  left: 70rpx;
   font-size: 11pt;
   color: #32A189;
+  position:absolute;
 }
 
 .userItemArrow {
