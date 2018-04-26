@@ -81,7 +81,7 @@
 
           <view class="content-bottom">
             <text class='content-text-price'>€ {{item.price}}</text>
-            <image catchtap="offerDelete" class="delete" src='../../images/test/delete-32.png' data-postid="{{index}}" />
+            <image catchtap="offerDeleteTap" class="delete" src='../../images/test/delete-32.png' data-postid="{{index}}" />
           </view>
 
         </view>

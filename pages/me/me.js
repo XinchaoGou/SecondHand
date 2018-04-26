@@ -195,56 +195,61 @@ Page({
   },
 
   /**
-   * 删除某一个发布条目
+   * 点击按钮删除某一个发布条目
    * by xinchao
    */
-  offerDelete: function (event) {
+  offerDeleteTap: function (event) {
     var that = this;
     var postId = event.currentTarget.dataset.postid;
     var objectId = that.data.offerItems[postId].id; // 获得数据库对应发布条目的objectId
-    var key = false;
 
+    //删除确认框
     wx.showModal({
       title: '删除确认',
       content: '您确认要删除该发布吗？',
-      success: function(res) {
+      success: function (res) {
         if (res.confirm) {
           console.log('用户点击确定')
-          key = true;
+          that.offerDelete(objectId);
         } else if (res.cancel) {
           console.log('用户点击取消') //结束函数不删除条目
-          // key = false; TODO 关于return
           return;
         }
       }
     })
-    if (key) {
-      //根据对应的objectId删除指定的发布条目
-      var Offer = Bmob.Object.extend("Offer");
-      var query = new Bmob.Query(Offer);
-      query.get(objectId, {
-        success: function (myObject) {
-          // 查询成功，调用destroy删除指定条目
-          myObject.destroy({
-            success: function(myObject) {
-              // 删除成功
-              wx.showToast({
-                title: '删除成功',
-                icon: 'success',
-                duration: 2000
-              })
-            },
-            error: function(myObject, error) {
-              // 删除失败
-            }
-          });
-        },
-        error: function (object, error) {
-          // 查询失败
-        }
-      });
-    }
+  },
 
+  /**
+   * 删除某一个发布条目
+   * by xinchao
+   */
+  offerDelete: function (objectId) {
+    //根据对应的objectId删除指定的发布条目
+    var Offer = Bmob.Object.extend("Offer");
+    var query = new Bmob.Query(Offer);
+    query.get(objectId, {
+      success: function (myObject) {
+        // 查询成功，调用destroy删除指定条目
+        myObject.destroy({
+          success: function (myObject) {
+            // 删除成功
+            wx.showToast({
+              title: '删除成功',
+              icon: 'success',
+              duration: 2000
+            })
+          },
+          error: function (myObject, error) {
+            // 删除失败
+            console.log('删除条目失败')
+          }
+        });
+      },
+      error: function (object, error) {
+        // 查询失败
+        console.log('查询要删除的条目失败')
+      }
+    });
   },
 
   //页面隐藏设计添加的函数，by yining
@@ -263,7 +268,5 @@ Page({
       showOffer: !switch2
     })
   },
-
-  
 
 })
