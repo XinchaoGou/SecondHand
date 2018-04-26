@@ -186,7 +186,6 @@ Page({
     // var favor = that.data.offerItems[postId].favouriteshow;
     //TODO
     var favor = false;
-    console.log(favor);
     //跳转条目详情
     wx.navigateTo({
       url: '../search_section/search_section?id=' + objectId + '&favor=' + favor
@@ -216,6 +215,24 @@ Page({
           return;
         }
       }
+    })
+  },
+
+  /**
+   * 点击按钮重新编辑某一个发布条目
+   * by xinchao
+   */
+  offerSetTap: function (event) {
+    console.log('重新编辑发布条目信息');
+    var that = this;
+    var postId = event.currentTarget.dataset.postid;
+    var objectId = that.data.offerItems[postId].id;  // 获得数据库对应objectId
+    
+    //加载对应发布条目内容
+
+    //跳转发布页面
+    wx.switchTab({
+      url: '../offer/offer'
     })
   },
 
