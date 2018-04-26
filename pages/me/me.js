@@ -227,10 +227,50 @@ Page({
     var that = this;
     var postId = event.currentTarget.dataset.postid;
     var objectId = that.data.offerItems[postId].id;  // 获得数据库对应objectId
-    
-    //加载对应发布条目内容
 
-    //跳转发布页面
+    //加载对应发布条目内容
+    var Offer = Bmob.Object.extend("Offer");
+    var query = new Bmob.Query(Offer);
+    query.get(objectId, {
+      success: function (result) {
+        var id = result.id;
+        var picUrlArray = result.get("picUrlArray");
+        var title = result.get("title");
+        var typeName = result.get("typeName");
+        var address = result.get("address");
+        var location = result.get("location");
+        var content = result.get("content");
+        var price = result.get("price");
+        var publisher = result.get("publisher");
+        var wxNumber = result.get("wxNumber");
+        var phoneNumber = result.get("phoneNumber");
+        var eMail = result.get("eMail");
+
+        var offerForm = {
+          id : id,
+          picUrlArray : picUrlArray,
+          title : title,
+          typeName : typeName,
+          address : address,
+          location : location,
+          content : content,
+          price : price,
+          publisher : publisher,
+          wxNumber : wxNumber,
+          phoneNumber : phoneNumber,
+          eMail : eMail,
+        }
+        wx.setStorage({
+          key:"offerForm",
+          data: offerForm
+        })
+      },
+      error: function (object, error) {
+        // 查询失败
+      }
+    });
+
+    //跳转发布页面 TODO 可能BUG跳转页面后数据还没存到本地
     wx.switchTab({
       url: '../offer/offer'
     })

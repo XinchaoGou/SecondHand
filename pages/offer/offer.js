@@ -447,7 +447,26 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    var that = this;
+    try {
+      var value = wx.getStorageSync('offerForm');
+      if(value){
+        console.log("找到了");
+        console.log(value);
+      } 
+    } catch (e) {
+      // Do something when catch error
+    }
 
+    //处理完成后删除指定条目
+    // console.log("这句话执行了");
+    // wx.removeStorage({
+    //   key: 'offerForm',
+    //   success: function(res) {
+    //     console.log(res.data)
+    //     console.log("这句话执行了!!!");
+    //   } 
+    // })
   },
 
   /**
