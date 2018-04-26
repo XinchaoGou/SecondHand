@@ -3,44 +3,47 @@
   <!-- 1.头像背景 -->
   <scroll-view class="scroll" scroll-y>
 
-  <view class="head-background">
-    <image class="userinfo-bgImg" src="{{imgUrl}}"></image>
-  </view>
+    <view class="head-background">
+      <image class="userinfo-bgImg" src="{{imgUrl}}"></image>
+    </view>
 
-  <!-- 2.用户信息 -->
-  <view class="userinfo">
-    <image background-size="cover" class="userinfo-avatar" src="{{imgUrl}}" />
-    <text class="userinfo-nickname">{{name}}</text>
-  </view>
+    <!-- 2.用户信息 -->
+    <view class="userinfo">
+      <image background-size="cover" class="userinfo-avatar" src="{{imgUrl}}" />
+      <text class="userinfo-nickname">{{name}}</text>
+    </view>
 
-  <!-- 3.我的收藏 -->
-  <view class="userItem" catchtap="tofavourite">
-    <image class="userItemImg" src="../../images/test/favouriteon.png" />
-    <text class="userItemText">我的收藏</text>
-    <image wx:if="{{!showFavourite}}" class="userItemArrow" src="../../images/test/right.png" />
-    <image wx:else class="userItemArrow1" src="../../images/more/down.png"/>
-  </view>
+    <!-- 3.我的收藏 -->
+    <view class="userItem" catchtap="tofavourite">
+      <image class="userItemImg" src="../../images/test/favouriteon.png" />
+      <text class="userItemText">我的收藏</text>
+      <image wx:if="{{!showFavourite}}" class="userItemArrow" src="../../images/test/right.png" />
+      <image wx:else class="userItemArrow1" src="../../images/more/down.png" />
+    </view>
 
-  <!--4.可隐藏显示的----收藏信息加载区域-->
-  <view class="content" wx:if="{{showFavourite}}">
+    <!--4.可隐藏显示的----收藏信息加载区域-->
+    <view class="content" wx:if="{{showFavourite}}">
 
-    <!--4.1 收藏--分条---信息加载区域-->
-    <view class="content-item" wx:for="{{favorItems}}" catchtap="favorItemTap" data-postid="{{index}}">
-      <!--二手物品图片-->
+      <!--4.1 收藏--分条---信息加载区域-->
+      <view class="content-item" wx:for="{{favorItems}}" catchtap="favorItemTap" data-postid="{{index}}">
+        <!--二手物品图片-->
 
-      <image mode="aspectFill" style="height:210rpx; width:280rpx;border-radius:10rpx;" src="{{item.src}}" />
+        <image mode="aspectFill" style="height:210rpx; width:280rpx;border-radius:10rpx;" src="{{item.src}}" />
 
-      <!--二手物品交易信息-->
-      <view class="content-block2">
+        <!--二手物品交易信息-->
+        <view class="content-block2">
 
-        <text class='content-text-title'>{{item.title}}</text>
-        <view class="location-time">
-          <text class='content-text-location'>{{item.address}}</text>
-          <text class='content-text-offertime'>{{item.date}}</text>
-        </view>
+          <text class='content-text-title'>{{item.title}}</text>
 
-        <view class="content-bottom">
-          <text class='content-text-price'>€ {{item.price}}</text>
+          <view class="location-time">
+            <text class='content-text-location'>{{item.address}}</text>
+            <text class='content-text-offertime'>{{item.date}}</text>
+          </view>
+
+          <view class="content-bottom">
+            <text class='content-text-price'>€ {{item.price}}</text>
+            <image class="delete" catchtap="offerDelete" src='../../images/test/delete-32.png' data-postid="{{index}}" />
+          </view>
 
         </view>
 
@@ -48,37 +51,38 @@
 
     </view>
 
-  </view>
+    <!--5.我的发布-->
+    <view class="userItem" catchtap="tooffer">
+      <image class="userItemImg" src="../../images/test/offer.png" />
+      <text class="userItemText">我的发布</text>
+      <image wx:if="{{!showOffer}}" class="userItemArrow" src="../../images/test/right.png" />
+      <image wx:else class="userItemArrow1" src="../../images/more/down.png" />
+    </view>
 
-  <!--5.我的发布-->
-  <view class="userItem" catchtap="tooffer">
-    <image class="userItemImg" src="../../images/test/offer.png"/>
-    <text class="userItemText">我的发布</text>
-    <image wx:if="{{!showOffer}}" class="userItemArrow" src="../../images/test/right.png"/>
-    <image wx:else class="userItemArrow1" src="../../images/more/down.png"/>
-  </view>
-
-  <!--6.可隐藏显示的---发布信息加载区域-->
-  <view class="content" wx:if="{{showOffer}}">
+    <!--6.可隐藏显示的---发布信息加载区域-->
+    <view class="content" wx:if="{{showOffer}}">
 
 
-    <!--6.1 发布---分条---信息加载区域-->
-    <view class="content-item" wx:for="{{offerItems}}" catchtap="offerItemTap" data-postid="{{index}}">
-      <!--二手物品图片-->
+      <!--6.1 发布---分条---信息加载区域-->
+      <view class="content-item" wx:for="{{offerItems}}" catchtap="offerItemTap" data-postid="{{index}}">
+        <!--二手物品图片-->
 
-      <image style="height:210rpx; width:280rpx;border-radius:10rpx;" src="{{item.src}}" />
+        <image style="height:210rpx; width:280rpx;border-radius:10rpx;" src="{{item.src}}" />
 
-      <!--二手物品交易信息-->
-      <view class="content-block2">
+        <!--二手物品交易信息-->
+        <view class="content-block2">
 
-        <text class='content-text-title'>{{item.title}}</text>
-        <view class="location-time">
-          <text class='content-text-location'>{{item.address}}</text>
-          <text class='content-text-offertime'>{{item.date}}</text>
-        </view>
+          <text class='content-text-title'>{{item.title}}</text>
+          <image class="setting" src='../../images/test/settings-32.png' />
+          <view class="location-time">
+            <text class='content-text-location'>{{item.address}}</text>
+            <text class='content-text-offertime'>{{item.date}}</text>
+          </view>
 
-        <view class="content-bottom">
-          <text class='content-text-price'>€ {{item.price}}</text>
+          <view class="content-bottom">
+            <text class='content-text-price'>€ {{item.price}}</text>
+            <image catchtap="offerDelete" class="delete" src='../../images/test/delete-32.png' data-postid="{{index}}" />
+          </view>
 
         </view>
 
@@ -86,10 +90,8 @@
 
     </view>
 
-  </view>
-
-  <view class="interval" bindtap="collection">
-  </view>
+    <view class="interval" bindtap="collection">
+    </view>
 
   </scroll-view>
 

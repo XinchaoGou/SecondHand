@@ -115,10 +115,12 @@
 }/*问题：是否这里可以采用text-align来达到相同的效果*/
 .content-bottom{
   width:90%;
-  display:flex;
-  flex-direction:row;
-  justify-content:space-between;
-  align-items:flex-end;
+  position:relative;
+}
+.favourite{
+  position:absolute;
+  right:-10rpx;
+  bottom:-10rpx;
 }
 .location-text{
   font-size:6pt;
@@ -161,5 +163,6 @@
   width: 100%;
   text-align: center;
 }
+
 
 

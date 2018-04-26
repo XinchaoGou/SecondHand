@@ -169,6 +169,18 @@
   height: 160rpx;
   position: relative;
 }
+.setting{
+  position:absolute;
+  height:40rpx; 
+  width:40rpx;
+  right:40rpx;
+}
+.delete{
+  position:absolute;
+  height:40rpx; 
+  width:40rpx;
+  right:40rpx;
+}
 
 /*以下从search页面移植过来的样式*/
 .content{
@@ -198,6 +210,7 @@
   flex-direction: column;
   align-items:flex-start;
   justify-content: space-between;
+  position:relative;
 }
 .content-text-title{
   font-size:11pt;

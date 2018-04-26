@@ -14,7 +14,7 @@
         <!--头部搜索block2-->
         <!--location图标上暂时设置前往search-section页面的接口，以后需要修改-->
         <!--已经修改 by xinchao-->
-        <image style="height:50rpx;width:40rpx" src="../../images/test/location.png" />
+        <image style="height:45rpx;width:35rpx" src="../../images/test/location.png" />
         <text class="location-text">Karlsruhe</text>
       </view>
     </view>
