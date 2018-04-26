@@ -5,8 +5,7 @@
     "pages/offer/offer",
     "pages/me/me",
     "pages/search_sublevel1/search_sublevel1",
-    "pages/search_sublevel2/search_sublevel2"
-    
+    "pages/search_sublevel2/search_sublevel2"  
   ],
   "window": {
     "navigationBarBackgroundColor": "#32A189",

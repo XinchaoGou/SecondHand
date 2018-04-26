@@ -89,7 +89,7 @@
         <text class="section-title">物品详情</text>
       </view>
       <view class="section2 underline my-nick">
-        <textarea name="content" class="textarea" placeholder-class="inputStyle" placeholder="请输入物品详情，字数限制在200字以内" value="{{content}}" bindinput="bindTextAreaChange" maxlength="{{noteMaxLen}}" />
+        <textarea wx:if="{{textarea_show}}" name="content" class="textarea" placeholder-class="inputStyle" placeholder="请输入物品详情，字数限制在200字以内" value="{{content}}" bindinput="bindTextAreaChange" maxlength="{{noteMaxLen}}" />
         <view class="chnumber">{{noteNowLen}}/{{noteMaxLen}}</view>
       </view>
     </view>
@@ -132,7 +132,7 @@
           <view class="weui-agree__text">
             <checkbox class="weui-agree__checkbox" id="weuiAgree" value="agree" checked="{{isAgree}}" />
             <view class="weui-agree__checkbox-icon">
-              <icon class="weui-agree__checkbox-icon-check" type="success_no_circle" size="16" color="#32A189" wx:if="{{isAgree}}"></icon>
+              <icon class="weui-agree__checkbox-icon-check" type="success_no_circle" size="12" color="#32A189" wx:if="{{isAgree}}"></icon>
             </view>
             阅读并同意
             <view catchtap="showNotice" class="weui-agree__link">
@@ -145,8 +145,6 @@
         <button class="button" loading="{{isLoading}}" hover-start-time="200" disabled="{{isdisabled}}" formType="submit">发布</button>
       </view>
     </view>
-
-
 
   </form>
 </view>

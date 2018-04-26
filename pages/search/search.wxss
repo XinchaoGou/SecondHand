@@ -38,7 +38,7 @@
 
 .header-block2{
   width:15%; 
-  height:85rpx; 
+  height:80rpx; 
   display: flex;
   flex-direction:column;
   justify-content:space-between;

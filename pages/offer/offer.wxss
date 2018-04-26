@@ -123,13 +123,6 @@ font-size:14px;
   padding: 0 20rpx;
   flex-wrap:nowrap;
 }
-.chnumber{
-  position:absolute;
-  right:20rpx;
-  bottom:0;
-  color:#b2b2b2;
-  font-size:11pt;
-}
 
 
 .arrow-d{
@@ -264,6 +257,13 @@ overflow:hidden;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.chnumber{
+  position:absolute;
+  right:20rpx;
+  bottom:0;
+  color:#b2b2b2;
+  font-size:11pt;
 }
 .box {
   display: flex;

@@ -37,7 +37,8 @@ Page({
     //发布须知
     notice_status: false,
     //发布按钮禁用
-    isdisabled: false
+    isdisabled: false,
+    textarea_show: true
 
   },
 
@@ -341,12 +342,14 @@ Page({
   },
   showNotice: function (e) {
     this.setData({
-      'notice_status': true
+      'notice_status': true,
+      textarea_show: false
     });
   },
   hideNotice: function (e) {
     this.setData({
-      'notice_status': false
+      'notice_status': false,
+      textarea_show: true
     });
   },
 
