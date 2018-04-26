@@ -16,7 +16,9 @@
     <!-- 3.我的收藏 -->
     <view class="userItem" catchtap="tofavourite">
       <image class="userItemImg" src="../../images/test/favouriteon.png" />
-      <text class="userItemText">我的收藏</text>
+      <view class="text">
+        <text class="userItemText">我的收藏</text>
+      </view>
       <image wx:if="{{!showFavourite}}" class="userItemArrow" src="../../images/test/right.png" />
       <image wx:else class="userItemArrow1" src="../../images/more/down.png" />
     </view>
@@ -42,7 +44,10 @@
 
           <view class="content-bottom">
             <text class='content-text-price'>€ {{item.price}}</text>
-            <image class="delete" catchtap="offerDelete" src='../../images/test/delete-32.png' data-postid="{{index}}" />
+            <view class="favourite" catchtap="favourite_touch" data-favouriteid="{{index}}">
+              <image wx:if="{{item.favouriteshow}}" style="height:50rpx; width:50rpx" src='../../images/test/favouriteon.png' />
+              <image wx:else style="height:50rpx; width:50rpx" src='../../images/test/favouriteoff.png' />
+            </view>
           </view>
 
         </view>
@@ -54,7 +59,9 @@
     <!--5.我的发布-->
     <view class="userItem" catchtap="tooffer">
       <image class="userItemImg" src="../../images/test/offer.png" />
-      <text class="userItemText">我的发布</text>
+      <view class="text">
+        <text class="userItemText">我的发布</text>
+      </view>
       <image wx:if="{{!showOffer}}" class="userItemArrow" src="../../images/test/right.png" />
       <image wx:else class="userItemArrow1" src="../../images/more/down.png" />
     </view>

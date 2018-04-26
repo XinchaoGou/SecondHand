@@ -460,4 +460,6 @@ overflow:hidden;
   height: 17rpx;
   margin-left: 12rpx;
 }
-
+.adressblock{
+  width:100%;
+}

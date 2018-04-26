@@ -34,16 +34,16 @@
       </view>
 
       <!-- 2.2.2 交易地点 -->
-      <block catchtap="addressChange">
+      <view class="adressblock" catchtap="addressChange" value="{{address}}">
         <view class="section">
           <text class="section-title">地点</text>
         </view>
         <!-- 2.2.3 交易地点换行 -->
         <view class="section underline t-name">
-          <text name="address" class="input" value="{{address}}">{{address}}</text>
+          <text name="address" class="input">{{address}}</text>
           <image class="arrow-r" src="../../images/more/enter.png" />
         </view>
-      </block>
+      </view>
 
 
       <!-- 2.2.4 点选是否设置物品价格 TODO-->
