@@ -17,6 +17,15 @@ Page({
     searchLoadingComplete: false, //加载完所有条目
     totalCount: 0, //查询到的总数目
     favour: [], //收藏的objectId列表
+
+    //搜索条件
+    /* PRICE_UP
+     * PRICE_DESCEND
+     * DATE_DESCEND
+     * DISTANCE_DESCEND
+     */
+    searchCondition: 'PRICE_DESCEND',
+    maxDistance: 500,
   },
 
   /**
@@ -24,6 +33,13 @@ Page({
    */
   onLoad: function (options) {
     var that = this;
+    // console.log('search Onload' + options);
+    // if (options.id == '转发') {
+    //   console.log('options.id '+options.id );
+    // }
+    // console.log('不是转发');
+    //获取当前地理位置
+    that.getLocation();
     //查询条目数量
     that.searchTotalCount();
     //查询用户收藏列表
@@ -59,10 +75,10 @@ Page({
       });
     });
     //查询数据
-    promise.then(function(favourArray) {
+    promise.then(function (favourArray) {
       // success
       that.searchFromCloud(0, that.data.callbackcount);
-    }, function(error) {
+    }, function (error) {
       // failure
       console.log(error);
     });
@@ -154,10 +170,12 @@ Page({
    * 设置搜索地址 TODO
    * by xinchao
    */
-  setLocation: function () {
+  getLocation: function () {
     var that = this;
-    wx.chooseLocation({
+    wx.getLocation({
+      type: 'wgs84', // 默认为 wgs84 返回 gps 坐标，gcj02 返回可用于 wx.openLocation 的坐标
       success: function (res) {
+        // success
         //电脑调试的时候，经纬度为空，手机上可以运行
         var longitude = res.longitude;
         var latitude = res.latitude;
@@ -165,13 +183,15 @@ Page({
         that.setData({
           location: location
         })
-        console.log(that.data.location);
       },
-      fail: function (e) {
+      fail: function () {
+        // fail
       },
-      complete: function (e) {
+      complete: function () {
+        // complete
       }
     })
+
   },
 
   /**
@@ -183,6 +203,11 @@ Page({
     //查询条目数量
     var Offer = Bmob.Object.extend("Offer");
     var query = new Bmob.Query(Offer);
+    //当前用户位置，40.0改为微信获取到的位置
+    // var point = that.data.location;
+    // var maxDistance = that.data.maxDistance;
+    // query.withinKilometers("location", point, maxDistance);  //位置周围3000米的数据
+
     query.count({
       success: function (count) {
         // 查询成功，返回记录数量
@@ -244,17 +269,41 @@ Page({
   searchFromCloud: function (pageindex, callbackcount) {
 
     var that = this;
+    var searchCondition = that.data.searchCondition;
     //查询数据库获得发布物品信息
     var Offer = Bmob.Object.extend("Offer");
     var query = new Bmob.Query(Offer);
+    //设置查询条件
+    switch (searchCondition) {
+      case 'PRICE_UP':
+        query.ascending('price'); //按价格升序排列
+        break;
+      case 'PRICE_DESCEND':
+        query.descending('price'); //按价格降序排列
+        break;
+      case 'DATE_DESCEND':
+        query.descending('createdAt'); //按时间降序排列
+        break;
+      case 'DISTANCE_DESCEND':
+        //当前用户位置，40.0改为微信获取到的位置
+        var point = that.data.location;
+        var maxDistance = that.data.maxDistance;
+        query.withinKilometers("location", point, maxDistance);  //位置周围3000米的数据
+        break;
+      default:
+        query.descending('createdAt'); //按时间降序排列
+        break;
+    }
     //设置查询分页大小
     console.log(pageindex, callbackcount);
     query.limit(callbackcount);
     query.skip(callbackcount * pageindex);
-    query.descending('createdAt'); //按时间降序排列
+
+
     // 查询所有数据
     query.find({
       success: function (results) {
+        console.log(results);
         if (results.length == 0) {
           that.setData({
             searchLoadingComplete: true,
@@ -370,8 +419,8 @@ Page({
     console.log(favor);
     //跳转条目详情
     wx.navigateTo({
-      url: '../search_section/search_section?id=' + objectId + '&favor=' + favor 
-      + '&postId=' + postId
+      url: '../search_section/search_section?id=' + objectId + '&favor=' + favor
+        + '&postId=' + postId
     })
   },
 

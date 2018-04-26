@@ -251,6 +251,7 @@ Page({
           latitude: res.latitude,//纬度
         })
         if (e.detail && e.detail.value) {
+          console.log("这里可能有bug");
           this.data.address = e.detail.value;
         }
       },
