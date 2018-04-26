@@ -127,6 +127,8 @@
   border-top: 1px solid rgb(239,239,244);
   background-color: white;
   position:relative;
+  border-top-left-radius: 20rpx;
+  border-top-right-radius: 20rpx;
 }
 
 .interval {
@@ -140,29 +142,33 @@
   top: 24rpx;
   position:absolute;
 }
-
+.text{
+  height:100%;
+  display:flex;
+  flex-direction: row;
+  align-items: center;
+}
 .userItemText {
-  float: left;
-  line-height: 90rpx;
-  left: 70rpx;
+  margin-left:70rpx;
   font-size: 11pt;
-  color: #32A189;
-  position:absolute;
+  color: #32A189; 
 }
 
 .userItemArrow {
   width: 16rpx;
   height: 26rpx;
   float: right;
-  margin-top: 36rpx;
-  margin-right: 24rpx;
+  top: 36rpx;
+  right: 34rpx;
+  position:absolute;
 }
 .userItemArrow1 {
   width: 40rpx;
   height: 35rpx;
   float: right;
-  margin-top: 36rpx;
-  margin-right: 14rpx;
+  top: 36rpx;
+  right: 24rpx;
+  position:absolute;
 }
 .foot {
   width: 100%;
@@ -186,20 +192,26 @@
 .content{
   width:100%;
   min-height:300rpx;
-  padding-top:20rpx;
+  padding:20rpx;
+  padding-top:0rpx;
+  padding-bottom:40rpx;
   background-color:white;
+  box-sizing: border-box;
+  margin-bottom:20rpx;
+  border-bottom-left-radius: 20rpx;
+  border-bottom-right-radius: 20rpx;
 }
 .content-item{
   width:100%;
-  height:240rpx;
+  height:280rpx;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  border-radius:20rpx;
-  margin-bottom:20rpx;
   box-sizing: border-box;
   padding:20rpx;
+  background-color:white;
+  border-bottom: 4rpx solid #b2b2b2;
 }
 
 
@@ -245,5 +257,10 @@
 }
 .location-text{
   font-size:6pt;
+}
+.favourite{
+  position:absolute;
+  right:10rpx;
+  bottom:-10rpx;
 }
 /*以上是从search页面移植过来的样式*/

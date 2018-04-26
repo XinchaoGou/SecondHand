@@ -241,6 +241,7 @@ Page({
     this.addressChoose(e);
   },
   addressChoose: function (e) {
+    console.log("这里可能有bug");
     var that = this;
     wx.chooseLocation({
       success: function (res) {
