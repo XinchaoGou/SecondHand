@@ -1,22 +1,22 @@
 /* pages/me/me.wxss */
+
+page {
+  width: 100%;
+  height: 100%;
+  background-color: rgb(239, 239, 244);
+}
+
 .container {
-  height:100%;
-  width:100%;
-  background-color:rgb(239, 239,244);
+  width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: stretch;
-  justify-content: space-around;
-  box-sizing: border-box;
-  position:fixed;
-} 
-.scroll{
-  width:100%;
-  height:100%;
+  justify-content: flex-start;
 }
 
 /*头像--背景样式，引入*/
+
 .head-background {
+  height: 400rpx;
   margin-top: -40rpx;
   width: 100%;
   -webkit-filter: blur(5px);
@@ -24,7 +24,6 @@
   -o-filter: blur(5px);
   -ms-filter: blur(5px);
   filter: blur(5px);
-  z-index: -9999;
   position: relative;
 }
 
@@ -43,23 +42,28 @@
   margin-right: 20rpx;
   float: right;
 }
+
 /*头像--图片样式 引入*/
+
 .userinfo-bgImg {
   width: 100%;
   height: 400rpx;
 }
+
 /*用户信息--背景样式 引入*/
+
 .userinfo {
   width: 100%;
-  height: 100rpx;
-  background:rgb(239,239,244);
+  height: 80rpx;
+  background: rgb(239, 239, 244);
   margin-top: -7rpx;
   padding-bottom: 15rpx;
 }
+
 /*用户信息--图片样式 引入*/
+
 .userinfo-avatar {
   position: absolute;
-  float: left;
   width: 160rpx;
   height: 160rpx;
   margin: 20rpx;
@@ -67,14 +71,18 @@
   margin-top: -80rpx;
   margin-bottom: 0;
 }
+
 /*用户信息--昵称--文字样式 引入*/
+
 .userinfo-nickname {
   font-size: 13pt;
-  color: #32A189;
+  color: #32a189;
   padding: 24rpx 20rpx 0 200rpx;
   float: left;
 }
+
 /*用户信息--昵称--文字样式 该样式引入*/
+
 .userProfile {
   width: 60%;
   float: left;
@@ -124,15 +132,11 @@
 .userItem {
   width: 100%;
   height: 90rpx;
-  border-top: 1px solid rgb(239,239,244);
+  border-top: 1px solid rgb(239, 239, 244);
   background-color: white;
-  position:relative;
-  border-top-left-radius: 20rpx;
-  border-top-right-radius: 20rpx;
-}
-
-.interval {
-  margin-bottom: 20rpx;
+  position: relative;
+  border-radius: 20rpx;
+  margin-top: 20rpx;
 }
 
 .userItemImg {
@@ -140,18 +144,20 @@
   height: 40rpx;
   left: 20rpx;
   top: 24rpx;
-  position:absolute;
+  position: absolute;
 }
-.text{
-  height:100%;
-  display:flex;
+
+.text {
+  height: 100%;
+  display: flex;
   flex-direction: row;
   align-items: center;
 }
+
 .userItemText {
-  margin-left:70rpx;
+  margin-left: 70rpx;
   font-size: 11pt;
-  color: #32A189; 
+  color: #32a189;
 }
 
 .userItemArrow {
@@ -160,107 +166,125 @@
   float: right;
   top: 36rpx;
   right: 34rpx;
-  position:absolute;
+  position: absolute;
 }
+
 .userItemArrow1 {
   width: 40rpx;
   height: 35rpx;
   float: right;
   top: 36rpx;
   right: 24rpx;
-  position:absolute;
+  position: absolute;
 }
+
 .foot {
   width: 100%;
   height: 160rpx;
   position: relative;
 }
-.setting{
-  position:absolute;
-  height:40rpx; 
-  width:40rpx;
-  right:40rpx;
+
+.setting {
+  position: absolute;
+  height: 40rpx;
+  width: 40rpx;
+  right: 10rpx;
 }
-.delete{
-  position:absolute;
-  height:40rpx; 
-  width:40rpx;
-  right:40rpx;
+
+.delete {
+  position: absolute;
+  height: 40rpx;
+  width: 40rpx;
+  right: 10rpx;
 }
 
 /*以下从search页面移植过来的样式*/
-.content{
-  width:100%;
-  min-height:300rpx;
-  padding:20rpx;
-  padding-top:0rpx;
-  padding-bottom:40rpx;
-  background-color:white;
+
+.content {
+  width: 100%;
+  min-height: 300rpx;
+  padding: 20rpx;
+  padding-top: 0rpx;
+  padding-bottom:0rpx;
+  background-color: white;
   box-sizing: border-box;
-  margin-bottom:20rpx;
+  margin-bottom: 20rpx;
   border-bottom-left-radius: 20rpx;
   border-bottom-right-radius: 20rpx;
 }
-.content-item{
-  width:100%;
-  height:280rpx;
+
+.content-item {
+  width: 100%;
+  height: 260rpx;
   display: flex;
   flex-direction: row;
   align-items: center;
+  padding: 20rpx;
   justify-content: space-between;
   box-sizing: border-box;
-  padding:20rpx;
-  background-color:white;
-  border-bottom: 4rpx solid #b2b2b2;
+  border: 4rpx solid rgb(239, 239, 244);
+  border-radius: 20rpx;
+  margin-bottom: 40rpx;
+  background-color: rgb(239, 239, 244);
 }
 
-
-.content-block2{
-  width:50%;
-  height:200rpx;
-  display:flex;
+.content-block2 {
+  width: 50%;
+  height: 200rpx;
+  display: flex;
   flex-direction: column;
-  align-items:flex-start;
+  align-items: flex-start;
   justify-content: space-between;
-  position:relative;
+  position: relative;
 }
-.content-text-title{
-  font-size:11pt;
-  color:#32A189;
+
+.content-text-title {
+  font-size: 11pt;
+  color: #32a189;
 }
-.content-text-location{
-  font-size:9pt;
-  color:"#888888";
-  width:80pt;
+
+.content-text-location {
+  font-size: 9pt;
+  color: "#888888";
+  width: 80pt;
   overflow: hidden;
   white-space: nowrap;
-  text-overflow:ellipsis;
+  text-overflow: ellipsis;
 }
-.content-text-offertime{
-  font-size:9pt;
-  color:"#888888";
+
+.content-text-offertime {
+  font-size: 9pt;
+  color: "#888888";
 }
-.content-text-price{
-  font-size:10pt;
+
+.content-text-price {
+  font-size: 10pt;
 }
-.location-time{
-  display:flex;
-  flex-direction:column;
-  justify-content:flex-start;
-}/*问题：是否这里可以采用text-align来达到相同的效果*/
-.content-bottom{
-  width:90%;
-  display:flex;
-  flex-direction:row;
-  justify-content:space-between;
-  align-items:flex-end;
+
+.location-time {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
-.location-text{
-  font-size:6pt;
+
+/*问题：是否这里可以采用text-align来达到相同的效果*/
+
+.content-bottom {
+  width: 90%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
 }
-.favourite{
-  position:absolute;
-  right:10rpx;
-  bottom:-10rpx;
+
+.location-text {
+  font-size: 6pt;
 }
+
+.favourite {
+  position: absolute;
+  right: 10rpx;
+  bottom: -10rpx;
+}
+
 /*以上是从search页面移植过来的样式*/
