@@ -52,12 +52,12 @@
           <text class="section-title">设置价格</text>
           <text class="section-title2">（默认价格面议）</text>
         </view>
-        <switch type="switch" color="#32A189" bindchange="switch1Change" name="switchHide" />
+        <switch type="switch" checked="{{isPriceShow}}" color="#32A189" bindchange="switch1Change" name="switchHide" />
       </view>
 
       <!-- 2.2.4.1 价格设置 -->
 
-      <view wx:if="{{priceHide}}" class="section underline t-name">
+      <view wx:if="{{isPriceShow}}" class="section underline t-name">
         <input name="price" type="number" class="input" maxlength="100" confirm-hold="false" placeholder-class="inputStyle" placeholder="请输入价格" value="{{price}}" confirm-type="done" />
         <text class="euro">€</text>
       </view>

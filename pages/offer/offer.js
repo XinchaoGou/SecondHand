@@ -22,7 +22,7 @@ Page({
     latitude: 0,//纬度
     //物品价格 TODO
     // price: 0,
-    priceHide:false,
+    isPriceShow:false,
     //物品内容
     content: "",
     noteNowLen: 0,//备注当前字数
@@ -421,11 +421,11 @@ Page({
   switch1Change: function (e) {
     if (e.detail.value == false) {
       this.setData({
-        priceHide: false
+        isPriceShow: false
       })
     } else if (e.detail.value == true) {
       this.setData({
-        priceHide: true
+        isPriceShow: true
       })
     }
   },
@@ -445,35 +445,54 @@ Page({
 
   /**
    * 生命周期函数--监听页面显示
+   * TODO 不单单是显示，还有要上传服务器的东西
    */
   onShow: function () {
     var that = this;
     try {
       var value = wx.getStorageSync('offerForm');
       if(value){
-        console.log("找到了");
-        console.log(value);
+        that.setData({
+          tempFilePaths : value.picUrlArray,
+          title : value.title,
+          // typeIndex : value.typeName,
+          address : value.address,
+          // location : value.location,
+          content : value.content,
+          // publisher : value.publisher,
+          isSrc : true,
+          price : value.price,
+          isAgree : true,
+          showInput : true,
+          isPriceShow : true,
+          wxNumber : value.wxNumber,
+          phoneNumber : value.phoneNumber,
+          eMail : value.eMail,
+        })
+        if (price = 0) {
+          // TODO 价格面议的情况
+          that.setData({
+            isPriceShow : false,
+          })
+        }
       } 
     } catch (e) {
       // Do something when catch error
     }
-
-    //处理完成后删除指定条目
-    // console.log("这句话执行了");
-    // wx.removeStorage({
-    //   key: 'offerForm',
-    //   success: function(res) {
-    //     console.log(res.data)
-    //     console.log("这句话执行了!!!");
-    //   } 
-    // })
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-
+    //处理完成后删除指定条目
+    wx.removeStorage({
+      key: 'offerForm',
+      success: function(res) {
+        console.log("成功删除本地缓存")
+        console.log(res.data)
+      } 
+    })
   },
 
   /**

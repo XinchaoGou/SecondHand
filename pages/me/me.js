@@ -247,33 +247,38 @@ Page({
         var eMail = result.get("eMail");
 
         var offerForm = {
-          id : id,
-          picUrlArray : picUrlArray,
-          title : title,
-          typeName : typeName,
-          address : address,
-          location : location,
-          content : content,
-          price : price,
-          publisher : publisher,
-          wxNumber : wxNumber,
-          phoneNumber : phoneNumber,
-          eMail : eMail,
+          id: id,
+          picUrlArray: picUrlArray,
+          title: title,
+          typeName: typeName,
+          address: address,
+          location: location,
+          content: content,
+          price: price,
+          publisher: publisher,
+          wxNumber: wxNumber,
+          phoneNumber: phoneNumber,
+          eMail: eMail,
         }
-        wx.setStorage({
-          key:"offerForm",
-          data: offerForm
-        })
+        // wx.setStorage({
+        //   key: "offerForm",
+        //   data: offerForm
+        // })
+        try {
+          wx.setStorageSync('offerForm', offerForm);
+          //跳转发布页面 TODO 可能BUG跳转页面后数据还没存到本地
+          wx.switchTab({
+            url: '../offer/offer'
+          })
+        } catch (e) {
+        }
       },
       error: function (object, error) {
         // 查询失败
       }
     });
 
-    //跳转发布页面 TODO 可能BUG跳转页面后数据还没存到本地
-    wx.switchTab({
-      url: '../offer/offer'
-    })
+
   },
 
   /**
