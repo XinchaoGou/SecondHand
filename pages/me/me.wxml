@@ -1,7 +1,7 @@
 <!--pages/me/me.wxml-->
 <view class="container">
   <!-- 1.头像背景 -->
-  <!--scroll-view class="scroll" scroll-y-->
+  <scroll-view class="scroll" scroll-y>
 
     <view class="head-background">
       <image class="userinfo-bgImg" src="{{imgUrl}}"></image>
@@ -14,88 +14,93 @@
     </view>
 
     <!-- 3.我的收藏 -->
-    <view class="userItem" catchtap="tofavourite">
-      <image class="userItemImg" src="../../images/test/favouriteon.png" />
-      <view class="text">
-        <text class="userItemText">我的收藏</text>
+    <view class="largeblock">
+      <view class="userItem" catchtap="tofavourite">
+        <image class="userItemImg" src="../../images/test/favouriteon.png" />
+        <view class="text">
+          <text class="userItemText">我的收藏</text>
+        </view>
+        <image wx:if="{{!showFavourite}}" class="userItemArrow" src="../../images/test/right.png" />
+        <image wx:else class="userItemArrow1" src="../../images/more/down.png" />
       </view>
-      <image wx:if="{{!showFavourite}}" class="userItemArrow" src="../../images/test/right.png" />
-      <image wx:else class="userItemArrow1" src="../../images/more/down.png" />
-    </view>
 
-    <!--4.可隐藏显示的----收藏信息加载区域-->
-    <view class="content" wx:if="{{showFavourite}}">
+      <!--4.可隐藏显示的----收藏信息加载区域-->
+      <view class="content" wx:if="{{showFavourite}}">
 
-      <!--4.1 收藏--分条---信息加载区域-->
-      <view class="content-item" wx:for="{{favorItems}}" catchtap="favorItemTap" data-postid="{{index}}">
-        <!--二手物品图片-->
+        <!--4.1 收藏--分条---信息加载区域-->
+        <view class="content-item-before" hover-class="content-item-after" wx:for="{{favorItems}}" catchtap="favorItemTap" data-postid="{{index}}">
+          <!--二手物品图片-->
 
-        <image mode="aspectFill" style="height:210rpx; width:280rpx;border-radius:10rpx;" src="{{item.src}}" />
+          <image mode="aspectFill" style="height:210rpx; width:280rpx;border-radius:10rpx;" src="{{item.src}}" />
 
-        <!--二手物品交易信息-->
-        <view class="content-block2">
+          <!--二手物品交易信息-->
+          <view class="content-block2">
 
-          <text class='content-text-title'>{{item.title}}</text>
+            <text class='content-text-title'>{{item.title}}</text>
 
-          <view class="location-time">
-            <text class='content-text-location'>{{item.address}}</text>
-            <text class='content-text-offertime'>{{item.date}}</text>
-          </view>
-
-          <view class="content-bottom">
-            <text class='content-text-price'>€ {{item.price}}</text>
-            <view class="favourite" catchtap="favourite_touch" data-favouriteid="{{index}}">
-              <image wx:if="{{item.favouriteshow}}" style="height:50rpx; width:50rpx" src='../../images/test/favouriteon.png' />
-              <image wx:else style="height:50rpx; width:50rpx" src='../../images/test/favouriteoff.png' />
+            <view class="location-time">
+              <text class='content-text-location'>{{item.address}}</text>
+              <text class='content-text-offertime'>{{item.date}}</text>
             </view>
+
+            <view class="content-bottom">
+              <text class='content-text-price'>€ {{item.price}}</text>
+              <view class="favourite" catchtap="favourite_touch" data-favouriteid="{{index}}">
+                <image wx:if="{{item.favouriteshow}}" style="height:50rpx; width:50rpx" src='../../images/test/favouriteon.png' />
+                <image wx:else style="height:50rpx; width:50rpx" src='../../images/test/favouriteoff.png' />
+              </view>
+            </view>
+
           </view>
 
         </view>
 
       </view>
-
     </view>
 
     <!--5.我的发布-->
-    <view class="userItem" catchtap="tooffer">
-      <image class="userItemImg" src="../../images/test/offer.png" />
-      <view class="text">
-        <text class="userItemText">我的发布</text>
+    <view class="largeblock">
+      <view class="userItem" catchtap="tooffer">
+        <image class="userItemImg" src="../../images/test/offer.png" />
+        <view class="text">
+          <text class="userItemText">我的发布</text>
+        </view>
+        <image wx:if="{{!showOffer}}" class="userItemArrow" src="../../images/test/right.png" />
+        <image wx:else class="userItemArrow1" src="../../images/more/down.png" />
       </view>
-      <image wx:if="{{!showOffer}}" class="userItemArrow" src="../../images/test/right.png" />
-      <image wx:else class="userItemArrow1" src="../../images/more/down.png" />
-    </view>
 
-    <!--6.可隐藏显示的---发布信息加载区域-->
-    <view class="content" wx:if="{{showOffer}}">
+      <!--6.可隐藏显示的---发布信息加载区域-->
+      <view class="content" wx:if="{{showOffer}}">
 
 
-      <!--6.1 发布---分条---信息加载区域-->
-      <view class="content-item" wx:for="{{offerItems}}" catchtap="offerItemTap" data-postid="{{index}}">
-        <!--二手物品图片-->
+        <!--6.1 发布---分条---信息加载区域-->
+        <view class="content-item-before" hover-class="content-item-after" wx:for="{{offerItems}}" catchtap="offerItemTap" data-postid="{{index}}">
+          <!--二手物品图片-->
 
-        <image style="height:210rpx; width:280rpx;border-radius:10rpx;" src="{{item.src}}" />
+          <image style="height:210rpx; width:280rpx;border-radius:10rpx;" src="{{item.src}}" />
 
-        <!--二手物品交易信息-->
-        <view class="content-block2">
+          <!--二手物品交易信息-->
+          <view class="content-block2">
 
-          <text class='content-text-title'>{{item.title}}</text>
-          <image class="setting" catchtap="offerSetTap" data-postid="{{index}}" src='../../images/test/settings-32.png' />
-          <view class="location-time">
-            <text class='content-text-location'>{{item.address}}</text>
-            <text class='content-text-offertime'>{{item.date}}</text>
-          </view>
+            <text class='content-text-title'>{{item.title}}</text>
+            <image class="setting" catchtap="offerSetTap" data-postid="{{index}}" src='../../images/test/settings-32.png' />
+            <view class="location-time">
+              <text class='content-text-location'>{{item.address}}</text>
+              <text class='content-text-offertime'>{{item.date}}</text>
+            </view>
 
-          <view class="content-bottom">
-            <text class='content-text-price'>€ {{item.price}}</text>
-            <image catchtap="offerDeleteTap" class="delete" src='../../images/test/delete-32.png' data-postid="{{index}}" />
+            <view class="content-bottom">
+              <text class='content-text-price'>€ {{item.price}}</text>
+              <image catchtap="offerDeleteTap" class="delete" src='../../images/test/delete-32.png' data-postid="{{index}}" />
+            </view>
+
           </view>
 
         </view>
 
       </view>
-
     </view>
-  <!--/scroll-view-->
+
+  </scroll-view>
 
 </view>
