@@ -474,7 +474,7 @@ Page({
           phoneNumber : value.phoneNumber,
           eMail : value.eMail,
 
-          // isModify : true,
+          isModify : true, //用于标识修改状态，发布时修改已有条目，同时修改状态切换界面删除内容
         })
         if (price = 0) {
           // TODO 价格面议的情况
@@ -483,28 +483,29 @@ Page({
           })
         }
       } 
-      if (isModify) {
-        that.setData({
-          tempFilePaths : [],
-          title : '',
-          // typeIndex : typeIndex,
-          address : '点击选择位置',
-          // location : value.location,
-          content : '',
-          // publisher : value.publisher,
-          isSrc : false,
-          price : 0,
-          isAgree : false,
-          showInput : false,
-          isPriceShow : false,
-          wxNumber : '',
-          phoneNumber : '',
-          eMail : '',
+      // if (isModify) {
+      //   that.setData({
+      //     tempFilePaths : [],
+      //     title : '',
+      //     // typeIndex : typeIndex,
+      //     address : '点击选择位置',
+      //     // location : value.location,
+      //     content : '',
+      //     // publisher : value.publisher,
+      //     isSrc : false,
+      //     price : 0,
+      //     isAgree : false,
+      //     showInput : false,
+      //     isPriceShow : false,
+      //     wxNumber : '',
+      //     phoneNumber : '',
+      //     eMail : '',
           
-        })
-      } 
+      //   })
+      // } 
     } catch (e) {
       // Do something when catch error
+      console.log('没找到本地缓存');
     }
   },
 
