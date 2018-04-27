@@ -451,11 +451,13 @@ Page({
     var that = this;
     try {
       var value = wx.getStorageSync('offerForm');
+      console.log(value);
+      // var typeIndex = types.indexOf(value.typeName);
       if(value){
         that.setData({
           tempFilePaths : value.picUrlArray,
           title : value.title,
-          // typeIndex : value.typeName,
+          // typeIndex : typeIndex,
           address : value.address,
           // location : value.location,
           content : value.content,

@@ -141,7 +141,7 @@ Page({
                 src: urls[0],
                 date: mDate,
                 id: id,
-                // favouriteshow: true
+                favouriteshow: true
               }
               favourArray.push(favorItem);
             }
@@ -154,6 +154,50 @@ Page({
       error: function (object, error) {
         // 查询失败
         console.log("查询当前用户失败");
+      }
+    });
+  },
+
+  /**
+   * 点击收藏图标绑定事件，修改图标，修改数据库
+   * by xinchao
+   */
+  favourite_touch: function (event) {
+    var that = this;
+    var postId = event.currentTarget.dataset.favouriteid;
+    var objectId = that.data.favorItems[postId].id;  // 获得数据库对应objectId
+
+    //即时更新视图，不再显示已经取消的收藏   
+    var isshow = this.data.favorItems[postId].favouriteshow;
+    var tFavorItems = that.data.favorItems;
+    tFavorItems.splice(postId, 1);
+    that.setData({
+      favorItems: tFavorItems
+    })
+
+    //获取实例
+    var Offer = Bmob.Object.extend("Offer");
+    var query = new Bmob.Query(Offer);
+    console.log('abc');
+    query.get(objectId, {
+      success: function (result) {
+        console.log('success');
+        //将对应ObjectId 的 Offer关联到收藏
+        var user = Bmob.User.current();
+        var relation = user.relation("like");
+        //实现数据库端like的同步
+        if (!isshow) {
+          //点击之前为false，点击之后为true，表示收藏
+          relation.add(result);
+        } else {
+          //取消收藏
+          relation.remove(result);
+        }
+        user.save();
+      },
+      error: function (object, error) {
+        // 查询失败
+        console.log(error);
       }
     });
   },
@@ -209,7 +253,7 @@ Page({
       success: function (res) {
         if (res.confirm) {
           console.log('用户点击确定')
-          that.offerDelete(objectId);
+          that.offerDelete(postId,objectId);
         } else if (res.cancel) {
           console.log('用户点击取消') //结束函数不删除条目
           return;
@@ -260,10 +304,7 @@ Page({
           phoneNumber: phoneNumber,
           eMail: eMail,
         }
-        // wx.setStorage({
-        //   key: "offerForm",
-        //   data: offerForm
-        // })
+        //同步缓存到数据到本地
         try {
           wx.setStorageSync('offerForm', offerForm);
           //跳转发布页面 TODO 可能BUG跳转页面后数据还没存到本地
@@ -285,7 +326,8 @@ Page({
    * 删除某一个发布条目
    * by xinchao
    */
-  offerDelete: function (objectId) {
+  offerDelete: function (postId,objectId) {
+    var that = this;
     //根据对应的objectId删除指定的发布条目
     var Offer = Bmob.Object.extend("Offer");
     var query = new Bmob.Query(Offer);
@@ -299,6 +341,13 @@ Page({
               title: '删除成功',
               icon: 'success',
               duration: 2000
+            })
+
+            //即时更新视图，不再显示已经删除的条目  
+            var tOfferItems = that.data.offerItems;
+            tOfferItems.splice(postId, 1);
+            that.setData({
+              offerItems: tOfferItems
             })
           },
           error: function (myObject, error) {
