@@ -83,7 +83,7 @@
           <view class="content-block2">
 
             <text class='content-text-title'>{{item.title}}</text>
-            <image class="setting" catchtap="offerSetTap" data-postid="{{index}}" src='../../images/test/settings-32.png' />
+            <image class="setting" catchtap="offerSetTap" data-postid="{{index}}" src='../../images/test/edit-32.png' />
             <view class="location-time">
               <text class='content-text-location'>{{item.address}}</text>
               <text class='content-text-offertime'>{{item.date}}</text>
