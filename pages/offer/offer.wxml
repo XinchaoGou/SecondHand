@@ -89,7 +89,7 @@
         <text class="section-title">物品详情</text>
       </view>
       <view class="section2 underline my-nick">
-        <textarea wx:if="{{textarea_show}}" name="content" class="textarea" placeholder-class="inputStyle" placeholder="请输入物品详情，字数限制在200字以内" value="{{content}}" bindinput="bindTextAreaChange" maxlength="{{noteMaxLen}}" />
+        <textarea wx:if="{{textarea_show}}" name="content" class="textarea" placeholder-class="inputStyle" placeholder="请输入物品详情，字数限制在400字以内" value="{{content}}" bindinput="bindTextAreaChange" maxlength="{{noteMaxLen}}" />
         <view class="chnumber">{{noteNowLen}}/{{noteMaxLen}}</view>
       </view>
     </view>

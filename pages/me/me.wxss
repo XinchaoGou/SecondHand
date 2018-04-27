@@ -134,8 +134,8 @@ page {
   height: 80rpx;
   background-color: white;
   position: relative;
-  border:4rpx solid white;
-  border-radius:20rpx;
+  border: 4rpx solid white;
+  border-radius: 20rpx;
 }
 
 .userItemImg {
@@ -188,13 +188,14 @@ page {
   height: 40rpx;
   width: 40rpx;
   right: 10rpx;
+  top:0rpx;
 }
 
 .delete {
   position: absolute;
   height: 40rpx;
   width: 40rpx;
-  right: 10rpx;
+  right: 15rpx;
 }
 
 /*以下从search页面移植过来的样式*/
@@ -204,18 +205,19 @@ page {
   min-height: 300rpx;
   padding: 20rpx;
   padding-top: 0rpx;
-  padding-bottom:10rpx;
+  padding-bottom: 10rpx;
   background-color: white;
   box-sizing: border-box;
   margin-bottom: 20rpx;
 }
 
-.content-item-after{
+.content-item-after {
   border: 4rpx solid #b2b2b2;
   border-radius: 20rpx;
   margin-bottom: 20rpx;
 }
-.content-item-before{
+
+.content-item-before {
   width: 100%;
   height: 260rpx;
   display: flex;
@@ -228,6 +230,7 @@ page {
   margin-bottom: 20rpx;
   background-color: white;
 }
+
 .content-block2 {
   width: 50%;
   height: 200rpx;
@@ -237,15 +240,21 @@ page {
   justify-content: space-between;
   position: relative;
 }
-.largeblock{
-  border:4rpx solid white;
-  border-radius:20rpx;
+
+.largeblock {
+  border: 4rpx solid white;
+  border-radius: 20rpx;
   background-color: white;
-  margin-bottom:20rpx;
+  margin-bottom: 20rpx;
 }
+
 .content-text-title {
   font-size: 11pt;
   color: #32a189;
+  width: 120pt;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .content-text-location {
