@@ -4,7 +4,7 @@
   <scroll-view class="scroll" scroll-y>
 
     <view class="head-background">
-      <image class="userinfo-bgImg" src="{{imgUrl}}"></image>
+      <image class="userinfo-bgImg" src="../../images/test/Karlsruhe.jpg"></image>
     </view>
 
     <!-- 2.用户信息 -->
