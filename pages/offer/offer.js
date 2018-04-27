@@ -38,7 +38,10 @@ Page({
     notice_status: false,
     //发布按钮禁用
     isdisabled: false,
-    textarea_show: true
+    textarea_show: true,
+
+    //修改发布内容
+    isModify : false,
 
   },
 
@@ -470,6 +473,8 @@ Page({
           wxNumber : value.wxNumber,
           phoneNumber : value.phoneNumber,
           eMail : value.eMail,
+
+          // isModify : true,
         })
         if (price = 0) {
           // TODO 价格面议的情况
@@ -477,7 +482,8 @@ Page({
             isPriceShow : false,
           })
         }
-      } else{
+      } 
+      if (isModify) {
         that.setData({
           tempFilePaths : [],
           title : '',
@@ -494,6 +500,7 @@ Page({
           wxNumber : '',
           phoneNumber : '',
           eMail : '',
+          
         })
       } 
     } catch (e) {
