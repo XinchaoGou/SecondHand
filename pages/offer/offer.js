@@ -26,7 +26,7 @@ Page({
     //物品内容
     content: "",
     noteNowLen: 0,//备注当前字数
-    noteMaxLen: 200,//备注最多字数
+    noteMaxLen: 400,//备注最多字数
     //物品图片
     isSrc: false,
     is9: false,

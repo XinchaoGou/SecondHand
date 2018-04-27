@@ -33,11 +33,20 @@ Page({
    */
   onLoad: function (options) {
     var that = this;
-    // console.log('search Onload' + options);
-    // if (options.id == '转发') {
-    //   console.log('options.id '+options.id );
-    // }
-    // console.log('不是转发');
+    if (options.id) {
+      console.log('是转发options.id ' + options.id);
+      var mObjectId = options.id;
+      //跳转指定的页面 TODO
+      //跳转条目详情
+      wx.navigateTo({
+        url: '../search_section/search_section?id=' + mObjectId + '&favor=' + false
+          + '&postId=' + 0
+      })
+      // return;
+    } else {
+      console.log('不是转发');
+    }
+    console.log('onLoad 执行了');
     //获取当前地理位置
     that.getLocation();
     //查询条目数量

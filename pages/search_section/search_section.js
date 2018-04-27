@@ -159,21 +159,20 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-    // var that = this;
-    // var title = that.data.title;
-    // var offerId = '转发';
+    var that = this;
+    var title = that.data.title;
+    var offerId = that.data.offerId;
     
-    // return {
-    //   title: title,
-    //   path: 'pages/search_section/search_section?id='+offerId + '&favor=' + false
-    //   + '&postId=' + 0,
-    //   success: function(res) {
-    //     // 转发成功
-    //   },
-    //   fail: function(res) {
-    //     // 转发失败
-    //   }
-    // }
+    return {
+      title: title,
+      path: 'pages/search/search?id='+offerId,
+      success: function(res) {
+        // 转发成功
+      },
+      fail: function(res) {
+        // 转发失败
+      }
+    }
   },
 
   /**
@@ -214,7 +213,7 @@ Page({
     that.setData({
       favouriteshow: !isshow
     })
-    //修改父视图中的值
+    //修改父视图中的值 TODO
     var searchPage = getCurrentPages()[getCurrentPages().length - 2];
     var postId = that.data.postId;
     var str = 'contentItems[' + postId + '].favouriteshow';
