@@ -1,7 +1,10 @@
 /* pages/offer/offer.wxss */
 @import '/style/weui.wxss';
 @import '/style/zanui.wxss';
-
+page{
+  width:100%;
+  position:relative;
+}
 .select{
 padding-right:20px;
 height:2.58823529em;
@@ -251,7 +254,7 @@ overflow:hidden;
 .notice {
   position: absolute;
   z-index: 100;
-  bottom: -400rpx;
+  bottom: 100rpx;
   left: 0;
   width: 100%;
   display: flex;
@@ -319,7 +322,6 @@ overflow:hidden;
 
 /*自定义的页面样式*/
 .container {
-  z-index:5;
   width:100%;
   background-color:rgb(239,239,244);
   display: flex;
@@ -462,4 +464,19 @@ overflow:hidden;
 }
 .adressblock{
   width:100%;
+}
+
+.coveractive{
+  width:100%;
+  height:100%;
+  position:absolute;
+  z-index:100;
+  top:0rpx;
+}
+.covernegative{
+  width:100%;
+  height:100%;
+  position:absolute;
+  z-index:-100;
+  top:0rpx;
 }

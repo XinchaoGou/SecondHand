@@ -1,7 +1,7 @@
 <!--pages/me/me.wxml-->
 <view class="container">
   <!-- 1.头像背景 -->
-  <scroll-view class="scroll" scroll-y>
+  
 
     <view class="head-background">
       <image class="userinfo-bgImg" src="../../images/test/Karlsruhe.jpg"></image>
@@ -101,6 +101,5 @@
       </view>
     </view>
 
-  </scroll-view>
 
 </view>
