@@ -477,6 +477,24 @@ Page({
             isPriceShow : false,
           })
         }
+      } else{
+        that.setData({
+          tempFilePaths : [],
+          title : '',
+          // typeIndex : typeIndex,
+          address : '点击选择位置',
+          // location : value.location,
+          content : '',
+          // publisher : value.publisher,
+          isSrc : false,
+          price : 0,
+          isAgree : false,
+          showInput : false,
+          isPriceShow : false,
+          wxNumber : '',
+          phoneNumber : '',
+          eMail : '',
+        })
       } 
     } catch (e) {
       // Do something when catch error

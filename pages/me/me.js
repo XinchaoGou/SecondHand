@@ -33,9 +33,28 @@ Page({
   //TODO
   onShow: function () {
     var that = this;
+    //获取用户收藏列表和用户发布列表 TODO
     that.searchFavouriteList();
     that.searchOfferList();
   },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作TODO
+   * by xinchao
+   */
+  onPullDownRefresh: function () {
+    console.log('执行了下拉刷新');
+    var that = this;
+    wx.vibrateShort();  // 使手机振动15ms  
+    wx.showNavigationBarLoading() //在标题栏中显示加载
+    //todo
+    that.onLoad();
+    that.onShow();
+    // complete
+    wx.hideNavigationBarLoading() //完成停止加载
+    wx.stopPullDownRefresh() //停止下拉刷新
+  },
+
 
   //分享 TODO
   onShareAppMessage: function () {
