@@ -40,7 +40,7 @@
     "borderStyle": "white"
   },
   "networkTimeout": {
-    "request": 10000,
-    "downloadFile": 10000
+    "request": 20000,
+    "downloadFile": 20000
   }
 }
