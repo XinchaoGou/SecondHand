@@ -9,7 +9,7 @@
     <!-- 1.表单验证--输入错误提示模块--正常情况下隐藏-->
     <view class="weui-toptips weui-toptips_warn" wx:if="{{showTopTips}}">{{TopTips}}</view>
     <!-- 2.发布内容主页面-->
-
+    <!--view class="topbar" /-->
     <!-- 2.1 发布标题 -->
     <view class="section-big style1" bindtap="inputTap">
       <view class="section t-name">
@@ -58,7 +58,7 @@
       <!-- 2.2.4.1 价格设置 -->
 
       <view wx:if="{{isPriceShow}}" class="section underline t-name">
-        <input name="price" type="number" class="input" maxlength="100" confirm-hold="false" placeholder-class="inputStyle" placeholder="请输入价格" value="{{price}}" confirm-type="done" />
+        <input name="price" type="number" class="input" maxlength="100" confirm-hold="false" placeholder-class="inputStyle" placeholder="请输入价格" value="{{price}}" confirm-type="done" cursor-spacing="20" />
         <text class="euro">€</text>
       </view>
     </view>
@@ -81,48 +81,89 @@
           </view>
         </view>
       </scroll-view>
+
     </view>
 
     <!-- 2.3.3 物品详情--多行文字输入模块-->
+
     <view class="section-big style1 mt20">
       <view class="section t-name">
         <text class="section-title">物品详情</text>
       </view>
       <view class="section2 underline my-nick">
-        <textarea wx:if="{{textarea_show}}" name="content" class="textarea" placeholder-class="inputStyle" placeholder="请输入物品详情，字数限制在400字以内" value="{{content}}" bindinput="bindTextAreaChange" maxlength="{{noteMaxLen}}" />
+        <textarea wx:if="{{textarea_show}}" name="content" class="textarea" placeholder-class="inputStyle" placeholder="请输入物品详情，字数限制在400字以内" value="{{content}}" bindinput="bindTextAreaChange" maxlength="{{noteMaxLen}}" cursor-spacing="20" />
         <view class="chnumber">{{noteNowLen}}/{{noteMaxLen}}</view>
       </view>
     </view>
 
     <!-- 3.联系方式 -->
     <!--点击同意后showInput取反，点击同意后方才显示，否则隐藏-->
-    <view class="section-big style1 mt20" wx:if="{{showInput}}">
-      <!-- 微信号 -->
-      <view class="section underline t-name">
-        <text class="section-title">微信号</text>
-        <input name="wxNumber" class="input" maxlength="30" placeholder-class="inputStyle" placeholder="请输入微信号" value="{{wxNumber}}" />
-        <image class="arrow-r" src="../../images/more/enter.png"></image>
-      </view>
+    <view class="cover-big">
 
-      <!-- 手机号码 -->
-      <view class="section underline t-name">
-        <text class="section-title">手机号</text>
-        <input name="phoneNumber" type="number" class="input" placeholder-class="inputStyle" placeholder="请输入号码" value="{{phoneNumber}}" />
-        <image class="arrow-r" src="../../images/more/enter.png"></image>
-      </view>
+      <swiper class="section-big height style1 mt20" wx:if="{{showInput}}" current="{{currentTab}}" duration="300" bindchange="switchTab" indicator-dots="true" indicator-active-color="#32A189">
+
+        <!--微信号，手机号，邮箱常用模板，循环加载页面-->
+        <block>
+          <swiper-item>
+            <view class="section underline t-name">
+              <text class="section-title">微信号</text>
+              <input name="wxNumber" class="input" maxlength="30" placeholder-class="inputStyle" placeholder="deutschning" value="{{wxNumber}}" cursor-spacing="20" />
+              <image class="arrow-r" src="../../images/more/enter.png"></image>
+            </view>
+
+            <!-- 手机号码 -->
+            <view class="section underline t-name">
+              <text class="section-title">手机号</text>
+              <input name="phoneNumber" type="number" class="input" placeholder-class="inputStyle" placeholder="18817870927" value="{{phoneNumber}}" cursor-spacing="20" />
+              <image class="arrow-r" src="../../images/more/enter.png"></image>
+            </view>
+
+            <!-- 邮箱 -->
+            <view class="section underline t-name">
+              <text class="section-title">邮箱</text>
+              <input name="eMail" class="input" placeholder-class="inputStyle" placeholder="liuyn_tongji@163.com" value="{{eMail}}" cursor-spacing="20" />
+              <image class="arrow-r" src="../../images/more/enter.png"></image>
+            </view>
+          </swiper-item>
+        </block>
+
+        <!--微信号，手机号，邮箱空白模板-->
+        <swiper-item>
+          <!-- 微信号 -->
+          <view class="section underline t-name">
+            <text class="section-title">微信号</text>
+            <input name="wxNumber" class="input" maxlength="30" placeholder-class="inputStyle" placeholder="请输入微信号" value="{{wxNumber}}" cursor-spacing="20" />
+            <image class="arrow-r" src="../../images/more/enter.png"></image>
+          </view>
+
+          <!-- 手机号码 -->
+          <view class="section underline t-name">
+            <text class="section-title">手机号</text>
+            <input name="phoneNumber" type="number" class="input" placeholder-class="inputStyle" placeholder="请输入号码" value="{{phoneNumber}}" cursor-spacing="20" />
+            <image class="arrow-r" src="../../images/more/enter.png"></image>
+          </view>
+
+          <!-- 邮箱 -->
+          <view class="section underline t-name">
+            <text class="section-title">邮箱</text>
+            <input name="eMail" class="input" placeholder-class="inputStyle" placeholder="请输入邮箱" value="{{eMail}}" cursor-spacing="20" />
+            <image class="arrow-r" src="../../images/more/enter.png"></image>
+          </view>
+
+        </swiper-item>
+
+      </swiper>
 
 
+      <!--微信号，手机号，邮箱指示蒙皮加载界面-->
 
-      <!-- 邮箱 -->
-      <view class="section underline t-name">
-        <text class="section-title">邮箱</text>
-        <input name="eMail" class="input" placeholder-class="inputStyle" placeholder="请输入邮箱" value="{{eMail}}" />
-        <image class="arrow-r" src="../../images/more/enter.png "></image>
+      <view class="section-cover style1 mt20" wx:if="{{false}}">
+        <image class="arrow" src='../../images/test/arrow-left.png' />
+        <text class="arrowtext">左右滑动可切换联系方式模板</text>
+        <image class="arrow" src='../../images/test/arrow-right.png' />
       </view>
 
     </view>
-    <!--此处加入另外一个视图防止上推时出现bug-->
-    <!--view class="mod-a"></view-->
 
     <!-- 阅读并同意 -->
     <view class="mod-a mt20">
@@ -147,8 +188,9 @@
     </view>
 
   </form>
+  <!--/scroll-view-->
 </view>
-<!--/scroll-view-->
+
 <view class="cover{{notice_status?'active':'negative'}}">
   <!-- 发布须知 -->
   <view class="notice" id="notice" wx:if="{{notice_status}}" bindtap="hideNotice">

@@ -78,6 +78,10 @@ page{
   padding:20rpx;
 }
 
+.content-item-after{
+  border:2px solid #32A189;
+  border-radius:20rpx;
+}
 
 .content-block2{
   width:50%;

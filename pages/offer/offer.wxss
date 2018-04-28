@@ -254,7 +254,7 @@ overflow:hidden;
 .notice {
   position: absolute;
   z-index: 100;
-  bottom: 100rpx;
+  bottom: 30rpx;
   left: 0;
   width: 100%;
   display: flex;
@@ -329,10 +329,14 @@ overflow:hidden;
   align-items: stretch;
   justify-content: space-around;
   box-sizing: border-box;
-  padding:10rpx 0;
   position:relative;
 } 
-
+.topbar{
+  width:100%;
+  height:10rpx;
+  background-color:red;
+  position:fixed;
+}
 .section-title{
   font-size:13pt;
   width:50%;
@@ -479,4 +483,30 @@ overflow:hidden;
   position:absolute;
   z-index:-100;
   top:0rpx;
+}
+.section-cover{
+  width:100%;
+  height:370rpx;
+  position:absolute;
+  top:-20rpx;
+  left:0rpx;
+  z-index:20;
+  background-color: rgba(236,236,236,0.7);
+  display:flex;
+  flex-direction:row;
+  justify-content:space-around;
+  align-items:center;
+}
+.cover-big{
+  position:relative;
+}
+.arrowtext{
+  font-size:13pt;
+}
+.arrow{
+  width:60rpx;
+  height:60rpx;
+}
+.height{
+  height:420rpx;
 }
