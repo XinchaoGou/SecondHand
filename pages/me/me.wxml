@@ -20,15 +20,15 @@
         <view class="text">
           <text class="userItemText">我的收藏</text>
         </view>
-        <image wx:if="{{!showFavourite}}" class="userItemArrow" src="../../images/test/right.png" />
+        <image wx:if="{{!isShowFavourite}}" class="userItemArrow" src="../../images/test/right.png" />
         <image wx:else class="userItemArrow1" src="../../images/more/down.png" />
       </view>
 
       <!--4.可隐藏显示的----收藏信息加载区域-->
-      <view class="content" wx:if="{{showFavourite}}">
+      <view class="content" wx:if="{{isShowFavourite}}">
 
         <!--4.1 收藏--分条---信息加载区域-->
-        <view class="content-item-before" hover-class="content-item-after" wx:for="{{favorItems}}" catchtap="favorItemTap" data-postid="{{index}}">
+        <view class="content-item-before" hover-class="content-item-after" wx:for="{{favorList}}" catchtap="favorItemTap" data-postid="{{index}}">
           <!--二手物品图片-->
 
           <image mode="aspectFill" style="height:210rpx; width:280rpx;border-radius:10rpx;" src="{{item.src}}" />
@@ -65,16 +65,16 @@
         <view class="text">
           <text class="userItemText">我的发布</text>
         </view>
-        <image wx:if="{{!showOffer}}" class="userItemArrow" src="../../images/test/right.png" />
+        <image wx:if="{{!isShowOffer}}" class="userItemArrow" src="../../images/test/right.png" />
         <image wx:else class="userItemArrow1" src="../../images/more/down.png" />
       </view>
 
       <!--6.可隐藏显示的---发布信息加载区域-->
-      <view class="content" wx:if="{{showOffer}}">
+      <view class="content" wx:if="{{isShowOffer}}">
 
 
         <!--6.1 发布---分条---信息加载区域-->
-        <view class="content-item-before" hover-class="content-item-after" wx:for="{{offerItems}}" catchtap="offerItemTap" data-postid="{{index}}">
+        <view class="content-item-before" hover-class="content-item-after" wx:for="{{offerList}}" catchtap="offerItemTap" data-postid="{{index}}">
           <!--二手物品图片-->
 
           <image style="height:210rpx; width:280rpx;border-radius:10rpx;" src="{{item.src}}" />
