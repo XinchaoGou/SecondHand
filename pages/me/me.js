@@ -5,19 +5,19 @@ var app = getApp();
 Page({
 
   data: {
-    warnSize: 'default',
+    // warnSize: 'default',
     imgUrl: null,
     userInfo: {},
-    favorItems: [],
-    offerItems: [],
+    favorList: [],
+    offerList: [],
 
     //页面隐藏设计添加的变量，by yining
-    showOffer: false,
-    showFavourite: false
+    isShowOffer: false,
+    isShowFavourite: false
   },
 
   onLoad: function () {
-    var that = this
+    var that = this;
     //调用应用实例的方法获取全局数据
     app.getUserInfo(function (userInfo) {
       //更新数据
@@ -43,7 +43,7 @@ Page({
    * by xinchao
    */
   onPullDownRefresh: function () {
-    console.log('执行了下拉刷新');
+    // console.log('执行了下拉刷新');
     var that = this;
     wx.vibrateShort();  // 使手机振动15ms  
     wx.showNavigationBarLoading() //在标题栏中显示加载
@@ -85,32 +85,34 @@ Page({
       success: function (results) {
         console.log("查询到" + results.length + "条发布");
         var offerArray = [];
-        for (let i = 0; i < results.length; i++) {
+        for (let i = 0; i < results.length; i++) { 
+          
           var object = results[i];
+          //获得发布条目内容详情
           var id = object.id;
           var title = object.get('title');
           var price = object.get('price');
           var address = object.get('address');
           var urls = object.get('picUrlArray');
           if (urls == "") {
-            //设置为默认图片 url数组注意
+            //没有图片则设置为默认图片 url数组注意
             urls = ['../../images/test/camera.png'];
           }
           //考虑时差，换算
           var mDate = Utils.getDateDiffWithJetLag(object.createdAt);
           var offerItem = {
+            id: id,
             title: title,
             price: price,
             address: address,
             src: urls[0],
             date: mDate,
-            id: id,
           }
           offerArray.push(offerItem);
         }
 
         that.setData({
-          offerItems: offerArray
+          offerList: offerArray
         })
       },
       error: function (error) {
@@ -165,7 +167,7 @@ Page({
               favourArray.push(favorItem);
             }
             that.setData({
-              favorItems: favourArray
+              favorList: favourArray
             });
           }
         });
@@ -184,14 +186,14 @@ Page({
   favourite_touch: function (event) {
     var that = this;
     var postId = event.currentTarget.dataset.favouriteid;
-    var objectId = that.data.favorItems[postId].id;  // 获得数据库对应objectId
+    var objectId = that.data.favorList[postId].id;  // 获得数据库对应objectId
 
     //即时更新视图，不再显示已经取消的收藏   
-    var isshow = this.data.favorItems[postId].favouriteshow;
-    var tFavorItems = that.data.favorItems;
+    var isshow = this.data.favorList[postId].favouriteshow;
+    var tFavorItems = that.data.favorList;
     tFavorItems.splice(postId, 1);
     that.setData({
-      favorItems: tFavorItems
+      favorList: tFavorItems
     })
 
     //获取实例
@@ -228,8 +230,8 @@ Page({
   favorItemTap: function (event) {
     var that = this;
     var postId = event.currentTarget.dataset.postid;
-    var objectId = that.data.favorItems[postId].id;  // 获得数据库对应objectId
-    var favor = that.data.favorItems[postId].favouriteshow;
+    var objectId = that.data.favorList[postId].id;  // 获得数据库对应objectId
+    var favor = that.data.favorList[postId].favouriteshow;
     console.log(favor);
     //跳转条目详情
     wx.navigateTo({
@@ -245,8 +247,8 @@ Page({
   offerItemTap: function (event) {
     var that = this;
     var postId = event.currentTarget.dataset.postid;
-    var objectId = that.data.offerItems[postId].id;  // 获得数据库对应objectId
-    // var favor = that.data.offerItems[postId].favouriteshow;
+    var objectId = that.data.offerList[postId].id;  // 获得数据库对应objectId
+    // var favor = that.data.offerList[postId].favouriteshow;
     //TODO
     var favor = false;
     //跳转条目详情
@@ -263,7 +265,7 @@ Page({
   offerDeleteTap: function (event) {
     var that = this;
     var postId = event.currentTarget.dataset.postid;
-    var objectId = that.data.offerItems[postId].id; // 获得数据库对应发布条目的objectId
+    var objectId = that.data.offerList[postId].id; // 获得数据库对应发布条目的objectId
 
     //删除确认框
     wx.showModal({
@@ -289,7 +291,7 @@ Page({
     console.log('重新编辑发布条目信息');
     var that = this;
     var postId = event.currentTarget.dataset.postid;
-    var objectId = that.data.offerItems[postId].id;  // 获得数据库对应objectId
+    var objectId = that.data.offerList[postId].id;  // 获得数据库对应objectId
 
     //加载对应发布条目内容
     var Offer = Bmob.Object.extend("Offer");
@@ -363,10 +365,10 @@ Page({
             })
 
             //即时更新视图，不再显示已经删除的条目  
-            var tOfferItems = that.data.offerItems;
+            var tOfferItems = that.data.offerList;
             tOfferItems.splice(postId, 1);
             that.setData({
-              offerItems: tOfferItems
+              offerList: tOfferItems
             })
           },
           error: function (myObject, error) {
@@ -385,17 +387,17 @@ Page({
   //页面隐藏设计添加的函数，by yining
   tofavourite: function () {
     var that = this;
-    var switch1 = that.data.showFavourite;
+    var switch1 = that.data.isShowFavourite;
     this.setData({
-      showFavourite: !switch1
+      isShowFavourite: !switch1
     })
   },
 
   tooffer: function () {
     var that = this;
-    var switch2 = that.data.showOffer;
+    var switch2 = that.data.isShowOffer;
     this.setData({
-      showOffer: !switch2
+      isShowOffer: !switch2
     })
   },
 
