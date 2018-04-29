@@ -1,18 +1,15 @@
 var Bmob = require("../../utils/bmob.js");
 var common = require('../../template/loadingBox.js');
-var that;
+// var that;
 // pages/offer/offer.js
 Page({
 
-  /**
-   * 页面的初始数据
-   */
   data: {
     //表单验证相关 TODO
-    showTopTips: false,
+    isShowTopTips: false,
     TopTips: '',
     //发布标题
-    focus: false,
+    isFocus: false,
     //物品类别
     types: ["所有种类", "房屋租赁", "电子产品", "学习资料", "家具", "交通工具", "乐器", "有偿帮带", "其他"],
     typeIndex: "0",
@@ -33,12 +30,12 @@ Page({
     tempFilePaths: [],
     //阅读并同意填写联系方式
     isAgree: false,
-    showInput: false,//显示输入真实姓名,
+    isShowInput: false,//显示输入真实姓名,
     //发布须知
-    notice_status: false,
+    is_notice_status: false,
     //发布按钮禁用
     isdisabled: false,
-    textarea_show: true,
+    is_textarea_show: true,
 
     //修改发布内容
     isModify: false,
@@ -50,7 +47,51 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    that = this;
+    // that = this;
+  },
+
+  /**
+   * 重置表单数据，清空表单
+   * by xinchao
+   */
+  clearData: function (){
+    var that = this;
+    that.setData({
+    //表单验证相关 TODO
+    isShowTopTips: false,
+    TopTips: '',
+    //发布标题
+    isFocus: false,
+    //物品类别
+    types: ["所有种类", "房屋租赁", "电子产品", "学习资料", "家具", "交通工具", "乐器", "有偿帮带", "其他"],
+    typeIndex: "0",
+    //交易地点
+    address: '点击选择位置',
+    longitude: 0, //经度
+    latitude: 0,//纬度
+    //物品价格 TODO
+    // price: 0,
+    isPriceShow: false,
+    //物品内容
+    content: "",
+    noteNowLen: 0,//备注当前字数
+    noteMaxLen: 400,//备注最多字数
+    //物品图片
+    isSrc: false,
+    is9: false,
+    tempFilePaths: [],
+    //阅读并同意填写联系方式
+    isAgree: false,
+    isShowInput: false,//显示输入真实姓名,
+    //发布须知
+    is_notice_status: false,
+    //发布按钮禁用
+    isdisabled: false,
+    is_textarea_show: true,
+
+    //修改发布内容
+    isModify: false,
+    })
   },
 
   /**
@@ -58,9 +99,9 @@ Page({
    * by xinchao
    */
   submitForm: function (e) {
-
+    var that = this;
     //阅读发布须知 TODO 改为toast
-    if (!that.data.showInput) {
+    if (!that.data.isShowInput) {
       wx.showModal({
         title: '提示',
         content: '请先阅读《发布须知》',
@@ -161,7 +202,7 @@ Page({
           //重置表单 TODO
           that.setData({
             //表单验证相关 TODO
-            showTopTips: false,
+            isShowTopTips: false,
             TopTips: '',
             //物品类别
             types: ["电子产品", "学习资料", "家具", "其他"],
@@ -182,9 +223,9 @@ Page({
             tempFilePaths: [],
             //阅读并同意填写联系方式
             isAgree: false,
-            showInput: false,//显示输入真实姓名,
+            isShowInput: false,//显示输入真实姓名,
             //发布须知
-            notice_status: false,
+            is_notice_status: false,
             //发布按钮启用
             isdisabled: false
 
@@ -205,7 +246,7 @@ Page({
   },
 
   /**
-   * 封装发布照片
+   * 封装发布照片到服务器
    * by xinchao
    */
   upLoadPicToCloud: function () {
@@ -267,7 +308,8 @@ Page({
    * by xinchao
    */
   bindTypeChange: function (e) {
-    this.setData({
+    var that = this;
+    that.setData({
       typeIndex: e.detail.value
     })
   },
@@ -277,7 +319,8 @@ Page({
    * by xinchao
    */
   addressChange: function (e) {
-    this.addressChoose(e);
+    var that = this;
+    that.addressChoose(e);
   },
   addressChoose: function (e) {
     console.log("这里可能有bug");
@@ -323,6 +366,7 @@ Page({
    */
   //上传活动图片
   uploadPic: function () {//选择图标
+    var that = this;
     wx.chooseImage({
       count: 9 - that.data.tempFilePaths.length, // 默认9
       sizeType: ['compressed'], //压缩图
@@ -366,9 +410,10 @@ Page({
    * by xinchao
    */
   bindAgreeChange: function (e) {
-    this.setData({
+    var that = this;
+    that.setData({
       isAgree: !!e.detail.value.length,
-      showInput: !this.data.showInput
+      isShowInput: !this.data.isShowInput
     });
   },
 
@@ -377,20 +422,23 @@ Page({
    * by xinchao
    */
   tapNotice: function (e) {
+    var that = this;
     if (e.target.id == 'notice') {
       this.hideNotice();
     }
   },
   showNotice: function (e) {
-    this.setData({
-      'notice_status': true,
-      textarea_show: false
+    var that = this;
+    that.setData({
+      is_notice_status: true,
+      is_textarea_show: false, //取消显示textarea，防止bug
     });
   },
   hideNotice: function (e) {
-    this.setData({
-      'notice_status': false,
-      textarea_show: true
+    var that = this;
+    that.setData({
+      is_notice_status: false,
+      is_textarea_show: true
     });
   },
 
@@ -413,41 +461,41 @@ Page({
     if (title == "") {
       flag = false;
       this.setData({
-        showTopTips: true,
+        isShowTopTips: true,
         TopTips: '请输入标题'
       });
     }
     else if (address == '点击选择位置') {
       flag = false;
       this.setData({
-        showTopTips: true,
+        isShowTopTips: true,
         TopTips: '请选择交易地点'
       });
     }
     else if (price == "") {
       flag = false;
       this.setData({
-        showTopTips: true,
+        isShowTopTips: true,
         TopTips: '请输入价格'
       });
     }
     else if (content == "") {
       flag = false;
       this.setData({
-        showTopTips: true,
+        isShowTopTips: true,
         TopTips: '请输入物品详情介绍'
       });
     }
     else if ((wxNumber == "") && (eMail == "") && (phoneNumber == "")) {
       flag = false;
       this.setData({
-        showTopTips: true,
+        isShowTopTips: true,
         TopTips: '请至少输入一个联系方式'
       });
     }
     setTimeout(function () {
       that.setData({
-        showTopTips: false,
+        isShowTopTips: false,
         isdisabled: false    //设置重启按钮
       });
     }, 700);
@@ -458,20 +506,22 @@ Page({
   * 设置价格switch组件事件监听函数，by yining
   */
   switch1Change: function (e) {
+    var that = this;
     if (e.detail.value == false) {
-      this.setData({
+      that.setData({
         isPriceShow: false
       })
     } else if (e.detail.value == true) {
-      this.setData({
+      that.setData({
         isPriceShow: true
       })
     }
   },
 
   inputTap: function () {
-    this.setData({
-      focus: true
+    var that = this;
+    that.setData({
+      isFocus: true
     })
   },
 
@@ -506,7 +556,7 @@ Page({
           isSrc: true,
           price: value.price,
           isAgree: true,
-          showInput: true,
+          isShowInput: true,
           isPriceShow: true,
           wxNumber: value.wxNumber,
           phoneNumber: value.phoneNumber,
@@ -534,7 +584,7 @@ Page({
       //     isSrc : false,
       //     price : 0,
       //     isAgree : false,
-      //     showInput : false,
+      //     isShowInput : false,
       //     isPriceShow : false,
       //     wxNumber : '',
       //     phoneNumber : '',
@@ -557,7 +607,7 @@ Page({
       key: 'offerForm',
       success: function (res) {
         console.log("成功删除本地缓存")
-        console.log(res.data)
+        // console.log(res.data)
       }
     })
   },

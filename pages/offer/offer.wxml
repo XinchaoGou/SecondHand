@@ -7,7 +7,7 @@
   <form bindsubmit="submitForm">
 
     <!-- 1.表单验证--输入错误提示模块--正常情况下隐藏-->
-    <view class="weui-toptips weui-toptips_warn" wx:if="{{showTopTips}}">{{TopTips}}</view>
+    <view class="weui-toptips weui-toptips_warn" wx:if="{{isShowTopTips}}">{{TopTips}}</view>
     <!-- 2.发布内容主页面-->
     <!--view class="topbar" /-->
     <!-- 2.1 发布标题 -->
@@ -16,7 +16,7 @@
         <text class="section-title">发布标题</text>
       </view>
       <view class="section underline t-name">
-        <input name="title" class="input" maxlength="30" placeholder-class="inputStyle" placeholder="请输入标题" value="{{title}}" focus="{{focus}}" />
+        <input name="title" class="input" maxlength="30" placeholder-class="inputStyle" placeholder="请输入标题" value="{{title}}" focus="{{isFocus}}" />
       </view>
     </view>
 
@@ -91,7 +91,7 @@
         <text class="section-title">物品详情</text>
       </view>
       <view class="section2 underline my-nick">
-        <textarea wx:if="{{textarea_show}}" name="content" class="textarea" placeholder-class="inputStyle" placeholder="请输入物品详情，字数限制在400字以内" value="{{content}}" bindinput="bindTextAreaChange" maxlength="{{noteMaxLen}}" cursor-spacing="20" />
+        <textarea wx:if="{{is_textarea_show}}" name="content" class="textarea" placeholder-class="inputStyle" placeholder="请输入物品详情，字数限制在400字以内" value="{{content}}" bindinput="bindTextAreaChange" maxlength="{{noteMaxLen}}" cursor-spacing="20" />
         <view class="chnumber">{{noteNowLen}}/{{noteMaxLen}}</view>
       </view>
     </view>
@@ -100,7 +100,7 @@
     <!--点击同意后showInput取反，点击同意后方才显示，否则隐藏-->
     <view class="cover-big">
 
-      <swiper class="section-big height style1 mt20" wx:if="{{showInput}}" current="{{currentTab}}" duration="300" bindchange="switchTab" indicator-dots="true" indicator-active-color="#32A189">
+      <swiper class="section-big height style1 mt20" wx:if="{{isShowInput}}" current="{{currentTab}}" duration="300" bindchange="switchTab" indicator-dots="true" indicator-active-color="#32A189">
 
         <!--微信号，手机号，邮箱常用模板，循环加载页面-->
         <block>
@@ -191,9 +191,9 @@
   <!--/scroll-view-->
 </view>
 
-<view class="cover{{notice_status?'active':'negative'}}">
+<view class="cover{{is_notice_status?'active':'negative'}}">
   <!-- 发布须知 -->
-  <view class="notice" id="notice" wx:if="{{notice_status}}" bindtap="hideNotice">
+  <view class="notice" id="notice" wx:if="{{is_notice_status}}" bindtap="hideNotice">
     <view class="box">
       <view class="box-hd">
         <text class="box-title">发布须知</text>
