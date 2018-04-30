@@ -210,25 +210,25 @@ page {
   box-sizing: border-box;
   margin-bottom: 20rpx;
 }
-
-.content-item-after {
+/*此处有个小bug*/
+.content-item-after{
   border: 4rpx solid #b2b2b2;
-  border-radius: 20rpx;
+  border-radius:20rpx;
   margin-bottom: 20rpx;
+  background-color:#b2b2b2;
 }
 
-.content-item-before {
+.content-item-before{
   width: 100%;
   height: 260rpx;
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding: 20rpx;
   justify-content: space-between;
   box-sizing: border-box;
   border-bottom: 4rpx solid #b2b2b2;
   margin-bottom: 20rpx;
-  background-color: white;
+  background-color:white;
 }
 
 .content-block2 {
@@ -251,7 +251,7 @@ page {
 .content-text-title {
   font-size: 11pt;
   color: #32a189;
-  width: 120pt;
+  width: 80pt;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;

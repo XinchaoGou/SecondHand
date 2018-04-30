@@ -13,7 +13,8 @@ Page({
 
     //页面隐藏设计添加的变量，by yining
     isShowOffer: false,
-    isShowFavourite: false
+    isShowFavourite: false,
+    isShowContact: false
   },
 
   onLoad: function () {
@@ -400,5 +401,13 @@ Page({
       isShowOffer: !switch2
     })
   },
+
+  tocontact: function () {
+    var that = this;
+    var switch3 = that.data.isShowContact;
+    this.setData({
+      isShowContact: !switch3
+    })
+  }
 
 })

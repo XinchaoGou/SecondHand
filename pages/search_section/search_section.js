@@ -21,6 +21,12 @@ Page({
     offerId: "",
     postId: 0,
 
+    //by yining,屏幕宽高
+    screenHeight: 0,
+    screenWidth: 0,  
+    imgwidth: 0,
+    imgheight: 0,
+
     //地图加载相关
     latitude: 0,
     longitude: 0,
@@ -111,6 +117,31 @@ Page({
         console.log("查询失败");
       }
     });
+    //调用api获取屏幕的宽高
+    wx.getSystemInfo({
+      success: function (res) {
+        that.setData({
+          screenHeight: res.windowHeight,
+          screenWidth: res.windowWidth
+        });
+      }
+    });
+  
+  },
+
+  //根据屏幕的宽高等比例缩放计算图片的宽高，by yining
+  imageLoad: function (e) {
+    var _this = this;
+    var $width = e.detail.width,    //获取图片真实宽度  
+      $height = e.detail.height,
+      ratio = $width / $height;   //图片的真实宽高比例  
+    //var viewWidth = this.data.screenWidth,           //设置图片显示宽度，  
+      //viewHeight = viewWidth / ratio;   //计算的高度值   
+    var viewWidth = 300*ratio;
+    this.setData({
+      imgwidth: viewWidth,
+      imgheight: 300
+    })
   },
 
   /**
