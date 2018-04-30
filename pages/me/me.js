@@ -389,14 +389,27 @@ Page({
   tofavourite: function () {
     var that = this;
     var switch1 = that.data.isShowFavourite;
+    if (!switch1) {
+      //如果原来是false，要展开收藏列表
+      that.setData({
+        isShowOffer: false
+      })
+    }
     this.setData({
       isShowFavourite: !switch1
+
     })
   },
 
   tooffer: function () {
     var that = this;
     var switch2 = that.data.isShowOffer;
+    if (!switch2) {
+      //如果原来是false，要展开收藏列表
+      that.setData({
+        isShowFavourite: false
+      })
+    }
     this.setData({
       isShowOffer: !switch2
     })
