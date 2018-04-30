@@ -5,10 +5,11 @@ var common = require('../../template/loadingBox.js');
 Page({
 
   data: {
-    //表单验证相关 TODO
+    //表单验证相关 TODO:
     isShowTopTips: false,
     TopTips: '',
     //发布标题
+    title: '',
     isFocus: false,
     //物品类别
     types: ["所有种类", "房屋租赁", "电子产品", "学习资料", "家具", "交通工具", "乐器", "有偿帮带", "其他"],
@@ -17,7 +18,7 @@ Page({
     address: '点击选择位置',
     longitude: 0, //经度
     latitude: 0,//纬度
-    //物品价格 TODO
+    //物品价格 TODO:
     // price: 0,
     isPriceShow: false,
     //物品内容
@@ -57,10 +58,11 @@ Page({
   clearData: function (){
     var that = this;
     that.setData({
-    //表单验证相关 TODO
+    //表单验证相关 TODO:
     isShowTopTips: false,
     TopTips: '',
     //发布标题
+    title: '',
     isFocus: false,
     //物品类别
     types: ["所有种类", "房屋租赁", "电子产品", "学习资料", "家具", "交通工具", "乐器", "有偿帮带", "其他"],
@@ -69,7 +71,7 @@ Page({
     address: '点击选择位置',
     longitude: 0, //经度
     latitude: 0,//纬度
-    //物品价格 TODO
+    //物品价格 TODO:
     // price: 0,
     isPriceShow: false,
     //物品内容
@@ -100,7 +102,7 @@ Page({
    */
   submitForm: function (e) {
     var that = this;
-    //阅读发布须知 TODO 改为toast
+    //TODO: 阅读发布须知 改为toast
     if (!that.data.isShowInput) {
       wx.showModal({
         title: '提示',
@@ -199,37 +201,8 @@ Page({
         console.log("发布成功, objectId:" + result.id);
         wx.hideLoading();
         common.dataLoading("发起成功", "success", function () {
-          //重置表单 TODO
-          that.setData({
-            //表单验证相关 TODO
-            isShowTopTips: false,
-            TopTips: '',
-            //物品类别
-            types: ["电子产品", "学习资料", "家具", "其他"],
-            typeIndex: "0",
-            //交易地点
-            address: '点击选择位置',
-            longitude: 0, //经度
-            latitude: 0,//纬度
-            //物品价格 TODO
-            // price: 0,
-            //物品内容
-            content: "",
-            noteNowLen: 0,//备注当前字数
-            noteMaxLen: 200,//备注最多字数
-            //物品图片
-            isSrc: false,
-            is9: false,
-            tempFilePaths: [],
-            //阅读并同意填写联系方式
-            isAgree: false,
-            isShowInput: false,//显示输入真实姓名,
-            //发布须知
-            is_notice_status: false,
-            //发布按钮启用
-            isdisabled: false
-
-          })
+          //重置表单 TODO:
+          that.clearData();
         });
       },
       error: function (result, error) {
@@ -258,12 +231,14 @@ Page({
       var urlArr = new Array();
       var tempFilePaths = that.data.tempFilePaths;
       var imgLength = tempFilePaths.length;
+
+      //如果是修改状态，已经是服务器端图片url,不上传直接设置服务器端url地址
       if (that.data.isModify) {
-        //如果是修改状态，得到的图片,不上传直接设置服务器端url地址
         urlArr = tempFilePaths;
         resolve(urlArr);
         return;
       }
+
       // console.log('这句话执行了');
       if (imgLength > 0) {
         //日期作为图片名的一部分
@@ -320,11 +295,6 @@ Page({
    */
   addressChange: function (e) {
     var that = this;
-    that.addressChoose(e);
-  },
-  addressChoose: function (e) {
-    console.log("这里可能有bug");
-    var that = this;
     wx.chooseLocation({
       success: function (res) {
         //电脑调试的时候，经纬度为空，手机上可以运行
@@ -345,6 +315,7 @@ Page({
     })
   },
 
+
   /**
    * 物品内容，字数改变触发事件
    * by xinchao
@@ -356,7 +327,8 @@ Page({
     if (len > that.data.noteMaxLen)
       return;
     that.setData({
-      content: value, noteNowLen: len
+      content: value, 
+      noteNowLen: len
     })
   },
 
@@ -391,13 +363,12 @@ Page({
       }
     })
   },
-  //删除图片 TODO
+  //删除图片
   clearPic: function (event) {//删除图片
     var that = this;
     var postId = event.currentTarget.dataset.clearid;
     var tFilePaths = that.data.tempFilePaths;
     tFilePaths.splice(postId, 1);
-
 
     that.setData({
       is9: false,
@@ -406,7 +377,7 @@ Page({
   },
 
   /**
-   * 阅读并同意
+   * TODO: 阅读并同意
    * by xinchao
    */
   bindAgreeChange: function (e) {
@@ -534,7 +505,7 @@ Page({
 
   /**
    * 生命周期函数--监听页面显示
-   * TODO 不单单是显示，还有要上传服务器的东西
+   * TODO: 不单单是显示，还有要上传服务器的东西
    */
   onShow: function () {
     var that = this;
@@ -566,32 +537,12 @@ Page({
           isPicArrayFromCloud: true,
         })
         if (price = 0) {
-          // TODO 价格面议的情况
+          // TODO: 价格面议的情况
           that.setData({
             isPriceShow: false,
           })
         }
       }
-      // if (isModify) {
-      //   that.setData({
-      //     tempFilePaths : [],
-      //     title : '',
-      //     // typeIndex : typeIndex,
-      //     address : '点击选择位置',
-      //     // location : value.location,
-      //     content : '',
-      //     // publisher : value.publisher,
-      //     isSrc : false,
-      //     price : 0,
-      //     isAgree : false,
-      //     isShowInput : false,
-      //     isPriceShow : false,
-      //     wxNumber : '',
-      //     phoneNumber : '',
-      //     eMail : '',
-
-      //   })
-      // } 
     } catch (e) {
       // Do something when catch error
       console.log('没找到本地缓存');
