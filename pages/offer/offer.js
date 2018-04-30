@@ -44,6 +44,9 @@ Page({
     isModify: false,
     // isPicArrayFromCloud: false,
 
+    //左右滑动切换模块，by yining
+    currentTab: 0, //预设当前项的值
+
   },
 
   /**
@@ -560,6 +563,16 @@ Page({
         console.log(res.data)
       }
     })
+  },
+
+  // 滚动切换联系方式标签样式，by yining
+  switchTab: function (e) {
+
+    var index = e.detail.current;//当前所在页面的 index
+    this.setData({
+      currentTab: e.detail.current
+    });
+    //console.log(this.data.currentTab);
   },
 
   /**

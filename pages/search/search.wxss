@@ -79,7 +79,7 @@ page{
 }
 
 .content-item-after{
-  border:2px solid #32A189;
+  border:2px solid #b2b2b2;
   border-radius:20rpx;
 }
 

@@ -8,6 +8,8 @@
 
     <!-- 1.表单验证--输入错误提示模块--正常情况下隐藏-->
     <view class="weui-toptips weui-toptips_warn" wx:if="{{showTopTips}}">{{TopTips}}</view>
+    <view class="weui-toptips" style="color:#000000;background-color:#b2b2b2;z-index:2000;">下拉刷新可清空所有发布内容</view>
+
     <!-- 2.发布内容主页面-->
     <!--view class="topbar" /-->
     <!-- 2.1 发布标题 -->
@@ -25,7 +27,7 @@
     <view class="section-big style2">
       <!-- 2.2.1 物品类别 -->
       <view class="section underline type">
-        <text class="section-title">物品类别</text>
+        <text class="section-title">类别</text>
         <picker bindchange="bindTypeChange" class="section-right" value="{{typeIndex}}" range="{{types}}">
           <text class="value" name="types">{{types[typeIndex]}}</text>
           <image class="arrow-r" src="../../images/more/enter.png" />
@@ -88,10 +90,10 @@
 
     <view class="section-big style1 mt20">
       <view class="section t-name">
-        <text class="section-title">物品详情</text>
+        <text class="section-title">详情</text>
       </view>
       <view class="section2 underline my-nick">
-        <textarea wx:if="{{textarea_show}}" name="content" class="textarea" placeholder-class="inputStyle" placeholder="请输入物品详情，字数限制在400字以内" value="{{content}}" bindinput="bindTextAreaChange" maxlength="{{noteMaxLen}}" cursor-spacing="20" />
+        <textarea wx:if="{{textarea_show}}" name="content" class="textarea" placeholder-class="inputStyle" placeholder="请输入详情，字数限制在{{noteMaxLen}}字以内" value="{{content}}" bindinput="bindTextAreaChange" maxlength="{{noteMaxLen}}" cursor-spacing="20" />
         <view class="chnumber">{{noteNowLen}}/{{noteMaxLen}}</view>
       </view>
     </view>
@@ -100,28 +102,31 @@
     <!--点击同意后showInput取反，点击同意后方才显示，否则隐藏-->
     <view class="cover-big">
 
-      <swiper class="section-big height style1 mt20" wx:if="{{showInput}}" current="{{currentTab}}" duration="300" bindchange="switchTab" indicator-dots="true" indicator-active-color="#32A189">
+      <!--swiper组件左右滑动切换模板-->
+      <!--swiper组件的current组件用于控制当前显示哪一页 -->
+      <!--swiper组件绑定bindchange事件switchTab，通过e.detail.current拿到当前页-->
+      <swiper class="section-big height style1 mt20" wx:if="{{showInput}}" duration="300" bindchange="switchTab" indicator-dots="true" indicator-active-color="#32A189">
 
         <!--微信号，手机号，邮箱常用模板，循环加载页面-->
         <block>
           <swiper-item>
             <view class="section underline t-name">
               <text class="section-title">微信号</text>
-              <input name="wxNumber" class="input" maxlength="30" placeholder-class="inputStyle" placeholder="deutschning" value="{{wxNumber}}" cursor-spacing="20" />
+              <text class="input">deutschning</text>
               <image class="arrow-r" src="../../images/more/enter.png"></image>
             </view>
 
             <!-- 手机号码 -->
             <view class="section underline t-name">
               <text class="section-title">手机号</text>
-              <input name="phoneNumber" type="number" class="input" placeholder-class="inputStyle" placeholder="18817870927" value="{{phoneNumber}}" cursor-spacing="20" />
+              <text class="input">18817870927</text>
               <image class="arrow-r" src="../../images/more/enter.png"></image>
             </view>
 
             <!-- 邮箱 -->
             <view class="section underline t-name">
               <text class="section-title">邮箱</text>
-              <input name="eMail" class="input" placeholder-class="inputStyle" placeholder="liuyn_tongji@163.com" value="{{eMail}}" cursor-spacing="20" />
+              <text class="input">liuyn_tongji@163.com</text>
               <image class="arrow-r" src="../../images/more/enter.png"></image>
             </view>
           </swiper-item>
