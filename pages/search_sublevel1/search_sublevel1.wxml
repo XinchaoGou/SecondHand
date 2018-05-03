@@ -11,12 +11,16 @@
       <text class="text-title" bindtap="primary">Karlsruhe</text>
     </view>
 
-    <view class="section underline" catchtap="toSublevel2">
-      <text class="section-title">物品类别</text>
-      <view class="section-right">
-        <text class="text-title2" bindtap="primary">所有种类</text>
-        <image class="arrow-r" src="../../images/more/enter.png" />
-      </view>
+    <view class="section">
+      <text class="section-title">类别</text>
+    </view>
+
+    <view class="section underline">
+      <picker mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}">
+        <view class="text-title" name="types">{{multiArray[0][multiIndex[0]]}} {{multiArray[1][multiIndex[1]]}} {{multiArray[2][multiIndex[2]]}}
+        </view>
+      </picker>
+      <image class="arrow-r" src="../../images/more/enter.png" />
     </view>
 
     <view class="section t-name">

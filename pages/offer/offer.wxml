@@ -108,7 +108,7 @@
       <swiper class="section-big height style1 mt20" wx:if="{{isShowInput}}" duration="300" bindchange="switchTab" indicator-dots="true" indicator-active-color="#32A189">
 
         <!--微信号，手机号，邮箱常用模板，循环加载页面-->
-        <block>
+        <block wx:for="{{contactList}}">
           <swiper-item>
             <view class="section underline t-name">
               <text class="section-title">微信号</text>
@@ -154,7 +154,7 @@
             <input name="eMail" class="input" placeholder-class="inputStyle" placeholder="请输入邮箱" value="{{eMail}}" cursor-spacing="20" />
             <image class="arrow-r" src="../../images/more/enter.png"></image>
           </view>
-
+          
         </swiper-item>
 
       </swiper>
