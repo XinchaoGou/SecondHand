@@ -44,7 +44,8 @@ Page({
 
     //左右滑动切换模块，by yining
     currentTab: 0, //预设当前项的值
-
+    //控制下拉刷新的提示内容的隐藏，by yining
+    isShowPulldownRefresh: true
   },
 
   /**
@@ -58,44 +59,44 @@ Page({
    * 重置表单数据，清空表单
    * by xinchao
    */
-  clearData: function (){
+  clearData: function () {
     var that = this;
     that.setData({
-    //表单验证相关 TODO:
-    isShowTopTips: false,
-    TopTips: '',
-    //发布标题
-    title: '',
-    isFocus: false,
-    //物品类别
-    types: ["所有种类", "房屋租赁", "电子产品", "学习资料", "家具", "交通工具", "乐器", "有偿帮带", "其他"],
-    typeIndex: "0",
-    //交易地点
-    address: '点击选择位置',
-    longitude: 0, //经度
-    latitude: 0,//纬度
-    //物品价格 TODO:
-    // price: 0,
-    isPriceShow: false,
-    //物品内容
-    content: "",
-    noteNowLen: 0,//备注当前字数
-    noteMaxLen: 400,//备注最多字数
-    //物品图片
-    isSrc: false,
-    is9: false,
-    tempFilePaths: [],
-    //阅读并同意填写联系方式
-    isAgree: false,
-    isShowInput: false,//显示输入真实姓名,
-    //发布须知
-    is_notice_status: false,
-    //发布按钮禁用
-    isdisabled: false,
-    is_textarea_show: true,
+      //表单验证相关 TODO:
+      isShowTopTips: false,
+      TopTips: '',
+      //发布标题
+      title: '',
+      isFocus: false,
+      //物品类别
+      types: ["所有种类", "房屋租赁", "电子产品", "学习资料", "家具", "交通工具", "乐器", "有偿帮带", "其他"],
+      typeIndex: "0",
+      //交易地点
+      address: '点击选择位置',
+      longitude: 0, //经度
+      latitude: 0,//纬度
+      //物品价格 TODO:
+      // price: 0,
+      isPriceShow: false,
+      //物品内容
+      content: "",
+      noteNowLen: 0,//备注当前字数
+      noteMaxLen: 400,//备注最多字数
+      //物品图片
+      isSrc: false,
+      is9: false,
+      tempFilePaths: [],
+      //阅读并同意填写联系方式
+      isAgree: false,
+      isShowInput: false,//显示输入真实姓名,
+      //发布须知
+      is_notice_status: false,
+      //发布按钮禁用
+      isdisabled: false,
+      is_textarea_show: true,
 
-    //修改发布内容
-    isModify: false,
+      //修改发布内容
+      isModify: false,
     })
   },
 
@@ -110,7 +111,7 @@ Page({
       wx.showModal({
         title: '提示',
         content: '请先阅读《发布须知》',
-        success: function(res) {
+        success: function (res) {
           if (res.confirm) {
             that.showNotice();
             console.log('用户点击确定')
@@ -330,7 +331,7 @@ Page({
     if (len > that.data.noteMaxLen)
       return;
     that.setData({
-      content: value, 
+      content: value,
       noteNowLen: len
     })
   },
@@ -587,7 +588,15 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
+    var that = this;
+    that.setData({
+      isShowPulldownRefresh: false   //设置重启按钮
+    });
+    setTimeout(function () {
+      that.setData({
+        isShowPulldownRefresh: true   //设置重启按钮
+      });
+    }, 700);
   },
 
   /**
@@ -602,5 +611,10 @@ Page({
    */
   onShareAppMessage: function () {
 
-  }
+  },
+  onPageScroll: function () {
+    // Do something when page scroll
+   
+  },
+
 })

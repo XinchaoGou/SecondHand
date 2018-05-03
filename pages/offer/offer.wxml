@@ -8,7 +8,7 @@
 
     <!-- 1.表单验证 输入错误提示模块 正常情况下隐藏-->
     <view class="weui-toptips weui-toptips_warn" wx:if="{{isShowTopTips}}">{{TopTips}}</view>
-    <view class="weui-toptips" style="color:#000000;background-color:#b2b2b2;z-index:2000;">下拉刷新可清空所有发布内容</view>
+    <view class="weui-toptips" style="color:#000000;background-color:#b2b2b2;z-index:2000;" hidden="{{isShowPulldownRefresh}}">下拉刷新可清空所有发布内容</view>
 
     <!-- 2.发布内容主页面-->
     <!--view class="topbar" /-->
