@@ -674,8 +674,8 @@ icon {
   border: 2rpx solid #d1d1d1;
   background-color: #fff;
   border-radius: 6rpx;
-  width: 30rpx;
-  height: 30rpx;
+  width: 35rpx;
+  height: 35rpx;
 }
 
 .weui-agree__checkbox-icon-check {
