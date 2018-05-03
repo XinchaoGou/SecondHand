@@ -390,9 +390,10 @@ Page({
     var that = this;
     var switch1 = that.data.isShowFavourite;
     if (!switch1) {
-      //如果原来是false，要展开收藏列表
+      //如果原来是false，要展开收藏列表，则折叠其他列表
       that.setData({
-        isShowOffer: false
+        isShowOffer: false,
+        isShowContact: false
       })
     }
     this.setData({
@@ -405,9 +406,10 @@ Page({
     var that = this;
     var switch2 = that.data.isShowOffer;
     if (!switch2) {
-      //如果原来是false，要展开收藏列表
+      //如果原来是false，要展开发布列表，则折叠其他列表
       that.setData({
-        isShowFavourite: false
+        isShowFavourite: false,
+        isShowContact: false
       })
     }
     this.setData({
@@ -418,6 +420,14 @@ Page({
   tocontact: function () {
     var that = this;
     var switch3 = that.data.isShowContact;
+    if (!switch3) {
+      //如果原来是false，要展开联系方式列表，则折叠其他列表
+      that.setData({
+        isShowFavourite: false,
+        isShowOffer: false
+      })
+      
+    }
     this.setData({
       isShowContact: !switch3
     })
