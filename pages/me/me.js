@@ -31,16 +31,17 @@ Page({
 
   },
 
-  //TODO
+  //TODO: 重构为默认从本地缓存获取
   onShow: function () {
     var that = this;
-    //获取用户收藏列表和用户发布列表 TODO
+    //获取用户收藏列表和用户发布列表
     that.searchFavouriteList();
     that.searchOfferList();
   },
 
   /**
-   * 页面相关事件处理函数--监听用户下拉动作TODO
+   * 页面相关事件处理函数--监听用户下拉动作
+   * TODO: 重构为默认重新从服务器加载收藏和发布列表
    * by xinchao
    */
   onPullDownRefresh: function () {
@@ -48,8 +49,10 @@ Page({
     var that = this;
     wx.vibrateShort();  // 使手机振动15ms  
     wx.showNavigationBarLoading() //在标题栏中显示加载
-    //todo
     that.onLoad();
+    //TODO:
+    // that.searchFavouriteList();
+    // that.searchOfferList();
     that.onShow();
     // complete
     wx.hideNavigationBarLoading() //完成停止加载
@@ -57,7 +60,7 @@ Page({
   },
 
 
-  //分享 TODO
+  //分享 TODO: 默认分享首页
   onShareAppMessage: function () {
     return {
       title: '自定义分享标题',
@@ -68,6 +71,7 @@ Page({
 
   /*
    * 查询用户的所有发布
+   * TODO:获得发布条目内容详情
    * by xinchao
    */
   searchOfferList: function () {
@@ -89,7 +93,7 @@ Page({
         for (let i = 0; i < results.length; i++) { 
           
           var object = results[i];
-          //获得发布条目内容详情
+          //TODO:获得发布条目内容详情
           var id = object.id;
           var title = object.get('title');
           var price = object.get('price');
@@ -124,6 +128,7 @@ Page({
 
   /**
    * 查询用户收藏列表封装
+   * TODO:获得收藏列表内容详情
    * by xinchao
    */
   searchFavouriteList: function () {
@@ -145,6 +150,7 @@ Page({
             var favourArray = [];
             for (let i = 0; i < list.length; i++) {
               var object = list[i];
+              //TODO:获得收藏列表内容详情
               var id = object.id;
               var title = object.get('title');
               var price = object.get('price');
@@ -189,7 +195,7 @@ Page({
     var postId = event.currentTarget.dataset.favouriteid;
     var objectId = that.data.favorList[postId].id;  // 获得数据库对应objectId
 
-    //即时更新视图，不再显示已经取消的收藏   
+    //即时更新视图，从收藏列表删除对应收藏
     var isshow = this.data.favorList[postId].favouriteshow;
     var tFavorItems = that.data.favorList;
     tFavorItems.splice(postId, 1);
@@ -200,19 +206,19 @@ Page({
     //获取实例
     var Offer = Bmob.Object.extend("Offer");
     var query = new Bmob.Query(Offer);
-    console.log('abc');
     query.get(objectId, {
       success: function (result) {
-        console.log('success');
         //将对应ObjectId 的 Offer关联到收藏
         var user = Bmob.User.current();
         var relation = user.relation("like");
         //实现数据库端like的同步
         if (!isshow) {
           //点击之前为false，点击之后为true，表示收藏
+          console.log('添加收藏成功，这句话应该执行不到吧？？？');
           relation.add(result);
         } else {
           //取消收藏
+          console.log('取消收藏成功');
           relation.remove(result);
         }
         user.save();
@@ -235,6 +241,7 @@ Page({
     var favor = that.data.favorList[postId].favouriteshow;
     console.log(favor);
     //跳转条目详情
+    //TODO: 跳转的页面也许要重构
     wx.navigateTo({
       url: '../search_section/search_section?id=' + objectId + '&favor=' + favor
         + '&postId=' + postId
@@ -249,38 +256,13 @@ Page({
     var that = this;
     var postId = event.currentTarget.dataset.postid;
     var objectId = that.data.offerList[postId].id;  // 获得数据库对应objectId
+    //TODO: 自己发布的条目也需要收藏么？跳转对应页面的 postId 和 favor 没用的时候，要重构吧
     // var favor = that.data.offerList[postId].favouriteshow;
-    //TODO
     var favor = false;
     //跳转条目详情
     wx.navigateTo({
       url: '../search_section/search_section?id=' + objectId + '&favor=' + favor
         + '&postId=' + postId
-    })
-  },
-
-  /**
-   * 点击按钮删除某一个发布条目
-   * by xinchao
-   */
-  offerDeleteTap: function (event) {
-    var that = this;
-    var postId = event.currentTarget.dataset.postid;
-    var objectId = that.data.offerList[postId].id; // 获得数据库对应发布条目的objectId
-
-    //删除确认框
-    wx.showModal({
-      title: '删除确认',
-      content: '您确认要删除该发布吗？',
-      success: function (res) {
-        if (res.confirm) {
-          console.log('用户点击确定')
-          that.offerDelete(postId,objectId);
-        } else if (res.cancel) {
-          console.log('用户点击取消') //结束函数不删除条目
-          return;
-        }
-      }
     })
   },
 
@@ -329,7 +311,6 @@ Page({
         //同步缓存到数据到本地
         try {
           wx.setStorageSync('offerForm', offerForm);
-          //跳转发布页面 TODO 可能BUG跳转页面后数据还没存到本地
           wx.switchTab({
             url: '../offer/offer'
           })
@@ -342,6 +323,31 @@ Page({
     });
 
 
+  },
+
+    /**
+   * 点击按钮删除某一个发布条目
+   * by xinchao
+   */
+  offerDeleteTap: function (event) {
+    var that = this;
+    var postId = event.currentTarget.dataset.postid;
+    var objectId = that.data.offerList[postId].id; // 获得数据库对应发布条目的objectId
+
+    //删除确认框
+    wx.showModal({
+      title: '删除确认',
+      content: '您确认要删除该发布吗？',
+      success: function (res) {
+        if (res.confirm) {
+          console.log('用户点击确定')
+          that.offerDelete(postId,objectId); //删除已发布条目
+        } else if (res.cancel) {
+          console.log('用户点击取消') //结束函数不删除条目
+          return;
+        }
+      }
+    })
   },
 
   /**
@@ -365,7 +371,7 @@ Page({
               duration: 2000
             })
 
-            //即时更新视图，不再显示已经删除的条目  
+            //即时更新视图，从发布列表中删除已经发布条目 
             var tOfferItems = that.data.offerList;
             tOfferItems.splice(postId, 1);
             that.setData({
@@ -390,9 +396,10 @@ Page({
     var that = this;
     var switch1 = that.data.isShowFavourite;
     if (!switch1) {
-      //如果原来是false，要展开收藏列表
+      //如果原来是false，要展开收藏列表，则折叠其他列表
       that.setData({
-        isShowOffer: false
+        isShowOffer: false,
+        isShowContact: false
       })
     }
     this.setData({
@@ -405,9 +412,10 @@ Page({
     var that = this;
     var switch2 = that.data.isShowOffer;
     if (!switch2) {
-      //如果原来是false，要展开收藏列表
+      //如果原来是false，要展开发布列表，则折叠其他列表
       that.setData({
-        isShowFavourite: false
+        isShowFavourite: false,
+        isShowContact: false
       })
     }
     this.setData({
@@ -418,6 +426,14 @@ Page({
   tocontact: function () {
     var that = this;
     var switch3 = that.data.isShowContact;
+    if (!switch3) {
+      //如果原来是false，要展开联系方式列表，则折叠其他列表
+      that.setData({
+        isShowFavourite: false,
+        isShowOffer: false
+      })
+      
+    }
     this.setData({
       isShowContact: !switch3
     })
