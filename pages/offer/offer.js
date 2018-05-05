@@ -42,6 +42,23 @@ Page({
     isModify: false,
     // isPicArrayFromCloud: false,
 
+    //new Structure
+    offerItem: {
+      title: '',
+      typeName: '',
+      address: '',
+      location: null,
+      price:0,
+      picUrlArray:[],
+      content:'',
+      contact:{
+        wxNumber: '',
+        phoneNumber:'',
+        eMail: ''
+      }
+    },
+
+
     //左右滑动切换模块，by yining
     currentTab: 0, //预设当前项的值
     //控制下拉刷新的提示内容的隐藏，by yining
@@ -103,7 +120,7 @@ Page({
   },
 
   /**
-   * 重置表单数据，清空表单
+   * 重置表单数据，清空表单 FIXME:
    * by xinchao
    */
   clearData: function () {
@@ -183,7 +200,7 @@ Page({
         title: '加载中',
       })
 
-      // 上传图片到服务器
+      // 上传图片到服务器获得URL
       const promise = that.upLoadPicToCloud();
       promise.then(function (urlArr) {
         //上传发布到服务器
@@ -228,6 +245,8 @@ Page({
     var User = Bmob.Object.extend("_User");
     var publisher = Bmob.Object.createWithoutData("_User", Bmob.User.current().id);
 
+
+    
     //上传表单数据到数据库
     var Offer = Bmob.Object.extend("Offer");
     var offer = new Offer();
@@ -331,6 +350,7 @@ Page({
 
   /**
    * 改变物品类别
+   * TODO: 根据重构的代码修改
    * by xinchao
    */
   bindTypeChange: function (e) {
@@ -342,6 +362,7 @@ Page({
 
   /**
    * 选择交易地点
+   * TODO: 根据重构的代码修改
    * by xinchao
    */
   addressChange: function (e) {
@@ -369,6 +390,7 @@ Page({
 
   /**
    * 物品内容，字数改变触发事件
+   * TODO: 根据重构的代码修改
    * by xinchao
    */
   bindTextAreaChange: function (e) {
@@ -384,7 +406,7 @@ Page({
   },
 
   /**
-   * 物品图片
+   * 物品图片 TODO: 根据重构的代码修改
    * by xinchao
    */
   //上传活动图片
@@ -414,7 +436,7 @@ Page({
       }
     })
   },
-  //删除图片
+  //删除图片 TODO: 根据重构的代码修改
   clearPic: function (event) {//删除图片
     var that = this;
     var postId = event.currentTarget.dataset.clearid;
@@ -465,7 +487,7 @@ Page({
   },
 
   /**
-   * 表单验证
+   * 表单验证 TODO: 根据重构后的代码修改
    * by xinchao
    */
   showTopTips: function (e) {
@@ -540,6 +562,7 @@ Page({
     }
   },
 
+  //TODO: 这个isFocus是干什么用的？
   inputTap: function () {
     var that = this;
     that.setData({
@@ -556,7 +579,7 @@ Page({
 
   /**
    * 生命周期函数--监听页面显示
-   * TODO: 不单单是显示，还有要上传服务器的东西
+   * TODO: 不单单是显示，还有要上传服务器的东西,可以把所有数据都刷新
    */
   onShow: function () {
     var that = this;
@@ -609,7 +632,6 @@ Page({
       key: 'offerForm',
       success: function (res) {
         console.log("成功删除本地缓存")
-        // console.log(res.data)
       }
     })
   },
@@ -633,6 +655,7 @@ Page({
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
+   * TODO: 更新数据
    */
   onPullDownRefresh: function () {
   
@@ -651,6 +674,7 @@ Page({
   onShareAppMessage: function () {
 
   },
+
   onPageScroll: function () {
     // Do something when page scroll
    
