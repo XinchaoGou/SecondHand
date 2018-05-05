@@ -26,19 +26,22 @@
     <!--2.2 物品类别，交易地点及物品价格 -->
     <view class="section-big style2">
       <!-- 2.2.1 物品类别 -->
-      <view class="section underline type">
-        <text class="section-title">类别</text>
-        <picker bindchange="bindTypeChange" class="section-right" value="{{typeIndex}}" range="{{types}}">
-          <text class="value" name="types">{{types[typeIndex]}}</text>
-          <image class="arrow-r" src="../../images/more/enter.png" />
-        </picker>
+      <view class="section">
+        <text class="section-title">发布类别</text>
+      </view>
 
+      <view class="section underline t-name">
+        <picker mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}">
+          <view class="input" name="types">{{multiArray[0][multiIndex[0]]}} {{multiArray[1][multiIndex[1]]}} {{multiArray[2][multiIndex[2]]}}
+          </view>
+        </picker>
+        <image class="arrow-r" src="../../images/more/enter.png" />
       </view>
 
       <!-- 2.2.2 交易地点 -->
       <view class="adressblock" catchtap="addressChange" value="{{address}}">
         <view class="section">
-          <text class="section-title">地点</text>
+          <text class="section-title">所在城市</text>
         </view>
         <!-- 2.2.3 交易地点换行 -->
         <view class="section underline t-name">
@@ -154,7 +157,7 @@
             <input name="eMail" class="input" placeholder-class="inputStyle" placeholder="请输入邮箱" value="{{eMail}}" cursor-spacing="20" />
             <image class="arrow-r" src="../../images/more/enter.png"></image>
           </view>
-          
+
         </swiper-item>
 
       </swiper>
