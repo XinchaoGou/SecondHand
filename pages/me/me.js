@@ -5,7 +5,6 @@ var app = getApp();
 Page({
 
   data: {
-    // warnSize: 'default',
     imgUrl: null,
     userInfo: {},
     favorList: [],
@@ -31,17 +30,44 @@ Page({
 
   },
 
-  //TODO: 重构为默认从本地缓存获取
+  //重构为默认从本地缓存获取
   onShow: function () {
     var that = this;
-    //获取用户收藏列表和用户发布列表
-    that.searchFavouriteList();
-    that.searchOfferList();
+    try {
+      var favorList = wx.getStorageSync('favorList');
+      var offerList = wx.getStorageSync('offerList');
+      //加载收藏列表
+      if (favorList) {
+        //从本地缓存读取
+        that.setData({
+          favorList: favorList
+        })
+      } else {
+        //从服务器读取
+        that.searchFavouriteList();
+      }
+
+      //加载发布列表
+      if (offerList) {
+        //从本地缓存
+        that.setData({
+          offerList: offerList
+        })
+      } else {
+        //从服务器缓存
+        that.searchOfferList();
+      }
+    } catch (e) {
+      console.log('本地缓存favorList，offerList读取失败');
+    }
+
+
+
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
-   * TODO: 重构为默认重新从服务器加载收藏和发布列表
+   * 重构为默认重新从服务器加载收藏和发布列表
    * by xinchao
    */
   onPullDownRefresh: function () {
@@ -50,10 +76,8 @@ Page({
     wx.vibrateShort();  // 使手机振动15ms  
     wx.showNavigationBarLoading() //在标题栏中显示加载
     that.onLoad();
-    //TODO:
-    // that.searchFavouriteList();
-    // that.searchOfferList();
-    that.onShow();
+    that.searchFavouriteList();
+    that.searchOfferList();
     // complete
     wx.hideNavigationBarLoading() //完成停止加载
     wx.stopPullDownRefresh() //停止下拉刷新
@@ -71,10 +95,11 @@ Page({
 
   /*
    * 查询用户的所有发布
-   * TODO:获得发布条目内容详情,同时缓存到本地
+   * 获得发布条目内容详情,同时缓存到本地
    * by xinchao
    */
   searchOfferList: function () {
+    console.log("从云端搜索发布列表");
     var that = this;
     var currentUser = Bmob.User.current();
     var objectId = currentUser.id;
@@ -90,26 +115,46 @@ Page({
       success: function (results) {
         console.log("查询到" + results.length + "条发布");
         var offerArray = [];
-        for (let i = 0; i < results.length; i++) { 
-          
+        for (let i = 0; i < results.length; i++) {
+
           var object = results[i];
-          //TODO:获得发布条目内容详情
+          //获得发布条目内容详情
           var id = object.id;
           var title = object.get('title');
-          var price = object.get('price');
+          var typeName = object.get('typeName');
           var address = object.get('address');
+          var location = object.get('location');
+          var price = object.get('price');
           var urls = object.get('picUrlArray');
           if (urls == "") {
             //没有图片则设置为默认图片 url数组注意
             urls = ['../../images/test/camera.png'];
           }
+          var content = object.get('content');
+          var publisher = objectId; //用户当前id
+          var wxNumber = object.get('wxNumber');
+          var phoneNumber = object.get('phoneNumber');
+          var eMail = object.get('eMail');
           //考虑时差，换算
           var mDate = Utils.getDateDiffWithJetLag(object.createdAt);
+
           var offerItem = {
+            //发布条目相关
             id: id,
             title: title,
-            price: price,
+            typeName: typeName,
             address: address,
+            location: location,
+            price: price,
+            urls: urls,
+            content: content,
+            publisher: publisher,
+            contact: {
+              wxNumber: wxNumber,
+              phoneNumber: phoneNumber,
+              eMail: eMail,
+            },
+            //用于缩略图条目显示
             src: urls[0],
             date: mDate,
           }
@@ -118,7 +163,11 @@ Page({
 
         that.setData({
           offerList: offerArray
-        })
+        });
+        wx.setStorage({
+          key: "offerList",
+          data: offerArray
+        });
       },
       error: function (error) {
         console.log("查询失败: " + error.code + " " + error.message);
@@ -128,10 +177,11 @@ Page({
 
   /**
    * 查询用户收藏列表封装
-   * TODO:获得收藏列表内容详情，同时缓存到本地
+   * 获得收藏列表内容详情，同时缓存到本地
    * by xinchao
    */
   searchFavouriteList: function () {
+    console.log("从云端搜索收藏列表");
     var that = this;
     //查询用户收藏列表
     var User = Bmob.Object.extend("_User");
@@ -150,31 +200,52 @@ Page({
             var favourArray = [];
             for (let i = 0; i < list.length; i++) {
               var object = list[i];
-              //TODO:获得收藏列表内容详情
+              //获得收藏列表内容详情
               var id = object.id;
               var title = object.get('title');
-              var price = object.get('price');
+              var typeName = object.get('typeName');
               var address = object.get('address');
+              var location = object.get('location');
+              var price = object.get('price');
               var urls = object.get('picUrlArray');
               if (urls == "") {
                 //设置为默认图片 url数组注意
                 urls = ['../../images/test/camera.png'];
               }
+              var content = object.get('content');
+              var publisher = Bmob.User.current().id; //用户当前id
+              var wxNumber = object.get('wxNumber');
+              var phoneNumber = object.get('phoneNumber');
+              var eMail = object.get('eMail');
               //考虑时差，换算
               var mDate = Utils.getDateDiffWithJetLag(object.createdAt);
               var favorItem = {
+                id: id,
                 title: title,
-                price: price,
+                typeName: typeName,
                 address: address,
+                location: location,
+                price: price,
+                urls: urls,
+                content: content,
+                publisher: publisher,
+                contact: {
+                  wxNumber: wxNumber,
+                  phoneNumber: phoneNumber,
+                  eMail: eMail,
+                },
                 src: urls[0],
                 date: mDate,
-                id: id,
                 favouriteshow: true
               }
               favourArray.push(favorItem);
             }
             that.setData({
               favorList: favourArray
+            });
+            wx.setStorage({
+              key: "favorList",
+              data: favourArray
             });
           }
         });
@@ -202,6 +273,11 @@ Page({
     that.setData({
       favorList: tFavorItems
     })
+    wx.setStorage({
+      key: "favorList",
+      data: tFavorItems
+    });
+    
 
     //获取实例
     var Offer = Bmob.Object.extend("Offer");
@@ -268,7 +344,7 @@ Page({
 
   /**
    * 点击按钮重新编辑某一个发布条目
-   * //TODO: 从本地缓存获取数据，跳转页面
+   * 从本地缓存获取数据，跳转页面
    * by xinchao
    */
   offerSetTap: function (event) {
@@ -277,60 +353,22 @@ Page({
     var postId = event.currentTarget.dataset.postid;
     var objectId = that.data.offerList[postId].id;  // 获得数据库对应objectId
 
-    //加载对应发布条目内容
-    //TODO: 从本地缓存获取数据
-    var Offer = Bmob.Object.extend("Offer");
-    var query = new Bmob.Query(Offer);
-    query.get(objectId, {
-      success: function (result) {
-        var id = result.id;
-        var picUrlArray = result.get("picUrlArray");
-        var title = result.get("title");
-        var typeName = result.get("typeName");
-        var address = result.get("address");
-        var location = result.get("location");
-        var content = result.get("content");
-        var price = result.get("price");
-        var publisher = result.get("publisher");
-        var wxNumber = result.get("wxNumber");
-        var phoneNumber = result.get("phoneNumber");
-        var eMail = result.get("eMail");
-
-        var offerForm = {
-          id: id,
-          picUrlArray: picUrlArray,
-          title: title,
-          typeName: typeName,
-          address: address,
-          location: location,
-          content: content,
-          price: price,
-          publisher: publisher,
-          wxNumber: wxNumber,
-          phoneNumber: phoneNumber,
-          eMail: eMail,
-        }
-        //同步缓存到数据到本地
-        try {
-          wx.setStorageSync('offerForm', offerForm);
-          wx.switchTab({
-            url: '../offer/offer'
-          })
-        } catch (e) {
-        }
-      },
-      error: function (object, error) {
-        // 查询失败
-      }
-    });
-
+    //同步缓存到数据到本地
+    var offerForm = that.data.offerList[postId];
+    try {
+      wx.setStorageSync('offerForm', offerForm);
+      wx.switchTab({
+        url: '../offer/offer'
+      })
+    } catch (e) {
+    }
 
   },
 
-    /**
-   * 点击按钮提示是否删除条目
-   * by xinchao
-   */
+  /**
+ * 点击按钮提示是否删除条目
+ * by xinchao
+ */
   offerDeleteTap: function (event) {
     var that = this;
     var postId = event.currentTarget.dataset.postid;
@@ -343,7 +381,7 @@ Page({
       success: function (res) {
         if (res.confirm) {
           console.log('用户点击确定')
-          that.offerDelete(postId,objectId); //删除已发布条目
+          that.offerDelete(postId, objectId); //删除已发布条目
         } else if (res.cancel) {
           console.log('用户点击取消') //结束函数不删除条目
           return;
@@ -356,7 +394,7 @@ Page({
    * 删除某一个发布条目
    * by xinchao
    */
-  offerDelete: function (postId,objectId) {
+  offerDelete: function (postId, objectId) {
     var that = this;
     //根据对应的objectId删除指定的发布条目
     var Offer = Bmob.Object.extend("Offer");
@@ -378,7 +416,12 @@ Page({
             tOfferItems.splice(postId, 1);
             that.setData({
               offerList: tOfferItems
-            })
+            });
+            //TODO:
+            wx.setStorage({
+              key: "offerList",
+              data: tOfferItems
+            });
           },
           error: function (myObject, error) {
             // 删除失败
@@ -434,7 +477,7 @@ Page({
         isShowFavourite: false,
         isShowOffer: false
       })
-      
+
     }
     this.setData({
       isShowContact: !switch3

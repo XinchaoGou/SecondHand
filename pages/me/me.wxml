@@ -30,7 +30,7 @@
     <view class="content" wx:if="{{isShowFavourite}}">
 
       <!--3.2.1 收藏分条信息加载区域-->
-      <view class="content-item-before" hover-class="content-item-after" wx:for="{{favorList}}" catchtap="favorItemTap" data-postid="{{index}}">
+      <view class="content-item-before" hover-class="content-item-after" wx:for="{{favorList}}" wx:key="id" catchtap="favorItemTap" data-postid="{{index}}">
 
         <!--3.2.1.1 二手物品图片-->
         <image mode="aspectFill" style="height:210rpx; width:280rpx;border-radius:10rpx;" src="{{item.src}}" />
@@ -78,7 +78,7 @@
 
 
       <!--4.2.1 发布---分条---信息加载区域-->
-      <view class="content-item-before" hover-class="content-item-after" wx:for="{{offerList}}" catchtap="offerItemTap" data-postid="{{index}}">
+      <view class="content-item-before" hover-class="content-item-after" wx:for="{{offerList}}" wx:key="id" catchtap="offerItemTap" data-postid="{{index}}">
 
         <!--4.2.1.1 二手物品图片-->
         <image mode="aspectFill" style="height:210rpx; width:280rpx;border-radius:10rpx;" src="{{item.src}}" />
