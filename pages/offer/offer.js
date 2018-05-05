@@ -48,12 +48,12 @@ Page({
       typeName: '',
       address: '',
       location: null,
-      price:0,
-      picUrlArray:[],
-      content:'',
-      contact:{
+      price: 0,
+      picUrlArray: [],
+      content: '',
+      contact: {
         wxNumber: '',
-        phoneNumber:'',
+        phoneNumber: '',
         eMail: ''
       }
     },
@@ -276,11 +276,15 @@ Page({
   upLoadOfferToCloud: function (e, urlArr) {
     var that = this;
     // console.log("进入了c")
+
     //发布内容相关
     var title = e.detail.value.title;//发布标题
+
+    //FIXME:物品类别
     var typeIndex = that.data.typeIndex;
     var types = that.data.types;
-    var typeName = types[typeIndex]; //物品类别
+    var typeName = types[typeIndex]; 
+
     var address = that.data.address;//交易地点
     var longitude = that.data.longitude; //经度
     var latitude = that.data.latitude;//纬度
@@ -296,8 +300,8 @@ Page({
     var User = Bmob.Object.extend("_User");
     var publisher = Bmob.Object.createWithoutData("_User", Bmob.User.current().id);
 
+    //TODO: test 使用新的结构体
 
-    
     //上传表单数据到数据库
     var Offer = Bmob.Object.extend("Offer");
     var offer = new Offer();
@@ -640,7 +644,7 @@ Page({
       // var typeIndex = types.indexOf(value.typeName);
       if (value) {
         that.setData({
-          tempFilePaths: value.picUrlArray,
+          tempFilePaths: value.urls,
           title: value.title,
           // typeIndex : typeIndex,
           address: value.address,
