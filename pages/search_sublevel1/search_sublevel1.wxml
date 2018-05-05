@@ -7,8 +7,13 @@
     <view class="section">
       <text class="section-title">所在城市</text>
     </view>
+
     <view class="section underline">
-      <text class="text-title" bindtap="primary">Karlsruhe</text>
+      <picker mode="multiSelector" bindchange="bindMultiPickerChange1" bindcolumnchange="bindMultiPickerColumnChange1" value="{{multiCityIndex}}" range="{{multiCityArray}}">
+        <view class="text-title" name="types">{{multiCityArray[0][multiCityIndex[0]]}} {{multiCityArray[1][multiCityIndex[1]]}} {{multiCityArray[2][multiCityIndex[2]]}}
+        </view>
+      </picker>
+      <image class="arrow-r" src="../../images/more/enter.png" />
     </view>
 
     <view class="section">
