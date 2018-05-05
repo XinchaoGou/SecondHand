@@ -25,14 +25,29 @@
 
     <!--2.2 物品类别，交易地点及物品价格 -->
     <view class="section-big style2">
+
       <!-- 2.2.1 物品类别 -->
+      <block>
+        <view class="section">
+          <text class="section-title">发布类别</text>
+        </view>
+
+        <view class="section underline t-name">
+          <picker mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}">
+            <view class="input" name="types">{{multiArray[0][multiIndex[0]]}} {{multiArray[1][multiIndex[1]]}} {{multiArray[2][multiIndex[2]]}}
+            </view>
+          </picker>
+          <image class="arrow-r" src="../../images/more/enter.png" />
+        </view>
+      </block>
+
       <view class="section">
-        <text class="section-title">发布类别</text>
+        <text class="section-title">同城范围</text>
       </view>
 
       <view class="section underline t-name">
-        <picker mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}">
-          <view class="input" name="types">{{multiArray[0][multiIndex[0]]}} {{multiArray[1][multiIndex[1]]}} {{multiArray[2][multiIndex[2]]}}
+        <picker mode="multiSelector" bindchange="bindMultiPickerChange1" bindcolumnchange="bindMultiPickerColumnChange1" value="{{multiCityIndex}}" range="{{multiCityArray}}">
+          <view class="input" name="types">{{multiCityArray[0][multiCityIndex[0]]}} {{multiCityArray[1][multiCityIndex[1]]}} {{multiCityArray[2][multiCityIndex[2]]}}
           </view>
         </picker>
         <image class="arrow-r" src="../../images/more/enter.png" />
@@ -41,7 +56,7 @@
       <!-- 2.2.2 交易地点 -->
       <view class="adressblock" catchtap="addressChange" value="{{address}}">
         <view class="section">
-          <text class="section-title">所在城市</text>
+          <text class="section-title">交易地点</text>
         </view>
         <!-- 2.2.3 交易地点换行 -->
         <view class="section underline t-name">
@@ -52,20 +67,23 @@
 
 
       <!-- 2.2.4 点选是否设置物品价格 TODO-->
-      <view class="section t-name">
-        <view>
-          <text class="section-title">设置价格</text>
-          <text class="section-title2">（默认价格面议）</text>
+      <view class="adressblock" catchtap="inputPriceTap">
+        <view class="section t-name">
+          <view>
+            <text class="section-title">设置价格</text>
+            <text class="section-title2">（默认价格面议）</text>
+          </view>
+          <switch type="switch" checked="{{isPriceShow}}" color="#32A189" bindchange="switch1Change" name="switchHide" />
         </view>
-        <switch type="switch" checked="{{isPriceShow}}" color="#32A189" bindchange="switch1Change" name="switchHide" />
+
+        <!-- 2.2.4.1 价格设置 -->
+
+        <view wx:if="{{isPriceShow}}" class="section underline t-name">
+          <input name="price" type="number" class="input" maxlength="100" placeholder-class="inputStyle" placeholder="请输入价格" value="{{price}}" cursor-spacing="20" focus="{{isPriceFocus}}" />
+          <text class="euro">€</text>
+        </view>
       </view>
 
-      <!-- 2.2.4.1 价格设置 -->
-
-      <view wx:if="{{isPriceShow}}" class="section underline t-name">
-        <input name="price" type="number" class="input" maxlength="100" confirm-hold="false" placeholder-class="inputStyle" placeholder="请输入价格" value="{{price}}" confirm-type="done" cursor-spacing="20" />
-        <text class="euro">€</text>
-      </view>
     </view>
 
     <!-- 2.3 物品内容以及添加图片显示模块 -->
