@@ -71,7 +71,7 @@ Page({
 
   /*
    * 查询用户的所有发布
-   * TODO:获得发布条目内容详情
+   * TODO:获得发布条目内容详情,同时缓存到本地
    * by xinchao
    */
   searchOfferList: function () {
@@ -128,7 +128,7 @@ Page({
 
   /**
    * 查询用户收藏列表封装
-   * TODO:获得收藏列表内容详情
+   * TODO:获得收藏列表内容详情，同时缓存到本地
    * by xinchao
    */
   searchFavouriteList: function () {
@@ -268,6 +268,7 @@ Page({
 
   /**
    * 点击按钮重新编辑某一个发布条目
+   * //TODO: 从本地缓存获取数据，跳转页面
    * by xinchao
    */
   offerSetTap: function (event) {
@@ -277,6 +278,7 @@ Page({
     var objectId = that.data.offerList[postId].id;  // 获得数据库对应objectId
 
     //加载对应发布条目内容
+    //TODO: 从本地缓存获取数据
     var Offer = Bmob.Object.extend("Offer");
     var query = new Bmob.Query(Offer);
     query.get(objectId, {
@@ -326,7 +328,7 @@ Page({
   },
 
     /**
-   * 点击按钮删除某一个发布条目
+   * 点击按钮提示是否删除条目
    * by xinchao
    */
   offerDeleteTap: function (event) {
