@@ -16,7 +16,7 @@ Page({
     callbackcount: 10, //设置每页返回数据的多少
     searchLoadingComplete: false, //加载完所有条目
     totalCount: 0, //查询到的总数目
-    favour: [], //收藏的objectId列表
+    favorList: [], //收藏的objectId列表
 
     //搜索条件
     /* PRICE_UP
@@ -46,42 +46,14 @@ Page({
       console.log('不是转发');
     }
     console.log('onLoad 执行了');
+
+
     //获取当前地理位置
     that.getLocation();
     //查询条目数量
     that.searchTotalCount();
     //查询用户收藏列表
-    const promise = new Promise(function (resolve, reject) {
-      //查询用户收藏列表
-      var User = Bmob.Object.extend("_User");
-      var query = new Bmob.Query(User);
-      query.get(Bmob.User.current().id, {
-        success: function (result) {
-          // 查询成功
-          console.log("查询当前用户成功");
-          var relation = result.relation('like');
-          var query = relation.query();
-          query.find({
-            success: function (list) {
-              console.log("查询到" + list.length + "条收藏");
-              var favourArray = [];
-              for (let i = 0; i < list.length; i++) {
-                favourArray.push(list[i].id);
-              }
-              that.setData({
-                favour: favourArray
-              });
-              resolve(favourArray);
-            }
-          });
-        },
-        error: function (object, error) {
-          // 查询失败
-          console.log("查询当前用户失败");
-          reject(error);
-        }
-      });
-    });
+    const promise = that.getFavorListFromCloud();
     //查询数据
     promise.then(function (favourArray) {
       // success
@@ -102,6 +74,8 @@ Page({
       searchLoadingComplete: false, //加载完所有条目
     })
   },
+
+
 
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -180,6 +154,19 @@ Page({
    */
   getLocation: function () {
     var that = this;
+    //默认先从本地加载
+    try {
+      var location = wx.getStorageSync('location')
+      if (location) {
+        that.setData({
+          location: location
+        });
+        return;
+      }
+    } catch (e) {
+      console.log(e);
+    }
+
     wx.getLocation({
       type: 'wgs84', // 默认为 wgs84 返回 gps 坐标，gcj02 返回可用于 wx.openLocation 的坐标
       success: function (res) {
@@ -190,6 +177,11 @@ Page({
         var location = new Bmob.GeoPoint({ latitude: latitude, longitude: longitude });
         that.setData({
           location: location
+        });
+        //缓存到本地
+        wx.setStorage({
+          key: "location",
+          data: location
         })
       },
       fail: function () {
@@ -200,6 +192,97 @@ Page({
       }
     })
 
+  },
+
+  /**
+   * 从服务器获得收藏列表
+   * by xinchao
+   */
+  getFavorListFromCloud: function () {
+    var that = this;
+    return new Promise(function (resolve, reject) {
+      var User = Bmob.Object.extend("_User");
+      var query = new Bmob.Query(User);
+      query.get(Bmob.User.current().id, {
+        success: function (result) {
+          // 查询成功
+          console.log("查询当前用户成功");
+          var relation = result.relation('like');
+          var query = relation.query();
+          query.find({
+            success: function (list) {
+              // console.log("查询到" + list.length + "条收藏");
+              // var favourArray = [];
+              // for (let i = 0; i < list.length; i++) {
+              //   favourArray.push(list[i].id);
+              // }
+              // that.setData({
+              //   favorList: favourArray
+              // });
+              // resolve(favourArray);
+              console.log("查询到" + list.length + "条收藏");
+              var favourArray = [];
+              for (let i = 0; i < list.length; i++) {
+                var object = list[i];
+                //获得收藏列表内容详情
+                var id = object.id;
+                var title = object.get('title');
+                var typeName = object.get('typeName');
+                var address = object.get('address');
+                var location = object.get('location');
+                var price = object.get('price');
+                var urls = object.get('picUrlArray');
+                if (urls == "") {
+                  //设置为默认图片 url数组注意
+                  urls = ['../../images/test/camera.png'];
+                }
+                var content = object.get('content');
+                var publisher = Bmob.User.current().id; //用户当前id
+                var wxNumber = object.get('wxNumber');
+                var phoneNumber = object.get('phoneNumber');
+                var eMail = object.get('eMail');
+                //考虑时差，换算
+                var mDate = Utils.getDateDiffWithJetLag(object.createdAt);
+                var favorItem = {
+                  id: id,
+                  title: title,
+                  typeName: typeName,
+                  address: address,
+                  location: location,
+                  price: price,
+                  urls: urls,
+                  content: content,
+                  publisher: publisher,
+                  contact: {
+                    wxNumber: wxNumber,
+                    phoneNumber: phoneNumber,
+                    eMail: eMail,
+                  },
+                  src: urls[0],
+                  date: mDate,
+                  favouriteshow: true
+                }
+                favourArray.push(favorItem);
+              }
+              that.setData({
+                favorList: favourArray
+              });
+              wx.setStorage({
+                key: "favorList",
+                data: favourArray
+              });
+              //同步处理favourArray
+              resolve(favourArray);
+            }
+          });
+        },
+        error: function (object, error) {
+          // 查询失败
+          console.log("查询当前用户失败");
+          reject(error);
+        }
+      });
+    })
   },
 
   /**
@@ -256,7 +339,7 @@ Page({
               favourArray.push(list[i].id);
             }
             that.setData({
-              favour: favourArray
+              favorList: favourArray
             });
           }
         });
@@ -343,7 +426,13 @@ Page({
 
             //收藏
             var favouriteshow = false;
-            if (that.data.favour.indexOf(id) > -1) {
+            // if (that.data.favorList.indexOf(id) > -1) {
+            //   favouriteshow = true;
+            // }
+            //如果在收藏列表中
+            if (that.data.favorList.findIndex((favorItem) => {
+              return favorItem.id == id;
+            }) > -1) {
               favouriteshow = true;
             }
 
