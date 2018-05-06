@@ -37,7 +37,6 @@ Page({
       console.log('是转发options.id ' + options.id);
       var mObjectId = options.id;
       //跳转指定的页面 TODO
-      //跳转条目详情
       wx.navigateTo({
         url: '../search_section/search_section?id=' + mObjectId + '&favor=' + false
           + '&postId=' + 0
@@ -425,7 +424,7 @@ Page({
     var postId = event.currentTarget.dataset.postid;
     var objectId = that.data.contentItems[postId].id;  // 获得数据库对应objectId
     var favor = that.data.contentItems[postId].favouriteshow;
-    console.log(favor);
+    // console.log(favor);
     //跳转条目详情
     wx.navigateTo({
       url: '../search_section/search_section?id=' + objectId + '&favor=' + favor
@@ -433,7 +432,7 @@ Page({
     })
   },
 
-  //TODO 可以删除
+  //TODO: 可以删除
   touchTOP: function (event) {
     // var that = this;
     // wx.vibrateShort();  // 使手机振动15ms  
@@ -443,7 +442,7 @@ Page({
     // wx.hideNavigationBarLoading() //完成停止加载
     // wx.stopPullDownRefresh() //停止下拉刷新
   },
-  //TODO 可以删除
+  //TODO: 可以删除
   touchBottom: function (event) {
     // var that = this;
     // var newPageIndex = that.data.pageindex + 1;

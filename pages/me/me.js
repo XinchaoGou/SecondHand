@@ -417,7 +417,6 @@ Page({
             that.setData({
               offerList: tOfferItems
             });
-            //TODO:
             wx.setStorage({
               key: "offerList",
               data: tOfferItems

@@ -25,7 +25,7 @@
 
     <view class="content">
       <!--二手信息加载区域-->
-      <view class="content-item" hover-class="content-item-after" wx:for="{{contentItems}}" catchtap="itemTap" data-postid="{{index}}">
+      <view class="content-item" hover-class="content-item-after" wx:for="{{contentItems}}" wx:key="id" catchtap="itemTap" data-postid="{{index}}">
         <!--二手物品图片-->
 
         <image mode="aspectFill" style="height:210rpx; width:280rpx;border-radius:10rpx;" src="{{item.src}}" />
