@@ -41,40 +41,152 @@ Page({
         url: '../search_section/search_section?id=' + mObjectId + '&favor=' + false
           + '&postId=' + 0
       })
-      // return;
-    } else {
-      console.log('不是转发');
     }
-    console.log('onLoad 执行了');
 
+    // //TODO: 获取当前地理位置,只有根据地理位置排序的时候才需要吧
+    // that.getLocation();
+    that.getAllFromCloud();
 
-    //获取当前地理位置
-    that.getLocation();
-    //查询条目数量
-    that.searchTotalCount();
-    //查询用户收藏列表
-    const promise = that.getFavorListFromCloud();
-    //查询数据
-    promise.then(function (favourArray) {
-      // success
-      that.searchFromCloud(0, that.data.callbackcount);
-    }, function (error) {
-      // failure
-      console.log(error);
-    });
-
-    //重置数据 TODO与data保持一致！
-    that.setData({
-      /*定义search页面加载内容的数组*/
-      contentItems: [],
-      location: null,
-      isHideLoadMore: false,
-      pageindex: 0, //第几次加载
-      callbackcount: 10, //设置每页返回数据的多少
-      searchLoadingComplete: false, //加载完所有条目
-    })
   },
 
+  /**
+   * 封装首页信息加载
+   * by xinchao
+   */
+  getAllFromCloud: function(){
+    var that = this;
+    const promise = that.getFavorListFromCloud();
+    promise.then(function (favourArray) {
+      //重构之后先从服务器加载搜索条目列表
+      that.getContentItemsFromCloud(0, that.data.callbackcount);
+    }, function (error) {
+      console.log(error); // failure
+    });
+  },
+
+  /**
+   * 查询服务器，加载搜索条目列表
+   * pageindex: 分页页码
+   * callbackcount : 每页返回数据数目
+   * by xincaho
+   */
+  getContentItemsFromCloud: function (pageindex, callbackcount) {
+    var that = this;
+    var searchCondition = that.data.searchCondition;
+    //查询数据库获得发布物品信息
+    var Offer = Bmob.Object.extend("Offer");
+    var query = new Bmob.Query(Offer);
+    //test
+    // query.equalTo("typeName","电子产品");
+    //TODO:设置查询条件
+    switch (searchCondition) {
+      case 'PRICE_UP':
+        query.ascending('price'); //按价格升序排列
+        break;
+      case 'PRICE_DESCEND':
+        query.descending('price'); //按价格降序排列
+        break;
+      case 'DATE_DESCEND':
+        query.descending('createdAt'); //按时间降序排列
+        break;
+      case 'DISTANCE_DESCEND':
+      // //当前用户位置，40.0改为微信获取到的位置
+      // var point = that.data.location;
+      // var maxDistance = that.data.maxDistance;
+      // query.withinKilometers("location", point, maxDistance);  //位置周围3000米的数据
+      // break;
+      default:
+        query.descending('createdAt'); //按时间降序排列
+        break;
+    }
+    //设置查询分页大小
+    console.log(pageindex, callbackcount);
+    query.limit(callbackcount);
+    query.skip(callbackcount * pageindex);
+
+    //查询条目数量
+    if (pageindex == 0) {
+      that.searchTotalCount(query);
+    } else{
+      wx.getStorage({
+        key: 'totalCount',
+        success: function(res) {
+          that.setData({
+            totalCount: res.data
+          });
+      } 
+      }) 
+    }
+
+    // 查询所有数据
+    query.find({
+      success: function (results) {
+        if (results.length == 0) {
+          that.setData({
+            //TODO: 看一下这两个是不功能一样可以删除一个不？
+            searchLoadingComplete: true,
+            isHideLoadMore: true
+          })
+        } else {
+          console.log("共查询到 " + results.length + " 条记录");
+          var offerArray;
+          if (pageindex > 0) {
+            offerArray = that.data.contentItems;
+          } else {
+            offerArray = new Array();
+          }
+          //FIXME: 循环处理查询到的数据,详情
+          for (var i = 0; i < results.length; i++) {
+            var object = results[i];
+            var id = object.id;
+            var title = object.get('title');
+            var price = object.get('price');
+            var address = object.get('address');
+            var urls = object.get('picUrlArray');
+            if (urls == "") {
+              //设置为默认图片 url数组注意
+              urls = ['../../images/test/camera.png'];
+            }
+            //考虑时差，换算
+            var mDate = Utils.getDateDiffWithJetLag(object.createdAt);
+
+            //收藏
+            var favouriteshow = false;
+            //如果在收藏列表中
+            if (that.data.favorList.findIndex((favorItem) => {
+              return favorItem.id == id;
+            }) > -1) {
+              favouriteshow = true;
+            }
+
+            var offerItem = {
+              title: title,
+              price: price,
+              address: address,
+              src: urls[0],
+              date: mDate,
+              id: id,
+              favouriteshow: favouriteshow
+            }
+            offerArray.push(offerItem);
+          }
+          //存储到本地
+          that.setData({
+            contentItems: offerArray
+          });
+          wx.setStorage({
+            key: "contentList",
+            data: offerArray
+          });
+
+        }
+      },
+      error: function (error) {
+        console.log("查询失败: " + error.code + " " + error.message);
+      }
+    });
+
+  },
 
 
   /**
@@ -113,7 +225,12 @@ Page({
     var that = this;
     wx.vibrateShort();  // 使手机振动15ms  
     wx.showNavigationBarLoading() //在标题栏中显示加载
-    // this.onLoad();
+    that.setData({
+      isHideLoadMore: false,
+      searchLoadingComplete: false, //加载完所有条目
+      pageindex: 0, //第几次加载
+    })
+    that.getAllFromCloud();
     // complete
     wx.hideNavigationBarLoading() //完成停止加载
     wx.stopPullDownRefresh() //停止下拉刷新
@@ -125,7 +242,7 @@ Page({
   onReachBottom: function () {
     var that = this;
     var newPageIndex = that.data.pageindex + 1;
-    that.searchFromCloud(newPageIndex, that.data.callbackcount);
+    that.getContentItemsFromCloud(newPageIndex, that.data.callbackcount);
     //未搜索到底则递增分页
     if (!that.data.searchLoadingComplete) {
       that.setData({
@@ -205,21 +322,13 @@ Page({
       var query = new Bmob.Query(User);
       query.get(Bmob.User.current().id, {
         success: function (result) {
-          // 查询成功
+          // 查询用户成功
           console.log("查询当前用户成功");
           var relation = result.relation('like');
           var query = relation.query();
           query.find({
             success: function (list) {
-              // console.log("查询到" + list.length + "条收藏");
-              // var favourArray = [];
-              // for (let i = 0; i < list.length; i++) {
-              //   favourArray.push(list[i].id);
-              // }
-              // that.setData({
-              //   favorList: favourArray
-              // });
-              // resolve(favourArray);
+              // 查询用户收藏成功
               console.log("查询到" + list.length + "条收藏");
               var favourArray = [];
               for (let i = 0; i < list.length; i++) {
@@ -277,7 +386,6 @@ Page({
           });
         },
         error: function (object, error) {
-          // 查询失败
           console.log("查询当前用户失败");
           reject(error);
         }
@@ -286,181 +394,33 @@ Page({
   },
 
   /**
-   * 查询条目数量 TODO  封装
+   * 查询条目数量
    * by xinchao
    */
-  searchTotalCount: function () {
+  searchTotalCount: function (query) {
     var that = this;
-    //查询条目数量
-    var Offer = Bmob.Object.extend("Offer");
-    var query = new Bmob.Query(Offer);
-    //当前用户位置，40.0改为微信获取到的位置
-    // var point = that.data.location;
-    // var maxDistance = that.data.maxDistance;
-    // query.withinKilometers("location", point, maxDistance);  //位置周围3000米的数据
-
     query.count({
       success: function (count) {
-        // 查询成功，返回记录数量
         console.log("共有 " + count + " 条记录");
         that.setData({
           totalCount: count
-        })
-      },
-      error: function (error) {
-        // 查询失败
-        console.log("查询总条目数错误");
-        console.log(error);
-      }
-    });
-  },
-
-  /**
-   * 查询用户收藏列表 TOTO 封装
-   * by xinchao
-   */
-  searchFavouriteList: function () {
-    var that = this;
-    //查询用户收藏列表
-    var User = Bmob.Object.extend("_User");
-    var query = new Bmob.Query(User);
-    query.get(Bmob.User.current().id, {
-      success: function (result) {
-        // 查询成功
-        console.log("查询当前用户成功");
-        var relation = result.relation('like');
-        var query = relation.query();
-        query.find({
-          success: function (list) {
-            // list contains post liked by the current user which have the title "I'm Hungry".
-            console.log("查询到" + list.length + "条收藏");
-            var favourArray = [];
-            for (let i = 0; i < list.length; i++) {
-              favourArray.push(list[i].id);
-            }
-            that.setData({
-              favorList: favourArray
-            });
-          }
+        });
+        wx.setStorage({
+          key: "totalCount",
+          data: count
         });
       },
-      error: function (object, error) {
-        // 查询失败
-        console.log("查询当前用户失败");
-      }
-    });
-  },
-
-  /**
-   * 查询服务器
-   * pageindex: 分页页码
-   * callbackcount : 每页返回数据数目
-   * by xinchao
-   */
-  searchFromCloud: function (pageindex, callbackcount) {
-
-    var that = this;
-    var searchCondition = that.data.searchCondition;
-    //查询数据库获得发布物品信息
-    var Offer = Bmob.Object.extend("Offer");
-    var query = new Bmob.Query(Offer);
-    //设置查询条件
-    switch (searchCondition) {
-      case 'PRICE_UP':
-        query.ascending('price'); //按价格升序排列
-        break;
-      case 'PRICE_DESCEND':
-        query.descending('price'); //按价格降序排列
-        break;
-      case 'DATE_DESCEND':
-        query.descending('createdAt'); //按时间降序排列
-        break;
-      case 'DISTANCE_DESCEND':
-        //当前用户位置，40.0改为微信获取到的位置
-        var point = that.data.location;
-        var maxDistance = that.data.maxDistance;
-        query.withinKilometers("location", point, maxDistance);  //位置周围3000米的数据
-        break;
-      default:
-        query.descending('createdAt'); //按时间降序排列
-        break;
-    }
-    //设置查询分页大小
-    console.log(pageindex, callbackcount);
-    query.limit(callbackcount);
-    query.skip(callbackcount * pageindex);
-
-
-    // 查询所有数据
-    query.find({
-      success: function (results) {
-        console.log(results);
-        if (results.length == 0) {
-          that.setData({
-            searchLoadingComplete: true,
-            isHideLoadMore: true
-          })
-        } else {
-          console.log("共查询到 " + results.length + " 条记录");
-          //var offerArray = that.data.contentItems;
-          var offerArray;
-          if (pageindex > 0) {
-            offerArray = that.data.contentItems;
-          } else {
-            offerArray = new Array();
-          }
-          // 循环处理查询到的数据
-          for (var i = 0; i < results.length; i++) {
-            var object = results[i];
-            var id = object.id;
-            var title = object.get('title');
-            var price = object.get('price');
-            var address = object.get('address');
-            var urls = object.get('picUrlArray');
-            if (urls == "") {
-              //设置为默认图片 url数组注意
-              urls = ['../../images/test/camera.png'];
-            }
-            //考虑时差，换算
-            var mDate = Utils.getDateDiffWithJetLag(object.createdAt);
-
-            //收藏
-            var favouriteshow = false;
-            // if (that.data.favorList.indexOf(id) > -1) {
-            //   favouriteshow = true;
-            // }
-            //如果在收藏列表中
-            if (that.data.favorList.findIndex((favorItem) => {
-              return favorItem.id == id;
-            }) > -1) {
-              favouriteshow = true;
-            }
-
-            var offerItem = {
-              title: title,
-              price: price,
-              address: address,
-              src: urls[0],
-              date: mDate,
-              id: id,
-              favouriteshow: favouriteshow
-            }
-            offerArray.push(offerItem);
-          }
-          //存储到本地
-          that.setData({
-            contentItems: offerArray
-          })
-        }
-      },
       error: function (error) {
-        console.log("查询失败: " + error.code + " " + error.message);
+        console.log("查询总条目数错误");
       }
     });
   },
+
   /*通往搜索sublevel1子页面入口，出现了问题，堆栈方面的，需要后续处理 by yining*/
   tosubsearch: function () {
-    wx.navigateTo({ url: '../search_sublevel1/search_sublevel1' })
+    wx.navigateTo({ 
+      url: '../search_sublevel1/search_sublevel1' 
+    })
   },
 
   /**
@@ -505,7 +465,7 @@ Page({
   },
 
   /**
-   * 点击某一个条目查看详情
+   * TODO:点击某一个条目查看详情
    * by xinchao
    */
   itemTap: function (event) {
@@ -520,34 +480,5 @@ Page({
         + '&postId=' + postId
     })
   },
-
-  //TODO: 可以删除
-  touchTOP: function (event) {
-    // var that = this;
-    // wx.vibrateShort();  // 使手机振动15ms  
-    // wx.showNavigationBarLoading() //在标题栏中显示加载
-    // this.onLoad();
-    // // complete
-    // wx.hideNavigationBarLoading() //完成停止加载
-    // wx.stopPullDownRefresh() //停止下拉刷新
-  },
-  //TODO: 可以删除
-  touchBottom: function (event) {
-    // var that = this;
-    // var newPageIndex = that.data.pageindex + 1;
-    // that.searchFromCloud(newPageIndex, that.data.callbackcount);
-    // //未搜索到底则递增分页
-    // if (!that.data.searchLoadingComplete) {
-    //   that.setData({
-    //     pageindex: newPageIndex,
-    //   })
-    // }
-    // else {
-    //   //加载完毕，已全部加载
-    //   that.setData({
-    //     isHideLoadMore: true
-    //   });
-    // }
-  }
 
 })
