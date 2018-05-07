@@ -3,30 +3,30 @@
 
 
   <view class="section-big style1">
-    <!--地理范围显示模块-->
-    <view class="section">
-      <text class="section-title">所在城市</text>
-    </view>
 
-    <view class="section underline">
-      <picker mode="multiSelector" bindchange="bindMultiPickerChange1" bindcolumnchange="bindMultiPickerColumnChange1" value="{{multiCityIndex}}" range="{{multiCityArray}}">
+    <!--地理范围显示模块-->
+    <picker mode="multiSelector" bindchange="bindMultiPickerChange1" bindcolumnchange="bindMultiPickerColumnChange1" value="{{multiCityIndex}}" range="{{multiCityArray}}" class="adressblock">
+      <view class="section">
+        <text class="section-title">搜索范围</text>
+      </view>
+      <view class="section underline t-name">
         <view class="text-title" name="types">{{multiCityArray[0][multiCityIndex[0]]}} {{multiCityArray[1][multiCityIndex[1]]}} {{multiCityArray[2][multiCityIndex[2]]}}
         </view>
-      </picker>
-      <image class="arrow-r" src="../../images/more/enter.png" />
-    </view>
+        <image class="arrow-r" src="../../images/more/enter.png" />
+      </view>
+    </picker>
 
-    <view class="section">
-      <text class="section-title">类别</text>
-    </view>
+    <picker mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}" class="adressblock">
+      <view class="section">
+        <text class="section-title">搜索类别</text>
+      </view>
 
-    <view class="section underline">
-      <picker mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}">
+      <view class="section underline t-name">
         <view class="text-title" name="types">{{multiArray[0][multiIndex[0]]}} {{multiArray[1][multiIndex[1]]}} {{multiArray[2][multiIndex[2]]}}
         </view>
-      </picker>
-      <image class="arrow-r" src="../../images/more/enter.png" />
-    </view>
+        <image class="arrow-r" src="../../images/more/enter.png" />
+      </view>
+    </picker>
 
     <view class="section t-name">
       <view>
@@ -36,20 +36,32 @@
     </view>
 
 
-    <view wx:if="{{priceHide}}" class="section">
+    <view class="section">
+      <text class="euro">min</text>
       <view class="body-view">
-        <slider activeColor="#32A189" block-color="#32A189" step="10" bindchange="slider4change" min="50" max="200" />
+        <slider activeColor="#32A189" block-color="#ffffff" block-size="24" step="10" bindchange="sliderchange1" min="0" max="70" value="{{lowprice}}" />
       </view>
-      <text class="euro">20~50€</text>
+      <text class="euro">{{lowshowprice}}€</text>
     </view>
 
     <view class="section underline">
-      <text class="section-title">排列顺序</text>
-      <picker class="section-right" bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
-        <text class="text-title">{{array[index]}}</text>
-        <image class="arrow-r" src="../../images/more/enter.png" />
-      </picker>
+      <text class="euro">max</text>
+      <view class="body-view">
+        <slider activeColor="#e9e9e9" block-color="#ffffff" block-size="24" backgroundColor="#32A189" step="10" bindchange="sliderchange2" min="0" max="70" value="{{highprice}}" />
+      </view>
+      <text class="euro">{{highshowprice}}€</text>
     </view>
+
+    <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}" class="adressblock">
+      <view class="section">
+        <text class="section-title">排列顺序</text>
+      </view>
+      <view class="section underline t-name">
+        <view class="text-title" name="types">{{array[index]}}</view>
+        <image class="arrow-r" src="../../images/more/enter.png" />
+      </view>
+    </picker>
+
   </view>
 
 </view>

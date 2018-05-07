@@ -27,6 +27,7 @@ Page({
     ],
     index: 0,
     priceHide: false,
+    price: '免费',
     //picker组件的多列选择器
     multiArray: [['二手物品', '房屋租赁', '有偿帮带'], ['所有', '电子产品', '学习资料', '家具厨具', '交通工具', '其他'], ['']],
     objectMultiArray: [
@@ -77,12 +78,12 @@ Page({
     ],
     multiIndex: [0, 0, 0],
     //以下是City的数组定义
-    multiCityArray: [['德国'], ['所有地区', 'Baden-Württemberg', 'Bayern', 'Berlin', 'Brandenburg', 'Bremen', 'Hamburg', 'Hessen', 'Mecklenburg-Vorpommern', 'Niedersachsen', 'Nordrhein-Westfalen', 'Rheinland-Pfalz', 'Saarland', 'Sachsen', 'Sachsen-Anhalt', 'Schleswig-Holstein', 'Thüringen',], ['']],
+    multiCityArray: [[''], ['德国所有地区', 'Baden-Württemberg', 'Bayern', 'Berlin', 'Brandenburg', 'Bremen', 'Hamburg', 'Hessen', 'Mecklenburg-Vorpommern', 'Niedersachsen', 'Nordrhein-Westfalen', 'Rheinland-Pfalz', 'Saarland', 'Sachsen', 'Sachsen-Anhalt', 'Schleswig-Holstein', 'Thüringen',], ['']],
     objectMultiCityArray: [
       [
         {
           id: 0,
-          name: '德国'
+          name: ''
         }
       ], [
         {
@@ -162,7 +163,11 @@ Page({
         }
       ]
     ],
-    multiCityIndex: [0, 0, 0]
+    multiCityIndex: [0, 0, 0],
+    lowprice: 0,
+    highprice: 70,
+    lowshowprice: 0,
+    highshowprice: 2000
   },
 
   switch1Change: function (e) {
@@ -370,13 +375,13 @@ Page({
                 data.multiCityArray[2] = ['所有', 'Frankfurt', 'Wiesbaden', 'Kassel', 'Darmstadt', 'Offenbach', '其他'];
                 break;
               case 8:
-                data.multiCityArray[2] = ['所有', 'Rostock','Schwerin', '其他'];
+                data.multiCityArray[2] = ['所有', 'Rostock', 'Schwerin', '其他'];
                 break;
               case 9:
                 data.multiCityArray[2] = ['所有', 'Hannover', 'Braunschweig', 'Wolfsburg', 'Osnabrück', 'Oldenburg', 'Göttingen', '其他'];
                 break;
               case 10:
-                data.multiCityArray[2] = ['所有', 'Köln', 'Düsseldorf', 'Dortmund', 'Essen', 'Duisburg', 'Bochum', 'Wuppertal', 'Bielefeld', 'Bonn', 'Münster', 'Aachen','其他'];
+                data.multiCityArray[2] = ['所有', 'Köln', 'Düsseldorf', 'Dortmund', 'Essen', 'Duisburg', 'Bochum', 'Wuppertal', 'Bielefeld', 'Bonn', 'Münster', 'Aachen', '其他'];
                 break;
               case 11:
                 data.multiCityArray[2] = ['所有', 'Mainz', 'Ludwigshafen', 'Trier', 'Kaiserslautern', 'Worms', '其他'];
@@ -385,7 +390,7 @@ Page({
                 data.multiCityArray[2] = ['所有', 'Saarbrücken', 'Neunkirchen', '其他'];
                 break;
               case 13:
-                data.multiCityArray[2] = ['所有', 'Dresden', 'Leipzig', 'Chemnitz','其他'];
+                data.multiCityArray[2] = ['所有', 'Dresden', 'Leipzig', 'Chemnitz', '其他'];
                 break;
               case 14:
                 data.multiCityArray[2] = ['所有', 'Halle', 'Magdeburg', '其他'];
@@ -394,7 +399,7 @@ Page({
                 data.multiCityArray[2] = ['所有', 'Kiel', 'Lübeck', '其他'];
                 break;
               case 16:
-                data.multiCityArray[2] = ['所有', 'Erfurt', 'Jena', 'Gera', 'Weimar','其他'];
+                data.multiCityArray[2] = ['所有', 'Erfurt', 'Jena', 'Gera', 'Weimar', '其他'];
                 break;
             }
             break;
@@ -413,5 +418,92 @@ Page({
       index: e.detail.value
     })
   },
+
+  sliderchange1: function (e) {
+    console.log(e.detail.value)
+    if (e.detail.value > this.data.highprice) {
+      this.setData({
+        lowprice: this.data.highprice
+      })
+    }
+    else {
+      this.setData({
+        lowprice: e.detail.value
+      })
+    }
+    var data;
+    switch (this.data.lowprice) {
+      case 0:
+        data = 0;
+        break;
+      case 10:
+        data = 20;
+        break;
+      case 20:
+        data = 50;
+        break;
+      case 30:
+        data = 100;
+        break;
+      case 40:
+        data = 200;
+        break;
+      case 50:
+        data = 500;
+        break;
+      case 60:
+        data = 1000;
+        break;
+      case 70:
+        data = 2000;
+        break;
+    }
+    this.setData({
+      lowshowprice: data
+    })
+  },
+
+  sliderchange2: function (e) {
+    if (e.detail.value < this.data.lowprice) {
+      this.setData({
+        highprice: this.data.lowprice
+      })
+    }
+    else {
+      this.setData({
+        highprice: e.detail.value
+      })
+    }
+    var data;
+    switch (this.data.highprice) {
+      case 0:
+        data = 0;
+        break;
+      case 10:
+        data = 20;
+        break;
+      case 20:
+        data = 50;
+        break;
+      case 30:
+        data = 100;
+        break;
+      case 40:
+        data = 200;
+        break;
+      case 50:
+        data = 500;
+        break;
+      case 60:
+        data = 1000;
+        break;
+      case 70:
+        data = 2000;
+        break;
+    }
+    this.setData({
+      highshowprice: data
+    })
+  }
 
 })

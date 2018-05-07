@@ -42,7 +42,7 @@ font-size:14px;
 }
 
 .add_pic view {
-  margin-top: 20rpx;
+  margin-top: 0rpx;
   width: 180rpx;
   height: 180rpx;
   line-height: 200rpx;
@@ -50,18 +50,6 @@ font-size:14px;
   background: url(http://bmob-cdn-14867.b0.upaiyun.com/2017/11/23/e93d28a14095af18801d3c1c68e08fe7.png) no-repeat left center;
   background-size: 160rpx auto;
   padding-left: 80rpx;
-  color: #b2b2b2;
-}
-.add_pic .code {
-  display: inline-block;
-  margin-top: 20rpx;
-  width: 430rpx;
-  height: 200rpx;
-  line-height: 200rpx;
-  text-align: center;
-  background: url(http://bmob-cdn-14867.b0.upaiyun.com/2017/11/23/e93d28a14095af18801d3c1c68e08fe7.png) no-repeat left center;
-  background-size: 160rpx auto;
-  padding-left: 130rpx;
   color: #b2b2b2;
 }
 
@@ -81,6 +69,7 @@ font-size:14px;
 }
 
 .picPre image {
+  margin-top:15rpx;
   width: 100%;
   height: 180rpx;
   border:2px solid #32A189;
@@ -89,7 +78,7 @@ font-size:14px;
 .picPre view {
   position: absolute;
   right: -20rpx;
-  top: -20rpx;
+  top: -5rpx;
   width: 50rpx;
   height: 50rpx;
   background: url(http://bmob-cdn-14867.b0.upaiyun.com/2017/11/23/b93323e440f4c3998034dbb9011a1e1d.png) no-repeat;
@@ -432,8 +421,7 @@ overflow:hidden;
   flex-direction:row;
   justify-content:flex-start;
   align-items:center;
-  flex-wrap:nowrap;
-  padding-top:20rpx;
+  padding:10rpx 0;
 }
 .textarea{
   display:block; /*textarea组件是行内元素，这里强制修改为块级元素,行内元素有自己的独立空间，它是依附于其他块级元素存在的，因此，对行内元素设置高度、宽度、内外边距等属性，都是无效的。*/
