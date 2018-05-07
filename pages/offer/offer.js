@@ -373,7 +373,7 @@ Page({
     //FIXME:物品类别
     var typeIndex = that.data.typeIndex;
     var types = that.data.types;
-    var typeName = types[typeIndex]; 
+    var typeName = types[typeIndex];
 
     var address = that.data.address;//交易地点
     var longitude = that.data.longitude; //经度
@@ -831,7 +831,26 @@ Page({
 
   onPageScroll: function () {
     // Do something when page scroll
-
+    var query = wx.createSelectorQuery()
+    var flag = this.data.isShowPulldownRefresh
+    query.select('#top').boundingClientRect()
+    query.selectViewport().scrollOffset()
+    query.exec(function (res) {
+      res[0].top       // #the-id节点的上边界坐标
+      res[1].scrollTop // 显示区域的竖直滚动位置
+      console.log(res[1].scrollTop)
+      if (res[1].scrollTop < 20) {
+        flag = true;
+        console.log('改flag')
+      }
+    })
+    console.log(flag)
+    if (flag == true) {
+      this.setData({
+        isShowPulldownRefresh: false
+      })
+      console.log('进入了此函数')
+    }
   },
   //以下代码来自开发者文档，加注释， by yining
   bindMultiPickerChange: function (e) {
