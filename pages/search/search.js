@@ -439,6 +439,8 @@ Page({
       [str]: !isshow
     })
 
+    //TODO: 本地缓存也要同步修改
+
     //获取实例
     var Offer = Bmob.Object.extend("Offer");
     var query = new Bmob.Query(Offer);
@@ -473,7 +475,6 @@ Page({
     var postId = event.currentTarget.dataset.postid;
     var objectId = that.data.contentItems[postId].id;  // 获得数据库对应objectId
     var favor = that.data.contentItems[postId].favouriteshow;
-    // console.log(favor);
     //跳转条目详情
     wx.navigateTo({
       url: '../search_section/search_section?id=' + objectId + '&favor=' + favor
