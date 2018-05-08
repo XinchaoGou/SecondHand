@@ -33,7 +33,7 @@ Page({
     markers: [],
     controls: [{
       id: 1,
-      iconPath: '/images/test/gps-64.png',
+      iconPath: '/images/test/define-location-64.png',
       position: {
         left: 20,
         top: 20,

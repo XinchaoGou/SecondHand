@@ -15,6 +15,7 @@ page{
 .header{
   width:100%;
   padding:20rpx;
+  padding-top:25rpx;
   padding-bottom:0rpx;
   box-sizing: border-box;
   display: flex;
@@ -164,6 +165,10 @@ page{
 .loading-text{
   font-size:9pt;
   color:gray;
+}
+.loading-place{
+  font-size:9pt;
+  color:black;
 }
 .weui-load{
   width: 100%;
