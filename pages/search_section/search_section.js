@@ -33,12 +33,12 @@ Page({
     markers: [],
     controls: [{
       id: 1,
-      iconPath: '/images/icon/wx.png',
+      iconPath: '/images/test/gps-64.png',
       position: {
         left: 20,
         top: 20,
-        width: 50,
-        height: 50
+        width: 30,
+        height: 30
       },
       clickable: true
     }]

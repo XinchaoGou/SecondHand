@@ -1,5 +1,3 @@
-<!--pages/search_section/search_section.wxml-->
-
 
 <view class="container">
   <!--scroll-view class="scroll" scroll-y-->
@@ -71,9 +69,9 @@
       <text class="offer-cont-11">{{address}}</text>
     </view>
   </view>
-
   <!--/scroll-view-->
 </view>
+
 <map id="map" 
  longitude="{{longitude}}" 
  latitude="{{latitude}}" 

@@ -1,7 +1,6 @@
 <!--pages/search/search.wxml-->
 <view class="container">
 
-
   <view class="section-big style1">
 
     <!--地理范围显示模块-->

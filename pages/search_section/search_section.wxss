@@ -57,11 +57,11 @@
   flex-direction:column;
   justify-content:flex-start;
   align-items:center;
-  margin-top:20rpx;
   margin-bottom:20rpx;
 }
 .offer-section{
   box-sizing: border-box;
+  height:60rpx;
   width:100%;
   display:flex;
   flex-direction:row;

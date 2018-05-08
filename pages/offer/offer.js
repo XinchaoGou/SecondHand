@@ -63,7 +63,8 @@ Page({
     //左右滑动切换模块，by yining
     currentTab: 0, //预设当前项的值
     //控制下拉刷新的提示内容的隐藏，by yining
-    isShowPulldownRefresh: true,
+    isHidePulldownRefresh: true,
+    pastpos: 20,
     //联系方式模板的数组变量，by yining
     contactList: [],
     //类别的picker组件更换为多列选择器, by yining
@@ -812,7 +813,9 @@ Page({
    * TODO: 更新数据
    */
   onPullDownRefresh: function () {
-
+    this.setData({
+      isHidePulldownRefresh: true
+    })
   },
 
   /**
@@ -831,26 +834,27 @@ Page({
 
   onPageScroll: function () {
     // Do something when page scroll
-    var query = wx.createSelectorQuery()
-    var flag = this.data.isShowPulldownRefresh
+    var that = this;
+    var query = wx.createSelectorQuery();
     query.select('#top').boundingClientRect()
     query.selectViewport().scrollOffset()
     query.exec(function (res) {
       res[0].top       // #the-id节点的上边界坐标
       res[1].scrollTop // 显示区域的竖直滚动位置
-      console.log(res[1].scrollTop)
-      if (res[1].scrollTop < 20) {
-        flag = true;
-        console.log('改flag')
+      if (res[1].scrollTop < that.data.pastpos && res[1].scrollTop < 20 && res[1].scrollTop > 0) {
+        that.setData({
+          isHidePulldownRefresh: false
+        })
+        setTimeout(function () {
+          that.setData({
+            isHidePulldownRefresh: true   //设置重启按钮
+          });
+        }, 700);
       }
-    })
-    console.log(flag)
-    if (flag == true) {
-      this.setData({
-        isShowPulldownRefresh: false
+      that.setData({
+        pastpos: res[1].scrollTop
       })
-      console.log('进入了此函数')
-    }
+    })
   },
   //以下代码来自开发者文档，加注释， by yining
   bindMultiPickerChange: function (e) {
