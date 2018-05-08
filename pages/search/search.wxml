@@ -2,63 +2,64 @@
 <view class="container">
 
   <!--scroll-view class="scroll" bindscrolltoupper="touchTOP" bindscrolltolower="touchBottom" scroll-y-->
-    <view class="header" catchtap="tosubsearch">
-      <!--头部搜索-->
-      <!--头部搜索block1-->
-      <view class="header-block1">
-        <image style="height:50rpx;width:50rpx" src="../../images/test/search.png" />
-        <text class="text" style="padding-left:20rpx">所有种类</text>
-      </view>
-
-      <view class="header-block2">
-        <!--头部搜索block2-->
-        <!--location图标上暂时设置前往search-section页面的接口，以后需要修改-->
-        <!--已经修改 by xinchao-->
-        <image style="height:45rpx;width:35rpx" src="../../images/test/location.png" />
-        <text class="location-text">Karlsruhe</text>
-      </view>
+  <view class="header" catchtap="tosubsearch">
+    <!--头部搜索-->
+    <!--头部搜索block1-->
+    <view class="header-block1">
+      <image style="height:50rpx;width:50rpx" src="../../images/test/search.png" />
+      <text class="text" style="padding-left:20rpx">所有种类</text>
     </view>
 
-    <view class="loadingNum">
-      <text class="loading-text">共查询到{{totalCount}}条结果</text>
+    <view class="header-block2">
+      <!--头部搜索block2-->
+      <!--location图标上暂时设置前往search-section页面的接口，以后需要修改-->
+      <!--已经修改 by xinchao-->
+      <image style="height:45rpx;width:35rpx" src="../../images/test/location.png" />
     </view>
+  </view>
 
-    <view class="content">
-      <!--二手信息加载区域-->
-      <view class="content-item" hover-class="content-item-after" wx:for="{{contentItems}}" wx:key="id" catchtap="itemTap" data-postid="{{index}}">
-        <!--二手物品图片-->
+  <view class="loadingNum">
+    <text class="loading-text">Badenwürtemberg Karlsruhe</text>
+    <text class="loading-text"> 共查询到{{totalCount}}条结果</text>
+  </view>
 
-        <image mode="aspectFill" style="height:210rpx; width:280rpx;border-radius:10rpx;" src="{{item.src}}" />
 
-        <!--二手物品交易信息-->
-        <view class="content-block2">
+  <view class="content">
+    <!--二手信息加载区域-->
+    <view class="content-item" hover-class="content-item-after" wx:for="{{contentItems}}" wx:key="id" catchtap="itemTap" data-postid="{{index}}">
+      <!--二手物品图片-->
 
-          <text class='content-text-title'>{{item.title}}</text>
-          <view class="location-time">
-            <text class='content-text-location'>{{item.address}}</text>
-            <text class='content-text-offertime'>{{item.date}}</text>
-          </view>
+      <image mode="aspectFill" style="height:210rpx; width:280rpx;border-radius:10rpx;" src="{{item.src}}" />
 
-          <view class="content-bottom">
-            <text class='content-text-price'>€ {{item.price}}</text>
+      <!--二手物品交易信息-->
+      <view class="content-block2">
 
-            <view class="favourite" catchtap="favourite_touch" data-favouriteid="{{index}}">
-              <image wx:if="{{item.favouriteshow}}" style="height:50rpx; width:50rpx" src='../../images/test/favouriteon.png' />
-              <image wx:else style="height:50rpx; width:50rpx" src='../../images/test/favouriteoff.png' />
-            </view>
+        <text class='content-text-title'>{{item.title}}</text>
+        <view class="location-time">
+          <text class='content-text-location'>{{item.address}}</text>
+          <text class='content-text-offertime'>{{item.date}}</text>
+        </view>
+
+        <view class="content-bottom">
+          <text class='content-text-price'>€ {{item.price}}</text>
+
+          <view class="favourite" catchtap="favourite_touch" data-favouriteid="{{index}}">
+            <image wx:if="{{item.favouriteshow}}" style="height:50rpx; width:50rpx" src='../../images/test/favouriteon.png' />
+            <image wx:else style="height:50rpx; width:50rpx" src='../../images/test/favouriteoff.png' />
           </view>
         </view>
       </view>
     </view>
+  </view>
 
-    <view class="weui-loadmore" hidden="{{isHideLoadMore}}">
-      <view class="weui-loading"></view>
-      <view class="weui-loadmore__tips">正在加载</view>
-    </view>
+  <view class="weui-loadmore" hidden="{{isHideLoadMore}}">
+    <view class="weui-loading"></view>
+    <view class="weui-loadmore__tips">正在加载</view>
+  </view>
 
-    <view class="weui-load" hidden="{{!searchLoadingComplete}}">
-      <text class="weui-loadmore__tips" style="padding-bottom:20rpx;font-size:10pt;color:gray;">当前内容已全部加载</text>
-    </view>
-    
+  <view class="weui-load" hidden="{{!searchLoadingComplete}}">
+    <text class="weui-loadmore__tips" style="padding-bottom:20rpx;font-size:10pt;color:gray;">当前内容已全部加载</text>
+  </view>
+
   <!--/scroll-view-->
 </view>

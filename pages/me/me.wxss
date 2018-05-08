@@ -132,10 +132,7 @@ page {
 .userItem {
   width: 100%;
   height: 80rpx;
-  background-color: white;
   position: relative;
-  border: 4rpx solid white;
-  border-radius: 20rpx;
 }
 
 .userItemImg {
@@ -245,7 +242,7 @@ page {
   border: 4rpx solid white;
   border-radius: 20rpx;
   background-color: white;
-  margin-bottom: 20rpx;
+  margin-bottom: 10rpx;
 }
 
 .content-text-title {
