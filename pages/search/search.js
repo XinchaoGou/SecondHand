@@ -187,6 +187,25 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    var that = this;
+    try {
+      var favorList = wx.getStorageSync('favorList');
+      //加载收藏列表
+      if (favorList) {
+        //从本地缓存读取
+        that.setData({
+          favorList: favorList
+        })
+      }
+    } catch (e) {
+      console.log('本地缓存favorList，offerList读取失败');
+    }
+
+    var contentItems = that.data.contentItems;
+    that.upDateFavorPic(contentItems);
+    that.setData({
+      contentItems : contentItems
+    })
 
   },
 
@@ -250,6 +269,28 @@ Page({
 
   },
 
+  /**
+   * 根据favorList 更新视图的收藏图标
+   * by xinchao
+   */
+  upDateFavorPic: function (contentItems) {
+
+    var that = this;
+    var favorList = that.data.favorList;
+    contentItems.forEach(function(e){
+      var index =  favorList.findIndex((favorItem) => {
+        return favorItem.id == e.id;
+      }) 
+      if ( index > -1) {
+        //如果条目在收藏列表中，点亮图标，否则点灭
+        e.favouriteshow = true;
+      } else{
+        e.favouriteshow = false;
+      }
+    });
+    return contentItems;
+
+  },
 
   /**
    * 设置搜索地址 TODO
@@ -466,7 +507,10 @@ Page({
         } else {
           //取消收藏
           relation.remove(result);
-          //TODO: 删除本地收藏列表缓存
+          var index = favorList.findIndex((favorItem) => {
+            return favorItem.id == that.data.contentItems[postId].id;
+            });
+          favorList.splice(index,1);
         }
         user.save();
         that.setData({
