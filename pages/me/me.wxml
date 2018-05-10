@@ -12,7 +12,7 @@
   <view class="userinfo" wx:if="{{!isUse}}">
         <button wx:if="{{canIUse}}" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo" class="userinfo-avatar" background-size="cover" src="{{imgUrl}}">
     </button>
-    <text class="userinfo-nickname">火星用户</text>
+    <text class="userinfo-nickname">{{name}}</text>
     <text >点击头像登陆</text>
   </view>
 
