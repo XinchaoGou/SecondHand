@@ -61,8 +61,6 @@ Page({
       console.log('本地缓存favorList，offerList读取失败');
     }
 
-
-
   },
 
   /**

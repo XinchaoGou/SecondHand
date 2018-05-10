@@ -11,7 +11,6 @@ Page({
     /*定义search页面加载内容的数组*/
     contentItems: [],
     location: null,
-    isHideLoadMore: false,
     pageindex: 0, //第几次加载
     callbackcount: 10, //设置每页返回数据的多少
     searchLoadingComplete: false, //加载完所有条目
@@ -46,7 +45,6 @@ Page({
     // //TODO: 获取当前地理位置,只有根据地理位置排序的时候才需要吧
     // that.getLocation();
     that.getAllFromCloud();
-
   },
 
   /**
@@ -107,15 +105,6 @@ Page({
     //查询条目数量
     if (pageindex == 0) {
       that.searchTotalCount(query);
-    } else{
-      wx.getStorage({
-        key: 'totalCount',
-        success: function(res) {
-          that.setData({
-            totalCount: res.data
-          });
-      } 
-      }) 
     }
 
     // 查询所有数据
@@ -123,9 +112,7 @@ Page({
       success: function (results) {
         if (results.length == 0) {
           that.setData({
-            //TODO: 看一下这两个是不功能一样可以删除一个不？
-            searchLoadingComplete: true,
-            isHideLoadMore: true
+            searchLoadingComplete: true
           })
         } else {
           console.log("共查询到 " + results.length + " 条记录");
@@ -226,7 +213,6 @@ Page({
     wx.vibrateShort();  // 使手机振动15ms  
     wx.showNavigationBarLoading() //在标题栏中显示加载
     that.setData({
-      isHideLoadMore: false,
       searchLoadingComplete: false, //加载完所有条目
       pageindex: 0, //第几次加载
     })
@@ -252,7 +238,7 @@ Page({
     else {
       //加载完毕，已全部加载
       that.setData({
-        isHideLoadMore: true
+        searchLoadingComplete: true
       });
     }
   },
@@ -271,18 +257,18 @@ Page({
    */
   getLocation: function () {
     var that = this;
-    //默认先从本地加载
-    try {
-      var location = wx.getStorageSync('location')
-      if (location) {
-        that.setData({
-          location: location
-        });
-        return;
-      }
-    } catch (e) {
-      console.log(e);
-    }
+    //TODO: 默认先从本地加载 为什么从本地加载location
+    // try {
+    //   var location = wx.getStorageSync('location')
+    //   if (location) {
+    //     that.setData({
+    //       location: location
+    //     });
+    //     return;
+    //   }
+    // } catch (e) {
+    //   console.log(e);
+    // }
 
     wx.getLocation({
       type: 'wgs84', // 默认为 wgs84 返回 gps 坐标，gcj02 返回可用于 wx.openLocation 的坐标
@@ -411,7 +397,15 @@ Page({
         });
       },
       error: function (error) {
-        console.log("查询总条目数错误");
+        console.log("查询总条目数错误，从本地缓存读取数目");
+        wx.getStorage({
+          key: 'totalCount',
+          success: function(res) {
+              that.setData({
+                totalCount: res.data
+              });
+          } 
+        })
       }
     });
   },
@@ -434,13 +428,27 @@ Page({
     //修改收藏图片显示
     var isshow = this.data.contentItems[postId].favouriteshow;
     var str = 'contentItems[' + postId + '].favouriteshow';
-
-    this.setData({
+    that.setData({
       [str]: !isshow
     })
 
-    //TODO: 本地缓存也要同步修改
+    //本地缓存也要更改！
+    var mContentList = null;
+    try {
+      mContentList = wx.getStorageSync('contentList')
+      if (mContentList) {
+        mContentList[postId].favouriteshow = !isshow;
+      }
+    } catch (e) {
+      // Do something when catch error
+    }
+    wx.setStorage({
+      key:"contentList",
+      data: mContentList
+    })
 
+    //修改favorList
+    var favorList = that.data.favorList;
     //获取实例
     var Offer = Bmob.Object.extend("Offer");
     var query = new Bmob.Query(Offer);
@@ -453,11 +461,22 @@ Page({
         if (!isshow) {
           //点击之前为false，点击之后为true，表示收藏
           relation.add(result);
+          //修改favorList,可能有bug
+          favorList.push(that.data.contentItems[postId]);
         } else {
           //取消收藏
           relation.remove(result);
+          //TODO: 删除本地收藏列表缓存
         }
         user.save();
+        that.setData({
+          favorList : favorList
+        });
+        wx.setStorage({
+          key:"favorList",
+          data: favorList
+        })
+
       },
       error: function (object, error) {
         // 查询失败
