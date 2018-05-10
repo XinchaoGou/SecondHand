@@ -163,12 +163,8 @@ page{
   padding-bottom:10rpx;
 }
 .loading-text{
-  font-size:9pt;
+  font-size:11pt;
   color:gray;
-}
-.loading-place{
-  font-size:9pt;
-  color:black;
 }
 .weui-load{
   width: 100%;
