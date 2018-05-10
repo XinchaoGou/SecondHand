@@ -11,7 +11,7 @@
     <view class="weui-toptips" style="color:#ffffff;background-color:#32A189;z-index:2000;" hidden="{{isHidePulldownRefresh}}">下拉刷新可清空所有发布内容</view>
 
     <!-- 2.发布内容主页面-->
-    <!--view class="topbar" /-->
+    <view class="topbar" />
     <!-- 2.1 发布标题 -->
     <view class="section-big style1" bindtap="inputTap" id="top">
       <view class="section t-name">

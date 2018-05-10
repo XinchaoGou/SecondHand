@@ -5,7 +5,7 @@ var app = getApp();
 Page({
 
   data: {
-    imgUrl: null,
+    imgUrl: '../../images/test/user_default.png',
     userInfo: {},
     favorList: [],
     offerList: [],
@@ -19,7 +19,10 @@ Page({
   onLoad: function () {
     var that = this;
     //调用应用实例的方法获取全局数据
+    console.log('me,onload');
+    
     app.getUserInfo(function (userInfo) {
+      console.log(that.data.userInfo);
       //更新数据
       that.setData({
         userInfo: userInfo,
