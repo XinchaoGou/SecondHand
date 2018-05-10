@@ -13,20 +13,42 @@ Page({
     //页面隐藏设计添加的变量，by yining
     isShowOffer: false,
     isShowFavourite: false,
-    isShowContact: false
+    isShowContact: false,
+
+    //微信api更改之后
+    canIUse: wx.canIUse('button.open-type.getUserInfo'),
+    isUse: false,
   },
 
   onLoad: function () {
     var that = this;
-    //调用应用实例的方法获取全局数据
-    app.getUserInfo(function (userInfo) {
-      //更新数据
-      that.setData({
-        userInfo: userInfo,
-        name: userInfo.nickName,
-        imgUrl: userInfo.avatarUrl
-      })
+    wx.getSetting({
+      success: function (res) {
+        if (res.authSetting['scope.userInfo']) {
+          // 已经授权，可以直接调用 getUserInfo 获取头像昵称
+          wx.getUserInfo({
+            success: function (res) {
+              var userInfo = res.userInfo;
+              that.setData({
+                userInfo: userInfo,
+                name: userInfo.nickName,
+                imgUrl: userInfo.avatarUrl,
+                isUse: true,
+              })
+            }
+          })
+        }
+      }
     })
+    //调用应用实例的方法获取全局数据
+    // app.getUserInfo(function (userInfo) {
+    //   //更新数据
+    //   that.setData({
+    //     userInfo: userInfo,
+    //     name: userInfo.nickName,
+    //     imgUrl: userInfo.avatarUrl
+    //   })
+    // })
 
   },
 
@@ -275,7 +297,7 @@ Page({
       key: "favorList",
       data: tFavorItems
     });
-    
+
 
     //获取实例
     var Offer = Bmob.Object.extend("Offer");
@@ -318,7 +340,7 @@ Page({
     //TODO: 跳转的页面也许要重构
     wx.navigateTo({
       url: '../search_section/search_section?id=' + objectId + '&favor=' + favor
-        + '&postId=' + postId
+      + '&postId=' + postId
     })
   },
 
@@ -336,7 +358,7 @@ Page({
     //跳转条目详情
     wx.navigateTo({
       url: '../search_section/search_section?id=' + objectId + '&favor=' + favor
-        + '&postId=' + postId
+      + '&postId=' + postId
     })
   },
 
@@ -479,6 +501,11 @@ Page({
     this.setData({
       isShowContact: !switch3
     })
+  },
+
+  //微信api更改之后，登陆按钮
+  bindGetUserInfo: function (e) {
+    console.log(e.detail.userInfo)
   }
 
 })

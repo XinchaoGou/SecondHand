@@ -7,192 +7,24 @@ Page({
   data: {
     /*定义选择组件wiper的数据 */
     array: ['按距离远近', '按发布时间', '按价格从低到高', '按价格从高到低'],
-    objectArray: [
-      {
-        id: 0,
-        name: '按距离远近'
-      },
-      {
-        id: 1,
-        name: '按发布时间'
-      },
-      {
-        id: 2,
-        name: '按价格从低到高'
-      },
-      {
-        id: 3,
-        name: '按价格从高到低'
-      }
-    ],
     index: 0,
-    priceHide: false,
-    price: '免费',
     //picker组件的多列选择器
     multiArray: [['二手物品', '房屋租赁', '有偿帮带'], ['所有', '电子产品', '学习资料', '家具厨具', '交通工具', '其他'], ['']],
-    objectMultiArray: [
-      [
-        {
-          id: 0,
-          name: '二手物品'
-        },
-        {
-          id: 1,
-          name: '房屋租赁'
-        },
-        {
-          id: 2,
-          name: '有偿帮带'
-        }
-      ], [
-        {
-          id: 0,
-          name: '所有'
-        },
-        {
-          id: 1,
-          name: '电子产品'
-        },
-        {
-          id: 2,
-          name: '学习资料'
-        },
-        {
-          id: 3,
-          name: '家具用品'
-        },
-        {
-          id: 4,
-          name: '交通工具'
-        },
-        {
-          id: 5,
-          name: '其他'
-        }
-      ], [
-        {
-          id: 0,
-          name: ''
-        }
-      ]
-    ],
     multiIndex: [0, 0, 0],
     //以下是City的数组定义
     multiCityArray: [[''], ['德国所有地区', 'Baden-Württemberg', 'Bayern', 'Berlin', 'Brandenburg', 'Bremen', 'Hamburg', 'Hessen', 'Mecklenburg-Vorpommern', 'Niedersachsen', 'Nordrhein-Westfalen', 'Rheinland-Pfalz', 'Saarland', 'Sachsen', 'Sachsen-Anhalt', 'Schleswig-Holstein', 'Thüringen',], ['']],
-    objectMultiCityArray: [
-      [
-        {
-          id: 0,
-          name: ''
-        }
-      ], [
-        {
-          id: 1,
-          name: 'Baden-Württemberg'
-        },
-        {
-          id: 2,
-          name: 'Bayern'
-        },
-        {
-          id: 3,
-          name: 'Berlin'
-        },
-        {
-          id: 4,
-          name: 'Brandenburg'
-        },
-        {
-          id: 5,
-          name: 'Bremen'
-        },
-        {
-          id: 6,
-          name: 'Hamburg'
-        }
-        ,
-        {
-          id: 7,
-          name: 'Hessen'
-        }
-        ,
-        {
-          id: 8,
-          name: 'Mecklenburg-Vorpommern'
-        }
-        ,
-        {
-          id: 9,
-          name: 'Niedersachsen'
-        }
-        ,
-        {
-          id: 10,
-          name: 'Nordrhein-Westfalen'
-        },
-        {
-          id: 11,
-          name: 'Rheinland-Pfalz'
-        },
-        {
-          id: 12,
-          name: 'Saarland'
-        },
-        {
-          id: 13,
-          name: 'Sachsen'
-        },
-        ,
-        {
-          id: 14,
-          name: 'Sachsen-Anhalt'
-        },
-        {
-          id: 15,
-          name: 'Schleswig-Holstein'
-        }
-        ,
-        {
-          id: 16,
-          name: 'Thüringen'
-        }
-      ], [
-        {
-          id: 0,
-          name: ''
-        }
-      ]
-    ],
     multiCityIndex: [0, 0, 0],
+
     lowprice: 0,
-    highprice: 70,
+    highprice: 70, //FIXME: 因为被刘大傻写死了！
     lowshowprice: 0,
     highshowprice: 2000
-  },
-
-  switch1Change: function (e) {
-    if (e.detail.value == false) {
-      this.setData({
-        priceHide: false
-      })
-    } else if (e.detail.value == true) {
-      this.setData({
-        priceHide: true
-      })
-    }
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
 
   },
 
@@ -238,20 +70,14 @@ Page({
 
   },
 
-  confirm: function () {
-    wx.navigateBack()
-  },
-
-  back: function () {
-    wx.navigateBack()
-  },
   //以下代码来自开发者文档，加注释
   bindMultiPickerChange: function (e) {
-    console.log('picker发送选择改变，携带值为', e.detail.value)
+    // console.log('picker发送选择改变，携带值为', e.detail.value) 
     this.setData({
       multiIndex: e.detail.value
     })
   },
+
   bindMultiPickerColumnChange: function (e) {
     console.log('修改的列为', e.detail.column, '，值为', e.detail.value);
     var data = {
@@ -419,63 +245,71 @@ Page({
     })
   },
 
-  sliderchange1: function (e) {
-    console.log(e.detail.value)
-    if (e.detail.value > this.data.highprice) {
-      this.setData({
-        lowprice: this.data.highprice
+
+  /**
+   * 利用滑块设置最大价格
+   * by xinchao
+   */
+  lowPriceSlider: function (e) {
+    var that = this;
+    var tHighprice = that.data.highprice
+    var eValue = e.detail.value;
+    var tLowPrice = 0;
+
+    if (eValue > tHighprice) {
+      tLowPrice = tHighprice;
+      that.setData({
+        lowprice: tHighprice
       })
     }
     else {
-      this.setData({
-        lowprice: e.detail.value
+      tLowPrice = eValue;
+      that.setData({
+        lowprice: eValue
       })
     }
-    var data;
-    switch (this.data.lowprice) {
-      case 0:
-        data = 0;
-        break;
-      case 10:
-        data = 20;
-        break;
-      case 20:
-        data = 50;
-        break;
-      case 30:
-        data = 100;
-        break;
-      case 40:
-        data = 200;
-        break;
-      case 50:
-        data = 500;
-        break;
-      case 60:
-        data = 1000;
-        break;
-      case 70:
-        data = 2000;
-        break;
-    }
-    this.setData({
+    var data = that.switchClass(tLowPrice);
+    that.setData({
       lowshowprice: data
     })
   },
 
-  sliderchange2: function (e) {
-    if (e.detail.value < this.data.lowprice) {
-      this.setData({
-        highprice: this.data.lowprice
+  /**
+   * 利用滑块设置最大价格
+   * by xinchao
+   */
+  highPriceSlider: function (e) {
+    var that = this;
+    var tHighprice = 0;
+    var eValue = e.detail.value;
+    var tLowPrice = that.data.lowprice;
+
+    if (eValue < tLowPrice) {
+      tHighprice = tLowPrice;
+      that.setData({
+        highprice: tLowPrice
       })
     }
     else {
-      this.setData({
-        highprice: e.detail.value
+      tHighprice = eValue;
+      that.setData({
+        highprice: eValue
       })
     }
-    var data;
-    switch (this.data.highprice) {
+    var data = that.switchClass(tHighprice);
+    that.setData({
+      highshowprice: data
+    })
+  },
+
+  /*
+   * 根据滑块等级设置
+   * TODO: 目前是7个等级,而且这个被刘大傻写死了！后续把接口留出来！
+   * by xinchao
+   * */
+  switchClass: function (price) {
+    var data = 0;
+    switch (price) {
       case 0:
         data = 0;
         break;
@@ -501,9 +335,7 @@ Page({
         data = 2000;
         break;
     }
-    this.setData({
-      highshowprice: data
-    })
-  }
+    return data;
+  },
 
 })
