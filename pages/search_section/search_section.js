@@ -35,7 +35,7 @@ Page({
       id: 1,
       iconPath: '/images/test/define-location-64.png',
       position: {
-        left: 20,
+        left: 10,
         top: 20,
         width: 30,
         height: 30
