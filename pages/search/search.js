@@ -51,15 +51,21 @@ Page({
    * 封装首页信息加载
    * by xinchao
    */
-  getAllFromCloud: function(){
+  getAllFromCloud: function () {
     var that = this;
-    const promise = that.getFavorListFromCloud();
-    promise.then(function (favourArray) {
-      //重构之后先从服务器加载搜索条目列表
+
+    if (typeof Bmob.User.current().id == "undefined") {
+      //如果不能查看用户id
       that.getContentItemsFromCloud(0, that.data.callbackcount);
-    }, function (error) {
-      console.log(error); // failure
-    });
+    } else {
+      const promise = that.getFavorListFromCloud();
+      promise.then(function (favourArray) {
+        //重构之后先从服务器加载搜索条目列表
+        that.getContentItemsFromCloud(0, that.data.callbackcount);
+      }, function (error) {
+        console.log(error); // failure
+      });
+    }
   },
 
   /**
@@ -139,7 +145,8 @@ Page({
 
             //收藏
             var favouriteshow = false;
-            //如果在收藏列表中
+
+            //FIXME: 如果在收藏列表中,点亮图标，看看为空的时候是不是会有bug
             if (that.data.favorList.findIndex((favorItem) => {
               return favorItem.id == id;
             }) > -1) {
@@ -204,7 +211,7 @@ Page({
     var contentItems = that.data.contentItems;
     that.upDateFavorPic(contentItems);
     that.setData({
-      contentItems : contentItems
+      contentItems: contentItems
     })
 
   },
@@ -277,14 +284,14 @@ Page({
 
     var that = this;
     var favorList = that.data.favorList;
-    contentItems.forEach(function(e){
-      var index =  favorList.findIndex((favorItem) => {
+    contentItems.forEach(function (e) {
+      var index = favorList.findIndex((favorItem) => {
         return favorItem.id == e.id;
-      }) 
-      if ( index > -1) {
+      })
+      if (index > -1) {
         //如果条目在收藏列表中，点亮图标，否则点灭
         e.favouriteshow = true;
-      } else{
+      } else {
         e.favouriteshow = false;
       }
     });
@@ -441,11 +448,11 @@ Page({
         console.log("查询总条目数错误，从本地缓存读取数目");
         wx.getStorage({
           key: 'totalCount',
-          success: function(res) {
-              that.setData({
-                totalCount: res.data
-              });
-          } 
+          success: function (res) {
+            that.setData({
+              totalCount: res.data
+            });
+          }
         })
       }
     });
@@ -453,8 +460,8 @@ Page({
 
   /*通往搜索sublevel1子页面入口，出现了问题，堆栈方面的，需要后续处理 by yining*/
   tosubsearch: function () {
-    wx.navigateTo({ 
-      url: '../search_sublevel1/search_sublevel1' 
+    wx.navigateTo({
+      url: '../search_sublevel1/search_sublevel1'
     })
   },
 
@@ -484,7 +491,7 @@ Page({
       // Do something when catch error
     }
     wx.setStorage({
-      key:"contentList",
+      key: "contentList",
       data: mContentList
     })
 
@@ -509,15 +516,15 @@ Page({
           relation.remove(result);
           var index = favorList.findIndex((favorItem) => {
             return favorItem.id == that.data.contentItems[postId].id;
-            });
-          favorList.splice(index,1);
+          });
+          favorList.splice(index, 1);
         }
         user.save();
         that.setData({
-          favorList : favorList
+          favorList: favorList
         });
         wx.setStorage({
-          key:"favorList",
+          key: "favorList",
           data: favorList
         })
 
