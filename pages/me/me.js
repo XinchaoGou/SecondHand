@@ -505,7 +505,14 @@ Page({
 
   //微信api更改之后，登陆按钮
   bindGetUserInfo: function (e) {
-    console.log(e.detail.userInfo)
+    var that = this;
+    var userInfo = e.detail.userInfo;
+    that.setData({
+      userInfo: userInfo,
+      name: userInfo.nickName,
+      imgUrl: userInfo.avatarUrl,
+      isUse: true,
+    })
   }
 
 })
