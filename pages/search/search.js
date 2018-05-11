@@ -53,23 +53,6 @@ Page({
    */
   getAllFromCloud: function(){
     var that = this;
-    // try {
-    //   //FIXME: 这里可能是一个bug，如果本地有缓存则搜索云端
-    //   var value = wx.getStorageSync('openid')
-    //   if (value) {
-    //     const promise = that.getFavorListFromCloud();
-    //     promise.then(function (favourArray) {
-    //       //重构之后先从服务器加载搜索条目列表
-    //       that.getContentItemsFromCloud(0, that.data.callbackcount);
-    //     }, function (error) {
-    //       console.log(error); // failure
-    //     });
-    //   } else {
-    //     that.getContentItemsFromCloud(0, that.data.callbackcount);
-    //   }
-    // } catch (e) {
-    // }
-
     that.getContentItemsFromCloud(0, that.data.callbackcount);
 
     const promise = that.getFavorListFromCloud();
@@ -164,11 +147,11 @@ Page({
             //收藏
             var favouriteshow = false;
             //如果在收藏列表中
-            // if (that.data.favorList.findIndex((favorItem) => {
-            //   return favorItem.id == id;
-            // }) > -1) {
-            //   favouriteshow = true;
-            // }
+            if (that.data.favorList.findIndex((favorItem) => {
+              return favorItem.id == id;
+            }) > -1) {
+              favouriteshow = true;
+            }
 
             var offerItem = {
               title: title,
