@@ -58,7 +58,7 @@ Page({
     const promise = that.getFavorListFromCloud();
     promise.then(function (favourArray) {
       var contentItems = that.data.contentItems;
-      that.upDateFavorPic(contentItems);
+      that.upDateFavorPic(contentItems, favourArray);
       that.setData({
         contentItems : contentItems
       })
@@ -209,7 +209,8 @@ Page({
     }
 
     var contentItems = that.data.contentItems;
-    that.upDateFavorPic(contentItems);
+    var favorList = that.data.favorList;
+    that.upDateFavorPic(contentItems, favorList);
     that.setData({
       contentItems : contentItems
     })
@@ -280,10 +281,10 @@ Page({
    * 根据favorList 更新视图的收藏图标
    * by xinchao
    */
-  upDateFavorPic: function (contentItems) {
+  upDateFavorPic: function (contentItems, favorList) {
 
     var that = this;
-    var favorList = that.data.favorList;
+    // var favorList = that.data.favorList;
     contentItems.forEach(function(e){
       var index =  favorList.findIndex((favorItem) => {
         return favorItem.id == e.id;
