@@ -174,6 +174,7 @@ Page({
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
+   * TODO:
    */
   onPullDownRefresh: function () {
 
@@ -208,32 +209,32 @@ Page({
 
   /**
    * 打电话
+   * TODO: 修改后续如果没有电话，直接禁用
+   * by xinchao
    */
   phone_contact: function () {
     var that = this;
     var phoneNumber = that.data.phoneNumber;
-    if (phoneNumber == null) {
-      console.log("电话号码为空");
-      // TODO电话号码为空
-
+    if (phoneNumber == 0) {
+      wx.showToast({
+        title: '电话号码为空',
+        duration: 1000
+      })
     } else {
-
       phoneNumber = that.data.phoneNumber.toString();
 
       wx.makePhoneCall({
-        phoneNumber: phoneNumber, //此号码并非真实电话号码，仅用于测试  
+        phoneNumber: phoneNumber, 
         success: function () {
-          console.log("拨打电话成功！")
         },
         fail: function () {
-          console.log("拨打电话失败！")
         }
       })
     }
   },
 
   /**
-   * 点击收藏图标绑定事件，修改图标，修改数据库
+   * 点击收藏图标绑定事件，修改图标，修改数据库TODO:
    * by xinchao
    */
   favourite_touch: function (event) {
