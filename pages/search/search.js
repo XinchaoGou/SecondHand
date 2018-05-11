@@ -361,6 +361,7 @@ Page({
           console.log("查询当前用户成功");
           var relation = result.relation('like');
           var query = relation.query();
+          query.descending('createdAt');  //排序
           query.find({
             success: function (list) {
               // 查询用户收藏成功
