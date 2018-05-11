@@ -32,7 +32,50 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    var that = this;
+    try {
+      //搜索类别
+      var searchType = wx.getStorageSync('searchType');
+      if (searchType) {
+        that.setData({
+          multiArray : searchType.mArray,
+          multiIndex : searchType.mIndex,
+        })
+      }
 
+    //搜索地点
+      var searchCity = wx.getStorageSync('searchCity');
+      if (searchCity) {
+        that.setData({
+          multiCityArray : searchCity.mArray,
+          multiCityIndex : searchCity.mIndex,
+        })
+      }
+
+      //搜索价格
+      var priceRange = wx.getStorageSync('priceRange');
+      if (priceRange) {
+        that.setData({
+          lowprice: priceRange.lowprice,
+          highprice: priceRange.highprice, //FIXME: 因为被刘大傻写死了！
+          lowshowprice: priceRange.lowshowprice,
+          highshowprice: priceRange.highshowprice
+        })
+      }
+
+      //搜索顺序
+      var searchOder = wx.getStorageSync('searchOder');
+      if (searchOder) {
+        that.setData({
+          array:searchOder.mArray,
+          index:searchOder.mIndex
+        })
+      }
+
+
+    } catch (e) {
+      // Do something when catch error
+    }
   },
 
   /**
@@ -53,8 +96,8 @@ Page({
     var typeArray = that.data.multiArray;
     var typeIndex = that.data.multiIndex;
     wx.setStorage({
-      key:"searchType",
-      data:{
+      key: "searchType",
+      data: {
         mArray: typeArray,
         mIndex: typeIndex
       }
@@ -64,10 +107,32 @@ Page({
     var cityArray = that.data.multiCityArray;
     var cityIndex = that.data.multiCityIndex;
     wx.setStorage({
-      key:"searchCity",
-      data:{
+      key: "searchCity",
+      data: {
         mArray: cityArray,
         mIndex: cityIndex
+      }
+    })
+
+    //搜索价格
+    wx.setStorage({
+      key: "priceRange",
+      data: {
+        // lowprice: that.data.lowshowprice,
+        // highprice: that.data.highshowprice
+        lowprice: that.data.lowprice,
+        highprice: that.data.highprice, //FIXME: 因为被刘大傻写死了！
+        lowshowprice: that.data.lowshowprice,
+        highshowprice: that.data.highshowprice
+      }
+    })
+
+    //搜索顺序
+    wx.setStorage({
+      key: "searchOder",
+      data: {
+        mArray: that.data.array,
+        mIndex: that.data.index
       }
     })
 
