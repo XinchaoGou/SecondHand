@@ -15,6 +15,7 @@ Page({
     isShowOffer: false,
     isShowFavourite: false,
     isShowContact: false,
+    isLongTap: false,
 
     //微信api更改之后
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
@@ -505,5 +506,18 @@ Page({
       imgUrl: userInfo.avatarUrl,
       isUse: true,
     })
+  },
+
+  longtap: function(e){
+    var that = this;
+    console.log('长按事件触发')
+    that.setData({
+      isLongTap: true
+    })
+    setTimeout(function () {
+      that.setData({
+        isLongTap: false //设置重启按钮
+      });
+    }, 6000);
   }
 })

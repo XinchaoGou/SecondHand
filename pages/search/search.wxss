@@ -160,6 +160,7 @@ page{
 /*yining*/
 .loadingNum{
   padding-left:20rpx;
+  padding-bottom:10rpx;
 }
 .loading-text{
   font-size:11pt;

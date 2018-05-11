@@ -20,9 +20,7 @@
 
   <view class="loadingNum">
     <text class="loading-text">Badenwürtemberg Karlsruhe</text>
-  </view>
-  <view class="loadingNum">
-    <text class="loading-text1">查询到{{totalCount}}条结果</text>
+    <text class="loading-text1"> 查询到{{totalCount}}条结果</text>
   </view>
 
 
