@@ -221,7 +221,7 @@ Page({
       if (searchCity) {
         var tArray = searchCity.mArray;
         var tIndex = searchCity.mIndex;
-        var str = tArray[0][tIndex[0]] +' '+ tArray[1][tIndex[1]] +' '+ tArray[2][tIndex[2]]
+        var str = tArray[0][tIndex[0]] +' '+ tArray[1][tIndex[1]]
 
         that.setData({
           searchCity: str
