@@ -208,10 +208,11 @@ page {
   position: absolute;
   height: 40rpx;
   width: 40rpx;
-  right: 40rpx;
+  right: 10rpx;
   bottom: 20rpx;
 }
-.plus{
+
+.plus {
   position: absolute;
   height: 40rpx;
   width: 40rpx;
@@ -269,7 +270,6 @@ page {
   border-radius: 20rpx;
   background-color: white;
   margin-bottom: 10rpx;
-  position: relative;
 }
 
 .content-text-title {
@@ -335,6 +335,7 @@ page {
   justify-content: space-between;
   align-items: flex-start;
   padding: 20rpx 40rpx;
+  padding-top: 0rpx;
   margin-top: 20rpx;
 }
 
@@ -351,6 +352,7 @@ page {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20rpx;
+  position: relative;
 }
 
 .underline {
@@ -379,7 +381,7 @@ page {
 }
 
 .height {
-  height: 420rpx;
+  height: 520rpx;
 }
 
 .bottom {
