@@ -23,8 +23,10 @@ Page({
      * DATE_DESCEND
      * DISTANCE_DESCEND
      */
-    searchCondition: 'PRICE_DESCEND',
-    maxDistance: 500,
+    searchCondition: '',
+    lowPrice : 0,
+    highPrice : 2000,
+    // maxDistance: 500,
 
     //搜索地点
     searchCity: '德国所有地区',
@@ -107,6 +109,10 @@ Page({
     console.log(pageindex, callbackcount);
     query.limit(callbackcount);
     query.skip(callbackcount * pageindex);
+
+    //设置价格限制TODO:
+    query.lessThan('price', that.data.highPrice);
+    query.greaterThan('price', that.data.lowPrice);
 
     //查询条目数量
     if (pageindex == 0) {
@@ -235,7 +241,6 @@ Page({
         var tIndex = searchOrder.mIndex;
         var str = tArray[tIndex];
         var mSearchCondition = that.data.searchCondition;
-        //TODO:
         if (mSearchCondition != str) {
           //如果搜索条件改变，要重新排列
           that.setData({
@@ -245,6 +250,24 @@ Page({
           return;
         }
       }
+
+      //加载价格设置
+      var priceRange = wx.getStorageSync('priceRange');
+      if (priceRange) {
+        var mLowPrice = that.data.lowPrice;
+        var mHighPrice = that.data.highPrice;
+        var lowPrice = priceRange.lowshowprice;
+        var highPrice = priceRange.highshowprice;
+        if ((lowPrice != mLowPrice) || (highPrice != mHighPrice)) {          
+          that.setData({
+            lowPrice : priceRange.lowshowprice,
+            highPrice : priceRange.highshowprice
+          });
+          that.onPullDownRefresh();
+          return;
+        }
+      }
+
     } catch (e) {
       console.log('本地缓存favorList，offerList读取失败');
     }
