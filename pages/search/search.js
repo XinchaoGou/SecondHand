@@ -90,21 +90,15 @@ Page({
     // query.equalTo("typeName","电子产品");
     //TODO:设置查询条件
     switch (searchCondition) {
-      case 'PRICE_UP':
+      case '按价格从低到高':
         query.ascending('price'); //按价格升序排列
         break;
-      case 'PRICE_DESCEND':
+      case '按价格从高到低':
         query.descending('price'); //按价格降序排列
         break;
-      case 'DATE_DESCEND':
+      case '按发布时间':
         query.descending('createdAt'); //按时间降序排列
         break;
-      case 'DISTANCE_DESCEND':
-      // //当前用户位置，40.0改为微信获取到的位置
-      // var point = that.data.location;
-      // var maxDistance = that.data.maxDistance;
-      // query.withinKilometers("location", point, maxDistance);  //位置周围3000米的数据
-      // break;
       default:
         query.descending('createdAt'); //按时间降序排列
         break;
@@ -232,6 +226,24 @@ Page({
         that.setData({
           searchCity: str
         })
+      }
+
+      //加载搜索顺序
+      var searchOrder = wx.getStorageSync('searchOrder');
+      if (searchOrder) {
+        var tArray = searchOrder.mArray;
+        var tIndex = searchOrder.mIndex;
+        var str = tArray[tIndex];
+        var mSearchCondition = that.data.searchCondition;
+        //TODO:
+        if (mSearchCondition != str) {
+          //如果搜索条件改变，要重新排列
+          that.setData({
+            searchCondition : str
+          });
+          that.onPullDownRefresh();
+          return;
+        }
       }
     } catch (e) {
       console.log('本地缓存favorList，offerList读取失败');

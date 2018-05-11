@@ -64,11 +64,11 @@ Page({
       }
 
       //搜索顺序
-      var searchOder = wx.getStorageSync('searchOder');
-      if (searchOder) {
+      var searchOrder = wx.getStorageSync('searchOrder');
+      if (searchOrder) {
         that.setData({
-          array: searchOder.mArray,
-          index: searchOder.mIndex
+          array:searchOrder.mArray,
+          index:searchOrder.mIndex
         })
       }
 
@@ -129,7 +129,7 @@ Page({
 
     //搜索顺序
     wx.setStorage({
-      key: "searchOder",
+      key: "searchOrder",
       data: {
         mArray: that.data.array,
         mIndex: that.data.index
