@@ -44,8 +44,32 @@ Page({
 
   /**
    * 生命周期函数--监听页面卸载
+   * 界面返回时将条件存到本地缓存
+   * by xinchao
    */
   onUnload: function () {
+    var that = this;
+    //搜索类别
+    var typeArray = that.data.multiArray;
+    var typeIndex = that.data.multiIndex;
+    wx.setStorage({
+      key:"searchType",
+      data:{
+        mArray: typeArray,
+        mIndex: typeIndex
+      }
+    });
+
+    //搜索地点
+    var cityArray = that.data.multiCityArray;
+    var cityIndex = that.data.multiCityIndex;
+    wx.setStorage({
+      key:"searchCity",
+      data:{
+        mArray: cityArray,
+        mIndex: cityIndex
+      }
+    })
 
   },
 
@@ -71,6 +95,7 @@ Page({
   },
 
   //以下代码来自开发者文档，加注释
+  //设置搜索类别
   bindMultiPickerChange: function (e) {
     // console.log('picker发送选择改变，携带值为', e.detail.value) 
     this.setData({
@@ -154,6 +179,7 @@ Page({
   },
 
   //picker多列选择器，选择所在城市
+  //设置城市
   bindMultiPickerChange1: function (e) {
     console.log('picker发送选择改变，携带值为', e.detail.value)
     this.setData({
@@ -238,6 +264,7 @@ Page({
     this.setData(data);
   },
 
+  //设置排列顺序
   bindPickerChange: function (e) {
     console.log('picker发送选择改变，携带值为', e.detail.value)
     this.setData({

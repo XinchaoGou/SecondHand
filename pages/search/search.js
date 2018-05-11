@@ -25,6 +25,11 @@ Page({
      */
     searchCondition: 'PRICE_DESCEND',
     maxDistance: 500,
+
+    //搜索地点
+    searchCity: '',
+    //搜索种类
+    searchType: '所有种类',
   },
 
   /**
@@ -51,7 +56,7 @@ Page({
    * 封装首页信息加载
    * by xinchao
    */
-  getAllFromCloud: function(){
+  getAllFromCloud: function () {
     var that = this;
     that.getContentItemsFromCloud(0, that.data.callbackcount);
 
@@ -60,7 +65,7 @@ Page({
       var contentItems = that.data.contentItems;
       that.upDateFavorPic(contentItems, favourArray);
       that.setData({
-        contentItems : contentItems
+        contentItems: contentItems
       })
     }, function (error) {
       console.log(error); // failure
@@ -192,6 +197,8 @@ Page({
 
   /**
    * 生命周期函数--监听页面显示
+   * TODO:
+   * by xinchao
    */
   onShow: function () {
     var that = this;
@@ -204,6 +211,28 @@ Page({
           favorList: favorList
         })
       }
+      //加载搜索类型
+      var searchType = wx.getStorageSync('searchType');
+      if (searchType) {
+        var tArray = searchType.mArray;
+        var tIndex = searchType.mIndex;
+        var str = tArray[0][tIndex[0]] +' '+ tArray[1][tIndex[1]] +' '+ tArray[2][tIndex[2]]
+
+        that.setData({
+          searchType: str
+        })
+      }
+      //加载搜索城市
+      var searchCity = wx.getStorageSync('searchCity');
+      if (searchCity) {
+        var tArray = searchCity.mArray;
+        var tIndex = searchCity.mIndex;
+        var str = tArray[0][tIndex[0]] +' '+ tArray[1][tIndex[1]] +' '+ tArray[2][tIndex[2]]
+
+        that.setData({
+          searchCity: str
+        })
+      }
     } catch (e) {
       console.log('本地缓存favorList，offerList读取失败');
     }
@@ -212,7 +241,7 @@ Page({
     var favorList = that.data.favorList;
     that.upDateFavorPic(contentItems, favorList);
     that.setData({
-      contentItems : contentItems
+      contentItems: contentItems
     })
 
   },
@@ -285,14 +314,14 @@ Page({
 
     var that = this;
     // var favorList = that.data.favorList;
-    contentItems.forEach(function(e){
-      var index =  favorList.findIndex((favorItem) => {
+    contentItems.forEach(function (e) {
+      var index = favorList.findIndex((favorItem) => {
         return favorItem.id == e.id;
-      }) 
-      if ( index > -1) {
+      })
+      if (index > -1) {
         //如果条目在收藏列表中，点亮图标，否则点灭
         e.favouriteshow = true;
-      } else{
+      } else {
         e.favouriteshow = false;
       }
     });
@@ -450,11 +479,11 @@ Page({
         console.log("查询总条目数错误，从本地缓存读取数目");
         wx.getStorage({
           key: 'totalCount',
-          success: function(res) {
-              that.setData({
-                totalCount: res.data
-              });
-          } 
+          success: function (res) {
+            that.setData({
+              totalCount: res.data
+            });
+          }
         })
       }
     });
@@ -462,8 +491,8 @@ Page({
 
   /*通往搜索sublevel1子页面入口，出现了问题，堆栈方面的，需要后续处理 by yining*/
   tosubsearch: function () {
-    wx.navigateTo({ 
-      url: '../search_sublevel1/search_sublevel1' 
+    wx.navigateTo({
+      url: '../search_sublevel1/search_sublevel1'
     })
   },
 
@@ -493,7 +522,7 @@ Page({
       // Do something when catch error
     }
     wx.setStorage({
-      key:"contentList",
+      key: "contentList",
       data: mContentList
     })
 
@@ -518,15 +547,15 @@ Page({
           relation.remove(result);
           var index = favorList.findIndex((favorItem) => {
             return favorItem.id == that.data.contentItems[postId].id;
-            });
-          favorList.splice(index,1);
+          });
+          favorList.splice(index, 1);
         }
         user.save();
         that.setData({
-          favorList : favorList
+          favorList: favorList
         });
         wx.setStorage({
-          key:"favorList",
+          key: "favorList",
           data: favorList
         })
 
