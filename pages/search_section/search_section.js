@@ -131,7 +131,7 @@ Page({
 
   //根据屏幕的宽高等比例缩放计算图片的宽高，by yining
   imageLoad: function (e) {
-    /*var _this = this;
+    var _this = this;
     var $width = e.detail.width,    //获取图片真实宽度  
       $height = e.detail.height,
       ratio = $width / $height;   //图片的真实宽高比例  
@@ -141,7 +141,7 @@ Page({
     this.setData({
       imgwidth: viewWidth,
       imgheight: 300
-    })*/
+    })
   },
 
   /**

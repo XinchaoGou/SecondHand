@@ -5,7 +5,7 @@ var app = getApp();
 Page({
 
   data: {
-    imgUrl: '../../images/test/user_default.png',
+    imgUrl: null,
     userInfo: {},
     favorList: [],
     offerList: [],
@@ -39,7 +39,16 @@ Page({
           })
         }
       }
-    });
+    })
+    //调用应用实例的方法获取全局数据
+    // app.getUserInfo(function (userInfo) {
+    //   //更新数据
+    //   that.setData({
+    //     userInfo: userInfo,
+    //     name: userInfo.nickName,
+    //     imgUrl: userInfo.avatarUrl
+    //   })
+    // })
 
   },
 
@@ -496,14 +505,7 @@ Page({
 
   //微信api更改之后，登陆按钮
   bindGetUserInfo: function (e) {
-    var that = this;
-    var userInfo = e.detail.userInfo;
-    that.setData({
-      userInfo: userInfo,
-      name: userInfo.nickName,
-      imgUrl: userInfo.avatarUrl,
-      isUse: true,
-    })
+    console.log(e.detail.userInfo)
   }
 
 })
