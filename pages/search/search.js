@@ -18,16 +18,9 @@ Page({
     favorList: [], //收藏的objectId列表
 
     //搜索条件
-    /* PRICE_UP
-     * PRICE_DESCEND
-     * DATE_DESCEND
-     * DISTANCE_DESCEND
-     */
     searchCondition: '',
-    lowPrice : 0,
-    highPrice : 2000,
-    // maxDistance: 500,
-
+    lowPrice: 0,
+    highPrice: 2000,
     //搜索地点
     searchCity: '德国所有地区',
     //搜索种类
@@ -42,15 +35,13 @@ Page({
     if (options.id) {
       console.log('是转发options.id ' + options.id);
       var mObjectId = options.id;
-      //跳转指定的页面 TODO
+      //跳转指定的页面 TODO:
       wx.navigateTo({
         url: '../search_section/search_section?id=' + mObjectId + '&favor=' + false
           + '&postId=' + 0
       })
     }
 
-    // //TODO: 获取当前地理位置,只有根据地理位置排序的时候才需要吧
-    // that.getLocation();
     that.getAllFromCloud();
   },
 
@@ -65,15 +56,14 @@ Page({
     const promise = that.getFavorListFromCloud();
     promise.then(function (favourArray) {
       var contentItems = that.data.contentItems;
-      that.upDateFavorPic(contentItems, favourArray);
+      // that.upDateFavorPic(contentItems, favourArray);
       that.setData({
-        contentItems: contentItems
+        contentItems: that.upDateFavorPic(contentItems, favourArray)
+
       })
     }, function (error) {
       console.log(error); // failure
     });
-
-
   },
 
   /**
@@ -88,9 +78,7 @@ Page({
     //查询数据库获得发布物品信息
     var Offer = Bmob.Object.extend("Offer");
     var query = new Bmob.Query(Offer);
-    //test
-    // query.equalTo("typeName","电子产品");
-    //TODO:设置查询条件
+    //设置查询条件
     switch (searchCondition) {
       case '按价格从低到高':
         query.ascending('price'); //按价格升序排列
@@ -105,14 +93,15 @@ Page({
         query.descending('createdAt'); //按时间降序排列
         break;
     }
+    //设置价格限制
+    query.lessThan('price', that.data.highPrice);
+    query.greaterThan('price', that.data.lowPrice);
+    //TODO:设置城市和物品类别的匹配
+
     //设置查询分页大小
     console.log(pageindex, callbackcount);
     query.limit(callbackcount);
     query.skip(callbackcount * pageindex);
-
-    //设置价格限制TODO:
-    query.lessThan('price', that.data.highPrice);
-    query.greaterThan('price', that.data.lowPrice);
 
     //查询条目数量
     if (pageindex == 0) {
@@ -134,7 +123,7 @@ Page({
           } else {
             offerArray = new Array();
           }
-          //FIXME: 循环处理查询到的数据,详情
+          //FIXME: 循环处理查询到的数据,详情, 最好抽象成接口
           for (var i = 0; i < results.length; i++) {
             var object = results[i];
             var id = object.id;
@@ -151,7 +140,7 @@ Page({
 
             //收藏
             var favouriteshow = false;
-            //如果在收藏列表中
+            //重要，如果在收藏列表中设置图标点亮
             if (that.data.favorList.findIndex((favorItem) => {
               return favorItem.id == id;
             }) > -1) {
@@ -206,7 +195,6 @@ Page({
       var favorList = wx.getStorageSync('favorList');
       //加载收藏列表
       if (favorList) {
-        //从本地缓存读取
         that.setData({
           favorList: favorList
         })
@@ -216,7 +204,7 @@ Page({
       if (searchType) {
         var tArray = searchType.mArray;
         var tIndex = searchType.mIndex;
-        var str = tArray[0][tIndex[0]] +' '+ tArray[1][tIndex[1]] +' '+ tArray[2][tIndex[2]]
+        var str = tArray[0][tIndex[0]] + ' ' + tArray[1][tIndex[1]] + ' ' + tArray[2][tIndex[2]]
 
         that.setData({
           searchType: str
@@ -227,13 +215,12 @@ Page({
       if (searchCity) {
         var tArray = searchCity.mArray;
         var tIndex = searchCity.mIndex;
-        var str = tArray[0][tIndex[0]] +' '+ tArray[1][tIndex[1]]
+        var str = tArray[0][tIndex[0]] + ' ' + tArray[1][tIndex[1]]
 
         that.setData({
           searchCity: str
         })
       }
-
       //加载搜索顺序
       var searchOrder = wx.getStorageSync('searchOrder');
       if (searchOrder) {
@@ -244,13 +231,12 @@ Page({
         if (mSearchCondition != str) {
           //如果搜索条件改变，要重新排列
           that.setData({
-            searchCondition : str
+            searchCondition: str
           });
           that.onPullDownRefresh();
           return;
         }
       }
-
       //加载价格设置
       var priceRange = wx.getStorageSync('priceRange');
       if (priceRange) {
@@ -258,10 +244,11 @@ Page({
         var mHighPrice = that.data.highPrice;
         var lowPrice = priceRange.lowshowprice;
         var highPrice = priceRange.highshowprice;
-        if ((lowPrice != mLowPrice) || (highPrice != mHighPrice)) {          
+        if ((lowPrice != mLowPrice) || (highPrice != mHighPrice)) {
+          //如果搜索条件改变，要重新排列
           that.setData({
-            lowPrice : priceRange.lowshowprice,
-            highPrice : priceRange.highshowprice
+            lowPrice: priceRange.lowshowprice,
+            highPrice: priceRange.highshowprice
           });
           that.onPullDownRefresh();
           return;
@@ -269,14 +256,15 @@ Page({
       }
 
     } catch (e) {
-      console.log('本地缓存favorList，offerList读取失败');
+      console.log('search条件本地缓存读取失败');
     }
 
+    //如果搜索条件没变化，是从其他页面跳转，那就更新一下与本地缓存同步
+    //TODO: 从缓存获取条目
     var contentItems = that.data.contentItems;
     var favorList = that.data.favorList;
-    that.upDateFavorPic(contentItems, favorList);
     that.setData({
-      contentItems: contentItems
+      contentItems: that.upDateFavorPic(contentItems, favorList)
     })
 
   },
@@ -335,7 +323,7 @@ Page({
   },
 
   /**
-   * 用户点击右上角分享
+   * TODO:用户点击右上角分享
    */
   onShareAppMessage: function () {
 
@@ -348,7 +336,6 @@ Page({
   upDateFavorPic: function (contentItems, favorList) {
 
     var that = this;
-    // var favorList = that.data.favorList;
     contentItems.forEach(function (e) {
       var index = favorList.findIndex((favorItem) => {
         return favorItem.id == e.id;
@@ -365,53 +352,8 @@ Page({
   },
 
   /**
-   * 设置搜索地址 TODO
-   * by xinchao
-   */
-  getLocation: function () {
-    var that = this;
-    //TODO: 默认先从本地加载 为什么从本地加载location
-    // try {
-    //   var location = wx.getStorageSync('location')
-    //   if (location) {
-    //     that.setData({
-    //       location: location
-    //     });
-    //     return;
-    //   }
-    // } catch (e) {
-    //   console.log(e);
-    // }
-
-    wx.getLocation({
-      type: 'wgs84', // 默认为 wgs84 返回 gps 坐标，gcj02 返回可用于 wx.openLocation 的坐标
-      success: function (res) {
-        // success
-        //电脑调试的时候，经纬度为空，手机上可以运行
-        var longitude = res.longitude;
-        var latitude = res.latitude;
-        var location = new Bmob.GeoPoint({ latitude: latitude, longitude: longitude });
-        that.setData({
-          location: location
-        });
-        //缓存到本地
-        wx.setStorage({
-          key: "location",
-          data: location
-        })
-      },
-      fail: function () {
-        // fail
-      },
-      complete: function () {
-        // complete
-      }
-    })
-
-  },
-
-  /**
    * 从服务器获得收藏列表
+   * TODO: 最好抽象成接口
    * by xinchao
    */
   getFavorListFromCloud: function () {
