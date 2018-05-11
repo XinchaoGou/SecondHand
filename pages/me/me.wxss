@@ -70,6 +70,7 @@ page {
   border-radius: 50%;
   margin-top: -80rpx;
   margin-bottom: 0;
+  background-color: #f6f6f6;
 }
 
 /*用户信息--昵称--文字样式 引入*/
@@ -199,7 +200,7 @@ page {
 
 .content {
   width: 100%;
-  min-height: 300rpx;
+  min-height: 100rpx;
   padding: 20rpx;
   padding-top: 0rpx;
   padding-bottom: 10rpx;

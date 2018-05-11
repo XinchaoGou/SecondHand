@@ -9,15 +9,11 @@
 
   <!-- 2.用户信息 -->
 
-  <view class="userinfo" wx:if="{{!isUse}}">
-        <button wx:if="{{canIUse}}" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo" class="userinfo-avatar" background-size="cover" src="{{imgUrl}}">
-    </button>
-    <text class="userinfo-nickname">火星用户</text>
-    <text >点击头像登陆</text>
-  </view>
-
-  <view class="userinfo" wx:else>
-    <image background-size="cover" class="userinfo-avatar" src="{{imgUrl}}" />
+  <view class="userinfo">
+    <button wx:if="{{canIUse}}" id="user" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo" disabled="{{isUse}}" />
+    <label for='user'>
+      <image class="userinfo-avatar" src="{{imgUrl}}" />
+    </label>
     <text class="userinfo-nickname">{{name}}</text>
   </view>
 
