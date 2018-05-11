@@ -27,7 +27,7 @@ Page({
     maxDistance: 500,
 
     //搜索地点
-    searchCity: '',
+    searchCity: '德国所有地区',
     //搜索种类
     searchType: '所有种类',
   },

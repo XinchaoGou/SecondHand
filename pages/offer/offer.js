@@ -70,141 +70,11 @@ Page({
     //类别的picker组件更换为多列选择器, by yining
     //picker组件的多列选择器
     multiArray: [['二手物品', '房屋租赁', '有偿帮带'], ['所有', '电子产品', '学习资料', '家具厨具', '交通工具', '其他'], ['']],
-    objectMultiArray: [
-      [
-        {
-          id: 0,
-          name: '二手物品'
-        },
-        {
-          id: 1,
-          name: '房屋租赁'
-        },
-        {
-          id: 2,
-          name: '有偿帮带'
-        }
-      ], [
-        {
-          id: 0,
-          name: '所有'
-        },
-        {
-          id: 1,
-          name: '电子产品'
-        },
-        {
-          id: 2,
-          name: '学习资料'
-        },
-        {
-          id: 3,
-          name: '家具用品'
-        },
-        {
-          id: 4,
-          name: '交通工具'
-        },
-        {
-          id: 5,
-          name: '其他'
-        }
-      ], [
-        {
-          id: 0,
-          name: ''
-        }
-      ]
-    ],
     multiIndex: [0, 0, 0],
 
     //以下是City的数组定义
-    multiCityArray: [[''], ['德国所有地区', 'Baden-Württemberg', 'Bayern', 'Berlin', 'Brandenburg', 'Bremen', 'Hamburg', 'Hessen', 'Mecklenburg-Vorpommern', 'Niedersachsen', 'Nordrhein-Westfalen', 'Rheinland-Pfalz', 'Saarland', 'Sachsen', 'Sachsen-Anhalt', 'Schleswig-Holstein', 'Thüringen',], ['']],
-    objectMultiCityArray: [
-      [
-        {
-          id: 0,
-          name: ''
-        }
-      ], [
-        {
-          id: 1,
-          name: 'Baden-Württemberg'
-        },
-        {
-          id: 2,
-          name: 'Bayern'
-        },
-        {
-          id: 3,
-          name: 'Berlin'
-        },
-        {
-          id: 4,
-          name: 'Brandenburg'
-        },
-        {
-          id: 5,
-          name: 'Bremen'
-        },
-        {
-          id: 6,
-          name: 'Hamburg'
-        }
-        ,
-        {
-          id: 7,
-          name: 'Hessen'
-        }
-        ,
-        {
-          id: 8,
-          name: 'Mecklenburg-Vorpommern'
-        }
-        ,
-        {
-          id: 9,
-          name: 'Niedersachsen'
-        }
-        ,
-        {
-          id: 10,
-          name: 'Nordrhein-Westfalen'
-        },
-        {
-          id: 11,
-          name: 'Rheinland-Pfalz'
-        },
-        {
-          id: 12,
-          name: 'Saarland'
-        },
-        {
-          id: 13,
-          name: 'Sachsen'
-        },
-        ,
-        {
-          id: 14,
-          name: 'Sachsen-Anhalt'
-        },
-        {
-          id: 15,
-          name: 'Schleswig-Holstein'
-        }
-        ,
-        {
-          id: 16,
-          name: 'Thüringen'
-        }
-      ], [
-        {
-          id: 0,
-          name: ''
-        }
-      ]
-    ],
-    multiCityIndex: [0, 0, 0]
+    multiCityArray: [['德国所有地区', 'Baden-Württemberg', 'Bayern', 'Berlin', 'Brandenburg', 'Bremen', 'Hamburg', 'Hessen', 'Mecklenburg-Vorpommern', 'Niedersachsen', 'Nordrhein-Westfalen', 'Rheinland-Pfalz', 'Saarland', 'Sachsen', 'Sachsen-Anhalt', 'Schleswig-Holstein', 'Thüringen',], ['']],
+    multiCityIndex: [0, 0]
   },
 
   /**
@@ -229,52 +99,6 @@ Page({
       isFocus: false,
       //物品类别
       multiArray: [['二手物品', '房屋租赁', '有偿帮带'], ['所有', '电子产品', '学习资料', '家具厨具', '交通工具', '其他'], ['']],
-      objectMultiArray: [
-        [
-          {
-            id: 0,
-            name: '二手物品'
-          },
-          {
-            id: 1,
-            name: '房屋租赁'
-          },
-          {
-            id: 2,
-            name: '有偿帮带'
-          }
-        ], [
-          {
-            id: 0,
-            name: '所有'
-          },
-          {
-            id: 1,
-            name: '电子产品'
-          },
-          {
-            id: 2,
-            name: '学习资料'
-          },
-          {
-            id: 3,
-            name: '家具用品'
-          },
-          {
-            id: 4,
-            name: '交通工具'
-          },
-          {
-            id: 5,
-            name: '其他'
-          }
-        ], [
-          {
-            id: 0,
-            name: ''
-          }
-        ]
-      ],
       multiIndex: [0, 0, 0],
       //交易地点
       address: '点击选择位置',
@@ -954,73 +778,65 @@ Page({
     data.multiCityIndex[e.detail.column] = e.detail.value;
     switch (e.detail.column) {
       //如果修改的列为第一列
-      //如果修改的列为第二列
-      case 1:
+      case 0:
         switch (data.multiCityIndex[0]) {
-          //此时如果第一列为第一个大类
+          //判断第一列选择的是哪一类
           case 0:
-            //判断第二列选择的是哪一小类
-            switch (data.multiCityIndex[1]) {
-              case 0:
-                data.multiCityArray[2] = [];
-                break;
-              case 1:
-                data.multiCityArray[2] = ['所有', 'Stuttgart', 'Karlsruhe', 'Mannheim', 'Freiburg', 'Heidelberg', 'Tübingen', '其他城市'];
-                break;
-              case 2:
-                data.multiCityArray[2] = ['所有', 'München', 'Nürnberg', 'Algusburg', 'Regensburg', 'Ingolstadt', 'Würzburg', 'Fürth', 'Erlangen', '其他城市'];
-                break;
-              case 3:
-                data.multiCityArray[2] = [''];
-                break;
-              case 4:
-                data.multiCityArray[2] = ['所有', 'Potsdam', '其他城市'];
-                break;
-              case 5:
-                data.multiCityArray[2] = [''];
-                break;
-              case 6:
-                data.multiCityArray[2] = [''];
-                break;
-              case 7:
-                data.multiCityArray[2] = ['所有', 'Frankfurt', 'Wiesbaden', 'Kassel', 'Darmstadt', 'Offenbach', '其他城市'];
-                break;
-              case 8:
-                data.multiCityArray[2] = ['所有', 'Rostock', 'Schwerin', '其他城市'];
-                break;
-              case 9:
-                data.multiCityArray[2] = ['所有', 'Hannover', 'Braunschweig', 'Wolfsburg', 'Osnabrück', 'Oldenburg', 'Göttingen', '其他城市'];
-                break;
-              case 10:
-                data.multiCityArray[2] = ['所有', 'Köln', 'Düsseldorf', 'Dortmund', 'Essen', 'Duisburg', 'Bochum', 'Wuppertal', 'Bielefeld', 'Bonn', 'Münster', 'Aachen', '其他城市'];
-                break;
-              case 11:
-                data.multiCityArray[2] = ['所有', 'Mainz', 'Ludwigshafen', 'Trier', 'Kaiserslautern', 'Worms', '其他城市'];
-                break;
-              case 12:
-                data.multiCityArray[2] = ['所有', 'Saarbrücken', 'Neunkirchen', '其他城市'];
-                break;
-              case 13:
-                data.multiCityArray[2] = ['所有', 'Dresden', 'Leipzig', 'Chemnitz', '其他城市'];
-                break;
-              case 14:
-                data.multiCityArray[2] = ['所有', 'Halle', 'Magdeburg', '其他城市'];
-                break;
-              case 15:
-                data.multiCityArray[2] = ['所有', 'Kiel', 'Lübeck', '其他城市'];
-                break;
-              case 16:
-                data.multiCityArray[2] = ['所有', 'Erfurt', 'Jena', 'Gera', 'Weimar', '其他城市'];
-                break;
-            }
+            data.multiCityArray[1] = [];
             break;
-          //此时如果第一列为第二个大类
+          case 1:
+            data.multiCityArray[1] = ['所有地区', 'Stuttgart', 'Karlsruhe', 'Mannheim', 'Freiburg', 'Heidelberg', 'Tübingen', '其他城市'];
+            break;
+          case 2:
+            data.multiCityArray[1] = ['所有地区', 'München', 'Nürnberg', 'Algusburg', 'Regensburg', 'Ingolstadt', 'Würzburg', 'Fürth', 'Erlangen', '其他城市'];
+            break;
+          case 3:
+            data.multiCityArray[1] = [''];
+            break;
+          case 4:
+            data.multiCityArray[1] = ['所有地区', 'Potsdam', '其他城市'];
+            break;
+          case 5:
+            data.multiCityArray[1] = [''];
+            break;
+          case 6:
+            data.multiCityArray[1] = [''];
+            break;
+          case 7:
+            data.multiCityArray[1] = ['所有地区', 'Frankfurt', 'Wiesbaden', 'Kassel', 'Darmstadt', 'Offenbach', '其他城市'];
+            break;
+          case 8:
+            data.multiCityArray[1] = ['所有地区', 'Rostock', 'Schwerin', '其他城市'];
+            break;
+          case 9:
+            data.multiCityArray[1] = ['所有地区', 'Hannover', 'Braunschweig', 'Wolfsburg', 'Osnabrück', 'Oldenburg', 'Göttingen', '其他城市'];
+            break;
+          case 10:
+            data.multiCityArray[1] = ['所有地区', 'Köln', 'Düsseldorf', 'Dortmund', 'Essen', 'Duisburg', 'Bochum', 'Wuppertal', 'Bielefeld', 'Bonn', 'Münster', 'Aachen', '其他城市'];
+            break;
+          case 11:
+            data.multiCityArray[1] = ['所有地区', 'Mainz', 'Ludwigshafen', 'Trier', 'Kaiserslautern', 'Worms', '其他城市'];
+            break;
+          case 12:
+            data.multiCityArray[1] = ['所有地区', 'Saarbrücken', 'Neunkirchen', '其他城市'];
+            break;
+          case 13:
+            data.multiCityArray[1] = ['所有地区', 'Dresden', 'Leipzig', 'Chemnitz', '其他城市'];
+            break;
+          case 14:
+            data.multiCityArray[1] = ['所有地区', 'Halle', 'Magdeburg', '其他城市'];
+            break;
+          case 15:
+            data.multiCityArray[1] = ['所有地区', 'Kiel', 'Lübeck', '其他城市'];
+            break;
+          case 16:
+            data.multiCityArray[1] = ['所有地区', 'Erfurt', 'Jena', 'Gera', 'Weimar', '其他城市'];
+            break;
         }
-        data.multiCityIndex[2] = 0;
+        data.multiCityIndex[1] = 0;
         console.log(data.multiCityIndex);
         break;
     }
     this.setData(data);
   }
-
 })
