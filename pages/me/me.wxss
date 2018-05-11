@@ -186,7 +186,15 @@ page {
   height: 40rpx;
   width: 40rpx;
   right: 10rpx;
-  top:0rpx;
+  top: 0rpx;
+}
+
+.setting1 {
+  position: absolute;
+  height: 40rpx;
+  width: 40rpx;
+  right: 140rpx;
+  bottom: 20rpx;
 }
 
 .delete {
@@ -194,6 +202,21 @@ page {
   height: 40rpx;
   width: 40rpx;
   right: 15rpx;
+}
+
+.delete1 {
+  position: absolute;
+  height: 40rpx;
+  width: 40rpx;
+  right: 40rpx;
+  bottom: 20rpx;
+}
+.plus{
+  position: absolute;
+  height: 40rpx;
+  width: 40rpx;
+  right: 240rpx;
+  bottom: 20rpx;
 }
 
 /*以下从search页面移植过来的样式*/
@@ -208,15 +231,17 @@ page {
   box-sizing: border-box;
   margin-bottom: 20rpx;
 }
+
 /*此处有个小bug*/
-.content-item-after{
+
+.content-item-after {
   border: 4rpx solid #b2b2b2;
-  border-radius:20rpx;
+  border-radius: 20rpx;
   margin-bottom: 20rpx;
-  background-color:#b2b2b2;
+  background-color: #b2b2b2;
 }
 
-.content-item-before{
+.content-item-before {
   width: 100%;
   height: 260rpx;
   display: flex;
@@ -226,7 +251,7 @@ page {
   box-sizing: border-box;
   border-bottom: 4rpx solid #b2b2b2;
   margin-bottom: 20rpx;
-  background-color:white;
+  background-color: white;
 }
 
 .content-block2 {
@@ -244,6 +269,7 @@ page {
   border-radius: 20rpx;
   background-color: white;
   margin-bottom: 10rpx;
+  position: relative;
 }
 
 .content-text-title {
@@ -301,54 +327,62 @@ page {
 
 /*以上是从search页面移植过来的样式*/
 
-.section-big{
-  width:100%;
+.section-big {
+  width: 100%;
   box-sizing: border-box;
-  display:flex;
+  display: flex;
   flex-direction: column;
   justify-content: space-between;
-  align-items:flex-start;
+  align-items: flex-start;
   padding: 20rpx 40rpx;
-  margin-top:20rpx;
+  margin-top: 20rpx;
 }
-.section-big-hover{
-  background-color:#b2b2b2;
+
+.section-big-hover {
+  background-color: #b2b2b2;
 }
-.section{
-  width:100%;
-  height:90rpx;
+
+.section {
+  width: 100%;
+  height: 90rpx;
   box-sizing: border-box;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items:center;
-  margin-bottom:20rpx;
+  align-items: center;
+  margin-bottom: 20rpx;
 }
-.underline{
-  border-bottom: 1px solid rgb(239,239,244);
+
+.underline {
+  border-bottom: 1px solid rgb(239, 239, 244);
 }
-.arrow-r{
+
+.arrow-r {
   width: 9rpx;
   height: 17rpx;
   margin-left: 12rpx;
 }
-.section-title{
-  font-size:11pt;
-  width:50%;
-  color:#32A189;
-  text-align:left;
+
+.section-title {
+  font-size: 11pt;
+  width: 50%;
+  color: #32a189;
+  text-align: left;
 }
-.t-name .input{
+
+.t-name .input {
   width: 100%;
   overflow: hidden;
-  font-size:11pt;
+  font-size: 11pt;
   color: #353535;
   text-align: left;
 }
-.height{
-  height:420rpx;
+
+.height {
+  height: 420rpx;
 }
-.bottom{
-  width:100%;
-  height:40rpx;
+
+.bottom {
+  width: 100%;
+  height: 40rpx;
 }

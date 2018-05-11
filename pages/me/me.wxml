@@ -121,10 +121,10 @@
       <image wx:else class="userItemArrow1" src="../../images/more/down.png" />
     </view>
 
-    <swiper wx:if="{{isShowContact}}" class="height" duration="300" bindchange="switchTab" indicator-dots="true" indicator-active-color="#32A189">
+    <swiper wx:if="{{isShowContact}}" bindlongtap="longtap" class="section-big height style1 mt20" duration="300" bindchange="switchTab" indicator-dots="true" indicator-active-color="#32A189">
 
       <!--微信号，手机号，邮箱常用模板，循环加载页面-->
-      <view class="section-big height style1 mt20" hover-class="section-big-hover"> 
+      <block>
         <swiper-item>
           <view class="section underline t-name">
             <text class="section-title">微信号</text>
@@ -146,9 +146,16 @@
             <image class="arrow-r" src="../../images/more/enter.png"></image>
           </view>
         </swiper-item>
-      </view>
+      </block>
 
     </swiper>
+
+    <view wx:if="{{isLongTap}}" class="rightbar">
+      <image class="plus" catchtap="offerSetTap" src='../../images/test/plus-32.png' />
+      <image class="setting1" catchtap="offerSetTap" src='../../images/test/edit-32.png' />
+      <image catchtap="offerDeleteTap" class="delete1" src='../../images/test/delete-32.png' />
+    </view>
+
   </view>
 
   <view class="bottom"></view>
