@@ -175,8 +175,8 @@ page{
   text-align: center;
 }
 .loading{
-  width:150rpx;
-  height:150rpx;
+  width:120rpx;
+  height:120rpx;
 }
 
 

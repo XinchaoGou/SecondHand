@@ -130,7 +130,7 @@ Page({
   },
 
   //根据屏幕的宽高等比例缩放计算图片的宽高，by yining
-  imageLoad: function (e) {
+  /*imageLoad: function (e) {
     var _this = this;
     var $width = e.detail.width,    //获取图片真实宽度  
       $height = e.detail.height,
@@ -142,7 +142,7 @@ Page({
       imgwidth: viewWidth,
       imgheight: 300
     })
-  },
+  },*/
 
   /**
    * 生命周期函数--监听页面初次渲染完成
