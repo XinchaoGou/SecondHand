@@ -160,15 +160,23 @@ page{
 /*yining*/
 .loadingNum{
   padding-left:20rpx;
-  padding-bottom:10rpx;
+  padding-bottom:0rpx;
 }
 .loading-text{
   font-size:11pt;
   color:gray;
 }
+.loading-text1{
+  font-size:9pt;
+  color:gray;
+}
 .weui-load{
   width: 100%;
   text-align: center;
+}
+.loading{
+  width:200rpx;
+  height:200rpx;
 }
 
 

@@ -841,7 +841,8 @@ Page({
     query.exec(function (res) {
       res[0].top       // #the-id节点的上边界坐标
       res[1].scrollTop // 显示区域的竖直滚动位置
-      if (res[1].scrollTop < that.data.pastpos && res[1].scrollTop < 20 && res[1].scrollTop > 0) {
+      console.log(res[1].scrollTop, that.data.pastpos)
+      if (res[1].scrollTop < that.data.pastpos && res[1].scrollTop < 20 && res[1].scrollTop >= 0) {
         that.setData({
           isHidePulldownRefresh: false
         })

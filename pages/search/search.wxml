@@ -20,7 +20,9 @@
 
   <view class="loadingNum">
     <text class="loading-text">Badenwürtemberg Karlsruhe</text>
-    <text class="loading-text"> 共查询到{{totalCount}}条结果</text>
+  </view>
+  <view class="loadingNum">
+    <text class="loading-text1">查询到{{totalCount}}条结果</text>
   </view>
 
 
@@ -56,8 +58,9 @@
     <text class="weui-loadmore__tips" style="padding-bottom:20rpx;font-size:10pt;color:gray;">当前内容已全部加载</text>
   </view>
   <view class="weui-loadmore" hidden="{{searchLoadingComplete}}">
-    <view class="weui-loading"></view>
-    <view class="weui-loadmore__tips">正在加载</view>
+    <!--view class="weui-loading"></view-->
+    <!--view class="weui-loadmore__tips">正在加载</view-->
+    <image src='../../images/more/loading.gif' class="loading" />
   </view>
 
   <!--/scroll-view-->
