@@ -66,7 +66,15 @@ Page({
     isHidePulldownRefresh: true,
     pastpos: 20,
     //联系方式模板的数组变量，by yining TODO:
-    contactList: [1,2],
+    contactList: [{
+      wxNumber:'deutschning',
+      phoneNumber: 18817870927,
+      eMail : 'liuyn_tongji@163.com'
+    },{
+      wxNumber:'刘一宁大傻逼',
+      phoneNumber: 110,
+      eMail : 'liuyn_sha@163.com'
+    }],
     //类别的picker组件更换为多列选择器, by yining
     //picker组件的多列选择器
     multiArray: [['二手物品', '房屋租赁', '有偿帮带'], ['所有', '电子产品', '学习资料', '家具厨具', '交通工具', '其他'], ['']],

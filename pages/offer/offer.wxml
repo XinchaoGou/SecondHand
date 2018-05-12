@@ -140,21 +140,21 @@
           <swiper-item>
             <view class="section underline t-name">
               <text class="section-title">微信号</text>
-              <text class="input">deutschning</text>
+              <text class="input">{{item.wxNumber}}</text>
               <image class="arrow-r" src="../../images/more/enter.png"></image>
             </view>
 
             <!-- 手机号码 -->
             <view class="section underline t-name">
               <text class="section-title">手机号</text>
-              <text class="input">18817870927</text>
+              <text class="input">{{item.phoneNumber}}</text>
               <image class="arrow-r" src="../../images/more/enter.png"></image>
             </view>
 
             <!-- 邮箱 -->
             <view class="section underline t-name">
               <text class="section-title">邮箱</text>
-              <text class="input">liuyn_tongji@163.com</text>
+              <text class="input">{{item.eMail}}</text>
               <image class="arrow-r" src="../../images/more/enter.png"></image>
             </view>
           </swiper-item>
