@@ -6,7 +6,7 @@ Page({
 
   data: {
     imgUrl: '../../images/test/user_default.png',
-    name:'点击头像登录',
+    name: '点击头像登录',
     userInfo: {},
     favorList: [],
     offerList: [],
@@ -23,6 +23,61 @@ Page({
   },
 
   onLoad: function () {
+
+  },
+
+  //重构为默认从本地缓存获取
+  onShow: function () {
+    var that = this;
+    try {
+      //加载收藏列表
+      var favorList = wx.getStorageSync('favorList');
+      if (favorList) {
+        //从本地缓存读取
+        that.setData({
+          favorList: favorList
+        })
+      } else {
+        //从服务器读取
+        that.searchFavouriteList();
+      }
+
+      //加载发布列表
+      var offerList = wx.getStorageSync('offerList');
+      if (offerList) {
+        //从本地缓存
+        that.setData({
+          offerList: offerList
+        })
+      } else {
+        //从服务器缓存
+        that.searchOfferList();
+      }
+
+      //加载用户信息
+      var userInfo = wx.getStorageSync('userInfo');
+      if (userInfo) {
+        that.setData({
+          userInfo: userInfo,
+          name: userInfo.nickName,
+          imgUrl: userInfo.avatarUrl,
+          isUse: true,
+        });
+      } else {
+        that.upDateUserInfo();
+      }
+
+    } catch (e) {
+      console.log('本地缓存favorList，offerList，userInfo读取失败');
+    }
+  },
+
+  /**
+   * 更新用户名字和头像
+   * by xinchao
+   */
+  upDateUserInfo: function () {
+    console.log('更新用户名和头像');
     var that = this;
     wx.getSetting({
       success: function (res) {
@@ -36,47 +91,18 @@ Page({
                 name: userInfo.nickName,
                 imgUrl: userInfo.avatarUrl,
                 isUse: true,
-              })
+              });
+              wx.setStorage({
+                key: "userInfo",
+                data: userInfo
+              });
             }
           })
         }
       }
     })
-
   },
 
-  //重构为默认从本地缓存获取
-  onShow: function () {
-    var that = this;
-    try {
-      var favorList = wx.getStorageSync('favorList');
-      var offerList = wx.getStorageSync('offerList');
-      //加载收藏列表
-      if (favorList) {
-        //从本地缓存读取
-        that.setData({
-          favorList: favorList
-        })
-      } else {
-        //从服务器读取
-        that.searchFavouriteList();
-      }
-
-      //加载发布列表
-      if (offerList) {
-        //从本地缓存
-        that.setData({
-          offerList: offerList
-        })
-      } else {
-        //从服务器缓存
-        that.searchOfferList();
-      }
-    } catch (e) {
-      console.log('本地缓存favorList，offerList读取失败');
-    }
-
-  },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
@@ -88,9 +114,10 @@ Page({
     var that = this;
     wx.vibrateShort();  // 使手机振动15ms  
     wx.showNavigationBarLoading() //在标题栏中显示加载
-    that.onLoad();
+    // that.onLoad();
     that.searchFavouriteList();
     that.searchOfferList();
+    that.upDateUserInfo();
     // complete
     wx.hideNavigationBarLoading() //完成停止加载
     wx.stopPullDownRefresh() //停止下拉刷新
@@ -333,7 +360,7 @@ Page({
     //TODO: 跳转的页面也许要重构
     wx.navigateTo({
       url: '../search_section/search_section?id=' + objectId + '&favor=' + favor
-      + '&postId=' + postId
+        + '&postId=' + postId
     })
   },
 
@@ -351,7 +378,7 @@ Page({
     //跳转条目详情
     wx.navigateTo({
       url: '../search_section/search_section?id=' + objectId + '&favor=' + favor
-      + '&postId=' + postId
+        + '&postId=' + postId
     })
   },
 
@@ -508,7 +535,7 @@ Page({
     })
   },
 
-  longtap: function(e){
+  longtap: function (e) {
     var that = this;
     console.log('长按事件触发')
     that.setData({

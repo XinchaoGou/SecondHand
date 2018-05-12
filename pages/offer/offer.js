@@ -5,7 +5,7 @@ var common = require('../../template/loadingBox.js');
 Page({
 
   data: {
-    //表单验证相关 TODO:
+    //表单验证相关
     isShowTopTips: false,
     TopTips: '',
     //发布标题
