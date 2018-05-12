@@ -11,7 +11,7 @@
     <view class="weui-toptips" style="color:#000000;background-color:#b2b2b2;z-index:2000;" hidden="{{isHidePulldownRefresh}}">下拉刷新可清空所有发布内容</view>
 
     <!-- 2.发布内容主页面-->
-    
+
     <!-- 2.1 发布标题 -->
     <view class="section-big style1" bindtap="inputTap" id="top">
       <view class="section t-name">
@@ -118,12 +118,22 @@
 
     <!-- 3.联系方式 -->
     <!--点击同意后showInput取反，点击同意后方才显示，否则隐藏-->
-    <view class="cover-big">
+    <view class="section-big height style1 mt20" wx:if="{{isShowInput}}">
 
       <!--swiper组件左右滑动切换模板-->
       <!--swiper组件的current组件用于控制当前显示哪一页 -->
       <!--swiper组件绑定bindchange事件switchTab，通过e.detail.current拿到当前页-->
-      <swiper class="section-big height style1 mt20" wx:if="{{isShowInput}}" duration="300" bindchange="switchTab" indicator-dots="true" indicator-active-color="#32A189">
+      <view hidden="{{!(currentTab<contactList.length)}}" class="section t-name">
+        <text class="section-title">常用联系模板{{currentTab+1}}</text>
+      </view>
+
+      <view hidden="{{currentTab<contactList.length}}" class="section t-name">
+        <text class="section-title">空白模板</text>
+      </view>
+
+      <swiper class="section-swiper height1" duration="300" bindchange="switchTab" indicator-dots="true" indicator-active-color="#32A189">
+
+
 
         <!--微信号，手机号，邮箱常用模板，循环加载页面-->
         <block wx:for="{{contactList}}">

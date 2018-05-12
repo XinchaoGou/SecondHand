@@ -1,12 +1,12 @@
-
 <view class="container">
+  <image hidden="isLoadingHidden" style="height:200rpx;width:200rpx" src='../../images/more/loading.gif' />
   <!--scroll-view class="scroll" scroll-y-->
   <!--1. 图片幻灯片显示模块-->
   <view class="swiper">
     <swiper indicator-dots="{{true}}" indicator-active-color="#32A189" autoplay="{{false}}" class="swiper1">
       <block wx:for="{{urls}}">
         <swiper-item class="swiper2">
-          <image mode="aspectFill" src="{{item}}" class="slide-image" bindload="imageLoad" style="width:{{screenWidth}}px; height:{{screenWidth}}px;" bindtap="imgOverView" data-index="{{index}}"/>
+          <image mode="aspectFill" src="{{item}}" class="slide-image" bindload="imageLoad" style="width:{{screenWidth}}px; height:{{screenWidth}}px;" bindtap="imgOverView" data-index="{{index}}" />
           <!--此处需要查询image-align的相关功能-->
         </swiper-item>
       </block>
@@ -28,7 +28,11 @@
       <button class="contact-but" catchtap="wx_contact">微信联系对方</button>
       <view class="contact-middle" catchtap="phone_contact">
         <image src="../../images/test/phone-64.png" style="width:40rpx;height:40rpx" />
-        <text class="offer-title-11">电话联系对方</text>
+        <text class="offer-title-11">电话</text>
+      </view>
+      <view class="contact-middle1" catchtap="mail_contact">
+        <image src="../../images/test/email-32.png" style="width:40rpx;height:40rpx" />
+        <text class="offer-title-11">邮件</text>
       </view>
       <view class="favourite" catchtap="favourite_touch">
         <image wx:if="{{favouriteshow}}" style="height:50rpx; width:50rpx" src='../../images/test/favouriteon.png' />
@@ -63,7 +67,13 @@
   <!--4.发布内容地图-->
   <view class="offer-info">
     <view class="offer-section">
-      <text class="offer-title-11">地点</text>
+      <text class="offer-title-11">同城范围</text>
+    </view>
+    <view class="offer-section">
+      <text class="offer-cont-11">{{address}}</text>
+    </view>
+    <view class="offer-section">
+      <text class="offer-title-11">交易地点</text>
     </view>
     <view class="offer-section">
       <text class="offer-cont-11">{{address}}</text>
@@ -72,11 +82,4 @@
   <!--/scroll-view-->
 </view>
 
-<map id="map" 
- longitude="{{longitude}}" 
- latitude="{{latitude}}" 
- markers="{{markers}}" 
- style="width: 100%; height: 300px;"
- controls="{{controls}}"
- bindcontroltap="controltap"
- show-location ></map>
+<map id="map" longitude="{{longitude}}" latitude="{{latitude}}" markers="{{markers}}" style="width: 100%; height: 300px;" controls="{{controls}}" bindcontroltap="controltap" show-location></map>
