@@ -96,6 +96,7 @@
 .offer-title-11{
   color:#32A189;
   font-size:11pt;
+  margin-left:10rpx;
 }
 .offer-cont-11{
   font-size:11pt;
@@ -107,6 +108,14 @@
   align-items:center;
   position:absolute;
   left:40%;
+}
+.contact-middle1{
+  display:flex;
+  flex-direction:row;
+  justify-content:flex-start;
+  align-items:center;
+  position:absolute;
+  left:60%;
 }
 .favourite{
   width:50rpx;height:50rpx;

@@ -24,8 +24,7 @@ Page({
     //by yining,屏幕宽高
     screenHeight: 0,
     screenWidth: 0,  
-    imgwidth: 0,
-    imgheight: 0,
+    isLoadingHidden: false,
 
     //地图加载相关
     latitude: 0,
@@ -37,8 +36,8 @@ Page({
       position: {
         left: 10,
         top: 20,
-        width: 30,
-        height: 30
+        width: 20,
+        height: 20
       },
       clickable: true
     }]
@@ -121,7 +120,6 @@ Page({
     wx.getSystemInfo({
       success: function (res) {
         that.setData({
-          screenHeight: res.windowHeight,
           screenWidth: res.windowWidth
         });
       }
@@ -130,19 +128,14 @@ Page({
   },
 
   //根据屏幕的宽高等比例缩放计算图片的宽高，by yining
-  /*imageLoad: function (e) {
-    var _this = this;
-    var $width = e.detail.width,    //获取图片真实宽度  
-      $height = e.detail.height,
-      ratio = $width / $height;   //图片的真实宽高比例  
-    //var viewWidth = this.data.screenWidth,           //设置图片显示宽度，  
-      //viewHeight = viewWidth / ratio;   //计算的高度值   
-    var viewWidth = 300*ratio;
-    this.setData({
-      imgwidth: viewWidth,
-      imgheight: 300
+  imageLoad: function (e) {
+    var that = this;
+    console.log(that.data.isLoadingHidden)
+    console.log('图片加载')
+    that.setData({
+      isLoadingHidden:true
     })
-  },*/
+  },
 
   /**
    * 生命周期函数--监听页面初次渲染完成

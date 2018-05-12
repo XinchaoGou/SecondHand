@@ -66,7 +66,7 @@ Page({
     isHidePulldownRefresh: true,
     pastpos: 20,
     //联系方式模板的数组变量，by yining
-    contactList: [],
+    contactList: [1,2],
     //类别的picker组件更换为多列选择器, by yining
     //picker组件的多列选择器
     multiArray: [['二手物品', '房屋租赁', '有偿帮带'], ['所有', '电子产品', '学习资料', '家具厨具', '交通工具', '其他'], ['']],
@@ -421,14 +421,15 @@ Page({
   },
 
   /**
-   * TODO: 阅读并同意
+   * TODO: 阅读并同意，同时推出联系方式输入界面
    * by xinchao
    */
   bindAgreeChange: function (e) {
     var that = this;
     that.setData({
       isAgree: !!e.detail.value.length,
-      isShowInput: !this.data.isShowInput
+      isShowInput: !this.data.isShowInput,
+      currentTab: 0  //每次点开输入界面时，都显示第一个模板，by yining
     });
   },
 
@@ -620,7 +621,7 @@ Page({
 
     var index = e.detail.current;//当前所在页面的 index
     this.setData({
-      currentTab: e.detail.current
+      currentTab: e.detail.current,
     });
     //console.log(this.data.currentTab);
   },

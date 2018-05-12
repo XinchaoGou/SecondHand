@@ -129,8 +129,8 @@
 
           <view class="section">
             <text class="section-title">常用联系模板1</text>
-            <image class="setting1" catchtap="offerSetTap" src='../../images/test/edit-32.png' />
-            <image  class="delete1" catchtap="offerDeleteTap" src='../../images/test/delete-32.png' />
+            <image class="setting1" catchtap="contactSetTap" src='../../images/test/edit-32.png' />
+            <image  class="delete1" catchtap="contactDeleteTap" src='../../images/test/delete-32.png' />
           </view>
 
          <view class="section underline t-name">
