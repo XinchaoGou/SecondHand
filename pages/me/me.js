@@ -318,7 +318,6 @@ Page({
       data: tFavorItems
     });
 
-
     //获取实例
     var Offer = Bmob.Object.extend("Offer");
     var query = new Bmob.Query(Offer);

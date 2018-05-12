@@ -18,7 +18,7 @@
         <text class="section-title">发布标题</text>
       </view>
       <view class="section underline t-name">
-        <input name="title" class="input" maxlength="30" placeholder-class="inputStyle" placeholder="请输入标题" value="{{title}}" focus="{{isFocus}}" />
+        <input name="title" class="input" maxlength="30" placeholder-class="inputStyle" placeholder="请输入标题" value="{{offerItem.title}}" focus="{{isFocus}}" />
       </view>
     </view>
 
@@ -26,7 +26,7 @@
     <!--2.2 物品类别，交易地点及物品价格 -->
     <view class="section-big style2">
 
-      <!-- 2.2.1 物品类别 -->
+      <!-- 2.2.1 物品类别 TODO:-->
       <picker mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}" class="adressblock">
         <view class="section">
           <text class="section-title">发布类别</text>
@@ -39,7 +39,7 @@
         </view>
       </picker>
 
-      <!-- 2.2.1 同城范围 -->
+      <!-- 2.2.1 同城范围 TODO:-->
       <picker mode="multiSelector" bindchange="bindMultiPickerChange1" bindcolumnchange="bindMultiPickerColumnChange1" value="{{multiCityIndex}}" range="{{multiCityArray}}" class="adressblock">
         <view class="section">
           <text class="section-title">同城范围</text>
@@ -54,13 +54,13 @@
 
 
       <!-- 2.2.2 交易地点 -->
-      <view class="adressblock" catchtap="addressChange" value="{{address}}">
+      <view class="adressblock" catchtap="addressChange" value="{{offerItem.address}}">
         <view class="section">
           <text class="section-title">交易地点</text>
         </view>
         <!-- 2.2.3 交易地点换行 -->
         <view class="section underline t-name">
-          <text name="address" class="input">{{address}}</text>
+          <text name="address" class="input">{{offerItem.address}}</text>
           <image class="arrow-r" src="../../images/more/enter.png" />
         </view>
       </view>
@@ -78,7 +78,7 @@
       <!-- 2.2.4.1 价格设置 -->
 
       <view wx:if="{{isPriceShow}}" class="section underline t-name">
-        <input name="price" type="number" class="input" maxlength="100" confirm-hold="false" placeholder-class="inputStyle" placeholder="请输入价格" value="{{price}}" confirm-type="done" cursor-spacing="20" />
+        <input name="price" type="number" class="input" maxlength="100" confirm-hold="false" placeholder-class="inputStyle" placeholder="请输入价格" value="{{offerItem.price}}" confirm-type="done" cursor-spacing="20" />
         <text class="euro">€</text>
       </view>
     </view>
@@ -86,7 +86,7 @@
     <!-- 2.3 物品内容以及添加图片显示模块 -->
     <view class="section-big2 style4 mt20">
 
-      <!-- 2.3.1 显示已添加图片 TODO-->
+      <!-- 2.3.1 显示已添加图片 TODO:-->
       <scroll-view class="scrollx" scroll-x>
         <view class="scrollstyle">
           <view wx:if="{{isSrc}}" wx:for="{{tempFilePaths}}">
@@ -95,7 +95,7 @@
               <view bindtap="clearPic" data-clearid="{{index}}"></view>
             </view>
           </view>
-          <!-- 2.3.2 物品图片 TODO-->
+          <!-- 2.3.2 物品图片-->
           <view class="add_pic" bindtap="uploadPic" wx-if="{{!is9}}">
             <view></view>
           </view>
@@ -104,14 +104,14 @@
 
     </view>
 
-    <!-- 2.3.3 物品详情--多行文字输入模块-->
+    <!-- 2.3.3 物品详情多行文字输入模块-->
 
     <view class="section-big style1 mt20">
       <view class="section t-name">
         <text class="section-title">详情</text>
       </view>
       <view class="section2 underline my-nick">
-        <textarea wx:if="{{is_textarea_show}}" name="content" class="textarea" placeholder-class="inputStyle" placeholder="请输入详情，字数限制在{{noteMaxLen}}字以内" value="{{content}}" bindinput="bindTextAreaChange" maxlength="{{noteMaxLen}}" cursor-spacing="20" />
+        <textarea wx:if="{{is_textarea_show}}" name="content" class="textarea" placeholder-class="inputStyle" placeholder="请输入详情，字数限制在{{noteMaxLen}}字以内" value="{{offerItem.content}}" bindinput="bindTextAreaChange" maxlength="{{noteMaxLen}}" cursor-spacing="20" />
         <view class="chnumber">{{noteNowLen}}/{{noteMaxLen}}</view>
       </view>
     </view>
@@ -135,7 +135,7 @@
 
 
 
-        <!--微信号，手机号，邮箱常用模板，循环加载页面-->
+        <!--微信号，手机号，邮箱常用模板，循环加载页面 TODO:-->
         <block wx:for="{{contactList}}">
           <swiper-item>
             <view class="section underline t-name">
@@ -165,21 +165,21 @@
           <!-- 微信号 -->
           <view class="section underline t-name">
             <text class="section-title">微信号</text>
-            <input name="wxNumber" class="input" maxlength="30" placeholder-class="inputStyle" placeholder="请输入微信号" value="{{wxNumber}}" cursor-spacing="20" />
+            <input name="wxNumber" class="input" maxlength="30" placeholder-class="inputStyle" placeholder="请输入微信号" value="{{offerItem.contact.wxNumber}}" cursor-spacing="20" />
             <image class="arrow-r" src="../../images/more/enter.png"></image>
           </view>
 
           <!-- 手机号码 -->
           <view class="section underline t-name">
             <text class="section-title">手机号</text>
-            <input name="phoneNumber" type="number" class="input" placeholder-class="inputStyle" placeholder="请输入号码" value="{{phoneNumber}}" cursor-spacing="20" />
+            <input name="phoneNumber" type="number" class="input" placeholder-class="inputStyle" placeholder="请输入号码" value="{{offerItem.contact.phoneNumber}}" cursor-spacing="20" />
             <image class="arrow-r" src="../../images/more/enter.png"></image>
           </view>
 
           <!-- 邮箱 -->
           <view class="section underline t-name">
             <text class="section-title">邮箱</text>
-            <input name="eMail" class="input" placeholder-class="inputStyle" placeholder="请输入邮箱" value="{{eMail}}" cursor-spacing="20" />
+            <input name="eMail" class="input" placeholder-class="inputStyle" placeholder="请输入邮箱" value="{{offerItem.contact.eMail}}" cursor-spacing="20" />
             <image class="arrow-r" src="../../images/more/enter.png"></image>
           </view>
 

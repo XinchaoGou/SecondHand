@@ -9,13 +9,13 @@ Page({
     isShowTopTips: false,
     TopTips: '',
     //发布标题
-    title: '',
+    // title: '',
     isFocus: false,
     //物品类别
-    types: ["所有种类", "房屋租赁", "电子产品", "学习资料", "家具", "交通工具", "乐器", "有偿帮带", "其他"],
-    typeIndex: "0",
+    // types: ["所有种类", "房屋租赁", "电子产品", "学习资料", "家具", "交通工具", "乐器", "有偿帮带", "其他"],
+    // typeIndex: "0",
     //交易地点
-    address: '点击选择位置',
+    // address: '点击选择位置',
     longitude: 0, //经度
     latitude: 0,//纬度
     //物品价格 TODO:
@@ -23,7 +23,7 @@ Page({
     isPriceShow: false,
     isPriceFocus: false,
     //物品内容
-    content: "",
+    // content: "",
     noteNowLen: 0,//备注当前字数
     noteMaxLen: 400,//备注最多字数
     //物品图片
@@ -54,7 +54,7 @@ Page({
       content: '',
       contact: {
         wxNumber: '',
-        phoneNumber: '',
+        phoneNumber: 0,
         eMail: ''
       }
     },
@@ -65,7 +65,7 @@ Page({
     //控制下拉刷新的提示内容的隐藏，by yining
     isHidePulldownRefresh: true,
     pastpos: 20,
-    //联系方式模板的数组变量，by yining
+    //联系方式模板的数组变量，by yining TODO:
     contactList: [1,2],
     //类别的picker组件更换为多列选择器, by yining
     //picker组件的多列选择器
