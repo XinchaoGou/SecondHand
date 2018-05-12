@@ -36,7 +36,7 @@ Page({
     is_notice_status: false,
     //发布按钮禁用
     isdisabled: false,
-    is_textarea_show: true,
+    // is_textarea_show: true,
 
     //修改发布内容
     isModify: false,
@@ -445,24 +445,25 @@ Page({
    * 发布须知
    * by xinchao
    */
-  tapNotice: function (e) {
-    var that = this;
-    if (e.target.id == 'notice') {
-      this.hideNotice();
-    }
-  },
+  // tapNotice: function (e) {
+  //   var that = this;
+  //   if (e.target.id == 'notice') {
+  //     this.hideNotice();
+  //   }
+  // },
   showNotice: function (e) {
     var that = this;
     that.setData({
       is_notice_status: true,
-      is_textarea_show: false, //取消显示textarea，防止bug
+      // is_textarea_show: false, //取消显示textarea，防止bug
     });
   },
   hideNotice: function (e) {
     var that = this;
     that.setData({
       is_notice_status: false,
-      is_textarea_show: true
+      isAgree: true
+      // is_textarea_show: true
     });
   },
 
@@ -550,6 +551,7 @@ Page({
     })
   },
 
+  //TODO: 好像没有调用，是不可以删除
   inputPriceTap: function () {
     var that = this;
     that.setData({
