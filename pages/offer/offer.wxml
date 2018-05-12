@@ -89,7 +89,7 @@
       <!-- 2.3.1 显示已添加图片 TODO:-->
       <scroll-view class="scrollx" scroll-x>
         <view class="scrollstyle">
-          <view wx:if="{{isSrc}}" wx:for="{{tempFilePaths}}">
+          <view wx:if="{{isSrc}}" wx:for="{{offerItem.picUrlArray}}">
             <view class="picPre">
               <image src="{{item}}" mode="aspectFill" />
               <view bindtap="clearPic" data-clearid="{{index}}"></view>
@@ -118,7 +118,7 @@
 
     <!-- 3.联系方式 -->
     <!--点击同意后showInput取反，点击同意后方才显示，否则隐藏-->
-    <view class="section-big height style1 mt20" wx:if="{{isShowInput}}">
+    <view class="section-big height style1 mt20" wx:if="{{isAgree}}">
 
       <!--swiper组件左右滑动切换模板-->
       <!--swiper组件的current组件用于控制当前显示哪一页 -->

@@ -1,6 +1,5 @@
 var Bmob = require("../../utils/bmob.js");
 var common = require('../../template/loadingBox.js');
-// var that;
 // pages/offer/offer.js
 Page({
 
@@ -32,7 +31,7 @@ Page({
     tempFilePaths: [],
     //阅读并同意填写联系方式
     isAgree: false,
-    isShowInput: false,//显示输入真实姓名,
+    // isAgree: false,//显示输入真实姓名,
     //发布须知
     is_notice_status: false,
     //发布按钮禁用
@@ -97,45 +96,45 @@ Page({
    * by xinchao
    */
   clearData: function () {
-    var that = this;
-    that.setData({
-      //表单验证相关 TODO:
-      isShowTopTips: false,
-      TopTips: '',
-      //发布标题
-      title: '',
-      isFocus: false,
-      //物品类别
-      multiArray: [['二手物品', '房屋租赁', '有偿帮带'], ['所有', '电子产品', '学习资料', '家具厨具', '交通工具', '其他'], ['']],
-      multiIndex: [0, 0, 0],
-      //交易地点
-      address: '点击选择位置',
-      longitude: 0, //经度
-      latitude: 0,//纬度
-      //物品价格 TODO:
-      // price: 0,
-      isPriceShow: false,
-      isPriceFocus: false,
-      //物品内容
-      content: "",
-      noteNowLen: 0,//备注当前字数
-      noteMaxLen: 400,//备注最多字数
-      //物品图片
-      isSrc: false,
-      is9: false,
-      tempFilePaths: [],
-      //阅读并同意填写联系方式
-      isAgree: false,
-      isShowInput: false,//显示输入真实姓名,
-      //发布须知
-      is_notice_status: false,
-      //发布按钮禁用
-      isdisabled: false,
-      is_textarea_show: true,
+    // var that = this;
+    // that.setData({
+    //   //表单验证相关 TODO:
+    //   isShowTopTips: false,
+    //   TopTips: '',
+    //   //发布标题
+    //   title: '',
+    //   isFocus: false,
+    //   //物品类别
+    //   multiArray: [['二手物品', '房屋租赁', '有偿帮带'], ['所有', '电子产品', '学习资料', '家具厨具', '交通工具', '其他'], ['']],
+    //   multiIndex: [0, 0, 0],
+    //   //交易地点
+    //   address: '点击选择位置',
+    //   longitude: 0, //经度
+    //   latitude: 0,//纬度
+    //   //物品价格 TODO:
+    //   // price: 0,
+    //   isPriceShow: false,
+    //   isPriceFocus: false,
+    //   //物品内容
+    //   content: "",
+    //   noteNowLen: 0,//备注当前字数
+    //   noteMaxLen: 400,//备注最多字数
+    //   //物品图片
+    //   isSrc: false,
+    //   is9: false,
+    //   tempFilePaths: [],
+    //   //阅读并同意填写联系方式
+    //   isAgree: false,
+    //   isAgree: false,//显示输入真实姓名,
+    //   //发布须知
+    //   is_notice_status: false,
+    //   //发布按钮禁用
+    //   isdisabled: false,
+    //   is_textarea_show: true,
 
-      //修改发布内容
-      isModify: false,
-    })
+    //   //修改发布内容
+    //   isModify: false,
+    // })
   },
 
   /**
@@ -145,7 +144,7 @@ Page({
   submitForm: function (e) {
     var that = this;
     //TODO: 阅读发布须知 改为toast
-    if (!that.data.isShowInput) {
+    if (!that.data.isAgree) {
       wx.showModal({
         title: '提示',
         content: '请先阅读《发布须知》',
@@ -190,6 +189,64 @@ Page({
         })
       });
     }
+  },
+
+    /**
+   * 封装发布照片到服务器
+   * by xinchao
+   */
+  upLoadPicToCloud: function () {
+    //同步封装上传照片到云端
+    var that = this;
+    return new Promise(function (resolve, reject) {
+
+      //发布照片
+      var urlArr = new Array();
+      var tempFilePaths = that.data.offerItem.picUrlArray;
+      var imgLength = tempFilePaths.length;
+
+      //如果是修改状态，已经是服务器端图片url,不上传直接设置服务器端url地址
+      if (that.data.isModify) {
+        urlArr = tempFilePaths;
+        resolve(urlArr);
+        return;
+      }
+
+      if (imgLength > 0) {
+        //日期作为图片名的一部分
+        var newDate = new Date();
+        var newDateStr = newDate.toLocaleDateString();
+
+        var j = 0;
+        for (var i = 0; i < imgLength; i++) {
+          var tempFilePath = [tempFilePaths[i]];
+          var extension = /\.([^.]*)$/.exec(tempFilePath[0]);
+          if (extension) {
+            extension = extension[1].toLowerCase();
+          }
+          var name = newDateStr + "." + extension;//上传的图片的别名
+
+          var file = new Bmob.File(name, tempFilePath);
+          file.save().then(function (res) {
+            var url = res.url();
+            urlArr.push(url);
+            j++;
+            if (imgLength == j) {
+              console.log("成功上传图片");
+              resolve(urlArr);
+            }
+
+          }, function (error) {
+            console.log(error);
+            reject(error);
+          });
+        }
+      }
+      else {
+        //没传图片的时候
+        resolve(urlArr);
+      }
+    });
   },
 
   /**
@@ -267,76 +324,19 @@ Page({
     });
   },
 
-  /**
-   * 封装发布照片到服务器
-   * by xinchao
-   */
-  upLoadPicToCloud: function () {
-    //同步封装上传照片到云端
-    var that = this;
-    return new Promise(function (resolve, reject) {
 
-      //发布照片
-      var urlArr = new Array();
-      var tempFilePaths = that.data.tempFilePaths;
-      var imgLength = tempFilePaths.length;
-
-      //如果是修改状态，已经是服务器端图片url,不上传直接设置服务器端url地址
-      if (that.data.isModify) {
-        urlArr = tempFilePaths;
-        resolve(urlArr);
-        return;
-      }
-
-      // console.log('这句话执行了');
-      if (imgLength > 0) {
-        //日期作为图片名的一部分
-        var newDate = new Date();
-        var newDateStr = newDate.toLocaleDateString();
-
-        var j = 0;
-        for (var i = 0; i < imgLength; i++) {
-          var tempFilePath = [tempFilePaths[i]];
-          var extension = /\.([^.]*)$/.exec(tempFilePath[0]);
-          if (extension) {
-            extension = extension[1].toLowerCase();
-          }
-          var name = newDateStr + "." + extension;//上传的图片的别名
-
-          var file = new Bmob.File(name, tempFilePath);
-          file.save().then(function (res) {
-            var url = res.url();
-            urlArr.push(url);
-            j++;
-            if (imgLength == j) {
-              console.log("成功上传图片");
-              resolve(urlArr);
-            }
-
-          }, function (error) {
-            console.log(error);
-            reject(error);
-          });
-        }
-        // console.log("进入了b")
-      }
-      else {
-        //没传图片的时候
-        resolve(urlArr);
-      }
-    });
-  },
 
   /**
    * 改变物品类别
-   * TODO: 根据重构的代码修改
+   * TODO: 好想已经弃用了
    * by xinchao
    */
   bindTypeChange: function (e) {
-    var that = this;
-    that.setData({
-      typeIndex: e.detail.value
-    })
+    console.log('没有弃用！！！');
+    // var that = this;
+    // that.setData({
+    //   typeIndex: e.detail.value
+    // })
   },
 
   /**
@@ -369,7 +369,6 @@ Page({
 
   /**
    * 物品内容，字数改变触发事件
-   * TODO: 根据重构的代码修改
    * by xinchao
    */
   bindTextAreaChange: function (e) {
@@ -385,26 +384,27 @@ Page({
   },
 
   /**
+   * 上传活动图片
    * 物品图片 TODO: 根据重构的代码修改
    * by xinchao
    */
-  //上传活动图片
   uploadPic: function () {//选择图标
     var that = this;
     wx.chooseImage({
-      count: 9 - that.data.tempFilePaths.length, // 默认9
+      count: 9 - that.data.offerItem.picUrlArray.length, // 默认9
       sizeType: ['compressed'], //压缩图
       sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
       success: function (res) {
         // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
-        var tempFilePaths = that.data.tempFilePaths;
+        var tempFilePaths = that.data.offerItem.picUrlArray;
         var resTempFilePaths = res.tempFilePaths;
         for (let i = 0; i < resTempFilePaths.length; i++) {
           tempFilePaths.push(resTempFilePaths[i]);
         }
+        var str = 'offerItem.picUrlArray';
         that.setData({
           isSrc: true,
-          tempFilePaths: tempFilePaths
+          [str]: tempFilePaths
         })
         //超过9张图片取消添加按钮
         if (tempFilePaths.length >= 9) {
@@ -415,16 +415,16 @@ Page({
       }
     })
   },
-  //删除图片 TODO: 根据重构的代码修改
+  //删除图片 根据重构的代码修改
   clearPic: function (event) {//删除图片
     var that = this;
     var postId = event.currentTarget.dataset.clearid;
-    var tFilePaths = that.data.tempFilePaths;
+    var tFilePaths = that.data.offerItem.picUrlArray;
     tFilePaths.splice(postId, 1);
-
+    var str = 'offerItem.picUrlArray';
     that.setData({
       is9: false,
-      tempFilePaths: tFilePaths
+      [str]: tFilePaths
     })
   },
 
@@ -435,8 +435,8 @@ Page({
   bindAgreeChange: function (e) {
     var that = this;
     that.setData({
-      isAgree: !!e.detail.value.length,
-      isShowInput: !this.data.isShowInput,
+      isAgree: !that.data.isAgree,
+      // isAgree: !that.data.isAgree,
       currentTab: 0  //每次点开输入界面时，都显示第一个模板，by yining
     });
   },
@@ -570,45 +570,45 @@ Page({
    * TODO: 不单单是显示，还有要上传服务器的东西,可以把所有数据都刷新
    */
   onShow: function () {
-    var that = this;
-    try {
-      var value = wx.getStorageSync('offerForm');
-      // console.log(value);
-      // var typeIndex = types.indexOf(value.typeName);
-      if (value) {
-        that.setData({
-          tempFilePaths: value.urls,
-          title: value.title,
-          // typeIndex : typeIndex,
-          address: value.address,
-          // location : value.location,
-          latitude: value.location.latitude,
-          longitude: value.location.longitude,
-          content: value.content,
-          // publisher : value.publisher,
-          isSrc: true,
-          price: value.price,
-          isAgree: true,
-          isShowInput: true,
-          isPriceShow: true,
-          wxNumber: value.wxNumber,
-          phoneNumber: value.phoneNumber,
-          eMail: value.eMail,
+    // var that = this;
+    // try {
+    //   var value = wx.getStorageSync('offerForm');
+    //   // console.log(value);
+    //   // var typeIndex = types.indexOf(value.typeName);
+    //   if (value) {
+    //     that.setData({
+    //       tempFilePaths: value.urls,
+    //       title: value.title,
+    //       // typeIndex : typeIndex,
+    //       address: value.address,
+    //       // location : value.location,
+    //       latitude: value.location.latitude,
+    //       longitude: value.location.longitude,
+    //       content: value.content,
+    //       // publisher : value.publisher,
+    //       isSrc: true,
+    //       price: value.price,
+    //       isAgree: true,
+    //       isAgree: true,
+    //       isPriceShow: true,
+    //       wxNumber: value.wxNumber,
+    //       phoneNumber: value.phoneNumber,
+    //       eMail: value.eMail,
 
-          isModify: true, //用于标识修改状态，发布时修改已有条目，同时修改状态切换界面删除内容
-          isPicArrayFromCloud: true,
-        })
-        if (price = 0) {
-          // TODO: 价格面议的情况
-          that.setData({
-            isPriceShow: false,
-          })
-        }
-      }
-    } catch (e) {
-      // Do something when catch error
-      console.log('没找到本地缓存');
-    }
+    //       isModify: true, //用于标识修改状态，发布时修改已有条目，同时修改状态切换界面删除内容
+    //       isPicArrayFromCloud: true,
+    //     })
+    //     if (price = 0) {
+    //       // TODO: 价格面议的情况
+    //       that.setData({
+    //         isPriceShow: false,
+    //       })
+    //     }
+    //   }
+    // } catch (e) {
+    //   // Do something when catch error
+    //   console.log('没找到本地缓存');
+    // }
   },
 
   /**
