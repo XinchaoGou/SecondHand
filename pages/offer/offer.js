@@ -51,11 +51,12 @@ Page({
       price: 0,
       picUrlArray: [],
       content: '',
+      publisher: '',
       contact: {
         wxNumber: '',
         phoneNumber: 0,
         eMail: ''
-      }
+      },
     },
 
 
@@ -474,22 +475,28 @@ Page({
   },
 
   /**
-   * 表单验证 TODO: 根据重构后的代码修改
+   * 将要发布的信息存入结构体
    * by xinchao
    */
-  showTopTips: function (e) {
+  formToOfferItem: function (e){
     var that = this;
     var title = e.detail.value.title;//发布标题
 
-    //test TODO:
-    var address = that.data.offerItem.address;//交易地点
+    var address = e.detail.value.address;
+    if (!address) { //address 没输入
+      address = that.data.offerItem.address;
+    }
+    // FIXME: location 类型有问题
     var location = that.data.offerItem.location;
     var picUrlArray = that.data.offerItem.picUrlArray;
 
-
     var price = e.detail.value.price;//物品价格
-    var content = e.detail.value.content;//物品内容
-    // //发布人联系方式
+    if (!price) { //price 没输入
+      price = that.data.offerItem.price;
+    }
+    var content = e.detail.value.content;//FIXME:物品内容
+    
+    //发布人联系方式
     var currentTab = that.data.currentTab;
     var contactList = that.data.contactList;
     var contact = that.data.offerItem.contact;
@@ -504,6 +511,11 @@ Page({
       }
     }
 
+    //关联发布人 TODO:
+    var User = Bmob.Object.extend("_User");
+    var publisher = Bmob.Object.createWithoutData("_User", Bmob.User.current().id);
+
+
     var tOfferItem = {
       title: title,
       // typeName: '',
@@ -513,46 +525,54 @@ Page({
       picUrlArray: picUrlArray,
       content: content,
       contact: contact,
+      publisher: publisher,
     }
-
     //使用新结构体存储表单数据
     that.setData({
       offerItem: tOfferItem
     })
 
+    return tOfferItem;
+  },
 
-
+  /**
+   * 表单验证 TODO: 根据重构后的代码修改
+   * by xinchao
+   */
+  showTopTips: function (e) {
+    var that = this;
+    var tOfferItem = that.formToOfferItem(e);
     var flag = true;
 
-    if (title == "") {
+    if (tOfferItem.title == "") {
       flag = false;
       this.setData({
         isShowTopTips: true,
         TopTips: '请输入标题'
       });
     }
-    else if (address == '点击选择位置') {
+    else if (tOfferItem.address == '点击选择位置') {
       flag = false;
       this.setData({
         isShowTopTips: true,
         TopTips: '请选择交易地点'
       });
     }
-    else if (price == 0) {
+    else if (tOfferItem.price == 0) {
       flag = false;
       this.setData({
         isShowTopTips: true,
         TopTips: '请输入价格'
       });
     }
-    else if (content == "") {
+    else if (tOfferItem.content == "") {
       flag = false;
       this.setData({
         isShowTopTips: true,
         TopTips: '请输入物品详情介绍'
       });
     }
-    else if ((wxNumber == "") && (eMail == "") && (phoneNumber == 0)) {
+    else if ((tOfferItem.contact.wxNumber == "") && (tOfferItem.contact.eMail == "") && (tOfferItem.contact.phoneNumber == 0)) {
       flag = false;
       this.setData({
         isShowTopTips: true,
