@@ -5,7 +5,7 @@
   </view>
 
   <view class="section2 underline my-nick">
-    <textarea wx:if="{{is_textarea_show}}" name="content" class="textarea" placeholder-class="inputStyle" placeholder="请输入详情，字数限制在{{noteMaxLen}}字以内" value="{{content}}" bindinput="bindTextAreaChange" maxlength="{{noteMaxLen}}" cursor-spacing="20" />
+    <textarea name="content" class="textarea" placeholder-class="inputStyle" placeholder="请输入详情，字数限制在{{noteMaxLen}}字以内" value="{{content}}" bindinput="bindTextAreaChange" maxlength="{{noteMaxLen}}" cursor-spacing="20" />
     <view class="chnumber">{{noteNowLen}}/{{noteMaxLen}}</view>
   </view>
   
