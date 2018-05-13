@@ -73,22 +73,24 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    var that = this;
     that.getContactList();
   },
 
   //TODO:获得用户的联系方式模版
   getContactList: function () {
     var that = this;
+
     that.setData({
-    contactList: [{
-      wxNumber: 'deutschning',
-      phoneNumber: 18817870927,
-      eMail: 'liuyn_tongji@163.com'
-    }, {
-      wxNumber: '刘一宁大傻逼',
-      phoneNumber: 110,
-      eMail: 'liuyn_sha@163.com'
-    }],
+      contactList: [{
+        wxNumber: 'deutschning',
+        phoneNumber: 18817870927,
+        eMail: 'liuyn_tongji@163.com'
+      }, {
+        wxNumber: '刘一宁大傻逼',
+        phoneNumber: 110,
+        eMail: 'liuyn_sha@163.com'
+      }],
     })
   },
 
