@@ -115,7 +115,7 @@
           <image class="arrow-r" src="../../images/more/enter.png" />
         </view>
         <view wx:else class="section2 underline my-nick">
-          <view class="textmoreline">{{offerItem.content}}</view>
+          <view class="textarea">{{offerItem.content}}</view>
         </view>
       </view>
 
