@@ -422,5 +422,15 @@ Page({
     }
     return data;
   },
-
+  //底部两按钮的监听函数，by yining，TODO by Xinchao
+  delete_tap: function (e) {
+   //需要添加一键恢复默认值的功能
+  },
+  accept_tap: function (e) {
+    console.log('进入了此函数')
+    //需要添加返回后把页面值传回的功能
+    wx.navigateBack({
+      delta: 1
+    })
+  }
 })

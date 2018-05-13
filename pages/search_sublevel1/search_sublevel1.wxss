@@ -1,5 +1,5 @@
 /* pages/search_sublevel1/search_sublevel1.wxss */
-
+@import '/style/secondhand.wxss';
 page {
   height: 100%;
   background-color: #efeff4;

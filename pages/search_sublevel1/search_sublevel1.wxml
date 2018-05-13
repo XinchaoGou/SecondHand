@@ -61,6 +61,11 @@
       </view>
     </picker>
 
+    <view class="section mt20">
+      <button class="btn-left" hover-class="btn-left-hover" loading="{{loading}}" disabled="{{delete_disabled}}" bindtap="delete_tap"> 恢复默认 </button>
+      <button class="btn-right" hover-class="btn-right-hover" loading="{{loading}}" disabled="{{accept_disabled}}" bindtap="accept_tap"> 确认返回 </button>
+    </view>
+
   </view>
 
 </view>

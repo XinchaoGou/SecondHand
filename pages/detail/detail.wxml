@@ -1,4 +1,4 @@
-<view class="section-big border">
+<view class="section-big pb0 border">
 
   <view class="section t-name">
     <text class="section-title">详情</text>
@@ -8,5 +8,8 @@
     <textarea name="content" class="textarea" placeholder-class="inputStyle" placeholder="请输入详情，字数限制在{{noteMaxLen}}字以内" value="{{content}}" bindinput="bindTextAreaChange" maxlength="{{noteMaxLen}}" cursor-spacing="20" />
     <view class="chnumber">{{noteNowLen}}/{{noteMaxLen}}</view>
   </view>
-  
+  <view class="section mt20">
+    <button class="btn-left" hover-class="btn-left-hover" loading="{{loading}}" disabled="{{delete_disabled}}" bindtap="delete_tap"> 清除内容 </button>
+    <button class="btn-right" hover-class="btn-right-hover" loading="{{loading}}" disabled="{{accept_disabled}}" bindtap="accept_tap"> 确认返回 </button>
+  </view>
 </view>

@@ -9,7 +9,8 @@ Page({
     content: "",
     noteNowLen: 0,//备注当前字数
     noteMaxLen: 400,//备注最多字数
-    // is_textarea_show: true,
+    accept_disabled: true,//判断是否禁用accept按钮
+    delete_disabled: true//判断是否禁用delete按钮
   },
   /**
      * 物品内容，字数改变触发事件
@@ -32,9 +33,21 @@ Page({
     })
     var str = 'offerItem.content';
     prevPage.setData({
-      [str] : value,
-      isContent : true,
+      [str]: value,
+      isContent: true,
     })
+    if (len > 0) {
+      currPage.setData({
+        accept_disabled: false,
+        delete_disabled: false
+      })
+    }
+    else{
+      currPage.setData({
+        accept_disabled: true,
+        delete_disabled: true
+      })
+    }
   },
   /**
    * 生命周期函数--监听页面加载
@@ -45,7 +58,7 @@ Page({
     console.log(content);
     that.setData({
       content: content,
-      noteNowLen : parseInt(content.length)
+      noteNowLen: parseInt(content.length)
     })
   },
 
@@ -96,5 +109,17 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+  delete_tap: function (e) {
+    var that = this;
+    that.setData({
+      content: ''
+    })
+  },
+  accept_tap: function (e) {
+    console.log('进入了此函数')
+    wx.navigateBack({
+      delta: 1
+    })
   }
 })

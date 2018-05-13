@@ -2,7 +2,6 @@
 <view class="container">
   <!-- 1.头像背景 -->
 
-
   <view class="head-background">
     <image class="userinfo-bgImg" src="../../images/test/Karlsruhe.jpg"></image>
   </view>

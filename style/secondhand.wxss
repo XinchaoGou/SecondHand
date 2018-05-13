@@ -90,3 +90,31 @@
   justify-content: space-between;
   align-items: flex-start;
 }
+.btn-left-hover {
+  opacity: 0.3;
+}
+
+.btn-right-hover {
+  opacity: 0.3;
+}
+.btn-left {
+  width: 300rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: center;
+  font-size: 13pt;
+  color: #32a189;
+  background-color: #efeff4;
+  margin-left: 0rpx;
+}
+
+.btn-right {
+  width: 300rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: center;
+  font-size: 13pt;
+  color: white;
+  background-color: #32a189;
+  margin-right: 0rpx;
+}
