@@ -103,7 +103,7 @@ Page({
     that.setData({
       isShowTopTips: false,
       isPriceShow: false,
-      isContent: false,
+      isContent: false,//添加的
       isSrc: false,
       is9: false,
       isAgree: false,
@@ -264,7 +264,7 @@ Page({
     offer.set("price", parseFloat(tOfferItem.price));
     offer.set("content", tOfferItem.content);
     offer.set("publisher", tOfferItem.publisher);
-    offer.set("picUrlArray", tOfferItem.picUrlArray);
+    offer.set("picUrlArray", urlArr);
     offer.set("contact", tOfferItem.contact);
     //类别
     offer.set("type0", tOfferItem.type0);
@@ -578,45 +578,32 @@ Page({
    * TODO: 不单单是显示，还有要上传服务器的东西,可以把所有数据都刷新
    */
   onShow: function () {
-    // var that = this;
-    // try {
-    //   var value = wx.getStorageSync('offerForm');
-    //   // console.log(value);
-    //   // var typeIndex = types.indexOf(value.typeName);
-    //   if (value) {
-    //     that.setData({
-    //       tempFilePaths: value.urls,
-    //       title: value.title,
-    //       // typeIndex : typeIndex,
-    //       address: value.address,
-    //       // location : value.location,
-    //       latitude: value.location.latitude,
-    //       longitude: value.location.longitude,
-    //       content: value.content,
-    //       // publisher : value.publisher,
-    //       isSrc: true,
-    //       price: value.price,
-    //       isAgree: true,
-    //       isAgree: true,
-    //       isPriceShow: true,
-    //       wxNumber: value.wxNumber,
-    //       phoneNumber: value.phoneNumber,
-    //       eMail: value.eMail,
+    var that = this;
+    try {
+      var offerForm = wx.getStorageSync('offerForm');
+      // console.log(offerForm);
+      // var typeIndex = types.indexOf(offerForm.typeName);
+      if (offerForm) {
+        that.setData({
+          offerItem : offerForm,
+          isPriceShow: true,
+          isSrc: true,
+          isContent: true,
+          isAgree: true,
 
-    //       isModify: true, //用于标识修改状态，发布时修改已有条目，同时修改状态切换界面删除内容
-    //       isPicArrayFromCloud: true,
-    //     })
-    //     if (price = 0) {
-    //       // TODO: 价格面议的情况
-    //       that.setData({
-    //         isPriceShow: false,
-    //       })
-    //     }
-    //   }
-    // } catch (e) {
-    //   // Do something when catch error
-    //   console.log('没找到本地缓存');
-    // }
+          isModify: true, //用于标识修改状态，发布时修改已有条目，同时修改状态切换界面删除内容
+        })
+        if (offerForm.price = 0) {
+          // TODO: 价格面议的情况
+          that.setData({
+            isPriceShow: false,
+          })
+        }
+      }
+    } catch (e) {
+      // Do something when catch error
+      console.log('没找到本地缓存');
+    }
   },
 
   /**
