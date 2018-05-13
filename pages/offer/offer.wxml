@@ -110,7 +110,7 @@
         <view class="section t-name">
           <text class="section-title">详情</text>
         </view>
-        <view wx:if="{{false}}" class="section underline">
+        <view wx:if="{{!isContent}}" class="section underline">
           <view class="inputStyle">点击输入详情</view>
           <image class="arrow-r" src="../../images/more/enter.png" />
         </view>

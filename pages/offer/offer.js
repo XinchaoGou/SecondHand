@@ -59,7 +59,8 @@ Page({
       },
     },
 
-
+    //控制content的内容
+    isContent: false,
     //左右滑动切换模块，by yining
     currentTab: 0, //预设当前项的值
     //控制下拉刷新的提示内容的隐藏，by yining
@@ -912,9 +913,10 @@ Page({
   },
 
   toDetailPage: function (e) {
-    console.log('进入了此函数')
+    var that = this;
+    var content = that.data.offerItem.content;
     wx.navigateTo({
-      url: '../detail/detail'
+      url: '../detail/detail?content='+content
     })
 
   }

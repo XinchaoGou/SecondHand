@@ -9,7 +9,7 @@ Page({
     content: "",
     noteNowLen: 0,//备注当前字数
     noteMaxLen: 400,//备注最多字数
-    is_textarea_show: true,
+    // is_textarea_show: true,
   },
   /**
      * 物品内容，字数改变触发事件
@@ -30,15 +30,23 @@ Page({
       content: value,
       noteNowLen: len
     })
+    var str = 'offerItem.content';
     prevPage.setData({
-      offerItem: { content: value }
+      [str] : value,
+      isContent : true,
     })
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    var that = this;
+    var content = options.content;
+    console.log(content);
+    that.setData({
+      content: content,
+      noteNowLen : parseInt(content.length)
+    })
   },
 
   /**
