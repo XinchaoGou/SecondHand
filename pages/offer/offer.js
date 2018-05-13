@@ -587,19 +587,52 @@ Page({
       if (offerForm) {
         that.setData({
           offerItem : offerForm,
-          isPriceShow: true,
           isSrc: true,
           isContent: true,
           isAgree: true,
 
           isModify: true, //用于标识修改状态，发布时修改已有条目，同时修改状态切换界面删除内容
         })
-        if (offerForm.price = 0) {
-          // TODO: 价格面议的情况
+
+        //价格相关
+        if (offerForm.price == 0) {
+          // TODO: 价格面议的情况,可能有bug
           that.setData({
             isPriceShow: false,
           })
+        } else {
+          that.setData({
+            isPriceShow: true,
+          })
         }
+
+        //类别列表
+        var typeArray = that.data.typeArray;
+        var type0 = typeArray[0].indexOf(offerForm.type0);
+        var tData = that.findTypeIndex(0,type0);
+        var type1 = tData.typeArray[1].indexOf(offerForm.type1);
+        tData = that.findTypeIndex(1,type1);
+        var type2 = tData.typeArray[2].indexOf(offerForm.type2);
+
+        //城市列表
+        var cityArray = that.data.cityArray;
+        var pIndex = cityArray[0].indexOf(offerForm.province);
+        var mData = that.findCityIndex(0,pIndex);
+        var cIndex = mData.cityArray[1] .indexOf(offerForm.city);
+
+        that.setData({
+          cityIndex: [
+            pIndex,
+            cIndex
+          ],
+
+          typeIndex: [
+            type0,
+            type1,
+            type2
+          ]
+        });
+
       }
     } catch (e) {
       // Do something when catch error
@@ -694,79 +727,91 @@ Page({
     })
   },
   bindMultiPickerColumnChange: function (e) {
-    // console.log('修改的列为', e.detail.column, '，值为', e.detail.value);
-    var data = {
-      typeArray: this.data.typeArray,
-      typeIndex: this.data.typeIndex
+    var that = this;
+    that.findTypeIndex(e.detail.column,e.detail.value)
+  },
+
+  /**
+   * 根据前面列选择重建条目列表
+   * by xinchao
+   */
+  findTypeIndex: function (column,value){
+    var that = this;
+    var mData = {
+      typeArray: that.data.typeArray,
+      typeIndex: that.data.typeIndex
     };
-    data.typeIndex[e.detail.column] = e.detail.value;
-    switch (e.detail.column) {
+    mData.typeIndex[column] = value;
+
+    switch (column) {
       //如果修改的列为第一列
       case 0:
         //判断第一列选取的是哪一大类
-        switch (data.typeIndex[0]) {
+        switch (mData.typeIndex[0]) {
           case 0:
-            data.typeArray[1] = ['所有', '电子产品', '学习资料', '家具厨具', '交通工具', '其他'];
-            data.typeArray[2] = [];
+            mData.typeArray[1] = ['所有', '电子产品', '学习资料', '家具厨具', '交通工具', '其他'];
+            mData.typeArray[2] = [];
             break;
           case 1:
-            data.typeArray[1] = ['仅限zwischen', '可nach'];
-            data.typeArray[2] = ['WG', 'Haus'];
+            mData.typeArray[1] = ['仅限zwischen', '可nach'];
+            mData.typeArray[2] = ['WG', 'Haus'];
             break;
           case 2:
-            data.typeArray[1] = [];
-            data.typeArray[2] = [];
+            mData.typeArray[1] = [];
+            mData.typeArray[2] = [];
             break;
         }
-        data.typeIndex[1] = 0;
-        data.typeIndex[2] = 0;
+        mData.typeIndex[1] = 0;
+        mData.typeIndex[2] = 0;
         break;
       //如果修改的列为第二列
       case 1:
-        switch (data.typeIndex[0]) {
+        switch (mData.typeIndex[0]) {
           //此时如果第一列为第一个大类
           case 0:
             //判断第二列选择的是哪一小类
-            switch (data.typeIndex[1]) {
+            switch (mData.typeIndex[1]) {
               case 0:
-                data.typeArray[2] = [];
+                mData.typeArray[2] = [];
                 break;
               case 1:
-                data.typeArray[2] = ['所有', '手机', '电脑', '其他'];
+                mData.typeArray[2] = ['所有', '手机', '电脑', '其他'];
                 break;
               case 2:
-                data.typeArray[2] = ['所有', '教材', '笔记', '其他'];
+                mData.typeArray[2] = ['所有', '教材', '笔记', '其他'];
                 break;
               case 3:
-                data.typeArray[2] = ['所有', '台灯', '床垫', '电饭锅', '电磁炉', '其他'];
+                mData.typeArray[2] = ['所有', '台灯', '床垫', '电饭锅', '电磁炉', '其他'];
                 break;
               case 4:
-                data.typeArray[2] = ['所有', '自行车', '汽车', '其他'];
+                mData.typeArray[2] = ['所有', '自行车', '汽车', '其他'];
                 break;
               case 5:
-                data.typeArray[2] = [''];
+                mData.typeArray[2] = [''];
                 break;
             }
             break;
           //此时如果第一列为第二个大类
           case 1:
             //判断第二列选择的是哪一小类
-            switch (data.typeIndex[1]) {
+            switch (mData.typeIndex[1]) {
               case 0:
-                data.typeArray[2] = ['WG', 'Haus'];
+                mData.typeArray[2] = ['WG', 'Haus'];
                 break;
               case 1:
-                data.typeArray[2] = ['WG', 'Haus'];
+                mData.typeArray[2] = ['WG', 'Haus'];
                 break;
             }
             break;
         }
-        data.typeIndex[2] = 0;
-        // console.log(data.typeIndex);
+        mData.typeIndex[2] = 0;
+        // console.log(mData.typeIndex);
         break;
     }
-    this.setData(data);
+    this.setData(mData);
+    return mData;
   },
+
   //picker多列选择器，选择所在城市
   bindMultiPickerChange1: function (e) {
     // console.log('picker发送选择改变，携带值为', e.detail.value)
@@ -775,74 +820,83 @@ Page({
     })
   },
   bindMultiPickerColumnChange1: function (e) {
-    // console.log('修改的列为', e.detail.column, '，值为', e.detail.value);
-    var data = {
-      cityArray: this.data.cityArray,
-      cityIndex: this.data.cityIndex
+    var that = this;
+    that.findCityIndex(e.detail.column,e.detail.value);
+  },
+
+  /**
+   * 根据前面列重建城市列表数组
+   * by xinchao
+   */
+  findCityIndex: function (column,value){
+    var that = this;
+    var mData = {
+      cityArray: that.data.cityArray,
+      cityIndex: that.data.cityIndex
     };
-    data.cityIndex[e.detail.column] = e.detail.value;
-    switch (e.detail.column) {
+    mData.cityIndex[column] = value;
+    switch (column) {
       //如果修改的列为第一列
       case 0:
-        switch (data.cityIndex[0]) {
+        switch (mData.cityIndex[0]) {
           //判断第一列选择的是哪一类
           case 0:
-            data.cityArray[1] = [];
+            mData.cityArray[1] = [];
             break;
           case 1:
-            data.cityArray[1] = ['所有地区', 'Stuttgart', 'Karlsruhe', 'Mannheim', 'Freiburg', 'Heidelberg', 'Tübingen', '其他城市'];
+            mData.cityArray[1] = ['所有地区', 'Stuttgart', 'Karlsruhe', 'Mannheim', 'Freiburg', 'Heidelberg', 'Tübingen', '其他城市'];
             break;
           case 2:
-            data.cityArray[1] = ['所有地区', 'München', 'Nürnberg', 'Algusburg', 'Regensburg', 'Ingolstadt', 'Würzburg', 'Fürth', 'Erlangen', '其他城市'];
+            mData.cityArray[1] = ['所有地区', 'München', 'Nürnberg', 'Algusburg', 'Regensburg', 'Ingolstadt', 'Würzburg', 'Fürth', 'Erlangen', '其他城市'];
             break;
           case 3:
-            data.cityArray[1] = [''];
+            mData.cityArray[1] = [''];
             break;
           case 4:
-            data.cityArray[1] = ['所有地区', 'Potsdam', '其他城市'];
+            mData.cityArray[1] = ['所有地区', 'Potsdam', '其他城市'];
             break;
           case 5:
-            data.cityArray[1] = [''];
+            mData.cityArray[1] = [''];
             break;
           case 6:
-            data.cityArray[1] = [''];
+            mData.cityArray[1] = [''];
             break;
           case 7:
-            data.cityArray[1] = ['所有地区', 'Frankfurt', 'Wiesbaden', 'Kassel', 'Darmstadt', 'Offenbach', '其他城市'];
+            mData.cityArray[1] = ['所有地区', 'Frankfurt', 'Wiesbaden', 'Kassel', 'Darmstadt', 'Offenbach', '其他城市'];
             break;
           case 8:
-            data.cityArray[1] = ['所有地区', 'Rostock', 'Schwerin', '其他城市'];
+            mData.cityArray[1] = ['所有地区', 'Rostock', 'Schwerin', '其他城市'];
             break;
           case 9:
-            data.cityArray[1] = ['所有地区', 'Hannover', 'Braunschweig', 'Wolfsburg', 'Osnabrück', 'Oldenburg', 'Göttingen', '其他城市'];
+            mData.cityArray[1] = ['所有地区', 'Hannover', 'Braunschweig', 'Wolfsburg', 'Osnabrück', 'Oldenburg', 'Göttingen', '其他城市'];
             break;
           case 10:
-            data.cityArray[1] = ['所有地区', 'Köln', 'Düsseldorf', 'Dortmund', 'Essen', 'Duisburg', 'Bochum', 'Wuppertal', 'Bielefeld', 'Bonn', 'Münster', 'Aachen', '其他城市'];
+            mData.cityArray[1] = ['所有地区', 'Köln', 'Düsseldorf', 'Dortmund', 'Essen', 'Duisburg', 'Bochum', 'Wuppertal', 'Bielefeld', 'Bonn', 'Münster', 'Aachen', '其他城市'];
             break;
           case 11:
-            data.cityArray[1] = ['所有地区', 'Mainz', 'Ludwigshafen', 'Trier', 'Kaiserslautern', 'Worms', '其他城市'];
+            mData.cityArray[1] = ['所有地区', 'Mainz', 'Ludwigshafen', 'Trier', 'Kaiserslautern', 'Worms', '其他城市'];
             break;
           case 12:
-            data.cityArray[1] = ['所有地区', 'Saarbrücken', 'Neunkirchen', '其他城市'];
+            mData.cityArray[1] = ['所有地区', 'Saarbrücken', 'Neunkirchen', '其他城市'];
             break;
           case 13:
-            data.cityArray[1] = ['所有地区', 'Dresden', 'Leipzig', 'Chemnitz', '其他城市'];
+            mData.cityArray[1] = ['所有地区', 'Dresden', 'Leipzig', 'Chemnitz', '其他城市'];
             break;
           case 14:
-            data.cityArray[1] = ['所有地区', 'Halle', 'Magdeburg', '其他城市'];
+            mData.cityArray[1] = ['所有地区', 'Halle', 'Magdeburg', '其他城市'];
             break;
           case 15:
-            data.cityArray[1] = ['所有地区', 'Kiel', 'Lübeck', '其他城市'];
+            mData.cityArray[1] = ['所有地区', 'Kiel', 'Lübeck', '其他城市'];
             break;
           case 16:
-            data.cityArray[1] = ['所有地区', 'Erfurt', 'Jena', 'Gera', 'Weimar', '其他城市'];
+            mData.cityArray[1] = ['所有地区', 'Erfurt', 'Jena', 'Gera', 'Weimar', '其他城市'];
             break;
         }
-        data.cityIndex[1] = 0;
-        // console.log(data.cityIndex);
+        mData.cityIndex[1] = 0;
         break;
     }
-    this.setData(data);
+    that.setData(mData);
+    return mData;
   },
 
   toDetailPage: function (e) {
