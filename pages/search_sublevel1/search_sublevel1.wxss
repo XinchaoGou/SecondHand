@@ -1,7 +1,5 @@
 /* pages/search_sublevel1/search_sublevel1.wxss */
 
-/* pages/search/search.wxss */
-
 page {
   height: 100%;
   background-color: #efeff4;
