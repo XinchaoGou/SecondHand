@@ -199,8 +199,6 @@ Page({
   searchOfferList: function () {
     console.log("从云端搜索发布列表");
     var that = this;
-    // var currentUser = Bmob.User.current();
-    // var objectId = currentUser.id;
     var userId = Bmob.User.current().id;
 
     var Offer = Bmob.Object.extend("Offer");
@@ -254,7 +252,6 @@ Page({
         query.descending('createdAt');  //排序
         query.find({
           success: function (list) {
-            // list contains post liked by the current user which have the title "I'm Hungry".
             console.log("查询到" + list.length + "条收藏");
             var favourArray = [];
             for (let i = 0; i < list.length; i++) {
