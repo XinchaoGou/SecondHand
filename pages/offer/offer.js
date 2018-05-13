@@ -7,22 +7,12 @@ Page({
     //表单验证相关
     isShowTopTips: false,
     TopTips: '',
-    //发布标题
-    // title: '',
+    //标题
     isFocus: false,
-    //物品类别
-    types: ["所有种类", "房屋租赁", "电子产品", "学习资料", "家具", "交通工具", "乐器", "有偿帮带", "其他"],
-    typeIndex: "0",
-    //交易地点
-    // address: '点击选择位置',
-    // longitude: 0, //经度
-    // latitude: 0,//纬度
-    //物品价格 TODO:
-    // price: 0,
+    //价格
     isPriceShow: false,
     isPriceFocus: false,
-    //物品内容
-    // content: "",
+    //物品详情
     noteNowLen: 0,//备注当前字数
     noteMaxLen: 400,//备注最多字数
     //物品图片
@@ -54,7 +44,7 @@ Page({
       publisher: '',
       contact: {
         wxNumber: '',
-        phoneNumber: '',
+        phoneNumber: 0,
         eMail: ''
       },
     },
@@ -256,53 +246,21 @@ Page({
   */
   upLoadOfferToCloud: function (e, urlArr) {
     var that = this;
-    // console.log("进入了c")
-
-    //发布内容相关
-    var title = e.detail.value.title;//发布标题
-
-    //FIXME:物品类别
-    var typeIndex = that.data.typeIndex;
-    var types = that.data.types;
-    var typeName = types[typeIndex];
-
-    var address = that.data.address;//交易地点
-    // var longitude = that.data.longitude; //经度
-    // var latitude = that.data.latitude;//纬度
-    // var location = new Bmob.GeoPoint({ latitude: latitude, longitude: longitude });
-    var location = that.data.offerItem.location;
-
-    var price = e.detail.value.price;//物品价格
-    var content = e.detail.value.content;//物品内容
-    //发布人联系方式
-    var wxNumber = e.detail.value.wxNumber;//微信号
-    var phoneNumber = e.detail.value.phoneNumber;//手机号
-    var eMail = e.detail.value.eMail;//邮箱
-    var picUrlArray = urlArr; //图片url
-    //关联发布人
-    var User = Bmob.Object.extend("_User");
-    var publisher = Bmob.Object.createWithoutData("_User", Bmob.User.current().id);
-
-    //TODO: test 使用新的结构体
-
+    var tOfferItem = that.data.offerItem;
 
     //上传表单数据到数据库
     var Offer = Bmob.Object.extend("Offer");
     var offer = new Offer();
-    offer.set("title", title);
-    offer.set("typeName", typeName);
-    offer.set("address", address);
-    offer.set("location", location);
-    offer.set("price", parseFloat(price));
-    offer.set("content", content);
-    offer.set("wxNumber", wxNumber);
-    offer.set("publisher", publisher);
-    if (phoneNumber != "") {
-      offer.set("phoneNumber", parseInt(phoneNumber));
-    }
-    offer.set("eMail", eMail);
-    offer.set("picUrlArray", picUrlArray);
-    // console.log("进入了")
+    offer.set("title", tOfferItem.title);
+    // offer.set("typeName", typeName);
+    offer.set("address", tOfferItem.address);
+    // offer.set("location", tOfferItem.location);
+    offer.set("price", parseFloat(tOfferItem.price));
+    offer.set("content", tOfferItem.content);
+    offer.set("publisher", tOfferItem.publisher);
+    offer.set("picUrlArray", tOfferItem.picUrlArray);
+    offer.set("contact", tOfferItem.contact);
+
     //添加数据，第一个入口参数是null
     offer.save(null, {
       success: function (result) {
@@ -325,21 +283,6 @@ Page({
         })
       }
     });
-  },
-
-
-
-  /**
-   * 改变物品类别
-   * TODO: 好想已经弃用了
-   * by xinchao
-   */
-  bindTypeChange: function (e) {
-    console.log('没有弃用！！！');
-    // var that = this;
-    // that.setData({
-    //   typeIndex: e.detail.value
-    // })
   },
 
   /**
@@ -371,23 +314,6 @@ Page({
       },
       complete: function (e) {
       }
-    })
-  },
-
-
-  /**
-   * 物品内容，字数改变触发事件
-   * by xinchao
-   */
-  bindTextAreaChange: function (e) {
-    var that = this
-    var value = e.detail.value,
-      len = parseInt(value.length);
-    if (len > that.data.noteMaxLen)
-      return;
-    that.setData({
-      content: value,
-      noteNowLen: len
     })
   },
 
@@ -444,7 +370,6 @@ Page({
     var that = this;
     that.setData({
       isAgree: !that.data.isAgree,
-      // isAgree: !that.data.isAgree,
       currentTab: 0  //每次点开输入界面时，都显示第一个模板，by yining
     });
   },
@@ -463,7 +388,6 @@ Page({
     var that = this;
     that.setData({
       is_notice_status: true,
-      // is_textarea_show: false, //取消显示textarea，防止bug
     });
   },
   hideNotice: function (e) {
@@ -490,12 +414,13 @@ Page({
     // FIXME: location 类型有问题
     var location = that.data.offerItem.location;
     var picUrlArray = that.data.offerItem.picUrlArray;
+    var content = that.data.offerItem.content;
 
+    //FIXME: 价格有bug，仔细考虑一下
     var price = e.detail.value.price;//物品价格
     if (!price) { //price 没输入
       price = that.data.offerItem.price;
     }
-    var content = e.detail.value.content;//FIXME:物品内容
     
     //发布人联系方式
     var currentTab = that.data.currentTab;
@@ -512,7 +437,7 @@ Page({
       }
     }
 
-    //关联发布人 TODO:
+    //关联发布人
     var User = Bmob.Object.extend("_User");
     var publisher = Bmob.Object.createWithoutData("_User", Bmob.User.current().id);
 
@@ -612,7 +537,8 @@ Page({
     })
   },
 
-  //TODO: 好像没有调用，是不可以删除
+  //TODO: 好像没有调用，是不可以删除 
+  //by yining
   inputPriceTap: function () {
     var that = this;
     that.setData({
