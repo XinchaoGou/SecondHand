@@ -11,12 +11,12 @@ Page({
     // title: '',
     isFocus: false,
     //物品类别
-    // types: ["所有种类", "房屋租赁", "电子产品", "学习资料", "家具", "交通工具", "乐器", "有偿帮带", "其他"],
-    // typeIndex: "0",
+    types: ["所有种类", "房屋租赁", "电子产品", "学习资料", "家具", "交通工具", "乐器", "有偿帮带", "其他"],
+    typeIndex: "0",
     //交易地点
     // address: '点击选择位置',
-    longitude: 0, //经度
-    latitude: 0,//纬度
+    // longitude: 0, //经度
+    // latitude: 0,//纬度
     //物品价格 TODO:
     // price: 0,
     isPriceShow: false,
@@ -28,7 +28,7 @@ Page({
     //物品图片
     isSrc: false,
     is9: false,
-    tempFilePaths: [],
+    // tempFilePaths: [],
     //阅读并同意填写联系方式
     isAgree: false,
     // isAgree: false,//显示输入真实姓名,
@@ -45,8 +45,8 @@ Page({
     //new Structure
     offerItem: {
       title: '',
-      typeName: '',
-      address: '',
+      // typeName: '',
+      address: '点击选择位置',
       location: null,
       price: 0,
       picUrlArray: [],
@@ -66,13 +66,13 @@ Page({
     pastpos: 20,
     //联系方式模板的数组变量，by yining TODO:
     contactList: [{
-      wxNumber:'deutschning',
+      wxNumber: 'deutschning',
       phoneNumber: 18817870927,
-      eMail : 'liuyn_tongji@163.com'
-    },{
-      wxNumber:'刘一宁大傻逼',
+      eMail: 'liuyn_tongji@163.com'
+    }, {
+      wxNumber: '刘一宁大傻逼',
       phoneNumber: 110,
-      eMail : 'liuyn_sha@163.com'
+      eMail: 'liuyn_sha@163.com'
     }],
     //类别的picker组件更换为多列选择器, by yining
     //picker组件的多列选择器
@@ -191,10 +191,10 @@ Page({
     }
   },
 
-    /**
-   * 封装发布照片到服务器
-   * by xinchao
-   */
+  /**
+ * 封装发布照片到服务器
+ * by xinchao
+ */
   upLoadPicToCloud: function () {
     //同步封装上传照片到云端
     var that = this;
@@ -266,9 +266,11 @@ Page({
     var typeName = types[typeIndex];
 
     var address = that.data.address;//交易地点
-    var longitude = that.data.longitude; //经度
-    var latitude = that.data.latitude;//纬度
-    var location = new Bmob.GeoPoint({ latitude: latitude, longitude: longitude });
+    // var longitude = that.data.longitude; //经度
+    // var latitude = that.data.latitude;//纬度
+    // var location = new Bmob.GeoPoint({ latitude: latitude, longitude: longitude });
+    var location = that.data.offerItem.location;
+
     var price = e.detail.value.price;//物品价格
     var content = e.detail.value.content;//物品内容
     //发布人联系方式
@@ -341,7 +343,6 @@ Page({
 
   /**
    * 选择交易地点
-   * TODO: 根据重构的代码修改
    * by xinchao
    */
   addressChange: function (e) {
@@ -349,11 +350,17 @@ Page({
     wx.chooseLocation({
       success: function (res) {
         //电脑调试的时候，经纬度为空，手机上可以运行
+        var str = 'offerItem.address';
+        var str_location = 'offerItem.location';
+        var location = new Bmob.GeoPoint({
+          latitude: res.latitude,
+          longitude: res.longitude
+        });
         that.setData({
-          address: res.name,
-          longitude: res.longitude, //经度
-          latitude: res.latitude,//纬度
+          [str]: res.name,
+          [str_location]: location
         })
+        //FIXME:
         if (e.detail && e.detail.value) {
           console.log("这里可能有bug");
           this.data.address = e.detail.value;
@@ -385,7 +392,7 @@ Page({
 
   /**
    * 上传活动图片
-   * 物品图片 TODO: 根据重构的代码修改
+   * 物品图片
    * by xinchao
    */
   uploadPic: function () {//选择图标
@@ -406,7 +413,7 @@ Page({
           isSrc: true,
           [str]: tempFilePaths
         })
-        //超过9张图片取消添加按钮
+        //9张图片取消添加按钮
         if (tempFilePaths.length >= 9) {
           that.setData({
             is9: true,
@@ -474,13 +481,42 @@ Page({
   showTopTips: function (e) {
     var that = this;
     var title = e.detail.value.title;//发布标题
-    var address = that.data.address;//交易地点
+
+    //test TODO:
+    var address = that.data.offerItem.address;//交易地点
+    var location = that.data.offerItem.location;
+    var picUrlArray = that.data.offerItem.picUrlArray;
+
+
     var price = e.detail.value.price;//物品价格
     var content = e.detail.value.content;//物品内容
-    //发布人联系方式
+    // //发布人联系方式
     var wxNumber = e.detail.value.wxNumber;//微信号
     var phoneNumber = e.detail.value.phoneNumber;//手机号
     var eMail = e.detail.value.eMail;//邮箱
+
+    var tOfferItem = {
+      title: title,
+      // typeName: '',
+      address: address,
+      location: location,
+      price: price,
+      picUrlArray: picUrlArray,
+      content: content,
+      contact: {
+        wxNumber: wxNumber,
+        phoneNumber: phoneNumber,
+        eMail: eMail
+      }
+    }
+
+    //使用新结构体存储表单数据
+    that.setData({
+      offerItem: tOfferItem
+    })
+
+
+
     var flag = true;
 
     if (title == "") {
@@ -497,7 +533,7 @@ Page({
         TopTips: '请选择交易地点'
       });
     }
-    else if (price == "") {
+    else if (price == 0) {
       flag = false;
       this.setData({
         isShowTopTips: true,
@@ -511,7 +547,7 @@ Page({
         TopTips: '请输入物品详情介绍'
       });
     }
-    else if ((wxNumber == "") && (eMail == "") && (phoneNumber == "")) {
+    else if ((wxNumber == "") && (eMail == "") && (phoneNumber == 0)) {
       flag = false;
       this.setData({
         isShowTopTips: true,
@@ -676,7 +712,7 @@ Page({
     query.exec(function (res) {
       res[0].top       // #the-id节点的上边界坐标
       res[1].scrollTop // 显示区域的竖直滚动位置
-      console.log(res[1].scrollTop, that.data.pastpos)
+      // console.log(res[1].scrollTop, that.data.pastpos)
       if (res[1].scrollTop < that.data.pastpos && res[1].scrollTop < 20 && res[1].scrollTop >= 0) {
         that.setData({
           isHidePulldownRefresh: false
@@ -845,7 +881,7 @@ Page({
             break;
         }
         data.multiCityIndex[1] = 0;
-        console.log(data.multiCityIndex);
+        // console.log(data.multiCityIndex);
         break;
     }
     this.setData(data);
