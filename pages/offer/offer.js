@@ -48,12 +48,12 @@ Page({
       // typeName: '',
       address: '点击选择位置',
       location: null,
-      price: 0,
+      price: '',
       picUrlArray: [],
       content: '',
       contact: {
         wxNumber: '',
-        phoneNumber: 0,
+        phoneNumber: '',
         eMail: ''
       }
     },

@@ -18,14 +18,20 @@ Page({
      * 从offer.js页面直接摘抄by yining
      */
   bindTextAreaChange: function (e) {
-    var that = this
+
+    var pages = getCurrentPages();
+    var currPage = pages[pages.length - 1]; //当前页面 
+    var prevPage = pages[pages.length - 2]; //上一个页面 //直接调用上一个页面的setData()方法，把数据存到上一个页面中去 
     var value = e.detail.value,
       len = parseInt(value.length);
-    if (len > that.data.noteMaxLen)
+    if (len > currPage.data.noteMaxLen)
       return;
-    that.setData({
+    currPage.setData({
       content: value,
       noteNowLen: len
+    })
+    prevPage.setData({
+      offerItem: { content: value }
     })
   },
   /**
