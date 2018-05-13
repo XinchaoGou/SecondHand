@@ -594,10 +594,14 @@ Page({
 
           isModify: true, //用于标识修改状态，发布时修改已有条目，同时修改状态切换界面删除内容
         })
-        if (offerForm.price = 0) {
-          // TODO: 价格面议的情况
+        if (offerForm.price == 0) {
+          // TODO: 价格面议的情况,可能有bug
           that.setData({
             isPriceShow: false,
+          })
+        } else {
+          that.setData({
+            isPriceShow: true,
           })
         }
       }
