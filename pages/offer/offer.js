@@ -12,26 +12,30 @@ Page({
     //价格
     isPriceShow: false,
     isPriceFocus: false,
-    //物品详情
-    noteNowLen: 0,//备注当前字数
-    noteMaxLen: 400,//备注最多字数
+    //用户输入了物品详情
+    isContent: false,
     //物品图片
     isSrc: false,
     is9: false,
-    // tempFilePaths: [],
     //阅读并同意填写联系方式
     isAgree: false,
-    // isAgree: false,//显示输入真实姓名,
     //发布须知
     is_notice_status: false,
     //发布按钮禁用
     isdisabled: false,
-    // is_textarea_show: true,
-
     //修改发布内容
     isModify: false,
-    // isPicArrayFromCloud: false,
 
+    //联系方式模板的数组变量，by xinchao TODO:现在只是模版，应该从用户查询
+    contactList: [{
+      wxNumber: 'deutschning',
+      phoneNumber: 18817870927,
+      eMail: 'liuyn_tongji@163.com'
+    }, {
+      wxNumber: '刘一宁大傻逼',
+      phoneNumber: 110,
+      eMail: 'liuyn_sha@163.com'
+    }],
     //new Structure
     offerItem: {
       title: '',
@@ -49,23 +53,13 @@ Page({
       },
     },
 
-    //控制content的内容
-    isContent: false,
+
     //左右滑动切换模块，by yining
     currentTab: 0, //预设当前项的值
     //控制下拉刷新的提示内容的隐藏，by yining
     isHidePulldownRefresh: true,
     pastpos: 20,
-    //联系方式模板的数组变量，by yining TODO:
-    contactList: [{
-      wxNumber: 'deutschning',
-      phoneNumber: 18817870927,
-      eMail: 'liuyn_tongji@163.com'
-    }, {
-      wxNumber: '刘一宁大傻逼',
-      phoneNumber: 110,
-      eMail: 'liuyn_sha@163.com'
-    }],
+
     //类别的picker组件更换为多列选择器, by yining
     //picker组件的多列选择器
     multiArray: [['二手物品', '房屋租赁', '有偿帮带'], ['所有', '电子产品', '学习资料', '家具厨具', '交通工具', '其他'], ['']],
@@ -80,7 +74,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    // that = this;
+    
   },
 
   /**
@@ -88,45 +82,10 @@ Page({
    * by xinchao
    */
   clearData: function () {
-    // var that = this;
-    // that.setData({
-    //   //表单验证相关 TODO:
-    //   isShowTopTips: false,
-    //   TopTips: '',
-    //   //发布标题
-    //   title: '',
-    //   isFocus: false,
-    //   //物品类别
-    //   multiArray: [['二手物品', '房屋租赁', '有偿帮带'], ['所有', '电子产品', '学习资料', '家具厨具', '交通工具', '其他'], ['']],
-    //   multiIndex: [0, 0, 0],
-    //   //交易地点
-    //   address: '点击选择位置',
-    //   longitude: 0, //经度
-    //   latitude: 0,//纬度
-    //   //物品价格 TODO:
-    //   // price: 0,
-    //   isPriceShow: false,
-    //   isPriceFocus: false,
-    //   //物品内容
-    //   content: "",
-    //   noteNowLen: 0,//备注当前字数
-    //   noteMaxLen: 400,//备注最多字数
-    //   //物品图片
-    //   isSrc: false,
-    //   is9: false,
-    //   tempFilePaths: [],
-    //   //阅读并同意填写联系方式
-    //   isAgree: false,
-    //   isAgree: false,//显示输入真实姓名,
-    //   //发布须知
-    //   is_notice_status: false,
-    //   //发布按钮禁用
-    //   isdisabled: false,
-    //   is_textarea_show: true,
+    var that = this;
+    that.setData({
 
-    //   //修改发布内容
-    //   isModify: false,
-    // })
+    })
   },
 
   /**
@@ -159,11 +118,9 @@ Page({
 
     //表单验证
     if (that.showTopTips(e)) {
-
       wx.showLoading({
         title: '加载中',
       })
-
       // 上传图片到服务器获得URL
       const promise = that.upLoadPicToCloud();
       promise.then(function (urlArr) {
@@ -403,7 +360,7 @@ Page({
    * 将要发布的信息存入结构体
    * by xinchao
    */
-  formToOfferItem: function (e){
+  formToOfferItem: function (e) {
     var that = this;
     var title = e.detail.value.title;//发布标题
 
@@ -421,7 +378,7 @@ Page({
     if (!price) { //price 没输入
       price = that.data.offerItem.price;
     }
-    
+
     //发布人联系方式
     var currentTab = that.data.currentTab;
     var contactList = that.data.contactList;
@@ -842,7 +799,7 @@ Page({
     var that = this;
     var content = that.data.offerItem.content;
     wx.navigateTo({
-      url: '../detail/detail?content='+content
+      url: '../detail/detail?content=' + content
     })
 
   }
