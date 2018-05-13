@@ -26,20 +26,11 @@ Page({
     //修改发布内容
     isModify: false,
 
-    //联系方式模板的数组变量，by xinchao TODO:现在只是模版，应该从用户查询
-    contactList: [{
-      wxNumber: 'deutschning',
-      phoneNumber: 18817870927,
-      eMail: 'liuyn_tongji@163.com'
-    }, {
-      wxNumber: '刘一宁大傻逼',
-      phoneNumber: 110,
-      eMail: 'liuyn_sha@163.com'
-    }],
+    //联系方式模板的数组变量，by xinchao
+    contactList: [],
     //new Structure
     offerItem: {
       title: '',
-      // typeName: '',
       address: '点击选择位置',
       location: null,
       price: '',
@@ -51,6 +42,14 @@ Page({
         phoneNumber: 0,
         eMail: ''
       },
+
+      //type
+      type0: '',
+      type1: '',
+      type2: '',
+      //city
+      province: '',
+      city: '',
     },
 
 
@@ -74,17 +73,68 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
+    that.getContactList();
+  },
+
+  //TODO:获得用户的联系方式模版
+  getContactList: function () {
+    var that = this;
+    that.setData({
+    contactList: [{
+      wxNumber: 'deutschning',
+      phoneNumber: 18817870927,
+      eMail: 'liuyn_tongji@163.com'
+    }, {
+      wxNumber: '刘一宁大傻逼',
+      phoneNumber: 110,
+      eMail: 'liuyn_sha@163.com'
+    }],
+    })
   },
 
   /**
-   * 重置表单数据，清空表单 FIXME:
+   * 重置表单数据，清空表单
    * by xinchao
    */
   clearData: function () {
     var that = this;
     that.setData({
+      isShowTopTips: false,
+      isPriceShow: false,
+      isContent: false,
+      isSrc: false,
+      is9: false,
+      isAgree: false,
+      is_notice_status: false,
+      isdisabled: false,
+      isModify: false,
+      //左右滑动切换模块，by yining
+      currentTab: 0, //预设当前项的值
+      //控制下拉刷新的提示内容的隐藏，by yining
+      isHidePulldownRefresh: true,
+      //new Structure
+      offerItem: {
+        title: '',
+        address: '点击选择位置',
+        location: null,
+        price: '',
+        picUrlArray: [],
+        content: '',
+        publisher: '',
+        contact: {
+          wxNumber: '',
+          phoneNumber: 0,
+          eMail: ''
+        },
 
+        //type
+        type0: '',
+        type1: '',
+        type2: '',
+        //city
+        province: '',
+        city: '',
+      },
     })
   },
 
@@ -112,7 +162,7 @@ Page({
     //设置禁用按钮
     that.setData({
       isdisabled: true
-    }) 
+    })
     //表单验证
     if (that.showTopTips(e)) {
       wx.showLoading({
@@ -354,7 +404,14 @@ Page({
     var that = this;
     var title = e.detail.value.title;//发布标题
 
-    var type0 = that.data.typeArray[0]
+    //发布类别，真丑囧。。。
+    var type0 = that.data.typeArray[0][that.data.typeIndex[0]];
+    var type1 = that.data.typeArray[1][that.data.typeIndex[1]];
+    var type2 = that.data.typeArray[2][that.data.typeIndex[2]];
+    //同城范围
+    var province = that.data.cityArray[0][that.data.cityIndex[0]];
+    var city = that.data.cityArray[1][that.data.cityIndex[1]];
+
 
     var address = e.detail.value.address;
     if (!address) { //address 没输入
@@ -393,7 +450,6 @@ Page({
 
     var tOfferItem = {
       title: title,
-      // typeName: '',
       address: address,
       location: location,
       price: price,
@@ -401,6 +457,15 @@ Page({
       content: content,
       contact: contact,
       publisher: publisher,
+
+      //type
+      type0: type0,
+      type1: type1,
+      type2: type2,
+      //city
+      province: province,
+      city: city,
+
     }
     //使用新结构体存储表单数据
     that.setData({

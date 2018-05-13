@@ -40,13 +40,13 @@
         </picker>
 
         <!-- 2.2.1 同城范围 TODO:-->
-        <picker mode="multiSelector" bindchange="bindMultiPickerChange1" bindcolumnchange="bindMultiPickerColumnChange1" value="{{multiCityIndex}}" range="{{cityArray}}" class="adressblock">
+        <picker mode="multiSelector" bindchange="bindMultiPickerChange1" bindcolumnchange="bindMultiPickerColumnChange1" value="{{cityIndex}}" range="{{cityArray}}" class="adressblock">
           <view class="section">
             <text class="section-title">同城范围</text>
           </view>
 
           <view class="section underline t-name">
-            <view class="input" name="types">{{cityArray[0][multiCityIndex[0]]}} {{cityArray[1][multiCityIndex[1]]}} {{cityArray[2][multiCityIndex[2]]}}
+            <view class="input" name="types">{{cityArray[0][cityIndex[0]]}} {{cityArray[1][cityIndex[1]]}} {{cityArray[2][cityIndex[2]]}}
             </view>
             <image class="arrow-r" src="../../images/more/enter.png" />
           </view>
