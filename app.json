@@ -4,7 +4,8 @@
     "pages/search_section/search_section",
     "pages/offer/offer",
     "pages/me/me",
-    "pages/search_sublevel1/search_sublevel1"
+    "pages/search_sublevel1/search_sublevel1",
+    "pages/detail/detail"
   ],
   "window": {
     "navigationBarBackgroundColor": "#32A189",

@@ -66,7 +66,7 @@ Page({
     isHidePulldownRefresh: true,
     pastpos: 20,
     //联系方式模板的数组变量，by yining
-    contactList: [1,2],
+    contactList: [1, 2],
     //类别的picker组件更换为多列选择器, by yining
     //picker组件的多列选择器
     multiArray: [['二手物品', '房屋租赁', '有偿帮带'], ['所有', '电子产品', '学习资料', '家具厨具', '交通工具', '其他'], ['']],
@@ -839,5 +839,13 @@ Page({
         break;
     }
     this.setData(data);
+  },
+
+  toDetailPage: function (e) {
+    console.log('进入了此函数')
+    wx.navigateTo({
+      url: '../detail/detail'
+    })
+
   }
 })
