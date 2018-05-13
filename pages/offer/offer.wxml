@@ -18,17 +18,18 @@
           <text class="section-title">发布标题</text>
         </view>
         <view class="section underline t-name">
-          <input name="title" class="input" maxlength="30" placeholder-class="inputStyle" placeholder="请输入标题" value="{{title}}" focus="{{isFocus}}" />
+          <input name="title" class="input" maxlength="30" placeholder-class="inputStyle" placeholder="请输入标题" value="{{offerItem.title}}"
+            focus="{{isFocus}}" />
           <image class="arrow-r" src="../../images/more/enter.png" />
         </view>
       </view>
 
-
       <!--2.2 物品类别，交易地点及物品价格 -->
       <view class="section-big style2">
 
-        <!-- 2.2.1 物品类别 -->
-        <picker mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}" class="adressblock">
+        <!-- 2.2.1 物品类别 TODO:-->
+        <picker mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}"
+          range="{{multiArray}}" class="adressblock">
           <view class="section">
             <text class="section-title">发布类别</text>
           </view>
@@ -40,8 +41,9 @@
           </view>
         </picker>
 
-        <!-- 2.2.1 同城范围 -->
-        <picker mode="multiSelector" bindchange="bindMultiPickerChange1" bindcolumnchange="bindMultiPickerColumnChange1" value="{{multiCityIndex}}" range="{{multiCityArray}}" class="adressblock">
+        <!-- 2.2.1 同城范围 TODO:-->
+        <picker mode="multiSelector" bindchange="bindMultiPickerChange1" bindcolumnchange="bindMultiPickerColumnChange1" value="{{multiCityIndex}}"
+          range="{{multiCityArray}}" class="adressblock">
           <view class="section">
             <text class="section-title">同城范围</text>
           </view>
@@ -55,13 +57,13 @@
 
 
         <!-- 2.2.2 交易地点 -->
-        <view class="adressblock" catchtap="addressChange" value="{{address}}">
+        <view class="adressblock" catchtap="addressChange" value="{{offerItem.address}}">
           <view class="section">
             <text class="section-title">交易地点</text>
           </view>
           <!-- 2.2.3 交易地点换行 -->
           <view class="section underline t-name">
-            <text name="address" class="input">{{address}}</text>
+            <text name="address" class="input">{{offerItem.address}}</text>
             <image class="arrow-r" src="../../images/more/enter.png" />
           </view>
         </view>
@@ -79,7 +81,8 @@
         <!-- 2.2.4.1 价格设置 -->
 
         <view wx:if="{{isPriceShow}}" class="section underline t-name">
-          <input name="price" type="number" class="input" maxlength="100" confirm-hold="false" placeholder-class="inputStyle" placeholder="请输入价格" value="{{price}}" confirm-type="done" cursor-spacing="20" />
+          <input name="price" type="number" class="input" maxlength="100" confirm-hold="false" placeholder-class="inputStyle" placeholder="请输入价格"
+            value="{{offerItem.price}}" confirm-type="done" cursor-spacing="20" />
           <text class="euro">€</text>
         </view>
       </view>
@@ -90,7 +93,7 @@
         <!-- 2.3.1 显示已添加图片 TODO-->
         <scroll-view class="scrollx" scroll-x>
           <view class="scrollstyle">
-            <view wx:if="{{isSrc}}" wx:for="{{tempFilePaths}}">
+            <view wx:if="{{isSrc}}" wx:for="{{offerItem.picUrlArray}}">
               <view class="picPre">
                 <image src="{{item}}" mode="aspectFill" />
                 <view bindtap="clearPic" data-clearid="{{index}}"></view>
@@ -105,8 +108,7 @@
 
       </view>
 
-      <!-- 2.3.3 物品详情--多行文字输入模块-->
-
+      <!-- 2.3.3 物品详情多行文字输入模块-->
       <view catchtap="toDetailPage" class="section-big style1 mt20">
         <view class="section t-name">
           <text class="section-title">详情</text>
@@ -115,18 +117,18 @@
           <textarea wx:if="{{is_textarea_show}}" name="content" class="textarea" placeholder-class="inputStyle" placeholder="请输入详情，字数限制在{{noteMaxLen}}字以内" value="{{content}}" bindinput="bindTextAreaChange" maxlength="{{noteMaxLen}}" cursor-spacing="20" />
           <view class="chnumber">{{noteNowLen}}/{{noteMaxLen}}</view>
         </view-->
-        <view wx:if="{{is_textarea_show}}" class="section underline">
+        <view wx:if="{{!is_notice_status}}" class="section underline">
           <view class="inputStyle">点击输入详情</view>
           <image class="arrow-r" src="../../images/more/enter.png" />
         </view>
         <view wx:else class="section2 underline my-nick">
-          <view class="textmoreline">{{content}}</view>
+          <view class="textmoreline">{{offerItem.content}}</view>
         </view>
       </view>
 
       <!-- 3.联系方式 -->
       <!--点击同意后showInput取反，点击同意后方才显示，否则隐藏-->
-      <view class="section-big height style1 mt20" wx:if="{{isShowInput}}">
+      <view class="section-big height style1 mt20" wx:if="{{isAgree}}">
 
         <!--swiper组件左右滑动切换模板-->
         <!--swiper组件的current组件用于控制当前显示哪一页 -->
@@ -142,27 +144,27 @@
         <swiper class="section-swiper height1" duration="300" bindchange="switchTab" indicator-dots="true" indicator-active-color="#32A189">
 
 
-
-          <!--微信号，手机号，邮箱常用模板，循环加载页面-->
+          <!--微信号，手机号，邮箱常用模板，循环加载页面 TODO:-->
           <block wx:for="{{contactList}}">
             <swiper-item>
+              <!-- 微信号 -->
               <view class="section underline t-name">
                 <text class="section-title">微信号</text>
-                <text class="input">deutschning</text>
+                <text class="input">{{item.wxNumber}}</text>
                 <image class="arrow-r" src="../../images/more/enter.png"></image>
               </view>
 
               <!-- 手机号码 -->
               <view class="section underline t-name">
                 <text class="section-title">手机号</text>
-                <text class="input">18817870927</text>
+                <text class="input">{{item.phoneNumber}}</text>
                 <image class="arrow-r" src="../../images/more/enter.png"></image>
               </view>
 
               <!-- 邮箱 -->
               <view class="section underline t-name">
                 <text class="section-title">邮箱</text>
-                <text class="input">liuyn_tongji@163.com</text>
+                <text class="input">{{item.eMail}}</text>
                 <image class="arrow-r" src="../../images/more/enter.png"></image>
               </view>
             </swiper-item>
@@ -173,24 +175,26 @@
             <!-- 微信号 -->
             <view class="section underline t-name">
               <text class="section-title">微信号</text>
-              <input name="wxNumber" class="input" maxlength="30" placeholder-class="inputStyle" placeholder="请输入微信号" value="{{wxNumber}}" cursor-spacing="20" />
+              <input name="wxNumber" class="input" maxlength="30" placeholder-class="inputStyle" placeholder="请输入微信号" value="{{offerItem.contact.wxNumber}}"
+                cursor-spacing="20" />
               <image class="arrow-r" src="../../images/more/enter.png"></image>
             </view>
 
             <!-- 手机号码 -->
             <view class="section underline t-name">
               <text class="section-title">手机号</text>
-              <input name="phoneNumber" type="number" class="input" placeholder-class="inputStyle" placeholder="请输入号码" value="{{phoneNumber}}" cursor-spacing="20" />
+              <input name="phoneNumber" type="number" class="input" placeholder-class="inputStyle" placeholder="请输入号码" value="{{offerItem.contact.phoneNumber}}"
+                cursor-spacing="20" />
               <image class="arrow-r" src="../../images/more/enter.png"></image>
             </view>
 
             <!-- 邮箱 -->
             <view class="section underline t-name">
               <text class="section-title">邮箱</text>
-              <input name="eMail" class="input" placeholder-class="inputStyle" placeholder="请输入邮箱" value="{{eMail}}" cursor-spacing="20" />
+              <input name="eMail" class="input" placeholder-class="inputStyle" placeholder="请输入邮箱" value="{{offerItem.contact.eMail}}"
+                cursor-spacing="20" />
               <image class="arrow-r" src="../../images/more/enter.png"></image>
             </view>
-
           </swiper-item>
 
         </swiper>
