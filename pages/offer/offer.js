@@ -143,7 +143,6 @@ Page({
    */
   submitForm: function (e) {
     var that = this;
-    //TODO: 阅读发布须知 改为toast
     if (!that.data.isAgree) {
       wx.showModal({
         title: '提示',
@@ -176,7 +175,7 @@ Page({
       // 上传图片到服务器获得URL
       const promise = that.upLoadPicToCloud();
       promise.then(function (urlArr) {
-        //上传发布到服务器
+        //上传发布到服务器, 里面完成后会启用按钮
         that.upLoadOfferToCloud(e, urlArr);
       }, function (error) {
         // failure
@@ -436,7 +435,7 @@ Page({
   },
 
   /**
-   * TODO: 阅读并同意，同时推出联系方式输入界面
+   * 阅读并同意，同时推出联系方式输入界面
    * by xinchao
    */
   bindAgreeChange: function (e) {
@@ -491,9 +490,19 @@ Page({
     var price = e.detail.value.price;//物品价格
     var content = e.detail.value.content;//物品内容
     // //发布人联系方式
-    var wxNumber = e.detail.value.wxNumber;//微信号
-    var phoneNumber = e.detail.value.phoneNumber;//手机号
-    var eMail = e.detail.value.eMail;//邮箱
+    var currentTab = that.data.currentTab;
+    var contactList = that.data.contactList;
+    var contact = that.data.offerItem.contact;
+    if (currentTab < contactList.length) {
+      //使用模版
+      contact = contactList[currentTab];
+    } else {
+      contact = {
+        wxNumber: e.detail.value.wxNumber,
+        phoneNumber: e.detail.value.phoneNumber,
+        eMail: e.detail.value.eMail
+      }
+    }
 
     var tOfferItem = {
       title: title,
@@ -503,11 +512,7 @@ Page({
       price: price,
       picUrlArray: picUrlArray,
       content: content,
-      contact: {
-        wxNumber: wxNumber,
-        phoneNumber: phoneNumber,
-        eMail: eMail
-      }
+      contact: contact,
     }
 
     //使用新结构体存储表单数据
@@ -579,11 +584,10 @@ Page({
     }
   },
 
-  //TODO: 这个isFocus是干什么用的？
   inputTap: function () {
     var that = this;
     that.setData({
-      isFocus: !this.data.isFocus
+      isFocus: !that.data.isFocus
     })
   },
 
@@ -591,7 +595,7 @@ Page({
   inputPriceTap: function () {
     var that = this;
     that.setData({
-      isPriceFocus: !this.data.isPriceFocus
+      isPriceFocus: !that.data.isPriceFocus
     })
     console.log("this.data.isPriceFocus");
   },
