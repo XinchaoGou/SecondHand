@@ -133,6 +133,64 @@ Page({
     }
   },
 
+  /**
+   * 从云端查询到的条目转化为本地缓存数据
+   * object
+   * by xinchao
+   */
+  cloudDataToLocal: function (object) {
+    var that = this;
+    //获得发布条目内容详情
+    var id = object.id;
+    var title = object.get('title');
+    var price = object.get('price');
+    var content = object.get('content');
+
+    //类别
+    var type0 = object.get('type0');
+    var type1 = object.get('type1');
+    var type2 = object.get('type2');
+    //城市
+    var province = object.get('province');
+    var city = object.get('city');
+
+    var address = object.get('address');
+    var location = object.get('location');
+    var picUrlArray = object.get('picUrlArray');
+    if (picUrlArray == "") {
+      //没有图片则设置为默认图片 url数组注意
+      picUrlArray = ['../../images/test/camera.png'];
+    }
+    var publisher = object.get('publisher');
+    var contact = object.get('contact');
+
+    var mDate = Utils.getDateDiffWithJetLag(object.createdAt);
+
+    var localItem = {
+      //发布条目相关
+      id: id,
+      title: title,
+      price: price,
+      content: content,
+
+      type0: type0,
+      type1: type1,
+      type2: type2,
+      province: province,
+      city: city,
+
+      address: address,
+      location: location,
+      picUrlArray: picUrlArray,
+      publisher: publisher,
+      contact: contact,
+      //用于缩略图条目显示
+      src: picUrlArray[0],
+      date: mDate,
+    }
+
+    return localItem;
+  },
   /*
    * 查询用户的所有发布
    * 获得发布条目内容详情,同时缓存到本地
@@ -141,13 +199,14 @@ Page({
   searchOfferList: function () {
     console.log("从云端搜索发布列表");
     var that = this;
-    var currentUser = Bmob.User.current();
-    var objectId = currentUser.id;
+    // var currentUser = Bmob.User.current();
+    // var objectId = currentUser.id;
+    var userId = Bmob.User.current().id;
 
     var Offer = Bmob.Object.extend("Offer");
     var query = new Bmob.Query(Offer);
     var isme = new Bmob.User();
-    isme.id = objectId;     //当前用户的objectId
+    isme.id = userId;     //当前用户的objectId
     query.equalTo("publisher", isme);
     query.descending('createdAt');  //排序
 
@@ -156,48 +215,8 @@ Page({
         console.log("查询到" + results.length + "条发布");
         var offerArray = [];
         for (let i = 0; i < results.length; i++) {
-
           var object = results[i];
-          //获得发布条目内容详情
-          var id = object.id;
-          var title = object.get('title');
-          var typeName = object.get('typeName');
-          var address = object.get('address');
-          var location = object.get('location');
-          var price = object.get('price');
-          var urls = object.get('picUrlArray');
-          if (urls == "") {
-            //没有图片则设置为默认图片 url数组注意
-            urls = ['../../images/test/camera.png'];
-          }
-          var content = object.get('content');
-          var publisher = objectId; //用户当前id
-          var wxNumber = object.get('wxNumber');
-          var phoneNumber = object.get('phoneNumber');
-          var eMail = object.get('eMail');
-          //考虑时差，换算
-          var mDate = Utils.getDateDiffWithJetLag(object.createdAt);
-
-          var offerItem = {
-            //发布条目相关
-            id: id,
-            title: title,
-            typeName: typeName,
-            address: address,
-            location: location,
-            price: price,
-            urls: urls,
-            content: content,
-            publisher: publisher,
-            contact: {
-              wxNumber: wxNumber,
-              phoneNumber: phoneNumber,
-              eMail: eMail,
-            },
-            //用于缩略图条目显示
-            src: urls[0],
-            date: mDate,
-          }
+          var offerItem = that.cloudDataToLocal(object);
           offerArray.push(offerItem);
         }
 
@@ -240,44 +259,8 @@ Page({
             var favourArray = [];
             for (let i = 0; i < list.length; i++) {
               var object = list[i];
-              //获得收藏列表内容详情
-              var id = object.id;
-              var title = object.get('title');
-              var typeName = object.get('typeName');
-              var address = object.get('address');
-              var location = object.get('location');
-              var price = object.get('price');
-              var urls = object.get('picUrlArray');
-              if (urls == "") {
-                //设置为默认图片 url数组注意
-                urls = ['../../images/test/camera.png'];
-              }
-              var content = object.get('content');
-              var publisher = Bmob.User.current().id; //用户当前id
-              var wxNumber = object.get('wxNumber');
-              var phoneNumber = object.get('phoneNumber');
-              var eMail = object.get('eMail');
-              //考虑时差，换算
-              var mDate = Utils.getDateDiffWithJetLag(object.createdAt);
-              var favorItem = {
-                id: id,
-                title: title,
-                typeName: typeName,
-                address: address,
-                location: location,
-                price: price,
-                urls: urls,
-                content: content,
-                publisher: publisher,
-                contact: {
-                  wxNumber: wxNumber,
-                  phoneNumber: phoneNumber,
-                  eMail: eMail,
-                },
-                src: urls[0],
-                date: mDate,
-                favouriteshow: true
-              }
+              var favorItem = that.cloudDataToLocal(object);
+              favorItem.favouriteshow = true; //给结构体添加一个属性
               favourArray.push(favorItem);
             }
             that.setData({

@@ -104,7 +104,7 @@ Page({
     that.setData({
       isShowTopTips: false,
       isPriceShow: false,
-      isContent: false,
+      isContent: false,//添加的
       isSrc: false,
       is9: false,
       isAgree: false,
@@ -175,7 +175,7 @@ Page({
       const promise = that.upLoadPicToCloud();
       promise.then(function (urlArr) {
         //上传发布到服务器, 里面完成后会启用按钮
-        that.upLoadOfferToCloud(e, urlArr);
+        that.upLoadOfferToCloud(urlArr);
       }, function (error) {
         // failure
         console.log(error);
@@ -189,7 +189,7 @@ Page({
     }
   },
 
-  /**
+/**
  * 封装发布照片到服务器
  * by xinchao
  */
@@ -251,7 +251,7 @@ Page({
   * 封装添加发布到数据库
   * by xinchao
   */
-  upLoadOfferToCloud: function (e, urlArr) {
+  upLoadOfferToCloud: function (urlArr) {
     var that = this;
     var tOfferItem = that.data.offerItem;
 
@@ -259,15 +259,21 @@ Page({
     var Offer = Bmob.Object.extend("Offer");
     var offer = new Offer();
     offer.set("title", tOfferItem.title);
-    // offer.set("typeName", typeName);
     offer.set("address", tOfferItem.address);
-    // offer.set("location", tOfferItem.location);
+    var location = new Bmob.GeoPoint({ latitude: tOfferItem.location.latitude, longitude: tOfferItem.location.longitude });
+    offer.set("location", location);
     offer.set("price", parseFloat(tOfferItem.price));
     offer.set("content", tOfferItem.content);
     offer.set("publisher", tOfferItem.publisher);
-    offer.set("picUrlArray", tOfferItem.picUrlArray);
+    offer.set("picUrlArray", urlArr);
     offer.set("contact", tOfferItem.contact);
-
+    //类别
+    offer.set("type0", tOfferItem.type0);
+    offer.set("type1", tOfferItem.type1);
+    offer.set("type2", tOfferItem.type2);
+    //城市
+    offer.set("province", tOfferItem.province);
+    offer.set("city", tOfferItem.city);
     //添加数据，第一个入口参数是null
     offer.save(null, {
       success: function (result) {
@@ -275,7 +281,6 @@ Page({
         console.log("发布成功, objectId:" + result.id);
         wx.hideLoading();
         common.dataLoading("发起成功", "success", function () {
-          //重置表单 TODO:
           that.clearData();
         });
       },
@@ -303,19 +308,16 @@ Page({
         //电脑调试的时候，经纬度为空，手机上可以运行
         var str = 'offerItem.address';
         var str_location = 'offerItem.location';
-        var location = new Bmob.GeoPoint({
-          latitude: res.latitude,
-          longitude: res.longitude
-        });
+        var latitude = res.latitude;
+        var longitude = res.longitude;
+        var location = {
+          latitude: latitude,
+          longitude: longitude
+        };
         that.setData({
           [str]: res.name,
           [str_location]: location
         })
-        // //FIXME:
-        // if (e.detail && e.detail.value) {
-        //   console.log("这里可能有bug");
-        //   this.data.address = e.detail.value;
-        // }
       },
       fail: function (e) {
       },
@@ -420,7 +422,6 @@ Page({
     if (!address) { //address 没输入
       address = that.data.offerItem.address;
     }
-    // FIXME: location 类型有问题
     var location = that.data.offerItem.location;
     var picUrlArray = that.data.offerItem.picUrlArray;
     var content = that.data.offerItem.content;
@@ -578,45 +579,32 @@ Page({
    * TODO: 不单单是显示，还有要上传服务器的东西,可以把所有数据都刷新
    */
   onShow: function () {
-    // var that = this;
-    // try {
-    //   var value = wx.getStorageSync('offerForm');
-    //   // console.log(value);
-    //   // var typeIndex = types.indexOf(value.typeName);
-    //   if (value) {
-    //     that.setData({
-    //       tempFilePaths: value.urls,
-    //       title: value.title,
-    //       // typeIndex : typeIndex,
-    //       address: value.address,
-    //       // location : value.location,
-    //       latitude: value.location.latitude,
-    //       longitude: value.location.longitude,
-    //       content: value.content,
-    //       // publisher : value.publisher,
-    //       isSrc: true,
-    //       price: value.price,
-    //       isAgree: true,
-    //       isAgree: true,
-    //       isPriceShow: true,
-    //       wxNumber: value.wxNumber,
-    //       phoneNumber: value.phoneNumber,
-    //       eMail: value.eMail,
+    var that = this;
+    try {
+      var offerForm = wx.getStorageSync('offerForm');
+      // console.log(offerForm);
+      // var typeIndex = types.indexOf(offerForm.typeName);
+      if (offerForm) {
+        that.setData({
+          offerItem : offerForm,
+          isPriceShow: true,
+          isSrc: true,
+          isContent: true,
+          isAgree: true,
 
-    //       isModify: true, //用于标识修改状态，发布时修改已有条目，同时修改状态切换界面删除内容
-    //       isPicArrayFromCloud: true,
-    //     })
-    //     if (price = 0) {
-    //       // TODO: 价格面议的情况
-    //       that.setData({
-    //         isPriceShow: false,
-    //       })
-    //     }
-    //   }
-    // } catch (e) {
-    //   // Do something when catch error
-    //   console.log('没找到本地缓存');
-    // }
+          isModify: true, //用于标识修改状态，发布时修改已有条目，同时修改状态切换界面删除内容
+        })
+        if (offerForm.price = 0) {
+          // TODO: 价格面议的情况
+          that.setData({
+            isPriceShow: false,
+          })
+        }
+      }
+    } catch (e) {
+      // Do something when catch error
+      console.log('没找到本地缓存');
+    }
   },
 
   /**
@@ -650,12 +638,13 @@ Page({
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
-   * TODO: 更新数据
+   * 更新数据
    */
   onPullDownRefresh: function () {
-    this.setData({
-      isHidePulldownRefresh: true
-    })
+    // var that = this;
+    // that.setData({
+    //   isHidePulldownRefresh: true
+    // });
   },
 
   /**
