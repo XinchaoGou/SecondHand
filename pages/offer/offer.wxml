@@ -2,7 +2,7 @@
 <!-- 二手信息发布 -->
 
 <view class="container">
-  <scroll-view class="scroll" scroll-y>
+  <scroll-view class="scroll-y" scroll-y>
 
     <form bindsubmit="submitForm">
 
@@ -13,26 +13,26 @@
       <!-- 2.发布内容主页面-->
 
       <!-- 2.1 发布标题 -->
-      <view class="section-big style1" bindtap="inputTap" id="top">
-        <view class="section t-name">
+      <view class="section-big border" bindtap="inputTap" id="top">
+        <view class="section">
           <text class="section-title">发布标题</text>
         </view>
-        <view class="section underline t-name">
+        <view class="section underline">
           <input name="title" class="input" maxlength="30" placeholder-class="inputStyle" placeholder="请输入标题" value="{{offerItem.title}}" focus="{{isFocus}}" />
           <image class="arrow-r" src="../../images/more/enter.png" />
         </view>
       </view>
 
       <!--2.2 物品类别，交易地点及物品价格 -->
-      <view class="section-big style2">
+      <view class="section-big border2">
 
         <!-- 2.2.1 物品类别 TODO:-->
-        <picker mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{typeIndex}}" range="{{typeArray}}" class="adressblock">
+        <picker mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{typeIndex}}" range="{{typeArray}}" class="width">
           <view class="section">
             <text class="section-title">发布类别</text>
           </view>
 
-          <view class="section underline t-name">
+          <view class="section underline">
             <view class="input" name="types">{{typeArray[0][typeIndex[0]]}} {{typeArray[1][typeIndex[1]]}} {{typeArray[2][typeIndex[2]]}}
             </view>
             <image class="arrow-r" src="../../images/more/enter.png" />
@@ -40,12 +40,12 @@
         </picker>
 
         <!-- 2.2.1 同城范围 TODO:-->
-        <picker mode="multiSelector" bindchange="bindMultiPickerChange1" bindcolumnchange="bindMultiPickerColumnChange1" value="{{cityIndex}}" range="{{cityArray}}" class="adressblock">
+        <picker mode="multiSelector" bindchange="bindMultiPickerChange1" bindcolumnchange="bindMultiPickerColumnChange1" value="{{cityIndex}}" range="{{cityArray}}" class="width">
           <view class="section">
             <text class="section-title">同城范围</text>
           </view>
 
-          <view class="section underline t-name">
+          <view class="section underline">
             <view class="input" name="types">{{cityArray[0][cityIndex[0]]}} {{cityArray[1][cityIndex[1]]}} {{cityArray[2][cityIndex[2]]}}
             </view>
             <image class="arrow-r" src="../../images/more/enter.png" />
@@ -54,12 +54,12 @@
 
 
         <!-- 2.2.2 交易地点 -->
-        <view class="adressblock" catchtap="addressChange" value="{{offerItem.address}}">
+        <view class="width" catchtap="addressChange" value="{{offerItem.address}}">
           <view class="section">
             <text class="section-title">交易地点</text>
           </view>
           <!-- 2.2.3 交易地点换行 -->
-          <view class="section underline t-name">
+          <view class="section underline">
             <text name="address" class="input">{{offerItem.address}}</text>
             <image class="arrow-r" src="../../images/more/enter.png" />
           </view>
@@ -67,7 +67,7 @@
 
 
         <!-- 2.2.4 点选是否设置物品价格 TODO-->
-        <view class="section t-name">
+        <view class="section">
           <view>
             <text class="section-title">设置价格</text>
             <text class="section-title2">（默认价格面议）</text>
@@ -77,15 +77,15 @@
 
         <!-- 2.2.4.1 价格设置 -->
 
-        <view wx:if="{{isPriceShow}}" class="section underline t-name">
+        <view wx:if="{{isPriceShow}}" class="section underline">
           <input name="price" type="number" class="input" maxlength="100" confirm-hold="false" placeholder-class="inputStyle" placeholder="请输入价格" value="{{offerItem.price}}" confirm-type="done" cursor-spacing="20" />
-          <text class="euro">€</text>
+          <text class="input">€</text>
         </view>
 
       </view>
 
       <!-- 2.3 物品内容以及添加图片显示模块 -->
-      <view class="section-big2 style4 mt20">
+      <view class="section-big2">
 
         <!-- 2.3.1 显示已添加图片 TODO-->
         <scroll-view class="scrollx" scroll-x>
@@ -106,8 +106,8 @@
       </view>
 
       <!-- 2.3.3 物品详情多行文字输入模块-->
-      <view catchtap="toDetailPage" class="section-big style1 mt20">
-        <view class="section t-name">
+      <view catchtap="toDetailPage" class="section-big border">
+        <view class="section">
           <text class="section-title">详情</text>
         </view>
         <view wx:if="{{!isContent}}" class="section underline">
@@ -121,16 +121,16 @@
 
       <!-- 3.联系方式 -->
       <!--点击同意后showInput取反，点击同意后方才显示，否则隐藏-->
-      <view class="section-big height style1 mt20" wx:if="{{isAgree}}">
+      <view class="section-big height border" wx:if="{{isAgree}}">
 
         <!--swiper组件左右滑动切换模板-->
         <!--swiper组件的current组件用于控制当前显示哪一页 -->
         <!--swiper组件绑定bindchange事件switchTab，通过e.detail.current拿到当前页-->
-        <view hidden="{{!(currentTab<contactList.length)}}" class="section t-name">
+        <view hidden="{{!(currentTab<contactList.length)}}" class="section">
           <text class="section-title">常用联系模板{{currentTab+1}}</text>
         </view>
 
-        <view hidden="{{currentTab<contactList.length}}" class="section t-name">
+        <view hidden="{{currentTab<contactList.length}}" class="section">
           <text class="section-title">空白模板</text>
         </view>
 
@@ -141,21 +141,21 @@
           <block wx:for="{{contactList}}">
             <swiper-item>
               <!-- 微信号 -->
-              <view class="section underline t-name">
+              <view class="section underline">
                 <text class="section-title">微信号</text>
                 <text class="input">{{item.wxNumber}}</text>
                 <image class="arrow-r" src="../../images/more/enter.png"></image>
               </view>
 
               <!-- 手机号码 -->
-              <view class="section underline t-name">
+              <view class="section underline">
                 <text class="section-title">手机号</text>
                 <text class="input">{{item.phoneNumber}}</text>
                 <image class="arrow-r" src="../../images/more/enter.png"></image>
               </view>
 
               <!-- 邮箱 -->
-              <view class="section underline t-name">
+              <view class="section underline">
                 <text class="section-title">邮箱</text>
                 <text class="input">{{item.eMail}}</text>
                 <image class="arrow-r" src="../../images/more/enter.png"></image>
@@ -166,21 +166,21 @@
           <!--微信号，手机号，邮箱空白模板-->
           <swiper-item>
             <!-- 微信号 -->
-            <view class="section underline t-name">
+            <view class="section underline">
               <text class="section-title">微信号</text>
               <input name="wxNumber" class="input" maxlength="30" placeholder-class="inputStyle" placeholder="请输入微信号" value="{{offerItem.contact.wxNumber}}" cursor-spacing="20" />
               <image class="arrow-r" src="../../images/more/enter.png" />
             </view>
 
             <!-- 手机号码 -->
-            <view class="section underline t-name">
+            <view class="section underline">
               <text class="section-title">手机号</text>
               <input name="phoneNumber" type="number" class="input" placeholder-class="inputStyle" placeholder="请输入号码" value="{{offerItem.contact.phoneNumber}}" cursor-spacing="20" />
               <image class="arrow-r" src="../../images/more/enter.png" />
             </view>
 
             <!-- 邮箱 -->
-            <view class="section underline t-name">
+            <view class="section underline">
               <text class="section-title">邮箱</text>
               <input name="eMail" class="input" placeholder-class="inputStyle" placeholder="请输入邮箱" value="{{offerItem.contact.eMail}}" cursor-spacing="20" />
               <image class="arrow-r" src="../../images/more/enter.png" />
@@ -201,7 +201,7 @@
       </view>
 
       <!-- 阅读并同意 -->
-      <view class="style1 mt20">
+      <view class="border mt20">
         <!--bindAgreeChange为点击同意的事件监听-->
         <checkbox-group bindchange="bindAgreeChange">
           <label class="weui-agree" for="weuiAgree">
@@ -237,13 +237,13 @@
       <view class="box-bd">
         <view class="notice-q">1、为什么需要填写联系方式等信息？</view>
         <view class="notice-a">
-          <text>填写真实有效的联系信息更加有利于二手交易的进行</text>
-          <text>联系方式有三种选择，分别是微信号，手机号以及邮箱，这三种联系方式在目前生活中是最为普遍的</text>
-          <text>当有用户报名您的发布时，即可查看您填写的联系信息，以便加入者与您联系,没有加入的用户无法查看您的联系信息</text>
+          <text>填写真实有效的联系信息更加有利于同城交易的进行。</text>
+          <text>联系方式有三种选择，分别是微信号，手机号以及邮箱，这三种联系方式在目前生活中是最为普遍的。</text>
+          <text>当有用户报名您的发布时，即可查看您填写的联系信息，以便加入者与您联系,没有加入的用户无法查看您的联系信息。</text>
         </view>
         <view class="notice-q">2、发起内容的有哪些限制？</view>
         <view class="notice-a">
-          <text>发布内容应该在法律允许的范围内，如果发布内容违反了相关的法律法规，一经发现，本软件有权限对该发布进行删除操作</text>
+          <text>发布内容应该在法律允许的范围内，如果发布内容违反了相关的法律法规，一经发现，本软件有权限对该发布进行删除操作。</text>
         </view>
       </view>
     </view>
