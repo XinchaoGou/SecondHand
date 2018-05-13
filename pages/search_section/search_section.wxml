@@ -1,3 +1,5 @@
+<!--pages/search_section/search_section.wxml-->
+<!-- search_section WXML-->
 <view class="container">
   <image hidden="isLoadingHidden" style="height:200rpx;width:200rpx" src='../../images/more/loading.gif' />
   <!--scroll-view class="scroll" scroll-y-->

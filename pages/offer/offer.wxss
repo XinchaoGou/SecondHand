@@ -1,9 +1,11 @@
 /* pages/offer/offer.wxss */
 @import '/style/weui.wxss';
-@import '/style/zanui.wxss';
+@import '/style/secondhand.wxss';
 
 page {
   width: 100%;
+  height: 100%;
+  background-color: #efeff4;
   position: relative;
 }
 
@@ -59,24 +61,9 @@ page {
   background: url(http://bmob-cdn-14867.b0.upaiyun.com/2017/11/23/b93323e440f4c3998034dbb9011a1e1d.png) no-repeat;
   background-size: cover;
 }
-
-/*最新样式*/
-
-.mt20 {
-  margin-top: 20rpx;
-}
-
 .scroll-y {
   width: 100%;
   height: 100%;
-}
-
-.input {
-  width: 100%;
-  overflow: hidden;
-  font-size: 11pt;
-  color: #353535;
-  text-align: left;
 }
 
 .submit-btn {
@@ -162,20 +149,13 @@ page {
   word-break: break-all;
 }
 
-/*以下是yining新添加的样式*/
-
-/*自定义的页面样式*/
-
-.container {
+.container1 {
   width: 100%;
   height: 100%;
-  background-color: rgb(239, 239, 244);
+  position: fixed;
   display: flex;
   flex-direction: column;
-  align-items: stretch;
-  justify-content: space-around;
-  box-sizing: border-box;
-  position: fixed;
+  justify-content: flex-start;
 }
 
 .pad {
@@ -193,10 +173,6 @@ page {
   justify-content: flex-start;
   align-items: center;
   padding: 10rpx 0;
-}
-
-.width {
-  width: 100%;
 }
 
 .coveractive {
@@ -217,12 +193,9 @@ page {
   height: 520rpx;
 }
 
-.height1 {
-  height: 380rpx;
-}
-
 .section-swiper {
   width: 100%;
+  height: 380rpx;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -238,11 +211,6 @@ page {
   text-indent: 2em;
   overflow: scroll;
 }
-
-.inputStyle {
-  color: #888;
-  font-size: 11pt;
-}
 .section2 {
   width: 100%;
   min-height: 90rpx;
@@ -254,50 +222,6 @@ page {
   align-items: center;
   margin-bottom: 20rpx;
 }
-
-/**/
-
-.border {
-  border: 1px solid rgb(239, 239, 244);
-  background-color: white;
-  border-radius: 20rpx;
-}
-
-.border2 {
-  border-top: 1px solid rgb(239, 239, 244);
-  background-color: white;
-  border-top-left-radius: 20rpx;
-  border-top-right-radius: 20rpx;
-}
-
-.arrow-r {
-  width: 9rpx;
-  height: 17rpx;
-  margin-left: 12rpx;
-}
-.section {
-  width: 100%;
-  height: 90rpx;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20rpx;
-}
-
-
-.section-big {
-  width: 100%;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-  padding: 20rpx 40rpx;
-  margin-top: 20rpx;
-}
-
 .section-big2 {
   width: 100%;
   box-sizing: border-box;
@@ -308,21 +232,4 @@ page {
   padding: 0 40rpx;
   margin-top: 20rpx;
   background-color: white;
-}
-
-
-.underline {
-  border-bottom: 1px solid rgb(239, 239, 244);
-}
-.section-title {
-  font-size: 13pt;
-  width: 50%;
-  color: #32a189;
-  text-align: left;
-}
-.section-title2 {
-  font-size: 11pt;
-  width: 50%;
-  color: #32a189;
-  text-align: left;
 }

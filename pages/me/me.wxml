@@ -17,6 +17,56 @@
     <text class="userinfo-nickname">{{name}}</text>
   </view>
 
+  <!--5.我的联系方式模板-->
+  <view class="largeblock">
+
+    <view class="userItem" catchtap="tocontact">
+      <image class="userItemImg" src="../../images/test/contacts-32.png" />
+      <view class="text">
+        <text class="userItemText">联系方式</text>
+      </view>
+      <image wx:if="{{!isShowContact}}" class="userItemArrow" src="../../images/test/right.png" />
+      <image wx:else class="userItemArrow1" src="../../images/more/down.png" />
+    </view>
+
+    <swiper wx:if="{{isShowContact}}" class="section-big sbextra height border" duration="300" bindchange="switchTab" indicator-dots="true" indicator-active-color="#32A189">
+
+      <!--微信号，手机号，邮箱常用模板，循环加载页面-->
+      <block>
+        <swiper-item>
+
+          <view class="section section-extra">
+            <text class="section-title2">常用联系模板1</text>
+            <image class="setting1" catchtap="contactSetTap" src='../../images/test/edit-32.png' />
+            <image class="delete1" catchtap="contactDeleteTap" src='../../images/test/delete-32.png' />
+          </view>
+
+          <view class="section underline">
+            <text class="section-title2">微信号</text>
+            <input name="wxNumber" class="input" maxlength="30" placeholder-class="inputStyle" placeholder="deutschning" value="{{wxNumber}}" cursor-spacing="20" />
+            <image class="arrow-r" src="../../images/more/enter.png"></image>
+          </view>
+
+          <!-- 手机号码 -->
+          <view class="section underline">
+            <text class="section-title2">手机号</text>
+            <input name="phoneNumber" type="number" class="input" placeholder-class="inputStyle" placeholder="18817870927" value="{{phoneNumber}}" cursor-spacing="20" />
+            <image class="arrow-r" src="../../images/more/enter.png"></image>
+          </view>
+
+          <!-- 邮箱 -->
+          <view class="section underline">
+            <text class="section-title2">邮箱</text>
+            <input name="eMail" class="input" placeholder-class="inputStyle" placeholder="liuyn_tongji@163.com" value="{{eMail}}" cursor-spacing="20" />
+            <image class="arrow-r" src="../../images/more/enter.png"></image>
+          </view>
+
+        </swiper-item>
+      </block>
+
+    </swiper>
+
+  </view>
   <!-- 3.我的收藏 -->
   <view class="largeblock">
 
@@ -31,7 +81,7 @@
     </view>
 
     <!--3.2 可隐藏显示的收藏信息加载区域-->
-    <view class="content" wx:if="{{isShowFavourite}}">
+    <view class="content1" wx:if="{{isShowFavourite}}">
 
       <!--3.2.1 收藏分条信息加载区域-->
       <view class="content-item-before" hover-class="content-item-after" wx:for="{{favorList}}" wx:key="id" catchtap="favorItemTap" data-postid="{{index}}">
@@ -40,7 +90,7 @@
         <image mode="aspectFill" style="height:210rpx; width:280rpx;border-radius:10rpx;" src="{{item.src}}" />
 
         <!--3.2.1.2 二手物品交易信息-->
-        <view class="content-block2">
+        <view class="content-block2 content-block-extra">
 
           <text class='content-text-title'>{{item.title}}</text>
 
@@ -78,7 +128,7 @@
     </view>
 
     <!--4.2.可隐藏显示的发布信息加载区域-->
-    <view class="content" wx:if="{{isShowOffer}}">
+    <view class="content1" wx:if="{{isShowOffer}}">
 
 
       <!--4.2.1 发布---分条---信息加载区域-->
@@ -88,7 +138,7 @@
         <image mode="aspectFill" style="height:210rpx; width:280rpx;border-radius:10rpx;" src="{{item.src}}" />
 
         <!--4.2.1.2 二手物品交易信息-->
-        <view class="content-block2">
+        <view class="content-block2 content-block-extra">
 
           <text class='content-text-title'>{{item.title}}</text>
           <image class="setting" catchtap="offerSetTap" data-postid="{{index}}" src='../../images/test/edit-32.png' />
@@ -109,61 +159,6 @@
     </view>
   </view>
 
-  <!--5.我的联系方式模板-->
-  <view class="largeblock">
 
-    <view class="userItem" catchtap="tocontact">
-      <image class="userItemImg" src="../../images/test/contacts-32.png" />
-      <view class="text">
-        <text class="userItemText">我的联系方式</text>
-      </view>
-      <image wx:if="{{!isShowContact}}" class="userItemArrow" src="../../images/test/right.png" />
-      <image wx:else class="userItemArrow1" src="../../images/more/down.png" />
-    </view>
-
-    <swiper wx:if="{{isShowContact}}" bindlongtap="longtap" class="section-big height style1 mt20" duration="300" bindchange="switchTab" indicator-dots="true" indicator-active-color="#32A189">
-
-      <!--微信号，手机号，邮箱常用模板，循环加载页面-->
-      <block>
-        <swiper-item>
-
-          <view class="section">
-            <text class="section-title">常用联系模板1</text>
-            <image class="setting1" catchtap="contactSetTap" src='../../images/test/edit-32.png' />
-            <image  class="delete1" catchtap="contactDeleteTap" src='../../images/test/delete-32.png' />
-          </view>
-
-         <view class="section underline t-name">
-            <text class="section-title">微信号</text>
-            <input name="wxNumber" class="input" maxlength="30" placeholder-class="inputStyle" placeholder="deutschning" value="{{wxNumber}}" cursor-spacing="20" />
-            <image class="arrow-r" src="../../images/more/enter.png"></image>
-          </view>
-
-          <!-- 手机号码 -->
-          <view class="section underline t-name">
-            <text class="section-title">手机号</text>
-            <input name="phoneNumber" type="number" class="input" placeholder-class="inputStyle" placeholder="18817870927" value="{{phoneNumber}}" cursor-spacing="20" />
-            <image class="arrow-r" src="../../images/more/enter.png"></image>
-          </view>
-
-          <!-- 邮箱 -->
-          <view class="section underline t-name">
-            <text class="section-title">邮箱</text>
-            <input name="eMail" class="input" placeholder-class="inputStyle" placeholder="liuyn_tongji@163.com" value="{{eMail}}" cursor-spacing="20" />
-            <image class="arrow-r" src="../../images/more/enter.png"></image>
-          </view>
-
-        </swiper-item>
-      </block>
-
-    </swiper>
-
-    <view wx:if="{{isLongTap}}" class="rightbar">
-      <image class="plus" catchtap="offerSetTap" src='../../images/test/plus-32.png' />
-    </view>
-
-  </view>
-
-  <view class="bottom"></view>
 
 </view>

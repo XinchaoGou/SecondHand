@@ -5,33 +5,6 @@ page {
   background-color: #efeff4;
 }
 
-.adressblock {
-  width: 100%;
-}
-
-.text-title {
-  font-size: 11pt;
-  text-align: left;
-  color: #353535;
-}
-
-.text-title2 {
-  display: block;
-  font-size: 11pt;
-  right: 0;
-  color: #353535;
-}
-
-.section-item {
-  width: 100%;
-  height: 40px;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-  position: relative;
-}
-
 .container {
   width: 100%;
   background-color: #efeff4;
@@ -44,126 +17,16 @@ page {
   position:fixed;
 }
 
-.section-title {
-  font-size: 13pt;
-  color: #32a189;
-  text-align: left;
-  flex-grow: 1;
-}
-
-.section-title2 {
-  font-size: 11pt;
-  color: #32a189;
-  text-align: left;
-}
-
 .euro {
   font-size: 11pt;
   color: #353535;
   margin-left: 10rpx;
 }
 
-.section-right {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.section {
-  width: 100%;
-  height: 90rpx;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: nowrap;
-  margin-bottom: 20rpx;
-}
-
-.underline {
-  border-bottom: 1px solid rgb(239, 239, 244);
-}
-
 .pad {
   padding: 0 40rpx;
 }
 
-.style1 {
-  border: 1px solid rgb(239, 239, 244);
-  background-color: white;
-  border-radius: 20rpx;
-}
-
-.style2 {
-  border-top: 1px solid rgb(239, 239, 244);
-  background-color: white;
-  border-top-left-radius: 20rpx;
-  border-top-right-radius: 20rpx;
-}
-
-.style3 {
-  border-bottom: 1px solid rgb(239, 239, 244);
-  background-color: white;
-  border-bottom-left-radius: 20rpx;
-  border-bottom-right-radius: 20rpx;
-}
-
-.style4 {
-  background-color: white;
-}
-
-.section-big {
-  width: 100%;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: flex-start;
-  padding: 20rpx 40rpx;
-  margin-top: 20rpx;
-}
-
-.section-big2 {
-  width: 100%;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: flex-start;
-  padding: 0 40rpx;
-  margin-top: 20rpx;
-}
-
-.title {
-  font-size: 11pt;
-  color: #b2b2b2;
-}
-
-.inputStyle {
-  color: #888;
-  font-size: 11pt;
-}
-
-.section2 {
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  min-height: 250rpx;
-  position: relative;
-}
-
-/*选择箭头定义样式*/
-
-.arrow-r {
-  width: 9rpx;
-  height: 17rpx;
-  margin-left: 12rpx;
-}
-
-.body-view {
+.slider {
   width: 85%;
 }

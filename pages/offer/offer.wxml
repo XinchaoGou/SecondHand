@@ -1,14 +1,14 @@
 <!--pages/offer/offer.wxml-->
 <!-- 二手信息发布 -->
 
-<view class="container">
-  <scroll-view class="scroll-y" scroll-y>
+<view class="container1">
+  <scroll-view class="scroll-y" scroll-y="{{y_scroll}}">
 
     <form bindsubmit="submitForm">
 
       <!-- 1.表单验证 输入错误提示模块 正常情况下隐藏-->
       <view class="weui-toptips weui-toptips_warn" wx:if="{{isShowTopTips}}">{{TopTips}}</view>
-      <view class="weui-toptips" style="color:#000000;background-color:#b2b2b2;z-index:2000;" hidden="{{isHidePulldownRefresh}}">下拉刷新可清空所有发布内容</view>
+      <view class="weui-toptips" style="color:#000000;background-color:#b2b2b2;z-index:2000;" hidden="true">下拉刷新可清空所有发布内容</view>
 
       <!-- 2.发布内容主页面-->
 
@@ -134,7 +134,7 @@
           <text class="section-title">空白模板</text>
         </view>
 
-        <swiper class="section-swiper height1" duration="300" bindchange="switchTab" indicator-dots="true" indicator-active-color="#32A189">
+        <swiper class="section-swiper" duration="300" bindchange="switchTab" indicator-dots="true" indicator-active-color="#32A189">
 
 
           <!--微信号，手机号，邮箱常用模板，循环加载页面 TODO:-->
@@ -168,35 +168,26 @@
             <!-- 微信号 -->
             <view class="section underline">
               <text class="section-title">微信号</text>
-              <input name="wxNumber" class="input" maxlength="30" placeholder-class="inputStyle" placeholder="请输入微信号" value="{{offerItem.contact.wxNumber}}" cursor-spacing="20" />
+              <input name="wxNumber" class="input" bindfocus="getWechatFocus" bindblur="loseWechatFocus" maxlength="30" placeholder-class="inputStyle" placeholder="请输入微信号" value="{{offerItem.contact.wxNumber}}" cursor-spacing="20" />
               <image class="arrow-r" src="../../images/more/enter.png" />
             </view>
 
             <!-- 手机号码 -->
             <view class="section underline">
               <text class="section-title">手机号</text>
-              <input name="phoneNumber" type="number" class="input" placeholder-class="inputStyle" placeholder="请输入号码" value="{{offerItem.contact.phoneNumber}}" cursor-spacing="20" />
+              <input name="phoneNumber" type="number" class="input" bindfocus="getPhoneFocus" bindblur="losePhoneFocus"placeholder-class="inputStyle" placeholder="请输入号码" value="{{offerItem.contact.phoneNumber}}" cursor-spacing="20" />
               <image class="arrow-r" src="../../images/more/enter.png" />
             </view>
 
             <!-- 邮箱 -->
             <view class="section underline">
               <text class="section-title">邮箱</text>
-              <input name="eMail" class="input" placeholder-class="inputStyle" placeholder="请输入邮箱" value="{{offerItem.contact.eMail}}" cursor-spacing="20" />
+              <input name="eMail" class="input" bindfocus="getEmailFocus" bindblur="loseEmailFocus" placeholder-class="inputStyle" placeholder="请输入邮箱" value="{{offerItem.contact.eMail}}" cursor-spacing="20" />
               <image class="arrow-r" src="../../images/more/enter.png" />
             </view>
           </swiper-item>
 
         </swiper>
-
-
-        <!--微信号，手机号，邮箱指示蒙皮加载界面-->
-
-        <!--view class="section-cover style1 mt20" wx:if="{{false}}">
-          <image class="arrow" src='../../images/test/arrow-left.png' />
-          <text class="arrowtext">左右滑动可切换联系方式模板</text>
-          <image class="arrow" src='../../images/test/arrow-right.png' />
-        </view-->
 
       </view>
 

@@ -1,7 +1,7 @@
 <!--pages/search/search.wxml-->
+<!-- 首页界面WXML-->
 <view class="container">
 
-  <!--scroll-view class="scroll" bindscrolltoupper="touchTOP" bindscrolltolower="touchBottom" scroll-y-->
   <view class="header" catchtap="tosubsearch">
     <!--头部搜索-->
     <!--头部搜索block1-->
@@ -56,5 +56,4 @@
     <image src='../../images/more/loading.gif' class="loading" />
   </view>
 
-  <!--/scroll-view-->
 </view>

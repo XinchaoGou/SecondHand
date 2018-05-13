@@ -1,4 +1,4 @@
-<view class="section-big style1 mt20">
+<view class="section-big border">
 
   <view class="section t-name">
     <text class="section-title">详情</text>

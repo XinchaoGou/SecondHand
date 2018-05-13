@@ -1,3 +1,12 @@
+
+/* 刘德苟自定义样式模板1 */
+
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
 .section-title {
   font-size: 13pt;
   width: 50%;
@@ -41,14 +50,34 @@
   margin-top: 20rpx;
 }
 .border {
-  border: 1px solid rgb(239, 239, 244);
+  border: 1px solid white;
   background-color: white;
   border-radius: 20rpx;
 }
 
 .border2 {
-  border-top: 1px solid rgb(239, 239, 244);
+  border-top: 1px solid white;
   background-color: white;
   border-top-left-radius: 20rpx;
   border-top-right-radius: 20rpx;
+}
+.section-title2 {
+  font-size: 11pt;
+  width: 50%;
+  color: #32a189;
+  text-align: left;
+}
+.input {
+  width: 100%;
+  overflow: hidden;
+  font-size: 11pt;
+  color: #353535;
+  text-align: left;
+}
+.width {
+  width: 100%;
+}
+.inputStyle {
+  color: #888;
+  font-size: 11pt;
 }

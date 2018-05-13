@@ -58,6 +58,7 @@ Page({
     //控制下拉刷新的提示内容的隐藏，by yining
     isHidePulldownRefresh: true,
     pastpos: 20,
+    y_scroll: true,//控制页面是否可以竖向滚动的变量，by yining
 
     //类别的picker组件更换为多列选择器, by yining
     //picker组件的多列选择器
@@ -862,5 +863,45 @@ Page({
       url: '../detail/detail?content=' + content
     })
 
+  },
+  //以下函数作用为在输入框获取焦点时，锁住页面不让其随意滑动，失去焦点时恢复正常，by yining
+  getEmailFocus: function (e) {
+    console.log('获取到焦点')
+    var that = this;
+    that.setData({
+      y_scroll: false
+    })
+  },
+  loseEmailFocus: function (e) {
+    console.log('失去了焦点')
+    var that = this;
+    that.setData({
+      y_scroll: true
+    })
+  },
+  getWechatFocus: function(e){
+    var that = this;
+    that.setData({
+      y_scroll: false
+    })
+  },
+  loseWechatFocus: function (e) {
+    console.log('失去了焦点')
+    var that = this;
+    that.setData({
+      y_scroll: true
+    })
+  },
+  getPhoneFocus: function(e){
+    var that = this;
+    that.setData({
+      y_scroll: false
+    })
+  },
+  losePhoneFocus: function (e) {
+    var that = this;
+    that.setData({
+      y_scroll: true
+    })
   }
 })

@@ -1,5 +1,4 @@
 /* pages/search_section/search_section.wxss */
-
 .container {
   width:100%;
   background-color:#EFEFF4;
