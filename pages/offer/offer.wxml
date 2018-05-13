@@ -27,26 +27,26 @@
       <view class="section-big style2">
 
         <!-- 2.2.1 物品类别 TODO:-->
-        <picker mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}" class="adressblock">
+        <picker mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{typeIndex}}" range="{{typeArray}}" class="adressblock">
           <view class="section">
             <text class="section-title">发布类别</text>
           </view>
 
           <view class="section underline t-name">
-            <view class="input" name="types">{{multiArray[0][multiIndex[0]]}} {{multiArray[1][multiIndex[1]]}} {{multiArray[2][multiIndex[2]]}}
+            <view class="input" name="types">{{typeArray[0][typeIndex[0]]}} {{typeArray[1][typeIndex[1]]}} {{typeArray[2][typeIndex[2]]}}
             </view>
             <image class="arrow-r" src="../../images/more/enter.png" />
           </view>
         </picker>
 
         <!-- 2.2.1 同城范围 TODO:-->
-        <picker mode="multiSelector" bindchange="bindMultiPickerChange1" bindcolumnchange="bindMultiPickerColumnChange1" value="{{multiCityIndex}}" range="{{multiCityArray}}" class="adressblock">
+        <picker mode="multiSelector" bindchange="bindMultiPickerChange1" bindcolumnchange="bindMultiPickerColumnChange1" value="{{multiCityIndex}}" range="{{cityArray}}" class="adressblock">
           <view class="section">
             <text class="section-title">同城范围</text>
           </view>
 
           <view class="section underline t-name">
-            <view class="input" name="types">{{multiCityArray[0][multiCityIndex[0]]}} {{multiCityArray[1][multiCityIndex[1]]}} {{multiCityArray[2][multiCityIndex[2]]}}
+            <view class="input" name="types">{{cityArray[0][multiCityIndex[0]]}} {{cityArray[1][multiCityIndex[1]]}} {{cityArray[2][multiCityIndex[2]]}}
             </view>
             <image class="arrow-r" src="../../images/more/enter.png" />
           </view>
