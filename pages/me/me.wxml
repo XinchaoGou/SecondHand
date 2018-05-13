@@ -25,47 +25,77 @@
       <view class="text">
         <text class="userItemText">联系方式</text>
       </view>
-      <image wx:if="{{!isShowContact}}" class="userItemArrow" src="../../images/test/right.png" />
-      <image wx:else class="userItemArrow1" src="../../images/more/down.png" />
+      <!--此处改用hidden，减少切换消耗，增加渲染消耗，适用于大量切换场景-->
+      <image hidden="{{isShowContact}}" class="userItemArrow" src="../../images/test/right.png" />
+      <image hidden="{{!isShowContact}}" class="userItemArrow1" src="../../images/more/down.png" />
     </view>
 
-    <swiper wx:if="{{isShowContact}}" class="section-big sbextra height border" duration="300" bindchange="switchTab" indicator-dots="true" indicator-active-color="#32A189">
+    <view class="section-big sbextra height" wx:if="{{isShowContact}}">
 
-      <!--微信号，手机号，邮箱常用模板，循环加载页面-->
-      <block>
-        <swiper-item>
+      <view hidden="{{!(currentTab<contactList.length)}}" class="section section-extra">
+        <text class="section-title2">常用联系模板{{currentTab+1}}</text>
+      </view>
 
-          <view class="section section-extra">
+      <view hidden="{{currentTab<contactList.length}}" class="section section-extra">
+        <text class="section-title2">空白模板</text>
+      </view>
+
+      <swiper class="section-swiper" duration="300" bindchange="switchTab" indicator-dots="true" indicator-active-color="#32A189">
+
+        <!--微信号，手机号，邮箱常用模板，循环加载页面-->
+        <block wx:for="{{contactList}}">
+          <swiper-item>
+            <!--view class="section section-extra">
             <text class="section-title2">常用联系模板1</text>
             <image class="setting1" catchtap="contactSetTap" src='../../images/test/edit-32.png' />
             <image class="delete1" catchtap="contactDeleteTap" src='../../images/test/delete-32.png' />
-          </view>
+          </view-->
+            <view class="section underline">
+              <text class="section-title2">微信号</text>
+              <input name="wxNumber" class="input" maxlength="30" placeholder-class="inputStyle" placeholder="deutschning" value="{{wxNumber}}" cursor-spacing="20" />
+              <image class="arrow-r" src="../../images/more/enter.png" />
+            </view>
 
+            <!-- 手机号码 -->
+            <view class="section underline">
+              <text class="section-title2">手机号</text>
+              <input name="phoneNumber" type="number" class="input" cursor-spacing="20" placeholder-class="inputStyle" placeholder="18817870927" value="{{phoneNumber}}" />
+              <image class="arrow-r" src="../../images/more/enter.png" />
+            </view>
+
+            <!-- 邮箱 -->
+            <view class="section underline">
+              <text class="section-title2">邮箱</text>
+              <input name="eMail" class="input" adjust-position="false" placeholder-class="inputStyle" placeholder="liuyn_tongji@163.com" value="{{eMail}}" cursor-spacing="20" />
+              <image class="arrow-r" src="../../images/more/enter.png" />
+            </view>
+          </swiper-item>
+        </block>
+        <!--微信号，手机号，邮箱空白模板-->
+        <swiper-item>
+          <!-- 微信号 -->
           <view class="section underline">
             <text class="section-title2">微信号</text>
-            <input name="wxNumber" class="input" maxlength="30" placeholder-class="inputStyle" placeholder="deutschning" value="{{wxNumber}}" cursor-spacing="20" />
-            <image class="arrow-r" src="../../images/more/enter.png"></image>
+            <input name="wxNumber" class="input" bindfocus="getWechatFocus" bindblur="loseWechatFocus" maxlength="30" placeholder-class="inputStyle" placeholder="请输入微信号" value="{{offerItem.contact.wxNumber}}" cursor-spacing="20" />
+            <image class="arrow-r" src="../../images/more/enter.png" />
           </view>
 
           <!-- 手机号码 -->
           <view class="section underline">
             <text class="section-title2">手机号</text>
-            <input name="phoneNumber" type="number" class="input" placeholder-class="inputStyle" placeholder="18817870927" value="{{phoneNumber}}" cursor-spacing="20" />
-            <image class="arrow-r" src="../../images/more/enter.png"></image>
+            <input name="phoneNumber" type="number" class="input" bindfocus="getPhoneFocus" bindblur="losePhoneFocus" placeholder-class="inputStyle" placeholder="请输入号码" value="{{offerItem.contact.phoneNumber}}" cursor-spacing="20" />
+            <image class="arrow-r" src="../../images/more/enter.png" />
           </view>
 
           <!-- 邮箱 -->
           <view class="section underline">
             <text class="section-title2">邮箱</text>
-            <input name="eMail" class="input" placeholder-class="inputStyle" placeholder="liuyn_tongji@163.com" value="{{eMail}}" cursor-spacing="20" />
-            <image class="arrow-r" src="../../images/more/enter.png"></image>
+            <input name="eMail" class="input" bindfocus="getEmailFocus" bindblur="loseEmailFocus" placeholder-class="inputStyle" placeholder="请输入邮箱" value="{{offerItem.contact.eMail}}" cursor-spacing="20" />
+            <image class="arrow-r" src="../../images/more/enter.png" />
           </view>
-
         </swiper-item>
-      </block>
-
-    </swiper>
-
+      </swiper>
+    </view>
   </view>
   <!-- 3.我的收藏 -->
   <view class="largeblock">
@@ -76,8 +106,8 @@
       <view class="text">
         <text class="userItemText">我的收藏</text>
       </view>
-      <image wx:if="{{!isShowFavourite}}" class="userItemArrow" src="../../images/test/right.png" />
-      <image wx:else class="userItemArrow1" src="../../images/more/down.png" />
+      <image hidden="{{isShowFavourite}}" class="userItemArrow" src="../../images/test/right.png" />
+      <image hidden="{{!isShowFavourite}}" class="userItemArrow1" src="../../images/more/down.png" />
     </view>
 
     <!--3.2 可隐藏显示的收藏信息加载区域-->
@@ -123,14 +153,12 @@
       <view class="text">
         <text class="userItemText">我的发布</text>
       </view>
-      <image wx:if="{{!isShowOffer}}" class="userItemArrow" src="../../images/test/right.png" />
-      <image wx:else class="userItemArrow1" src="../../images/more/down.png" />
+      <image hidden="{{isShowOffer}}" class="userItemArrow" src="../../images/test/right.png" />
+      <image hidden="{{!isShowOffer}}" class="userItemArrow1" src="../../images/more/down.png" />
     </view>
 
     <!--4.2.可隐藏显示的发布信息加载区域-->
     <view class="content1" wx:if="{{isShowOffer}}">
-
-
       <!--4.2.1 发布---分条---信息加载区域-->
       <view class="content-item-before" hover-class="content-item-after" wx:for="{{offerList}}" wx:key="id" catchtap="offerItemTap" data-postid="{{index}}">
 
@@ -151,14 +179,10 @@
             <text class='content-text-price'>€ {{item.price}}</text>
             <image catchtap="offerDeleteTap" class="delete" src='../../images/test/delete-32.png' data-postid="{{index}}" />
           </view>
-
         </view>
-
       </view>
 
     </view>
   </view>
-
-
 
 </view>

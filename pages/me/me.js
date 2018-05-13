@@ -10,13 +10,13 @@ Page({
     userInfo: {},
     favorList: [],
     offerList: [],
-
+    contactList: [1, 2],
     //页面隐藏设计添加的变量，by yining
     isShowOffer: false,
     isShowFavourite: false,
     isShowContact: false,
     isLongTap: false,
-
+    currentTab: 0,
     //微信api更改之后
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     isUse: false,
@@ -342,7 +342,7 @@ Page({
     //TODO: 跳转的页面也许要重构
     wx.navigateTo({
       url: '../search_section/search_section?id=' + objectId + '&favor=' + favor
-        + '&postId=' + postId
+      + '&postId=' + postId
     })
   },
 
@@ -360,7 +360,7 @@ Page({
     //跳转条目详情
     wx.navigateTo({
       url: '../search_section/search_section?id=' + objectId + '&favor=' + favor
-        + '&postId=' + postId
+      + '&postId=' + postId
     })
   },
 
@@ -496,7 +496,8 @@ Page({
       //如果原来是false，要展开联系方式列表，则折叠其他列表
       that.setData({
         isShowFavourite: false,
-        isShowOffer: false
+        isShowOffer: false,
+        currentTab: 0
       })
 
     }
@@ -516,17 +517,12 @@ Page({
       isUse: true,
     })
   },
+  // 滚动切换联系方式标签样式，by yining
+  switchTab: function (e) {
 
-  longtap: function (e) {
-    var that = this;
-    console.log('长按事件触发')
-    that.setData({
-      isLongTap: true
-    })
-    setTimeout(function () {
-      that.setData({
-        isLongTap: false //设置重启按钮
-      });
-    }, 6000);
+    var index = e.detail.current;//当前所在页面的 index
+    this.setData({
+      currentTab: e.detail.current,
+    });
   }
 })
