@@ -336,10 +336,22 @@ Page({
   },
 
   /**
-   * TODO:用户点击右上角分享
+   * 用户点击右上角分享
+   * TODO: 分享图片和名字要重新设置
    */
   onShareAppMessage: function () {
 
+    return {
+      title: '留德圈',
+      path: 'pages/search/search',
+      imageUrl:'../../images/test/camera.png',
+      success: function (res) {
+        // 转发成功
+      },
+      fail: function (res) {
+        // 转发失败
+      }
+    }
   },
 
   /**
@@ -588,7 +600,6 @@ Page({
     var that = this;
     var postId = event.currentTarget.dataset.postid;
     var objectId = that.data.contentItems[postId].id;  // 获得数据库对应objectId
-    // var favor = that.data.contentItems[postId].favouriteshow;
 
     console.log('跳转详情' + objectId);
     try {
