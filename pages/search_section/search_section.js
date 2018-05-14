@@ -63,20 +63,10 @@ Page({
   onLoad: function (options) {
     var that = this;
     var objectId = options.id;
-    //TODO:
-    // var postId = options.postId;
-    // var favor = false;
-    // if (options.favor == 'false') {
-    //   favor = false;
-    // } else {
-    //   favor = true;
-    // }
-    // that.setData({
-    //   offerId: objectId,
-    //   favouriteshow: favor,
-    //   postId: postId
-    // })
 
+    that.setData({
+      objectId : objectId,
+    })
 
     //调用api获取屏幕的宽高
     wx.getSystemInfo({
@@ -87,13 +77,14 @@ Page({
       }
     });
 
-    that.loadLocalData();
+    that.loadLocalData(objectId);
   },
 
   /**
    * 加载本地缓存
    */
-  loadLocalData: function () {
+  loadLocalData: function (objectId) {
+    console.log('加载本地sectionItem');
     var that = this;
     try {
       var favorList = wx.getStorageSync('favorList');
@@ -115,13 +106,15 @@ Page({
       //加载全部内容列表
       var sectionItem = wx.getStorageSync('sectionItem');
       if (sectionItem) {
+        console.log('加载本地sectionItem');
         that.setSectionData(sectionItem);
       } else {
         //查询数据
         that.searchItem(objectId);
+        console.log('根据offerId查询条目');
       }
     } catch (error) {
-
+      console.log('section加载本地缓存出错', error);
     }
 
   },
@@ -131,6 +124,7 @@ Page({
    * by xinchao
    */
   searchItem: function (objectId) {
+
     var that = this;
     //查询数据
     var Offer = Bmob.Object.extend("Offer");
@@ -139,8 +133,6 @@ Page({
       success: function (result) {
         var sectionItem = that.cloudDataToLocal(result);
         that.setSectionData(sectionItem);
-
-
       },
       error: function (result, error) {
         console.log("查询失败");
@@ -161,7 +153,6 @@ Page({
     var StrLatitude = 'markers[0].latitude';
     var StrLongitude = 'markers[0].longitude';
     var StrName = 'markers[0].name';
-    //TODO: favouriteshow
     sectionItem.favouriteshow = false;
     if(that.data.favorList.findIndex((favorItem) => {
       return favorItem.id == sectionItem.id;
@@ -208,7 +199,7 @@ Page({
    */
   onShow: function () {
     var that = this;
-    that.loadLocalData();
+    that.loadLocalData(that.data.objectId);
   },
 
   /**

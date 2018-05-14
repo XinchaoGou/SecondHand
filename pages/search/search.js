@@ -35,10 +35,9 @@ Page({
     if (options.id) {
       console.log('是转发options.id ' + options.id);
       var mObjectId = options.id;
-      //跳转指定的页面 TODO:
+      //跳转指定的页面
       wx.navigateTo({
-        url: '../search_section/search_section?id=' + mObjectId + '&favor=' + false
-          + '&postId=' + 0
+        url: '../search_section/search_section?id=' + mObjectId
       })
     }
 
