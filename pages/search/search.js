@@ -53,17 +53,21 @@ Page({
     var that = this;
     that.getContentItemsFromCloud(0, that.data.callbackcount);
 
-    const promise = that.getFavorListFromCloud();
-    promise.then(function (favourArray) {
-      var contentItems = that.data.contentItems;
-      // that.upDateFavorPic(contentItems, favourArray);
-      that.setData({
-        contentItems: that.upDateFavorPic(contentItems, favourArray)
-
-      })
-    }, function (error) {
-      console.log(error); // failure
-    });
+    //FIXME: 不要每次都等5秒
+    setTimeout(() => {
+      //等待用户信息加载，延时5秒左右，失败的情况只能下拉刷新界面
+      const promise = that.getFavorListFromCloud();
+      promise.then(function (favourArray) {
+        var contentItems = that.data.contentItems;
+        // that.upDateFavorPic(contentItems, favourArray);
+        that.setData({
+          contentItems: that.upDateFavorPic(contentItems, favourArray)
+  
+        })
+      }, function (error) {
+        console.log(error); // failure
+      });
+    }, 5000);
   },
 
   /**

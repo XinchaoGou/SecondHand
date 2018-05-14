@@ -203,13 +203,6 @@ Page({
       var tempFilePaths = that.data.offerItem.picUrlArray;
       var imgLength = tempFilePaths.length;
 
-      //如果是修改状态，已经是服务器端图片url,不上传直接设置服务器端url地址
-      if (that.data.isModify) {
-        urlArr = tempFilePaths;
-        resolve(urlArr);
-        return;
-      }
-
       if (imgLength > 0) {
         //日期作为图片名的一部分
         var newDate = new Date();
@@ -217,6 +210,23 @@ Page({
 
         var j = 0;
         for (var i = 0; i < imgLength; i++) {
+
+          //如果是修改状态，图片已经是服务器的，所以直接添加，improtant！
+          if (that.data.isModify) {
+            var tUrl = tempFilePaths[i];
+            
+            if (that.data.modifiedUrl.indexOf(tUrl) > -1) {
+              //如果修改状态且图片url是上传过的服务器端的url，直接添加，不再上传
+              urlArr.push(tUrl);
+              j++; //非常重要，判断是否上传完了所有图片
+              if (imgLength == j) {
+                console.log("成功上传图片");
+                resolve(urlArr);
+              }
+              continue; //结束本次循环
+            }
+          }
+
           var tempFilePath = [tempFilePaths[i]];
           var extension = /\.([^.]*)$/.exec(tempFilePath[0]);
           if (extension) {
@@ -582,8 +592,6 @@ Page({
     var that = this;
     try {
       var offerForm = wx.getStorageSync('offerForm');
-      // console.log(offerForm);
-      // var typeIndex = types.indexOf(offerForm.typeName);
       if (offerForm) {
         that.setData({
           offerItem : offerForm,
@@ -595,16 +603,11 @@ Page({
         })
 
         //价格相关
+        var isPriceShow = true;
         if (offerForm.price == 0) {
           // TODO: 价格面议的情况,可能有bug
-          that.setData({
-            isPriceShow: false,
-          })
-        } else {
-          that.setData({
-            isPriceShow: true,
-          })
-        }
+          isPriceShow = false;
+        } 
 
         //类别列表
         var typeArray = that.data.typeArray;
@@ -620,7 +623,12 @@ Page({
         var mData = that.findCityIndex(0,pIndex);
         var cIndex = mData.cityArray[1] .indexOf(offerForm.city);
 
+        //服务器端图片url
+        var modifiedUrl = offerForm.picUrlArray;
+
         that.setData({
+          isPriceShow: isPriceShow,
+
           cityIndex: [
             pIndex,
             cIndex
@@ -630,7 +638,9 @@ Page({
             type0,
             type1,
             type2
-          ]
+          ],
+
+          modifiedUrl: modifiedUrl
         });
 
       }
