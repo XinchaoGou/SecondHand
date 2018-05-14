@@ -21,6 +21,8 @@ Page({
     offerId: "",
     postId: 0,
 
+    
+
     //by yining,屏幕宽高
     screenHeight: 0,
     screenWidth: 0,  
@@ -40,7 +42,7 @@ Page({
         height: 20
       },
       clickable: true
-    }]
+    }],
   },
 
   /**

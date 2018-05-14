@@ -67,7 +67,7 @@ Page({
       }, function (error) {
         console.log(error); // failure
       });
-    }, 5000);
+    }, 1000);
   },
 
   /**
@@ -101,6 +101,20 @@ Page({
     query.lessThan('price', that.data.highPrice);
     query.greaterThan('price', that.data.lowPrice);
     //TODO:设置城市和物品类别的匹配
+    // query.equalTo("type0", that.data.type0);
+    // if (that.data.type1 != '所有') {
+    //   query.equalTo("type1", that.data.type1);
+    //   if (that.data.type2 != '所有') {
+    //     query.equalTo("type2", that.data.type2);      
+    //   }
+    // }
+
+    // if (that.data.province != '德国所有地区') {
+    //   query.equalTo("province", that.data.province);
+    //   if (that.data.city != '所有地区') {
+    //     query.equalTo("city", that.data.city);
+    //   }
+    // }
 
     //设置查询分页大小
     console.log(pageindex, callbackcount);
@@ -127,39 +141,17 @@ Page({
           } else {
             offerArray = new Array();
           }
-          //FIXME: 循环处理查询到的数据,详情, 最好抽象成接口
           for (var i = 0; i < results.length; i++) {
             var object = results[i];
-            var id = object.id;
-            var title = object.get('title');
-            var price = object.get('price');
-            var address = object.get('address');
-            var urls = object.get('picUrlArray');
-            if (urls == "") {
-              //设置为默认图片 url数组注意
-              urls = ['../../images/test/camera.png'];
-            }
-            //考虑时差，换算
-            var mDate = Utils.getDateDiffWithJetLag(object.createdAt);
-
-            //收藏
-            var favouriteshow = false;
+            var offerItem = that.cloudDataToLocal(object);
+            offerItem.favouriteshow = false;
             //重要，如果在收藏列表中设置图标点亮
             if (that.data.favorList.findIndex((favorItem) => {
-              return favorItem.id == id;
+              return favorItem.id == object.id;
             }) > -1) {
-              favouriteshow = true;
+              offerItem.favouriteshow = true;
             }
-
-            var offerItem = {
-              title: title,
-              price: price,
-              address: address,
-              src: urls[0],
-              date: mDate,
-              id: id,
-              favouriteshow: favouriteshow
-            }
+            
             offerArray.push(offerItem);
           }
           //存储到本地
@@ -208,10 +200,16 @@ Page({
       if (searchType) {
         var tArray = searchType.mArray;
         var tIndex = searchType.mIndex;
-        var str = tArray[0][tIndex[0]] + ' ' + tArray[1][tIndex[1]] + ' ' + tArray[2][tIndex[2]]
+        var type0 = tArray[0][tIndex[0]];
+        var type1 = tArray[1][tIndex[1]];
+        var type2 = tArray[2][tIndex[2]]
+        var str = type0 + ' ' + type1 + ' ' + type2
 
         that.setData({
-          searchType: str
+          searchType: str,
+          type0 : type0,
+          type1 : type1,
+          type2 : type2,
         })
       }
       //加载搜索城市
@@ -219,10 +217,14 @@ Page({
       if (searchCity) {
         var tArray = searchCity.mArray;
         var tIndex = searchCity.mIndex;
-        var str = tArray[0][tIndex[0]] + ' ' + tArray[1][tIndex[1]]
+        var province = tArray[0][tIndex[0]];
+        var city = tArray[1][tIndex[1]];
+        var str =  province + ' ' + city
 
         that.setData({
-          searchCity: str
+          searchCity: str,
+          province : province,
+          city : city,
         })
       }
       //加载搜索顺序
@@ -251,8 +253,8 @@ Page({
         if ((lowPrice != mLowPrice) || (highPrice != mHighPrice)) {
           //如果搜索条件改变，要重新排列
           that.setData({
-            lowPrice: priceRange.lowshowprice,
-            highPrice: priceRange.highshowprice
+            lowPrice: lowPrice,
+            highPrice: highPrice
           });
           that.onPullDownRefresh();
           return;
@@ -333,6 +335,66 @@ Page({
 
   },
 
+    /**
+   * 从云端查询到的条目转化为本地缓存数据
+   * object
+   * by xinchao
+   */
+  cloudDataToLocal: function (object) {
+    var that = this;
+    //获得发布条目内容详情
+    var id = object.id;
+    var title = object.get('title');
+    var price = object.get('price');
+    var content = object.get('content');
+
+    //类别
+    var type0 = object.get('type0');
+    var type1 = object.get('type1');
+    var type2 = object.get('type2');
+    //城市
+    var province = object.get('province');
+    var city = object.get('city');
+
+    var address = object.get('address');
+    var location = object.get('location');
+    var picUrlArray = object.get('picUrlArray');
+    if (picUrlArray == "") {
+      //没有图片则设置为默认图片 url数组注意
+      picUrlArray = ['../../images/test/camera.png'];
+    }
+    var publisher = object.get('publisher');
+    var contact = object.get('contact');
+
+    var mDate = Utils.getDateDiffWithJetLag(object.createdAt);
+
+    var localItem = {
+      //发布条目相关
+      id: id,
+      title: title,
+      price: price,
+      content: content,
+
+      type0: type0,
+      type1: type1,
+      type2: type2,
+      province: province,
+      city: city,
+
+      address: address,
+      location: location,
+      picUrlArray: picUrlArray,
+      publisher: publisher,
+      contact: contact,
+      //用于缩略图条目显示
+      src: picUrlArray[0],
+      date: mDate,
+    }
+
+    return localItem;
+  },
+
+
   /**
    * 根据favorList 更新视图的收藏图标
    * by xinchao
@@ -357,7 +419,6 @@ Page({
 
   /**
    * 从服务器获得收藏列表
-   * TODO: 最好抽象成接口
    * by xinchao
    */
   getFavorListFromCloud: function () {
@@ -379,44 +440,7 @@ Page({
               var favourArray = [];
               for (let i = 0; i < list.length; i++) {
                 var object = list[i];
-                //获得收藏列表内容详情
-                var id = object.id;
-                var title = object.get('title');
-                var typeName = object.get('typeName');
-                var address = object.get('address');
-                var location = object.get('location');
-                var price = object.get('price');
-                var urls = object.get('picUrlArray');
-                if (urls == "") {
-                  //设置为默认图片 url数组注意
-                  urls = ['../../images/test/camera.png'];
-                }
-                var content = object.get('content');
-                var publisher = Bmob.User.current().id; //用户当前id
-                var wxNumber = object.get('wxNumber');
-                var phoneNumber = object.get('phoneNumber');
-                var eMail = object.get('eMail');
-                //考虑时差，换算
-                var mDate = Utils.getDateDiffWithJetLag(object.createdAt);
-                var favorItem = {
-                  id: id,
-                  title: title,
-                  typeName: typeName,
-                  address: address,
-                  location: location,
-                  price: price,
-                  urls: urls,
-                  content: content,
-                  publisher: publisher,
-                  contact: {
-                    wxNumber: wxNumber,
-                    phoneNumber: phoneNumber,
-                    eMail: eMail,
-                  },
-                  src: urls[0],
-                  date: mDate,
-                  favouriteshow: true
-                }
+                var favorItem = that.cloudDataToLocal(object);
                 favourArray.push(favorItem);
               }
               that.setData({
