@@ -65,7 +65,7 @@ Page({
     var objectId = options.id;
 
     that.setData({
-      objectId : objectId,
+      objectId: objectId,
     })
 
     //调用api获取屏幕的宽高
@@ -154,9 +154,9 @@ Page({
     var StrLongitude = 'markers[0].longitude';
     var StrName = 'markers[0].name';
     sectionItem.favouriteshow = false;
-    if(that.data.favorList.findIndex((favorItem) => {
+    if (that.data.favorList.findIndex((favorItem) => {
       return favorItem.id == sectionItem.id;
-    }) > -1 ){
+    }) > -1) {
       sectionItem.favouriteshow = true;
     }
     that.setData({
@@ -223,10 +223,12 @@ Page({
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
-   * TODO:
    */
   onPullDownRefresh: function () {
-
+    var that = this;
+    var objectId = that.data.objectId;
+    //查询数据
+    that.searchItem(objectId);
   },
 
   /**
