@@ -374,6 +374,9 @@ Page({
 
     //同步缓存到数据到本地
     var offerForm = that.data.offerList[postId];
+    if ((offerForm.picUrlArray.length == 1) && (offerForm.picUrlArray[0] == '../../images/test/camera.png')) {
+      offerForm.picUrlArray = [];
+    }
     try {
       wx.setStorageSync('offerForm', offerForm);
       wx.switchTab({
