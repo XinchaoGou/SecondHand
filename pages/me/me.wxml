@@ -50,7 +50,7 @@
 
             <view class="section underline">
               <text class="section-title">微信号</text>
-              <input name="wxNumber" class="input" maxlength="30" disabled="{{isInputDisabled}}" placeholder-class="inputStyle" placeholder="deutschning" value="{{wxNumber}}" cursor-spacing="20" />
+              <input name="wxNumber" class="input" maxlength="30" disabled="{{isInputDisabled}}" placeholder-class="inputStyle" focus="{{isFocus}}" placeholder="deutschning" value="{{wxNumber}}" cursor-spacing="20" />
               <image class="arrow-r" src="../../images/more/enter.png" />
             </view>
 

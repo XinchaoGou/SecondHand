@@ -131,7 +131,7 @@
         </view>
 
         <view hidden="{{currentTab<contactList.length}}" class="section">
-          <text class="section-title">空白模板</text>
+          <text class="section-title">临时联系方式</text>
         </view>
 
         <swiper class="section-swiper" duration="300" bindchange="switchTab" indicator-dots="true" indicator-active-color="#32A189">
