@@ -333,13 +333,15 @@ Page({
     var that = this;
     var postId = event.currentTarget.dataset.postid;
     var objectId = that.data.favorList[postId].id;  // 获得数据库对应objectId
-    var favor = that.data.favorList[postId].favouriteshow;
-    console.log(favor);
+    // var favor = that.data.favorList[postId].favouriteshow;
+    console.log('跳转详情' + objectId);
+    try {
+      wx.setStorageSync('sectionItem', that.data.favorList[postId])
+    } catch (e) {
+    }
     //跳转条目详情
-    //TODO: 跳转的页面也许要重构
     wx.navigateTo({
-      url: '../search_section/search_section?id=' + objectId + '&favor=' + favor
-      + '&postId=' + postId
+      url: '../search_section/search_section?id=' + objectId
     })
   },
 
@@ -351,13 +353,14 @@ Page({
     var that = this;
     var postId = event.currentTarget.dataset.postid;
     var objectId = that.data.offerList[postId].id;  // 获得数据库对应objectId
-    //TODO: 自己发布的条目也需要收藏么？跳转对应页面的 postId 和 favor 没用的时候，要重构吧
-    // var favor = that.data.offerList[postId].favouriteshow;
-    var favor = false;
+    console.log('跳转详情' + objectId);
+    try {
+      wx.setStorageSync('sectionItem', that.data.offerList[postId])
+    } catch (e) {
+    }
     //跳转条目详情
     wx.navigateTo({
-      url: '../search_section/search_section?id=' + objectId + '&favor=' + favor
-      + '&postId=' + postId
+      url: '../search_section/search_section?id=' + objectId
     })
   },
 

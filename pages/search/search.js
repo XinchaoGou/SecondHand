@@ -449,6 +449,7 @@ Page({
               for (let i = 0; i < list.length; i++) {
                 var object = list[i];
                 var favorItem = that.cloudDataToLocal(object);
+                favorItem.favouriteshow = true; //给结构体添加一个属性
                 favourArray.push(favorItem);
               }
               that.setData({
