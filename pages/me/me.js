@@ -15,11 +15,11 @@ Page({
     isShowOffer: false,
     isShowFavourite: false,
     isShowContact: false,
-    isLongTap: false,//长按时的控制变量，暂未使用
     currentTab: 0,//获取联系方式的swiper组件的当前页，从0开始
     isInputDisabled: true,//控制input组件禁用的变量，true时禁用
-    isFocus: false,//记录是哪一页的input组件可以使用
-    inputTab: -1,
+    inputTab: -1,//记录是哪一页的input组件可以使用
+    isInputFinish: true,
+    isShowTopTips: false,
     //微信api更改之后
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     isUse: false,
@@ -542,35 +542,48 @@ Page({
     });
     if (index != that.data.inputTab) {
       that.setData({
-        isInputDisabled: true
+        isInputDisabled: true,
       })
     }
     else {
       that.setData({
-        isInputDisabled: false
+        isInputDisabled: false,
       })
     }
   },
   // 编辑联系方式模板条目，by yining TODO
   contactSetTap: function (e) {
     var that = this;
-    wx.showModal({
-      title: '编辑确认',
-      content: '您确认要编辑该联系模板吗？',
-      success: function (res) {
-        if (res.confirm) {
-          console.log('用户点击确定')
-          that.setData({
-            inputTab: that.data.currentTab,
-            isInputDisabled: false,
-          })
-          //取消input禁用，获取第一行焦点，
-        } else if (res.cancel) {
-          console.log('用户点击取消') //结束函数不编辑条目
-          return;
+    if (that.data.isInputFinish) {
+      wx.showModal({
+        title: '编辑确认',
+        content: '您确认要编辑该联系模板吗？',
+        success: function (res) {
+          if (res.confirm) {
+            console.log('用户点击确定')
+            that.setData({
+              inputTab: that.data.currentTab,
+              isInputDisabled: false,
+              isInputFinish: false,
+            })
+            //取消input禁用，获取第一行焦点，
+          } else if (res.cancel) {
+            console.log('用户点击取消') //结束函数不编辑条目
+            return;
+          }
         }
-      }
-    })
+      })
+    }
+    else {
+      that.setData({
+        isShowTopTips: true
+      })
+      setTimeout(function () {
+        that.setData({
+          isShowTopTips: false
+        });
+      }, 700);
+    }
   },
   // 删除联系方式模板条目，by yining，TODO
   contactDeleteTap: function (e) {
@@ -580,7 +593,7 @@ Page({
       success: function (res) {
         if (res.confirm) {
           console.log('用户点击确定')
-          //删除已发布条目
+
         } else if (res.cancel) {
           console.log('用户点击取消') //结束函数不删除条目
           return;
@@ -588,7 +601,24 @@ Page({
       }
     })
   },
-  caontactSaveTap: function (e) {
-
+  contactSaveTap: function (e) {
+    var that = this;
+    wx.showModal({
+      title: '保存确认',
+      content: '您确认要保存现有修改吗？',
+      success: function (res) {
+        if (res.confirm) {
+          console.log('用户点击确定')
+          that.setData({
+            inputTab: -1,
+            isInputDisabled: true,
+            isInputFinish: true,
+          })
+        } else if (res.cancel) {
+          console.log('用户点击取消') //结束函数不删除条目
+          return;
+        }
+      }
+    })
   }
 })

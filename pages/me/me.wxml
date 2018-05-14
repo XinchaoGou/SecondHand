@@ -1,7 +1,7 @@
 <!--pages/me/me.wxml-->
 <view class="container">
   <!-- 1.头像背景 -->
-
+  <view class="weui-toptips weui-toptips_warn" wx:if="{{isShowTopTips}}">请先保存上一模板的修改</view>
   <view class="head-background">
     <image class="userinfo-bgImg" src="../../images/test/Karlsruhe.jpg"></image>
   </view>
@@ -33,8 +33,8 @@
 
       <view hidden="{{!(currentTab<contactList.length)}}" class="section section-extra">
         <text class="section-title">常用联系模板{{currentTab+1}}</text>
-        <image class="setting1" catchtap="contactSetTap" src='../../images/test/edit-32.png' />
-        <image wx:if="{{false}}" class="setting1" catchtap="contactSaveTap" src='../../images/test/save-as-32.png' />
+        <image hidden="{{!isInputDisabled}}" class="setting1" catchtap="contactSetTap" src='../../images/test/edit-32.png' />
+        <image hidden="{{isInputDisabled}}" class="setting1" catchtap="contactSaveTap" src='../../images/test/save-as-32.png' />
         <image class="delete1" catchtap="contactDeleteTap" src='../../images/test/delete-32.png' />
       </view>
 
