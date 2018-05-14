@@ -8,24 +8,36 @@ Page({
    * 页面的初始数据
    */
   data: {
-    title: "",
-    price: 0,
-    type: "",
-    address: "",
-    content: "",
-    urls: [],
-    picNumber: 0,
-    date: "",
-    phoneNumber: 0,
-    favouriteshow: false,
-    offerId: "",
-    postId: 0,
+    //条目信息
+    sectionItem: {
+      id: '',
+      title: '',
+      price: 0,
+      content: '',
 
-    
+      type0: '',
+      type1: '',
+      type2: '',
+      province: '',
+      city: '',
+
+      address: '',
+      location: null,
+      picUrlArray: [],
+      publisher: '',
+      contact: {},
+      //用于缩略图条目显示
+      src: '',
+      date: '',
+      //图标渲染
+      favouriteshow: false,
+    },
+    //图片数目
+    picNumber: 0,
 
     //by yining,屏幕宽高
     screenHeight: 0,
-    screenWidth: 0,  
+    screenWidth: 0,
     isLoadingHidden: false,
 
     //地图加载相关
@@ -51,73 +63,21 @@ Page({
   onLoad: function (options) {
     var that = this;
     var objectId = options.id;
-    var postId = options.postId;
-    var favor = false;
-    if (options.favor == 'false') {
-      favor = false;
-    } else {
-      favor = true;
-    }
-    that.setData({
-      offerId: objectId,
-      favouriteshow: favor,
-      postId: postId
-    })
-    //查询数据
-    var Offer = Bmob.Object.extend("Offer");
-    var query = new Bmob.Query(Offer);
-    query.get(objectId, {
-      success: function (result) {
-        // The result was retrieved successfully.
-        console.log("查询成功");
-        var title = result.get('title');
-        var price = result.get('price');
-        var type = result.get('typeName');
-        var address = result.get('address');
-        var content = result.get('content');
-        var phoneNumber = result.get('phoneNumber');
-        var urls = result.get('picUrlArray');
-        if (urls == "") {
-          //设置为默认图片 url数组注意
-          urls = ['../../images/test/camera.png'];
-        }
-        //计算照片张数
-        var picNumber = urls.length;
-        //时间计算
-        var date = Utils.getDateDiffWithJetLag(result.createdAt);
-        //地图数据
-        var location = result.get('location');
-        var latitude = location.latitude;
-        var longitude = location.longitude;
-        var StrLatitude = 'markers[0].latitude';
-        var StrLongitude = 'markers[0].longitude';
-        var StrName = 'markers[0].name';
+    //TODO:
+    // var postId = options.postId;
+    // var favor = false;
+    // if (options.favor == 'false') {
+    //   favor = false;
+    // } else {
+    //   favor = true;
+    // }
+    // that.setData({
+    //   offerId: objectId,
+    //   favouriteshow: favor,
+    //   postId: postId
+    // })
 
-        that.setData({
-          title: title,
-          price: price,
-          type: type,
-          address: address,
-          content: content,
-          urls: urls,
-          picNumber: picNumber,
-          date: date,
-          phoneNumber: phoneNumber,
 
-          //地图相关
-          latitude: latitude,
-          longitude: longitude,
-          [StrLatitude]: latitude,
-          [StrLongitude]: longitude,
-          [StrName]: title,
-
-        })
-
-      },
-      error: function (result, error) {
-        console.log("查询失败");
-      }
-    });
     //调用api获取屏幕的宽高
     wx.getSystemInfo({
       success: function (res) {
@@ -126,7 +86,104 @@ Page({
         });
       }
     });
-  
+
+    that.loadLocalData();
+  },
+
+  /**
+   * 加载本地缓存
+   */
+  loadLocalData: function () {
+    var that = this;
+    try {
+      var favorList = wx.getStorageSync('favorList');
+      //加载收藏列表
+      if (favorList) {
+        that.setData({
+          favorList: favorList
+        })
+      }
+
+      //加载全部内容列表
+      var contentItems = wx.getStorageSync('contentList');
+      if (contentItems) {
+        that.setData({
+          contentItems: contentItems
+        })
+      }
+
+      //加载全部内容列表
+      var sectionItem = wx.getStorageSync('sectionItem');
+      if (sectionItem) {
+        that.setSectionData(sectionItem);
+      } else {
+        //查询数据
+        that.searchItem(objectId);
+      }
+    } catch (error) {
+
+    }
+
+  },
+
+  /**
+   * 根据offerId搜索条目
+   * by xinchao
+   */
+  searchItem: function (objectId) {
+    var that = this;
+    //查询数据
+    var Offer = Bmob.Object.extend("Offer");
+    var query = new Bmob.Query(Offer);
+    query.get(objectId, {
+      success: function (result) {
+        var sectionItem = that.cloudDataToLocal(result);
+        that.setSectionData(sectionItem);
+
+
+      },
+      error: function (result, error) {
+        console.log("查询失败");
+      }
+    });
+  },
+
+  /**
+   * 根据条目信息设置
+   * by xinchao 
+   */
+  setSectionData: function (sectionItem) {
+    var that = this;
+    //地图数据
+    var location = sectionItem.location;
+    var latitude = location.latitude;
+    var longitude = location.longitude;
+    var StrLatitude = 'markers[0].latitude';
+    var StrLongitude = 'markers[0].longitude';
+    var StrName = 'markers[0].name';
+    //TODO: favouriteshow
+    sectionItem.favouriteshow = false;
+    if(that.data.favorList.findIndex((favorItem) => {
+      return favorItem.id == sectionItem.id;
+    }) > -1 ){
+      sectionItem.favouriteshow = true;
+    }
+    that.setData({
+      //条目信息
+      sectionItem: sectionItem,
+      picNumber: sectionItem.picUrlArray.length,
+      //地图相关
+      latitude: latitude,
+      longitude: longitude,
+      [StrLatitude]: latitude,
+      [StrLongitude]: longitude,
+      [StrName]: sectionItem.title,
+    });
+    //本地缓存也要处理
+    wx.setStorage({
+      key: "sectionItem",
+      data: sectionItem
+    })
   },
 
   //根据屏幕的宽高等比例缩放计算图片的宽高，by yining
@@ -135,7 +192,7 @@ Page({
     console.log(that.data.isLoadingHidden)
     console.log('图片加载')
     that.setData({
-      isLoadingHidden:true
+      isLoadingHidden: true
     })
   },
 
@@ -150,14 +207,20 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    var that = this;
+    that.loadLocalData();
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-
+    wx.removeStorage({
+      key: 'sectionItem',
+      success: function (res) {
+        console.log("成功删除本地缓存")
+      }
+    })
   },
 
   /**
@@ -187,16 +250,16 @@ Page({
    */
   onShareAppMessage: function () {
     var that = this;
-    var title = that.data.title;
-    var offerId = that.data.offerId;
-    
+    var title = that.data.sectionItem.title;
+    var offerId = that.data.sectionItem.id;
+
     return {
       title: title,
-      path: 'pages/search/search?id='+offerId,
-      success: function(res) {
+      path: 'pages/search/search?id=' + offerId,
+      success: function (res) {
         // 转发成功
       },
-      fail: function(res) {
+      fail: function (res) {
         // 转发失败
       }
     }
@@ -209,17 +272,17 @@ Page({
    */
   phone_contact: function () {
     var that = this;
-    var phoneNumber = that.data.phoneNumber;
+    var phoneNumber = that.data.sectionItem.contact.phoneNumber;
     if (phoneNumber == 0) {
       wx.showToast({
         title: '电话号码为空',
         duration: 1000
       })
     } else {
-      phoneNumber = that.data.phoneNumber.toString();
+      phoneNumber = that.data.sectionItem.contact.phoneNumber.toString();
 
       wx.makePhoneCall({
-        phoneNumber: phoneNumber, 
+        phoneNumber: phoneNumber,
         success: function () {
         },
         fail: function () {
@@ -234,25 +297,41 @@ Page({
    */
   favourite_touch: function (event) {
     var that = this;
+    var favorList = that.data.favorList
     //修改收藏图片显示
-    var isshow = that.data.favouriteshow;
-
+    var isshow = that.data.sectionItem.favouriteshow;
+    var str = 'sectionItem.favouriteshow';
     that.setData({
-      favouriteshow: !isshow
-    })
-    //修改父视图中的值 TODO
-    var searchPage = getCurrentPages()[getCurrentPages().length - 2];
-    var postId = that.data.postId;
-    var str = 'contentItems[' + postId + '].favouriteshow';
-
-    searchPage.setData({
       [str]: !isshow
+    })
+
+    //本地缓存也要更改！
+    var mContentList = null;
+    try {
+      mContentList = wx.getStorageSync('contentList')
+      if (mContentList) {
+        favorList.forEach(function (favorItem) {
+          var postId = mContentList.findIndex((Item) => {
+            return Item.id == favorItem.id;
+          })
+          if (postId > -1) {
+            mContentList[postId].favouriteshow = !isshow;
+          }
+        });
+      }
+    } catch (e) {
+      // Do something when catch error
+    }
+    wx.setStorage({
+      key: "contentList",
+      data: mContentList
     })
 
     //获取实例
     var Offer = Bmob.Object.extend("Offer");
     var query = new Bmob.Query(Offer);
-    query.get(that.data.offerId, {
+    var offerId = that.data.sectionItem.id;
+    query.get(offerId, {
       success: function (result) {
         //将对应ObjectId 的 Offer关联到收藏
         var user = Bmob.User.current();
@@ -261,11 +340,23 @@ Page({
         if (!isshow) {
           //点击之前为false，点击之后为true，表示收藏
           relation.add(result);
+          favorList.push(that.data.sectionItem);
         } else {
           //取消收藏
           relation.remove(result);
+          var index = favorList.findIndex((favorItem) => {
+            return favorItem.id == offerId;
+          });
+          favorList.splice(index, 1);
         }
         user.save();
+        that.setData({
+          favorList: favorList
+        });
+        wx.setStorage({
+          key: "favorList",
+          data: favorList
+        })
       },
       error: function (object, error) {
         // 查询失败
@@ -285,7 +376,7 @@ Page({
     var StrName = 'markers[0].name';
     var latitude = that.data.latitude;
     var longitude = that.data.longitude;
-    var title = that.data.title;
+    var title = that.data.sectionItem.title;
     that.setData({
       //地图相关
       latitude: latitude,
@@ -303,22 +394,81 @@ Page({
   imgOverView: function (event) {
     var index = event.currentTarget.dataset.index;
     var that = this;
-    var urls = that.data.urls;
+    var urls = that.data.sectionItem.picUrlArray;
     //图片预览
     wx.previewImage({
       current: urls[index], // 当前显示图片的链接，不填则默认为 urls 的第一张
       urls: urls,
 
-      success: function(res){
+      success: function (res) {
         // success
       },
-      fail: function() {
+      fail: function () {
         // fail
       },
-      complete: function() {
+      complete: function () {
         // complete
       }
     })
+  },
+
+  /**
+* 从云端查询到的条目转化为本地缓存数据
+* object
+* by xinchao
+*/
+  cloudDataToLocal: function (object) {
+    var that = this;
+    //获得发布条目内容详情
+    var id = object.id;
+    var title = object.get('title');
+    var price = object.get('price');
+    var content = object.get('content');
+
+    //类别
+    var type0 = object.get('type0');
+    var type1 = object.get('type1');
+    var type2 = object.get('type2');
+    //城市
+    var province = object.get('province');
+    var city = object.get('city');
+
+    var address = object.get('address');
+    var location = object.get('location');
+    var picUrlArray = object.get('picUrlArray');
+    if (picUrlArray == "") {
+      //没有图片则设置为默认图片 url数组注意
+      picUrlArray = ['../../images/test/camera.png'];
+    }
+    var publisher = object.get('publisher');
+    var contact = object.get('contact');
+
+    var mDate = Utils.getDateDiffWithJetLag(object.createdAt);
+
+    var localItem = {
+      //发布条目相关
+      id: id,
+      title: title,
+      price: price,
+      content: content,
+
+      type0: type0,
+      type1: type1,
+      type2: type2,
+      province: province,
+      city: city,
+
+      address: address,
+      location: location,
+      picUrlArray: picUrlArray,
+      publisher: publisher,
+      contact: contact,
+      //用于缩略图条目显示
+      src: picUrlArray[0],
+      date: mDate,
+    }
+
+    return localItem;
   },
 
 

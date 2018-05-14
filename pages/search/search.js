@@ -62,7 +62,7 @@ Page({
         // that.upDateFavorPic(contentItems, favourArray);
         that.setData({
           contentItems: that.upDateFavorPic(contentItems, favourArray)
-  
+
         })
       }, function (error) {
         console.log(error); // failure
@@ -151,7 +151,7 @@ Page({
             }) > -1) {
               offerItem.favouriteshow = true;
             }
-            
+
             offerArray.push(offerItem);
           }
           //存储到本地
@@ -182,7 +182,7 @@ Page({
 
   /**
    * 生命周期函数--监听页面显示
-   * TODO:
+   * TODO: 搜索改变要重新刷新
    * by xinchao
    */
   onShow: function () {
@@ -195,6 +195,14 @@ Page({
           favorList: favorList
         })
       }
+      //加载全部内容列表
+      var contentItems = wx.getStorageSync('contentList');
+      if (contentItems) {
+        that.setData({
+          contentItems: contentItems
+        })
+      }
+
       //加载搜索类型
       var searchType = wx.getStorageSync('searchType');
       if (searchType) {
@@ -207,9 +215,9 @@ Page({
 
         that.setData({
           searchType: str,
-          type0 : type0,
-          type1 : type1,
-          type2 : type2,
+          type0: type0,
+          type1: type1,
+          type2: type2,
         })
       }
       //加载搜索城市
@@ -219,12 +227,12 @@ Page({
         var tIndex = searchCity.mIndex;
         var province = tArray[0][tIndex[0]];
         var city = tArray[1][tIndex[1]];
-        var str =  province + ' ' + city
+        var str = province + ' ' + city
 
         that.setData({
           searchCity: str,
-          province : province,
-          city : city,
+          province: province,
+          city: city,
         })
       }
       //加载搜索顺序
@@ -335,11 +343,11 @@ Page({
 
   },
 
-    /**
-   * 从云端查询到的条目转化为本地缓存数据
-   * object
-   * by xinchao
-   */
+  /**
+ * 从云端查询到的条目转化为本地缓存数据
+ * object
+ * by xinchao
+ */
   cloudDataToLocal: function (object) {
     var that = this;
     //获得发布条目内容详情
@@ -573,18 +581,23 @@ Page({
   },
 
   /**
-   * TODO:点击某一个条目查看详情
+   * 点击某一个条目查看详情
    * by xinchao
    */
   itemTap: function (event) {
     var that = this;
     var postId = event.currentTarget.dataset.postid;
     var objectId = that.data.contentItems[postId].id;  // 获得数据库对应objectId
-    var favor = that.data.contentItems[postId].favouriteshow;
+    // var favor = that.data.contentItems[postId].favouriteshow;
+
+    console.log('跳转详情' + objectId);
+    try {
+      wx.setStorageSync('sectionItem', that.data.contentItems[postId])
+    } catch (e) {
+    }
     //跳转条目详情
     wx.navigateTo({
-      url: '../search_section/search_section?id=' + objectId + '&favor=' + favor
-        + '&postId=' + postId
+      url: '../search_section/search_section?id=' + objectId
     })
   },
 
