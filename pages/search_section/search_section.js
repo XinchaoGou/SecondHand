@@ -285,7 +285,7 @@ Page({
   },
 
   /**
-   * 点击收藏图标绑定事件，修改图标，修改数据库TODO:
+   * 点击收藏图标绑定事件，修改图标，修改数据库
    * by xinchao
    */
   favourite_touch: function (event) {
