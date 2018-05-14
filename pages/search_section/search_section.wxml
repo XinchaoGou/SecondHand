@@ -5,7 +5,7 @@
   <!--scroll-view class="scroll" scroll-y-->
   <!--1. 图片幻灯片显示模块-->
   <view class="swiper">
-    <swiper indicator-dots="{{true}}" indicator-active-color="#32A189" autoplay="{{false}}" class="swiper1">
+    <swiper indicator-dots="{{true}}" indicator-active-color="#32A189" autoplay="{{false}}" style="height:{{screenWidth}}px">
       <block wx:for="{{sectionItem.picUrlArray}}">
         <swiper-item class="swiper2">
           <image mode="aspectFill" src="{{item}}" class="slide-image" bindload="imageLoad" style="width:{{screenWidth}}px; height:{{screenWidth}}px;" bindtap="imgOverView" data-index="{{index}}" />
