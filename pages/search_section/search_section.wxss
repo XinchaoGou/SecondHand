@@ -130,9 +130,6 @@
   width:100%;
   overflow: hidden;
 }
-.swiper1{
-  height:500rpx;
-}
 .swiper2{
   display:flex;
   flex-direction:row;
