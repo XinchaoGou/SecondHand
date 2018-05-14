@@ -18,8 +18,9 @@ Page({
     currentTab: 0,//获取联系方式的swiper组件的当前页，从0开始
     isInputDisabled: true,//控制input组件禁用的变量，true时禁用
     inputTab: -1,//记录是哪一页的input组件可以使用
-    isInputFinish: true,
-    isShowTopTips: false,
+    isInputFinish: true,//判断编辑状态是否结束
+    isShowTopTips: false,//判断是否应该弹出警告
+    isFocus: false,//获取首行焦点
     //微信api更改之后
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     isUse: false,
@@ -540,20 +541,23 @@ Page({
     that.setData({
       currentTab: e.detail.current,
     });
+    //如果当前页面与正在编辑的页面不同，则恢复默认样式
     if (index != that.data.inputTab) {
       that.setData({
         isInputDisabled: true,
       })
     }
+    //否则，重置回原样式
     else {
       that.setData({
         isInputDisabled: false,
       })
     }
   },
-  // 编辑联系方式模板条目，by yining TODO
+  // 编辑联系方式模板条目，by yining
   contactSetTap: function (e) {
     var that = this;
+    //如果当前页面修改状态为已完成，则正常弹出编辑弹窗，否则弹出warning
     if (that.data.isInputFinish) {
       wx.showModal({
         title: '编辑确认',
@@ -562,11 +566,12 @@ Page({
           if (res.confirm) {
             console.log('用户点击确定')
             that.setData({
-              inputTab: that.data.currentTab,
-              isInputDisabled: false,
-              isInputFinish: false,
+              inputTab: that.data.currentTab,//记录修改页，避免多模板同时修改
+              isInputDisabled: false,//取消input禁用
+              isInputFinish: false,//当前页面修改状态为未完成状态
+              isFocus: true//获取第一行焦点
             })
-            //取消input禁用，获取第一行焦点，
+            
           } else if (res.cancel) {
             console.log('用户点击取消') //结束函数不编辑条目
             return;
@@ -574,6 +579,7 @@ Page({
         }
       })
     }
+    //弹出warning
     else {
       that.setData({
         isShowTopTips: true
@@ -585,7 +591,7 @@ Page({
       }, 700);
     }
   },
-  // 删除联系方式模板条目，by yining，TODO
+  // 删除联系方式模板条目，by yining，
   contactDeleteTap: function (e) {
     wx.showModal({
       title: '删除确认',
@@ -593,14 +599,15 @@ Page({
       success: function (res) {
         if (res.confirm) {
           console.log('用户点击确定')
-
+          //删除的函数欠缺，TODO by Xinchao
         } else if (res.cancel) {
-          console.log('用户点击取消') //结束函数不删除条目
+          console.log('用户点击取消') 
           return;
         }
       }
     })
   },
+  //保存当前修改为新模板，by yining
   contactSaveTap: function (e) {
     var that = this;
     wx.showModal({
@@ -610,11 +617,13 @@ Page({
         if (res.confirm) {
           console.log('用户点击确定')
           that.setData({
-            inputTab: -1,
-            isInputDisabled: true,
-            isInputFinish: true,
+            inputTab: -1, //保存完毕，目前修改页重新置为-1
+            isInputDisabled: true,//输入状态重新禁用
+            isInputFinish: true,//修改状态设为已完成，为true
           })
-        } else if (res.cancel) {
+          //保存函数欠缺，TODO by Xinchao
+        }
+        else if (res.cancel) {
           console.log('用户点击取消') //结束函数不删除条目
           return;
         }
