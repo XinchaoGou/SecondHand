@@ -307,7 +307,13 @@ Page({
     that.setData({
       searchLoadingComplete: false, //加载完所有条目
       pageindex: 0, //第几次加载
-    })
+    });
+    //清空条目缓存
+    try {
+      wx.removeStorageSync('contentList');
+    } catch (e) {
+      console.log(e);
+    }
     that.getAllFromCloud();
     // complete
     wx.hideNavigationBarLoading() //完成停止加载
@@ -544,7 +550,7 @@ Page({
         mContentList[postId].favouriteshow = !isshow;
       }
     } catch (e) {
-      // Do something when catch error
+      console.log(e);
     }
     wx.setStorage({
       key: "contentList",
