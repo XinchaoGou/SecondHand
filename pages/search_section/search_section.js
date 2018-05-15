@@ -260,7 +260,7 @@ Page({
 
   /**
    * 打电话
-   * TODO: 修改后续如果没有电话，直接禁用
+   * 修改后续如果没有电话，直接禁用
    * by xinchao
    */
   phone_contact: function () {
@@ -269,10 +269,11 @@ Page({
     if (phoneNumber == 0) {
       wx.showToast({
         title: '电话号码为空',
+        icon: 'none',
         duration: 1000
       })
     } else {
-      phoneNumber = that.data.sectionItem.contact.phoneNumber.toString();
+      phoneNumber = phoneNumber.toString();
 
       wx.makePhoneCall({
         phoneNumber: phoneNumber,
@@ -280,6 +281,62 @@ Page({
         },
         fail: function () {
         }
+      })
+    }
+  },
+
+  /**
+   * 微信联系对方
+   * by xinchao
+   */
+  wx_contact: function () {
+    var that = this;
+    var wxNumber = that.data.sectionItem.contact.wxNumber;
+    if (!wxNumber) {
+      console.log('该用户没有留微信号')
+      wx.showToast({
+        title: '该用户没有留下微信号',
+        icon: 'none',
+        duration: 2000
+      })
+    } else {
+      wx.setClipboardData({
+        data: wxNumber,
+        success: function (res) {
+          wx.showToast({
+            title: '复制微信号到剪贴板成功！\n' + wxNumber,
+            icon: 'none',
+            duration: 2000
+          })
+        },
+      })
+    }
+  },
+
+  /**
+   * 邮箱联系对方
+   * by xinchao
+   */
+  mail_contact: function () {
+    var that = this;
+    var eMail = that.data.sectionItem.contact.eMail;
+    if (!eMail) {
+      console.log('该用户没有留邮箱')
+      wx.showToast({
+        title: '该用户没有留下邮箱',
+        icon: 'none',
+        duration: 2000
+      })
+    } else {
+      wx.setClipboardData({
+        data: eMail,
+        success: function (res) {
+          wx.showToast({
+            title: '复制邮箱到剪贴板成功！\n' + eMail,
+            icon: 'none',
+            duration: 2000
+          })
+        },
       })
     }
   },

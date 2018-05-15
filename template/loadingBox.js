@@ -4,6 +4,7 @@ function dataLoading(txt, icon, fun) {
     title: txt,
     icon: icon,
     duration: 500,
+    mask : true,
     success: fun
   })
 }
