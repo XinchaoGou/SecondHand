@@ -272,7 +272,9 @@ Page({
     offer.set("address", tOfferItem.address);
     var location = new Bmob.GeoPoint({ latitude: tOfferItem.location.latitude, longitude: tOfferItem.location.longitude });
     offer.set("location", location);
-    offer.set("price", parseFloat(tOfferItem.price));
+    if(that.data.isPriceShow && tOfferItem.price){ //价格设置并且非空才会上传，否则比如没设置价格，后台传了值，不能上传，价格为空也不上传
+      offer.set("price", parseFloat(tOfferItem.price));
+    }
     offer.set("content", tOfferItem.content);
     offer.set("publisher", tOfferItem.publisher);
     offer.set("picUrlArray", urlArr);
@@ -436,11 +438,7 @@ Page({
     var picUrlArray = that.data.offerItem.picUrlArray;
     var content = that.data.offerItem.content;
 
-    // FIXME: 价格有bug，仔细考虑一下
     var price = e.detail.value.price;//物品价格
-    if (!price) { //price 没输入
-      price = that.data.offerItem.price;
-    }
 
     //发布人联系方式
     var currentTab = that.data.currentTab;
@@ -512,7 +510,7 @@ Page({
         TopTips: '请选择交易地点'
       });
     }
-    else if (tOfferItem.price == 0) {
+    else if (that.data.isPriceShow && !tOfferItem.price) { //设置价格，但是没有输入值
       flag = false;
       this.setData({
         isShowTopTips: true,
@@ -604,8 +602,7 @@ Page({
 
         //价格相关
         var isPriceShow = true;
-        if (offerForm.price == 0) {
-          // TODO: 价格面议的情况,可能有bug
+        if (!offerForm.price) { //如果价格面议则，发布条目里应该没有price的信息
           isPriceShow = false;
         } 
 

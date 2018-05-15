@@ -312,7 +312,6 @@ Page({
     try {
       wx.removeStorageSync('contentList');
     } catch (e) {
-      // Do something when catch error
       console.log(e);
     }
     that.getAllFromCloud();
@@ -551,7 +550,6 @@ Page({
         mContentList[postId].favouriteshow = !isshow;
       }
     } catch (e) {
-      // Do something when catch error
       console.log(e);
     }
     wx.setStorage({
