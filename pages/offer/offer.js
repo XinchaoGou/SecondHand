@@ -272,7 +272,7 @@ Page({
     offer.set("address", tOfferItem.address);
     var location = new Bmob.GeoPoint({ latitude: tOfferItem.location.latitude, longitude: tOfferItem.location.longitude });
     offer.set("location", location);
-    if(that.data.isPriceShow && tOfferItem.price){ //价格设置并且非空才会上传，否则比如没设置价格，后台传了值，不能上传，价格为空也不上传
+    if (that.data.isPriceShow) { //价格设置并且非空才会上传，否则比如没设置价格，后台传了值，不能上传，价格为空也不上传
       offer.set("price", parseFloat(tOfferItem.price));
     }
     offer.set("content", tOfferItem.content);
@@ -286,6 +286,7 @@ Page({
     //城市
     offer.set("province", tOfferItem.province);
     offer.set("city", tOfferItem.city);
+
     //添加数据，第一个入口参数是null
     offer.save(null, {
       success: function (result) {
@@ -307,6 +308,24 @@ Page({
         })
       }
     });
+
+    //修改上传的条目结构体数据的图片URL列表，important
+    tOfferItem.picUrlArray = urlArr;
+    //将结构体添加到发布列表
+    try {
+      var offerList = wx.getStorageSync('offerList');
+      if (offerList) {
+        //如果有发布列表，添加条目到发布列表头
+        offerList.push(tOfferItem);
+        try {
+          wx.setStorageSync('offerList', offerList)
+        } catch (e) {
+          console.log(e);
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
   },
 
   /**
