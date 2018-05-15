@@ -584,7 +584,7 @@ Page({
 
   /**
    * 生命周期函数--监听页面显示
-   * TODO: 不单单是显示，还有要上传服务器的东西,可以把所有数据都刷新
+   * 不单单是显示，还有要上传服务器的东西,可以把所有数据都刷新
    */
   onShow: function () {
     var that = this;
@@ -602,7 +602,7 @@ Page({
 
         //价格相关
         var isPriceShow = true;
-        if (!offerForm.price) { //如果价格面议则，发布条目里应该没有price的信息
+        if (!offerForm.price) { //如果价格面议则为空，发布条目里应该没有price的信息
           isPriceShow = false;
         } 
 
