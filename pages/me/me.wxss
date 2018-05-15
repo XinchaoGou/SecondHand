@@ -215,30 +215,8 @@ page {
 
 .icon-tap-area {
   position: absolute;
-  bottom: 0rpx;
   width: 150rpx;
   height: 90rpx;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.icon-tap-area-top {
-  position: absolute;
-  width: 150rpx;
-  height: 90rpx;
-  display: flex;
-  justify-content: flex-end;
-  align-items: flex-start;
-}
-
-.icon-tap-area-bottom {
-  position: absolute;
-  width: 150rpx;
-  height: 90rpx;
-  display: flex;
-  justify-content: flex-end;
-  align-items: flex-end;
 }
 
 .icon-size {
@@ -248,18 +226,32 @@ page {
 
 .left {
   right: 140rpx;
+  bottom: 0rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .right {
   right: -30rpx;
+  bottom: 0rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .top {
   right: 10rpx;
   top: 0rpx;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
 }
 
 .bottom {
   right: 15rpx;
   bottom: 0rpx;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
 }

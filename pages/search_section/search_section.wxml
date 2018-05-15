@@ -67,7 +67,7 @@
   </view>
 
   <!--4.发布内容地图-->
-  <view class="offer-info">
+  <view class="offer-info newstyle">
     <view class="offer-section">
       <text class="offer-title-11">同城范围</text>
     </view>
@@ -77,7 +77,7 @@
     <view class="offer-section">
       <text class="offer-title-11">交易地点</text>
     </view>
-    <view class="offer-section">
+    <view class="offer-section1">
       <text class="offer-cont-11">{{sectionItem.address}}</text>
     </view>
   </view>

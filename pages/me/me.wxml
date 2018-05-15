@@ -179,7 +179,7 @@
         <view class="content-block2 pos-relative">
 
           <text class='content-text-title'>{{item.title}}</text>
-          <view class="icon-tap-area-top top" catchtap="offerSetTap" data-postid="{{index}}">
+          <view class="icon-tap-area top" catchtap="offerSetTap" data-postid="{{index}}">
             <image class="icon-size"  src='../../images/test/edit-32.png' />
           </view>
           <view class="location-time">
@@ -189,7 +189,7 @@
 
           <view class="content-bottom">
             <text class='content-text-price'>€ {{item.price}}</text>
-            <view class="icon-tap-area-bottom bottom" catchtap="offerDeleteTap" data-postid="{{index}}">
+            <view class="icon-tap-area bottom" catchtap="offerDeleteTap" data-postid="{{index}}">
               <image class="icon-size" src='../../images/test/delete-32.png' />
             </view>
           </view>
