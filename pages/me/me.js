@@ -571,7 +571,7 @@ Page({
               isInputFinish: false,//当前页面修改状态为未完成状态
               isFocus: true//获取第一行焦点
             })
-            
+
           } else if (res.cancel) {
             console.log('用户点击取消') //结束函数不编辑条目
             return;
@@ -601,7 +601,7 @@ Page({
           console.log('用户点击确定')
           //删除的函数欠缺，TODO by Xinchao
         } else if (res.cancel) {
-          console.log('用户点击取消') 
+          console.log('用户点击取消')
           return;
         }
       }
@@ -622,6 +622,39 @@ Page({
             isInputFinish: true,//修改状态设为已完成，为true
           })
           //保存函数欠缺，TODO by Xinchao
+        }
+        else if (res.cancel) {
+          console.log('用户点击取消') //结束函数不删除条目
+          return;
+        }
+      }
+    })
+  },
+  newcontactSaveTap: function (e) {
+    wx.showModal({
+      title: '保存确认',
+      content: '您确认要将此联系方式添加到常用模板吗？',
+      success: function (res) {
+        if (res.confirm) {
+          console.log('用户点击确定')
+         
+          //保存函数欠缺，TODO by Xinchao
+        }
+        else if (res.cancel) {
+          console.log('用户点击取消') //结束函数不删除条目
+          return;
+        }
+      }
+    })
+  },
+  newcontactResetTap: function (e) {
+    wx.showModal({
+      title: '重置确认',
+      content: '您确认要将所有内容重置清空吗？',
+      success: function (res) {
+        if (res.confirm) {
+          console.log('用户点击确定')
+          //重置函数欠缺，TODO by Xinchao
         }
         else if (res.cancel) {
           console.log('用户点击取消') //结束函数不删除条目

@@ -600,7 +600,6 @@ Page({
     var that = this;
     var postId = event.currentTarget.dataset.postid;
     var objectId = that.data.contentItems[postId].id;  // 获得数据库对应objectId
-
     console.log('跳转详情' + objectId);
     try {
       wx.setStorageSync('sectionItem', that.data.contentItems[postId])

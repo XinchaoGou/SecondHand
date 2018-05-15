@@ -130,8 +130,10 @@
           <text class="section-title">常用联系模板{{currentTab+1}}</text>
         </view>
 
-        <view hidden="{{currentTab<contactList.length}}" class="section">
-          <text class="section-title">临时联系方式</text>
+        <view hidden="{{currentTab<contactList.length}}" class="section section-extra">
+          <text class="section-title">联系方式</text>
+          <image class="setting1" catchtap="newcontactSaveTap" src='../../images/test/save-32.png' />
+          <image class="delete1" catchtap="newcontactResetTap" src='../../images/test/reset-32.png' />
         </view>
 
         <swiper class="section-swiper" duration="300" bindchange="switchTab" indicator-dots="true" indicator-active-color="#32A189">
@@ -139,7 +141,7 @@
 
           <!--微信号，手机号，邮箱常用模板，循环加载页面 TODO:-->
           <block wx:for="{{contactList}}">
-            <swiper-item>
+            <swiper-item bindlongpress="contactLongTap">
               <!-- 微信号 -->
               <view class="section underline">
                 <text class="section-title">微信号</text>
@@ -175,7 +177,7 @@
             <!-- 手机号码 -->
             <view class="section underline">
               <text class="section-title">手机号</text>
-              <input name="phoneNumber" type="number" class="input" bindfocus="getPhoneFocus" bindblur="losePhoneFocus"placeholder-class="inputStyle" placeholder="请输入号码" value="{{offerItem.contact.phoneNumber}}" cursor-spacing="20" />
+              <input name="phoneNumber" type="number" class="input" bindfocus="getPhoneFocus" bindblur="losePhoneFocus" placeholder-class="inputStyle" placeholder="请输入号码" value="{{offerItem.contact.phoneNumber}}" cursor-spacing="20" />
               <image class="arrow-r" src="../../images/more/enter.png" />
             </view>
 

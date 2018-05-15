@@ -189,10 +189,10 @@ Page({
     }
   },
 
-/**
- * 封装发布照片到服务器
- * by xinchao
- */
+  /**
+   * 封装发布照片到服务器
+   * by xinchao
+   */
   upLoadPicToCloud: function () {
     //同步封装上传照片到云端
     var that = this;
@@ -214,7 +214,7 @@ Page({
           //如果是修改状态，图片已经是服务器的，所以直接添加，improtant！
           if (that.data.isModify) {
             var tUrl = tempFilePaths[i];
-            
+
             if (that.data.modifiedUrl.indexOf(tUrl) > -1) {
               //如果修改状态且图片url是上传过的服务器端的url，直接添加，不再上传
               urlArr.push(tUrl);
@@ -594,7 +594,7 @@ Page({
       var offerForm = wx.getStorageSync('offerForm');
       if (offerForm) {
         that.setData({
-          offerItem : offerForm,
+          offerItem: offerForm,
           isSrc: true,
           isContent: true,
           isAgree: true,
@@ -607,21 +607,21 @@ Page({
         if (offerForm.price == 0) {
           // TODO: 价格面议的情况,可能有bug
           isPriceShow = false;
-        } 
+        }
 
         //类别列表
         var typeArray = that.data.typeArray;
         var type0 = typeArray[0].indexOf(offerForm.type0);
-        var tData = that.findTypeIndex(0,type0);
+        var tData = that.findTypeIndex(0, type0);
         var type1 = tData.typeArray[1].indexOf(offerForm.type1);
-        tData = that.findTypeIndex(1,type1);
+        tData = that.findTypeIndex(1, type1);
         var type2 = tData.typeArray[2].indexOf(offerForm.type2);
 
         //城市列表
         var cityArray = that.data.cityArray;
         var pIndex = cityArray[0].indexOf(offerForm.province);
-        var mData = that.findCityIndex(0,pIndex);
-        var cIndex = mData.cityArray[1] .indexOf(offerForm.city);
+        var mData = that.findCityIndex(0, pIndex);
+        var cIndex = mData.cityArray[1].indexOf(offerForm.city);
 
         //服务器端图片url
         var modifiedUrl = offerForm.picUrlArray;
@@ -738,14 +738,14 @@ Page({
   },
   bindMultiPickerColumnChange: function (e) {
     var that = this;
-    that.findTypeIndex(e.detail.column,e.detail.value)
+    that.findTypeIndex(e.detail.column, e.detail.value)
   },
 
   /**
    * 根据前面列选择重建条目列表
    * by xinchao
    */
-  findTypeIndex: function (column,value){
+  findTypeIndex: function (column, value) {
     var that = this;
     var mData = {
       typeArray: that.data.typeArray,
@@ -831,14 +831,14 @@ Page({
   },
   bindMultiPickerColumnChange1: function (e) {
     var that = this;
-    that.findCityIndex(e.detail.column,e.detail.value);
+    that.findCityIndex(e.detail.column, e.detail.value);
   },
 
   /**
    * 根据前面列重建城市列表数组
    * by xinchao
    */
-  findCityIndex: function (column,value){
+  findCityIndex: function (column, value) {
     var that = this;
     var mData = {
       cityArray: that.data.cityArray,
@@ -932,7 +932,7 @@ Page({
       y_scroll: true
     })
   },
-  getWechatFocus: function(e){
+  getWechatFocus: function (e) {
     var that = this;
     that.setData({
       y_scroll: false
@@ -945,7 +945,7 @@ Page({
       y_scroll: true
     })
   },
-  getPhoneFocus: function(e){
+  getPhoneFocus: function (e) {
     var that = this;
     that.setData({
       y_scroll: false
@@ -955,6 +955,21 @@ Page({
     var that = this;
     that.setData({
       y_scroll: true
+    })
+  },
+  //常用联系方式长按事件监听，长按会触发底部消息弹窗
+  contactLongTap: function (e) {
+    console.log('长按')
+    wx.showActionSheet({
+      itemList: ['前往“我的”页面编辑此模板'],
+      success: function (res) {
+        wx.switchTab({
+          url: '../me/me'
+        })//点选此项，页面随即跳转“我的”页面
+      },
+      fail: function (res) {
+        console.log(res.errMsg)
+      }
     })
   }
 })

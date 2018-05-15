@@ -185,13 +185,7 @@ page {
   top: 0rpx;
 }
 
-.setting1 {
-  position: absolute;
-  height: 40rpx;
-  width: 40rpx;
-  right: 140rpx;
-  bottom: 20rpx;
-}
+
 
 .delete {
   position: absolute;
@@ -200,13 +194,7 @@ page {
   right: 15rpx;
 }
 
-.delete1 {
-  position: absolute;
-  height: 40rpx;
-  width: 40rpx;
-  right: 10rpx;
-  bottom: 20rpx;
-}
+
 
 .plus {
   position: absolute;
@@ -229,10 +217,3 @@ page {
   background-color: #b2b2b2;
 }
 
-.section-extra {
-  position: relative;
-}
-
-.content-block-extra {
-  position: relative;
-}

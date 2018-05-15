@@ -96,6 +96,24 @@
 
 .favourite {
   position: absolute;
-  right: 10rpx;
-  bottom: -10rpx;
+  z-index:300;
+  right: -50rpx;
+  bottom: 0rpx;
+  width:150rpx;
+  height:80rpx;
+  display:flex;
+  justify-content: center;
+  align-items:flex-end;
+}
+.favor-image{
+  height:50rpx; 
+  width:50rpx;
+}
+.pos-relative{
+  position:relative;
+}
+.item-image{
+  height:210rpx; 
+  width:280rpx;
+  border-radius:10rpx;
 }

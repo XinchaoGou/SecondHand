@@ -118,3 +118,20 @@
   background-color: #32a189;
   margin-right: 0rpx;
 }
+.setting1 {
+  position: absolute;
+  height: 40rpx;
+  width: 40rpx;
+  right: 140rpx;
+  bottom: 20rpx;
+}
+.delete1 {
+  position: absolute;
+  height: 40rpx;
+  width: 40rpx;
+  right: 10rpx;
+  bottom: 20rpx;
+}
+.section-extra {
+  position: relative;
+}
