@@ -31,17 +31,27 @@
 
     <view class="section-big sbextra height" wx:if="{{isShowContact}}">
 
-      <view hidden="{{!(currentTab<contactList.length)}}" class="section section-extra">
+      <view hidden="{{!(currentTab<contactList.length)}}" class="section pos-relative">
         <text class="section-title">常用联系模板{{currentTab+1}}</text>
-        <image hidden="{{!isInputDisabled}}" class="setting1" catchtap="contactSetTap" src='../../images/test/edit-32.png' />
-        <image hidden="{{isInputDisabled}}" class="setting1" catchtap="contactSaveTap" src='../../images/test/save-32.png' />
-        <image class="delete1" catchtap="contactDeleteTap" src='../../images/test/delete-32.png' />
+        <view class="icon-tap-area left" catchtap="contactSetTap">
+          <image hidden="{{!isInputDisabled}}" class="icon-size"  src='../../images/test/edit-32.png' />
+        </view>
+        <view class="icon-tap-area left" catchtap="contactSaveTap">
+          <image hidden="{{isInputDisabled}}" class="icon-size"  src='../../images/test/save-32.png' />
+        </view>
+        <view class="icon-tap-area right" catchtap="contactDeleteTap">
+          <image class="icon-size"  src='../../images/test/delete-32.png' />
+        </view>
       </view>
 
-      <view hidden="{{currentTab<contactList.length}}" class="section section-extra">
+      <view hidden="{{currentTab<contactList.length}}" class="section pos-relative">
         <text class="section-title">空白模板</text>
-        <image class="setting1" catchtap="newcontactSaveTap" src='../../images/test/save-32.png' />
-        <image class="delete1" catchtap="newcontactResetTap" src='../../images/test/reset-32.png' />
+        <view class="icon-tap-area left" catchtap="newcontactSaveTap">
+          <image class="icon-size" src='../../images/test/save-32.png' />
+        </view>
+        <view class="icon-tap-area right" catchtap="newcontactResetTap">
+          <image class="icon-size" src='../../images/test/reset-32.png' />
+        </view>
       </view>
 
       <swiper class="section-swiper" duration="300" bindchange="switchTab" indicator-dots="true" indicator-active-color="#32A189">
@@ -169,7 +179,9 @@
         <view class="content-block2 pos-relative">
 
           <text class='content-text-title'>{{item.title}}</text>
-          <image class="setting" catchtap="offerSetTap" data-postid="{{index}}" src='../../images/test/edit-32.png' />
+          <view class="icon-tap-area-top top" catchtap="offerSetTap" data-postid="{{index}}">
+            <image class="icon-size"  src='../../images/test/edit-32.png' />
+          </view>
           <view class="location-time">
             <text class='content-text-location'>{{item.address}}</text>
             <text class='content-text-offertime'>{{item.date}}</text>
@@ -177,7 +189,9 @@
 
           <view class="content-bottom">
             <text class='content-text-price'>€ {{item.price}}</text>
-            <image catchtap="offerDeleteTap" class="delete" src='../../images/test/delete-32.png' data-postid="{{index}}" />
+            <view class="icon-tap-area-bottom bottom" catchtap="offerDeleteTap" data-postid="{{index}}">
+              <image class="icon-size" src='../../images/test/delete-32.png' />
+            </view>
           </view>
         </view>
       </view>

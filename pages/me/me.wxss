@@ -185,16 +185,12 @@ page {
   top: 0rpx;
 }
 
-
-
 .delete {
   position: absolute;
   height: 40rpx;
   width: 40rpx;
   right: 15rpx;
 }
-
-
 
 .plus {
   position: absolute;
@@ -217,3 +213,53 @@ page {
   background-color: #b2b2b2;
 }
 
+.icon-tap-area {
+  position: absolute;
+  bottom: 0rpx;
+  width: 150rpx;
+  height: 90rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.icon-tap-area-top {
+  position: absolute;
+  width: 150rpx;
+  height: 90rpx;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+}
+
+.icon-tap-area-bottom {
+  position: absolute;
+  width: 150rpx;
+  height: 90rpx;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+
+.icon-size {
+  height: 40rpx;
+  width: 40rpx;
+}
+
+.left {
+  right: 140rpx;
+}
+
+.right {
+  right: -30rpx;
+}
+
+.top {
+  right: 10rpx;
+  top: 0rpx;
+}
+
+.bottom {
+  right: 15rpx;
+  bottom: 0rpx;
+}
