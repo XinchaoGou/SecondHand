@@ -23,7 +23,7 @@ Page({
     //new contact新保存的联系方式
     newContact: {
       wxNumber: '',
-      phoneNumber: 0,
+      phoneNumber: '',
       eMail: ''
     },
 
@@ -400,7 +400,7 @@ Page({
     var that = this;
     var postId = event.currentTarget.dataset.favouriteid;
     var objectId = that.data.favorList[postId].id;  // 获得数据库对应objectId
-
+    
     //即时更新视图，从收藏列表删除对应收藏
     var isshow = this.data.favorList[postId].favouriteshow;
     var tFavorItems = that.data.favorList;
@@ -741,6 +741,7 @@ Page({
     })
   },
   newcontactSaveTap: function (e) {
+    console.log('表明label可以使用')
     wx.showModal({
       title: '保存确认',
       content: '您确认要将此联系方式添加到常用模板吗？',
@@ -772,5 +773,13 @@ Page({
         }
       }
     })
+  },
+  formSubmit: function (e) {
+    console.log('form发生了submit事件，携带数据为：', e.detail.value)
+    //TODO:by Xinchao
+  },
+  formReset: function () {
+    console.log('form发生了reset事件')
+    //TODO:by Xinchao
   }
 })
