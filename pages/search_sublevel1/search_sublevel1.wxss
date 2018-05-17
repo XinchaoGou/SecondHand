@@ -1,5 +1,6 @@
 /* pages/search_sublevel1/search_sublevel1.wxss */
 @import '/style/secondhand.wxss';
+
 page {
   height: 100%;
   background-color: #efeff4;
@@ -14,7 +15,7 @@ page {
   justify-content: space-around;
   box-sizing: border-box;
   padding: 10rpx 0;
-  position:fixed;
+  position: fixed;
 }
 
 .euro {
@@ -29,4 +30,12 @@ page {
 
 .slider {
   width: 85%;
+}
+
+.mb20 {
+  margin-bottom: 20rpx;
+}
+
+.height {
+  height: 100%;
 }

@@ -1,8 +1,8 @@
 <!--pages/search/search.wxml-->
 
-<view class="container">
+<view class="container height">
 
-  <view class="section-big border">
+  <view class="section-big border mb20">
 
     <!--地理范围显示模块-->
     <picker mode="multiSelector" bindchange="bindMultiPickerChange1" bindcolumnchange="bindMultiPickerColumnChange1" value="{{multiCityIndex}}" range="{{multiCityArray}}" class="width">
