@@ -99,10 +99,94 @@ Page({
       }
 
     } catch (e) {
-      console.log('本地缓存favorList，offerList，userInfo读取失败');
+      console.log('本地缓存favorList，offerList，userInfo,contactList读取失败');
     }
   },
+  /*
+   * 查询用户的所有发布
+   * 获得发布条目内容详情,同时缓存到本地
+   * by xinchao
+   */
+  searchOfferList: function () {
+    console.log("从云端搜索发布列表");
+    var that = this;
+    var userId = Bmob.User.current().id;
 
+    var Offer = Bmob.Object.extend("Offer");
+    var query = new Bmob.Query(Offer);
+    var isme = new Bmob.User();
+    isme.id = userId;     //当前用户的objectId
+    query.equalTo("publisher", isme);
+    query.descending('createdAt');  //排序
+
+    query.find({
+      success: function (results) {
+        console.log("查询到" + results.length + "条发布");
+        var offerArray = [];
+        for (let i = 0; i < results.length; i++) {
+          var object = results[i];
+          var offerItem = that.cloudDataToLocal(object);
+          offerArray.push(offerItem);
+        }
+
+        that.setData({
+          offerList: offerArray
+        });
+        wx.setStorage({
+          key: "offerList",
+          data: offerArray
+        });
+      },
+      error: function (error) {
+        console.log("查询失败: " + error.code + " " + error.message);
+      }
+    });
+  },
+
+  /**
+   * 查询用户收藏列表封装
+   * 获得收藏列表内容详情，同时缓存到本地
+   * by xinchao
+   */
+  searchFavouriteList: function () {
+    console.log("从云端搜索收藏列表");
+    var that = this;
+    //查询用户收藏列表
+    var User = Bmob.Object.extend("_User");
+    var query = new Bmob.Query(User);
+    query.get(Bmob.User.current().id, {
+      success: function (result) {
+        // 查询成功
+        console.log("查询当前用户成功");
+        var relation = result.relation('like');
+        var query = relation.query();
+        query.descending('createdAt');  //排序
+        query.find({
+          success: function (list) {
+            console.log("查询到" + list.length + "条收藏");
+            var favourArray = [];
+            for (let i = 0; i < list.length; i++) {
+              var object = list[i];
+              var favorItem = that.cloudDataToLocal(object);
+              favorItem.favouriteshow = true; //给结构体添加一个属性
+              favourArray.push(favorItem);
+            }
+            that.setData({
+              favorList: favourArray
+            });
+            wx.setStorage({
+              key: "favorList",
+              data: favourArray
+            });
+          }
+        });
+      },
+      error: function (object, error) {
+        // 查询失败
+        console.log("查询当前用户失败");
+      }
+    });
+  },
   /**
    * 更新用户名字和头像
    * by xinchao
@@ -134,7 +218,10 @@ Page({
     })
   },
 
-   //获得用户的联系方式模版
+  /**
+   * 获得用户的联系方式模版
+   * by xinchao
+  */
    getContactList: function () {
     var that = this;
     //查询用户收藏列表
@@ -303,91 +390,7 @@ Page({
 
     return localItem;
   },
-  /*
-   * 查询用户的所有发布
-   * 获得发布条目内容详情,同时缓存到本地
-   * by xinchao
-   */
-  searchOfferList: function () {
-    console.log("从云端搜索发布列表");
-    var that = this;
-    var userId = Bmob.User.current().id;
 
-    var Offer = Bmob.Object.extend("Offer");
-    var query = new Bmob.Query(Offer);
-    var isme = new Bmob.User();
-    isme.id = userId;     //当前用户的objectId
-    query.equalTo("publisher", isme);
-    query.descending('createdAt');  //排序
-
-    query.find({
-      success: function (results) {
-        console.log("查询到" + results.length + "条发布");
-        var offerArray = [];
-        for (let i = 0; i < results.length; i++) {
-          var object = results[i];
-          var offerItem = that.cloudDataToLocal(object);
-          offerArray.push(offerItem);
-        }
-
-        that.setData({
-          offerList: offerArray
-        });
-        wx.setStorage({
-          key: "offerList",
-          data: offerArray
-        });
-      },
-      error: function (error) {
-        console.log("查询失败: " + error.code + " " + error.message);
-      }
-    });
-  },
-
-  /**
-   * 查询用户收藏列表封装
-   * 获得收藏列表内容详情，同时缓存到本地
-   * by xinchao
-   */
-  searchFavouriteList: function () {
-    console.log("从云端搜索收藏列表");
-    var that = this;
-    //查询用户收藏列表
-    var User = Bmob.Object.extend("_User");
-    var query = new Bmob.Query(User);
-    query.get(Bmob.User.current().id, {
-      success: function (result) {
-        // 查询成功
-        console.log("查询当前用户成功");
-        var relation = result.relation('like');
-        var query = relation.query();
-        query.descending('createdAt');  //排序
-        query.find({
-          success: function (list) {
-            console.log("查询到" + list.length + "条收藏");
-            var favourArray = [];
-            for (let i = 0; i < list.length; i++) {
-              var object = list[i];
-              var favorItem = that.cloudDataToLocal(object);
-              favorItem.favouriteshow = true; //给结构体添加一个属性
-              favourArray.push(favorItem);
-            }
-            that.setData({
-              favorList: favourArray
-            });
-            wx.setStorage({
-              key: "favorList",
-              data: favourArray
-            });
-          }
-        });
-      },
-      error: function (object, error) {
-        // 查询失败
-        console.log("查询当前用户失败");
-      }
-    });
-  },
 
   /**
    * 点击收藏图标绑定事件，修改图标，修改数据库
@@ -445,7 +448,6 @@ Page({
     var that = this;
     var postId = event.currentTarget.dataset.postid;
     var objectId = that.data.favorList[postId].id;  // 获得数据库对应objectId
-    // var favor = that.data.favorList[postId].favouriteshow;
     console.log('跳转详情' + objectId);
     try {
       wx.setStorageSync('sectionItem', that.data.favorList[postId])

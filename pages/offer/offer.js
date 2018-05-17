@@ -75,7 +75,7 @@ Page({
    */
   onLoad: function (options) {
     var that = this;
-    that.getContactList();
+    // that.getContactList();
   },
 
   //获得用户的联系方式模版
@@ -95,7 +95,7 @@ Page({
         });
         //设置本地缓存
         wx.setStorage({
-          key:"contactList",
+          key: "contactList",
           data: mContact
         })
 
@@ -603,6 +603,17 @@ Page({
   onShow: function () {
     var that = this;
     try {
+      //加载用户联系方式
+      var contactList = wx.getStorageSync('contactList');
+      if (contactList) {
+        that.setData({
+          contactList: contactList
+        });
+      } else {
+        //从服务器获得用户联系方式
+        that.getContactList();
+      }
+
       var offerForm = wx.getStorageSync('offerForm');
       if (offerForm) {
         that.setData({
