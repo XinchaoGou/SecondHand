@@ -8,7 +8,7 @@ Page({
     //物品内容
     content: "",
     noteNowLen: 0,//备注当前字数
-    noteMaxLen: 400,//备注最多字数
+    noteMaxLen: 600,//备注最多字数
     accept_disabled: true,//判断是否禁用accept按钮
     delete_disabled: true,//判断是否禁用delete按钮
     screenWidth:0
