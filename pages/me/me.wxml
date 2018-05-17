@@ -44,7 +44,7 @@
         </view>
       </view>
 
-      <view hidden="{{currentTab<contactList.length}}" class="section pos-relative">
+      <view hidden="{{currentTab<contactList.length || contactList.length >= 3}}" class="section pos-relative">
         <text class="section-title">空白模板</text>
         <view class="icon-tap-area left" catchtap="newContactSaveTap">
           <image class="icon-size" src='../../images/test/save-32.png' />
@@ -82,7 +82,7 @@
           </swiper-item>
         </block>
         <!--微信号，手机号，邮箱空白模板-->
-        <swiper-item>
+        <swiper-item wx:if="{{contactList.length < maxContactNumber}}">
           <!-- 微信号 -->
           <view class="section underline">
             <text class="section-title2">微信号</text>
