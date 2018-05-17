@@ -33,14 +33,14 @@
 
       <view hidden="{{!(currentTab<contactList.length)}}" class="section pos-relative">
         <text class="section-title">常用联系模板{{currentTab+1}}</text>
-        <view class="icon-tap-area left" catchtap="contactSetTap">
-          <image hidden="{{!isInputDisabled}}" class="icon-size"  src='../../images/test/edit-32.png' />
+        <view class="icon-tap-area left" hidden="{{!isInputDisabled}}" catchtap="contactSetTap">
+          <image class="icon-size" src='../../images/test/edit-32.png' />
         </view>
-        <view class="icon-tap-area left" catchtap="contactSaveTap">
-          <image hidden="{{isInputDisabled}}" class="icon-size"  src='../../images/test/save-32.png' />
+        <view class="icon-tap-area left" hidden="{{isInputDisabled}}" catchtap="contactSaveTap">
+          <image class="icon-size" src='../../images/test/save-32.png' />
         </view>
         <view class="icon-tap-area right" catchtap="contactDeleteTap">
-          <image class="icon-size"  src='../../images/test/delete-32.png' />
+          <image class="icon-size" src='../../images/test/delete-32.png' />
         </view>
       </view>
 
@@ -180,7 +180,7 @@
 
           <text class='content-text-title'>{{item.title}}</text>
           <view class="icon-tap-area top" catchtap="offerSetTap" data-postid="{{index}}">
-            <image class="icon-size"  src='../../images/test/edit-32.png' />
+            <image class="icon-size" src='../../images/test/edit-32.png' />
           </view>
           <view class="location-time">
             <text class='content-text-location'>{{item.address}}</text>

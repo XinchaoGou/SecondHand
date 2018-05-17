@@ -130,7 +130,7 @@
           <text class="section-title">常用联系模板{{currentTab+1}}</text>
         </view>
 
-        <view hidden="{{currentTab<contactList.length}}" class="section section-extra">
+        <view hidden="{{currentTab<contactList.length}}" class="section pos-relative">
           <text class="section-title">联系方式</text>
           <image class="setting1" catchtap="newcontactSaveTap" src='../../images/test/save-32.png' />
           <image class="delete1" catchtap="newcontactResetTap" src='../../images/test/reset-32.png' />
