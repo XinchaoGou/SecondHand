@@ -10,15 +10,7 @@ Page({
     userInfo: {},
     favorList: [],
     offerList: [],
-    contactList: [{
-      wxNumber: 'deutschning',
-      phoneNumber: 18817870927,
-      eMail: 'liuyn_tongji@163.com'
-    }, {
-      wxNumber: '刘一宁大傻逼',
-      phoneNumber: 110,
-      eMail: 'liuyn_sha@163.com'
-    }],
+    contactList: [],
 
     //new contact新保存的联系方式
     newContact: {
@@ -269,11 +261,8 @@ Page({
       success: function (result) {
         // 查询成功
         console.log("查询当前用户成功");
-        // var mContactList = that.data.contactList;
-        // var mContact = that.data.newContact;
         if (mContactList.length <= that.data.maxContactNumber) {
-          //已有模版数小于2， 总模版数小于3
-          // mContactList.push(mContact);
+          //已有模版数小于3
           //上传数据库
           result.set('contactList', mContactList);
           result.save();
@@ -312,10 +301,7 @@ Page({
     var that = this;
     wx.vibrateShort();  // 使手机振动15ms  
     wx.showNavigationBarLoading() //在标题栏中显示加载
-    // that.onLoad();
-    that.searchFavouriteList();
-    that.searchOfferList();
-    that.upDateUserInfo();
+    that.onLoad();
     // complete
     wx.hideNavigationBarLoading() //完成停止加载
     wx.stopPullDownRefresh() //停止下拉刷新
@@ -700,7 +686,7 @@ Page({
       }, 700);
     }
   },
-  // 删除联系方式模板条目，by yining，
+  // 点击删除联系方式模板条目，by yining，
   contactDeleteTap: function (e) {
     var that = this;
     wx.showModal({
@@ -709,7 +695,6 @@ Page({
       success: function (res) {
         if (res.confirm) {
           console.log('用户点击确定')
-          //删除的函数欠缺，TODO: by Xinchao
           that.contactDelete();
         } else if (res.cancel) {
           console.log('用户点击取消')
@@ -733,6 +718,9 @@ Page({
             isInputFinish: true,//修改状态设为已完成，为true
           })
           //保存函数欠缺，TODO: by Xinchao
+          var mContact = that.data.newContact;
+          mContactList.push(mContact);
+          that.upDateContact(mContactList);
         }
         else if (res.cancel) {
           console.log('用户点击取消') //结束函数不删除条目
@@ -741,6 +729,7 @@ Page({
       }
     })
   },
+  //保存新模版， by xinchao
   newContactSaveTap: function (e) {
     var that = this;
     var mContactList = that.data.contactList;
@@ -773,6 +762,8 @@ Page({
       }
     })
   },
+
+  //重置模版
   newContactResetTap: function (e) {
     var that = this;
     wx.showModal({
@@ -791,6 +782,7 @@ Page({
     })
   },
 
+  //删除联系方式的实现
   contactDelete: function () {
     var that = this;
     //发布人联系方式
@@ -808,7 +800,7 @@ Page({
       //修改服务器
       that.upDateContact(mContactList);
     }
-
-
   }
+
+
 })

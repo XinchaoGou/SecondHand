@@ -26,7 +26,7 @@
       <!--2.2 物品类别，交易地点及物品价格 -->
       <view class="section-big border2">
 
-        <!-- 2.2.1 物品类别 TODO:-->
+        <!-- 2.2.1 物品类别-->
         <picker mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{typeIndex}}" range="{{typeArray}}" class="width">
           <view class="section">
             <text class="section-title">发布类别</text>
@@ -39,7 +39,7 @@
           </view>
         </picker>
 
-        <!-- 2.2.1 同城范围 TODO:-->
+        <!-- 2.2.1 同城范围-->
         <picker mode="multiSelector" bindchange="bindMultiPickerChange1" bindcolumnchange="bindMultiPickerColumnChange1" value="{{cityIndex}}" range="{{cityArray}}" class="width">
           <view class="section">
             <text class="section-title">同城范围</text>
@@ -132,8 +132,8 @@
 
         <view hidden="{{currentTab<contactList.length}}" class="section pos-relative">
           <text class="section-title">联系方式</text>
-          <image class="setting1" catchtap="newcontactSaveTap" src='../../images/test/save-32.png' />
-          <image class="delete1" catchtap="newcontactResetTap" src='../../images/test/reset-32.png' />
+          <image class="setting1" catchtap="newContactSaveTap" src='../../images/test/save-32.png' />
+          <image class="delete1" catchtap="newContactResetTap" src='../../images/test/reset-32.png' />
         </view>
 
         <swiper class="section-swiper" duration="300" bindchange="switchTab" indicator-dots="true" indicator-active-color="#32A189">
