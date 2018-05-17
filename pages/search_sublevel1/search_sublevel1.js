@@ -18,14 +18,15 @@ Page({
     lowprice: 0,
     highprice: 70, //FIXME: 因为被刘大傻写死了！
     lowshowprice: 0,
-    highshowprice: 2000
+    highshowprice: 2000,
+
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+   
   },
 
   /**
