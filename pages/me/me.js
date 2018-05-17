@@ -19,6 +19,14 @@ Page({
       phoneNumber: 110,
       eMail: 'liuyn_sha@163.com'
     }],
+
+    //new contact新保存的联系方式
+    newContact: {
+      wxNumber: '123',
+      phoneNumber: 456,
+      eMail: '789'
+    },
+
     //页面隐藏设计添加的变量，by yining
     isShowOffer: false,
     isShowFavourite: false,
@@ -79,6 +87,17 @@ Page({
         that.upDateUserInfo();
       }
 
+      //加载用户联系方式
+      var contactList = wx.getStorageSync('contactList');
+      if (contactList) {
+        that.setData({
+          contactList : contactList
+        });
+      } else {
+        //从服务器获得用户联系方式
+        that.getContactList();
+      }
+
     } catch (e) {
       console.log('本地缓存favorList，offerList，userInfo读取失败');
     }
@@ -113,6 +132,58 @@ Page({
         }
       }
     })
+  },
+
+  /**
+   * 上传用户联系方式数据到本地和缓存
+   * by xinchao 
+   */
+  newContactSaveTap: function () {
+    var that = this;
+    //查询用户收藏列表
+    var User = Bmob.Object.extend("_User");
+    var query = new Bmob.Query(User);
+    query.get(Bmob.User.current().id, {
+      success: function (result) {
+        // 查询成功
+        console.log("查询当前用户成功");
+        var mContactList = that.data.contactList;
+        var mContact = that.data.newContact;
+        if (mContactList.length <= 2) {
+          //已有模版数小于2， 总模版数小于3
+          mContactList.push(mContact);
+          //上传数据库
+          result.set('contactList', mContactList);
+          result.save();
+          //更新data
+          that.setData({
+            contactList: mContactList,
+            newContact: {
+              wxNumber: '',
+              phoneNumber: 0,
+              eMail: ''
+            }
+          });
+          //更新本地缓存
+          wx.setStorage({
+            key: "contactList",
+            data: contactList
+          })
+
+        } else {
+          // 模版数为3 不能增加新的模版,最好不用显示
+          wx.showToast({
+            title: '模版数目最多为3条！',
+            icon: 'none',
+            duration: 2000
+          })
+        }
+      },
+      error: function (object, error) {
+        // 查询失败
+        console.log("查询当前用户失败");
+      }
+    });
   },
 
 
@@ -645,7 +716,7 @@ Page({
       success: function (res) {
         if (res.confirm) {
           console.log('用户点击确定')
-         
+
           //保存函数欠缺，TODO by Xinchao
         }
         else if (res.cancel) {

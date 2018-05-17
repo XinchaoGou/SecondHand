@@ -78,21 +78,33 @@ Page({
     that.getContactList();
   },
 
-  //TODO:获得用户的联系方式模版
+  //获得用户的联系方式模版
   getContactList: function () {
     var that = this;
+    //查询用户收藏列表
+    var User = Bmob.Object.extend("_User");
+    var query = new Bmob.Query(User);
+    query.get(Bmob.User.current().id, {
+      success: function (result) {
+        // 查询成功
+        console.log("查询当前用户成功");
+        var mContact = result.get('contactList');
+        //设置当前data
+        that.setData({
+          contactList: mContact,
+        });
+        //设置本地缓存
+        wx.setStorage({
+          key:"contactList",
+          data: mContact
+        })
 
-    that.setData({
-      contactList: [{
-        wxNumber: 'deutschning',
-        phoneNumber: 18817870927,
-        eMail: 'liuyn_tongji@163.com'
-      }, {
-        wxNumber: '刘一宁大傻逼',
-        phoneNumber: 110,
-        eMail: 'liuyn_sha@163.com'
-      }],
-    })
+      },
+      error: function (object, error) {
+        // 查询失败
+        console.log("查询当前用户失败");
+      }
+    });
   },
 
   /**
