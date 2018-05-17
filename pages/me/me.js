@@ -26,6 +26,8 @@ Page({
       phoneNumber: 0,
       eMail: ''
     },
+    //模版数目
+    maxContactNumber: 3,
 
     //页面隐藏设计添加的变量，by yining
     isShowOffer: false,
@@ -43,7 +45,11 @@ Page({
   },
 
   onLoad: function () {
-
+    var that = this;
+    that.searchFavouriteList();
+    that.searchOfferList();
+    that.upDateUserInfo();
+    that.getContactList();
   },
 
   //重构为默认从本地缓存获取
@@ -254,7 +260,7 @@ Page({
    * 上传用户联系方式数据到本地和缓存
    * by xinchao 
    */
-  upDateContact: function () {
+  upDateContact: function (mContactList) {
     var that = this;
     //查询用户收藏列表
     var User = Bmob.Object.extend("_User");
@@ -263,11 +269,11 @@ Page({
       success: function (result) {
         // 查询成功
         console.log("查询当前用户成功");
-        var mContactList = that.data.contactList;
-        var mContact = that.data.newContact;
-        if (mContactList.length <= 2) {
+        // var mContactList = that.data.contactList;
+        // var mContact = that.data.newContact;
+        if (mContactList.length <= that.data.maxContactNumber) {
           //已有模版数小于2， 总模版数小于3
-          mContactList.push(mContact);
+          // mContactList.push(mContact);
           //上传数据库
           result.set('contactList', mContactList);
           result.save();
@@ -283,7 +289,7 @@ Page({
           //更新本地缓存
           wx.setStorage({
             key: "contactList",
-            data: contactList
+            data: mContactList
           })
 
         }
@@ -696,6 +702,7 @@ Page({
   },
   // 删除联系方式模板条目，by yining，
   contactDeleteTap: function (e) {
+    var that = this;
     wx.showModal({
       title: '删除确认',
       content: '您确认要删除该联系模板吗？',
@@ -703,6 +710,7 @@ Page({
         if (res.confirm) {
           console.log('用户点击确定')
           //删除的函数欠缺，TODO: by Xinchao
+          that.contactDelete();
         } else if (res.cancel) {
           console.log('用户点击取消')
           return;
@@ -736,7 +744,7 @@ Page({
   newContactSaveTap: function (e) {
     var that = this;
     var mContactList = that.data.contactList;
-    if (mContactList.length >= 3) {
+    if (mContactList.length >= that.data.maxContactNumber) {
       // 模版数为3 不能增加新的模版,最好不用显示
       wx.showToast({
         title: '模版数目最多为3条！',
@@ -752,8 +760,11 @@ Page({
       success: function (res) {
         if (res.confirm) {
           console.log('用户点击确定')
-          //保存函数欠缺，TODO: by Xinchao
-          that.upDateContact();
+          //保存函数欠缺，TODO: 这里是没法得到组件的值，看看怎么处理
+          //by Xinchao
+          var mContact = that.data.newContact;
+          mContactList.push(mContact);
+          that.upDateContact(mContactList);
         }
         else if (res.cancel) {
           console.log('用户点击取消') //结束函数不删除条目
@@ -778,5 +789,26 @@ Page({
         }
       }
     })
+  },
+
+  contactDelete: function () {
+    var that = this;
+    //发布人联系方式
+    var mContactList = that.data.contactList;
+    var mCurrentTab = that.data.currentTab;
+    if (mCurrentTab < that.data.maxContactNumber) {
+      //最多3个模版      
+      //删除data
+      mContactList.splice(mCurrentTab,1);
+      //更新本地缓存
+      wx.setStorage({
+        key: "contactList",
+        data: mContactList
+      });
+      //修改服务器
+      that.upDateContact(mContactList);
+    }
+
+
   }
 })
