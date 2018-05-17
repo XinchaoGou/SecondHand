@@ -22,9 +22,9 @@ Page({
 
     //new contact新保存的联系方式
     newContact: {
-      wxNumber: '123',
-      phoneNumber: 456,
-      eMail: '789'
+      wxNumber: '',
+      phoneNumber: 0,
+      eMail: ''
     },
 
     //页面隐藏设计添加的变量，by yining
