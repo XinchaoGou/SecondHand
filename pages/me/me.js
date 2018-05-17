@@ -134,6 +134,35 @@ Page({
     })
   },
 
+   //获得用户的联系方式模版
+   getContactList: function () {
+    var that = this;
+    //查询用户收藏列表
+    var User = Bmob.Object.extend("_User");
+    var query = new Bmob.Query(User);
+    query.get(Bmob.User.current().id, {
+      success: function (result) {
+        // 查询成功
+        console.log("查询当前用户成功");
+        var mContact = result.get('contactList');
+        //设置当前data
+        that.setData({
+          contactList: mContact,
+        });
+        //设置本地缓存
+        wx.setStorage({
+          key:"contactList",
+          data: mContact
+        })
+
+      },
+      error: function (object, error) {
+        // 查询失败
+        console.log("查询当前用户失败");
+      }
+    });
+  },
+
   /**
    * 上传用户联系方式数据到本地和缓存
    * by xinchao 
