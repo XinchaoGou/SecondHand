@@ -717,9 +717,8 @@ Page({
             isInputDisabled: true,//输入状态重新禁用
             isInputFinish: true,//修改状态设为已完成，为true
           })
-          //保存函数欠缺，TODO: by Xinchao
-          var mContact = that.data.newContact;
-          mContactList.push(mContact);
+          //保存函数欠缺，TODO: 修改对应模版的值，
+          //by Xinchao
           that.upDateContact(mContactList);
         }
         else if (res.cancel) {
@@ -749,7 +748,7 @@ Page({
       success: function (res) {
         if (res.confirm) {
           console.log('用户点击确定')
-          //保存函数欠缺，TODO: 这里是没法得到组件的值，看看怎么处理
+          //保存函数欠缺，TODO: 这里是没法得到组件的值newContact，看看怎么处理
           //by Xinchao
           var mContact = that.data.newContact;
           mContactList.push(mContact);
