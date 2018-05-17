@@ -46,7 +46,7 @@
 
       <view hidden="{{currentTab<contactList.length}}" class="section pos-relative">
         <text class="section-title">空白模板</text>
-        <view class="icon-tap-area left" catchtap="newcontactSaveTap">
+        <view class="icon-tap-area left" catchtap="newContactSaveTap">
           <image class="icon-size" src='../../images/test/save-32.png' />
         </view>
         <view class="icon-tap-area right" catchtap="newcontactResetTap">
@@ -86,21 +86,21 @@
           <!-- 微信号 -->
           <view class="section underline">
             <text class="section-title2">微信号</text>
-            <input name="wxNumber" class="input" bindfocus="getWechatFocus" bindblur="loseWechatFocus" maxlength="30" placeholder-class="inputStyle" placeholder="请输入微信号" value="{{offerItem.contact.wxNumber}}" cursor-spacing="20" />
+            <input name="wxNumber" class="input" bindfocus="getWechatFocus" bindblur="loseWechatFocus" maxlength="30" placeholder-class="inputStyle" placeholder="请输入微信号" value="{{newContact.wxNumber}}" cursor-spacing="20" />
             <image class="arrow-r" src="../../images/more/enter.png" />
           </view>
 
           <!-- 手机号码 -->
           <view class="section underline">
             <text class="section-title2">手机号</text>
-            <input name="phoneNumber" type="number" class="input" bindfocus="getPhoneFocus" bindblur="losePhoneFocus" placeholder-class="inputStyle" placeholder="请输入号码" value="{{offerItem.contact.phoneNumber}}" cursor-spacing="20" />
+            <input name="phoneNumber" type="number" class="input" bindfocus="getPhoneFocus" bindblur="losePhoneFocus" placeholder-class="inputStyle" placeholder="请输入号码" value="{{newContact.phoneNumber}}" cursor-spacing="20" />
             <image class="arrow-r" src="../../images/more/enter.png" />
           </view>
 
           <!-- 邮箱 -->
           <view class="section underline">
             <text class="section-title2">邮箱</text>
-            <input name="eMail" class="input" bindfocus="getEmailFocus" bindblur="loseEmailFocus" placeholder-class="inputStyle" placeholder="请输入邮箱" value="{{offerItem.contact.eMail}}" cursor-spacing="20" />
+            <input name="eMail" class="input" bindfocus="getEmailFocus" bindblur="loseEmailFocus" placeholder-class="inputStyle" placeholder="请输入邮箱" value="{{newContact.eMail}}" cursor-spacing="20" />
             <image class="arrow-r" src="../../images/more/enter.png" />
           </view>
         </swiper-item>
