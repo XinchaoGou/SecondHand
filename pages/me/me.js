@@ -91,7 +91,7 @@ Page({
       var contactList = wx.getStorageSync('contactList');
       if (contactList) {
         that.setData({
-          contactList : contactList
+          contactList: contactList
         });
       } else {
         //从服务器获得用户联系方式
@@ -222,7 +222,7 @@ Page({
    * 获得用户的联系方式模版
    * by xinchao
   */
-   getContactList: function () {
+  getContactList: function () {
     var that = this;
     //查询用户收藏列表
     var User = Bmob.Object.extend("_User");
@@ -238,7 +238,7 @@ Page({
         });
         //设置本地缓存
         wx.setStorage({
-          key:"contactList",
+          key: "contactList",
           data: mContact
         })
 
@@ -254,7 +254,7 @@ Page({
    * 上传用户联系方式数据到本地和缓存
    * by xinchao 
    */
-  newContactSaveTap: function () {
+  upDateContact: function () {
     var that = this;
     //查询用户收藏列表
     var User = Bmob.Object.extend("_User");
@@ -286,13 +286,6 @@ Page({
             data: contactList
           })
 
-        } else {
-          // 模版数为3 不能增加新的模版,最好不用显示
-          wx.showToast({
-            title: '模版数目最多为3条！',
-            icon: 'none',
-            duration: 2000
-          })
         }
       },
       error: function (object, error) {
@@ -740,15 +733,27 @@ Page({
       }
     })
   },
-  newcontactSaveTap: function (e) {
+  newContactSaveTap: function (e) {
+    var that = this;
+    var mContactList = that.data.contactList;
+    if (mContactList.length >= 3) {
+      // 模版数为3 不能增加新的模版,最好不用显示
+      wx.showToast({
+        title: '模版数目最多为3条！',
+        icon: 'none',
+        duration: 2000
+      })
+      return;
+    }
+
     wx.showModal({
       title: '保存确认',
       content: '您确认要将此联系方式添加到常用模板吗？',
       success: function (res) {
         if (res.confirm) {
           console.log('用户点击确定')
-
           //保存函数欠缺，TODO: by Xinchao
+          that.upDateContact();
         }
         else if (res.cancel) {
           console.log('用户点击取消') //结束函数不删除条目
@@ -757,7 +762,8 @@ Page({
       }
     })
   },
-  newcontactResetTap: function (e) {
+  newContactResetTap: function (e) {
+    var that = this;
     wx.showModal({
       title: '重置确认',
       content: '您确认要将所有内容重置清空吗？',

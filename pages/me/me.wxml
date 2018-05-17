@@ -49,7 +49,7 @@
         <view class="icon-tap-area left" catchtap="newContactSaveTap">
           <image class="icon-size" src='../../images/test/save-32.png' />
         </view>
-        <view class="icon-tap-area right" catchtap="newcontactResetTap">
+        <view class="icon-tap-area right" catchtap="newContactResetTap">
           <image class="icon-size" src='../../images/test/reset-32.png' />
         </view>
       </view>
