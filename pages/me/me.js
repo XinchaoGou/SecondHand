@@ -10,7 +10,15 @@ Page({
     userInfo: {},
     favorList: [],
     offerList: [],
-    contactList: [1, 2],
+    contactList: [{
+      wxNumber: 'deutschning',
+      phoneNumber: 18817870927,
+      eMail: 'liuyn_tongji@163.com'
+    }, {
+      wxNumber: '刘一宁大傻逼',
+      phoneNumber: 110,
+      eMail: 'liuyn_sha@163.com'
+    }],
     //页面隐藏设计添加的变量，by yining
     isShowOffer: false,
     isShowFavourite: false,
