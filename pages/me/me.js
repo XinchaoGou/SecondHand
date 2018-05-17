@@ -707,7 +707,7 @@ Page({
       success: function (res) {
         if (res.confirm) {
           console.log('用户点击确定')
-          //删除的函数欠缺，TODO by Xinchao
+          //删除的函数欠缺，TODO: by Xinchao
         } else if (res.cancel) {
           console.log('用户点击取消')
           return;
@@ -729,7 +729,7 @@ Page({
             isInputDisabled: true,//输入状态重新禁用
             isInputFinish: true,//修改状态设为已完成，为true
           })
-          //保存函数欠缺，TODO by Xinchao
+          //保存函数欠缺，TODO: by Xinchao
         }
         else if (res.cancel) {
           console.log('用户点击取消') //结束函数不删除条目
@@ -746,7 +746,7 @@ Page({
         if (res.confirm) {
           console.log('用户点击确定')
 
-          //保存函数欠缺，TODO by Xinchao
+          //保存函数欠缺，TODO: by Xinchao
         }
         else if (res.cancel) {
           console.log('用户点击取消') //结束函数不删除条目
@@ -762,7 +762,7 @@ Page({
       success: function (res) {
         if (res.confirm) {
           console.log('用户点击确定')
-          //重置函数欠缺，TODO by Xinchao
+          //重置函数欠缺，TODO: by Xinchao
         }
         else if (res.cancel) {
           console.log('用户点击取消') //结束函数不删除条目
