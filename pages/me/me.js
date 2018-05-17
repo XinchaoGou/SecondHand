@@ -15,7 +15,7 @@ Page({
     //new contact新保存的联系方式
     newContact: {
       wxNumber: '',
-      phoneNumber: 0,
+      phoneNumber: '',
       eMail: ''
     },
     //模版数目
@@ -385,7 +385,7 @@ Page({
     var that = this;
     var postId = event.currentTarget.dataset.favouriteid;
     var objectId = that.data.favorList[postId].id;  // 获得数据库对应objectId
-
+    
     //即时更新视图，从收藏列表删除对应收藏
     var isshow = this.data.favorList[postId].favouriteshow;
     var tFavorItems = that.data.favorList;
@@ -706,6 +706,7 @@ Page({
   //保存当前修改为新模板，by yining
   contactSaveTap: function (e) {
     var that = this;
+    var mContactList = that.data.contactList;
     wx.showModal({
       title: '保存确认',
       content: '您确认要保存现有修改吗？',
@@ -719,6 +720,7 @@ Page({
           })
           //保存函数欠缺，TODO: 修改对应模版的值，
           //by Xinchao
+
           that.upDateContact(mContactList);
         }
         else if (res.cancel) {
@@ -799,6 +801,15 @@ Page({
       //修改服务器
       that.upDateContact(mContactList);
     }
+  },
+
+  formSubmit: function (e) {
+    console.log('form发生了submit事件，携带数据为：', e.detail.value)
+    //TODO:by Xinchao
+  },
+  formReset: function () {
+    console.log('form发生了reset事件')
+    //TODO:by Xinchao
   }
 
 

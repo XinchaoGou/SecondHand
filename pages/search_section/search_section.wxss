@@ -45,13 +45,14 @@
 
 .offer-titel {
   color: #32a189;
-  font-size: 13pt;
+  font-size: 14pt;
   padding-bottom: 20rpx;
 }
 
 .offer-description {
   font-size: 11pt;
-  text-indent: 22pt;
+  text-indent: 2em;
+  line-height: 1.5em;
 }
 
 .offer-info {
