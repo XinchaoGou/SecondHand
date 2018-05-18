@@ -275,6 +275,12 @@ Page({
     var that = this;
     var tOfferItem = that.data.offerItem;
 
+    //TODO:如果是修改模式，则修改对应的数据
+    if (isModify) {
+      that.updateOffer();
+      return;
+    }
+
     //上传表单数据到数据库
     var Offer = Bmob.Object.extend("Offer");
     var offer = new Offer();
@@ -319,6 +325,46 @@ Page({
       }
     });
 
+  },
+
+  /**
+   * 修改数据库表单数据
+   * by xinchao
+   */
+  updateOffer: function () {
+    var that = this;
+    var tOfferItem = that.data.offerItem;
+
+    var Offer = Bmob.Object.extend("Offer");
+    var query = new Bmob.Query(Offer);
+
+    query.get(offerItem.id, {
+      success: function (offer) {
+        //上传表单数据到数据库
+        offer.set("title", tOfferItem.title);
+        offer.set("address", tOfferItem.address);
+        var location = new Bmob.GeoPoint({ latitude: tOfferItem.location.latitude, longitude: tOfferItem.location.longitude });
+        offer.set("location", location);
+        if (that.data.isPriceShow) { //价格设置才会上传，否则比如没设置价格，后台传了值，不能上传，价格为空也不上传
+          offer.set("price", parseFloat(tOfferItem.price));
+        }
+        offer.set("content", tOfferItem.content);
+        offer.set("publisher", tOfferItem.publisher);
+        offer.set("picUrlArray", urlArr);
+        offer.set("contact", tOfferItem.contact);
+        //类别
+        offer.set("type0", tOfferItem.type0);
+        offer.set("type1", tOfferItem.type1);
+        offer.set("type2", tOfferItem.type2);
+        //城市
+        offer.set("province", tOfferItem.province);
+        offer.set("city", tOfferItem.city);
+        offer.save();
+      },
+      error: function (object, error) {
+        console.log(error);
+      }
+    });
   },
 
   /**
