@@ -12,7 +12,7 @@ Page({
     offerList: [],
     contactList: [],
 
-    //new contact新保存的联系方式
+    //new contact新保存的联系方式,不要删除，用来重置表单数据的 by xinchao
     newContact: {
       wxNumber: '',
       phoneNumber: '',
@@ -269,11 +269,7 @@ Page({
           //更新data
           that.setData({
             contactList: mContactList,
-            newContact: {
-              wxNumber: '',
-              phoneNumber: 0,
-              eMail: ''
-            }
+            newContact: that.data.newContact, //用于重置表单数据
           });
           //更新本地缓存
           wx.setStorage({
@@ -731,7 +727,7 @@ Page({
     })
   },
   //保存新模版， by xinchao
-  newContactSaveTap: function (e) {
+  newContactSaveTap: function (newContact) {
     var that = this;
     var mContactList = that.data.contactList;
     if (mContactList.length >= that.data.maxContactNumber) {
@@ -750,9 +746,7 @@ Page({
       success: function (res) {
         if (res.confirm) {
           console.log('用户点击确定')
-          //保存函数欠缺，TODO: 这里是没法得到组件的值newContact，看看怎么处理
-          //by Xinchao
-          var mContact = that.data.newContact;
+          var mContact = newContact;
           mContactList.push(mContact);
           that.upDateContact(mContactList);
         }
@@ -790,7 +784,7 @@ Page({
     var mContactList = that.data.contactList;
     var mCurrentTab = that.data.currentTab;
     if (mCurrentTab < that.data.maxContactNumber) {
-      //最多3个模版      
+      //最多3个模版，冗余判断，增加可靠性     
       //删除data
       mContactList.splice(mCurrentTab,1);
       //更新本地缓存
@@ -803,13 +797,18 @@ Page({
     }
   },
 
+  /**
+   * 用户提交表单上传新模版
+   * by xinchao 
+   */
   formSubmit: function (e) {
-    console.log('form发生了submit事件，携带数据为：', e.detail.value)
-    //TODO:by Xinchao
+    console.log('form发生了submit事件，携带数据为：', e.detail.value);
+    var that = this;
+    that.newContactSaveTap(e.detail.value);
   },
   formReset: function () {
-    console.log('form发生了reset事件')
-    //TODO:by Xinchao
+    console.log('form发生了reset事件');
+    //TODO: 用户确认是否清楚by Xinchao
   }
 
 

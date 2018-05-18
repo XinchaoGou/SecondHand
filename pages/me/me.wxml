@@ -89,8 +89,8 @@
         <swiper-item wx:if="{{contactList.length < maxContactNumber}}">
           <!-- 微信号 -->
           <form bindsubmit="formSubmit" bindreset="formReset">
-            <button id="blankSave" formType="submit" bindtap="newContactSaveTap" />
-            <button id="blankReset" formType="reset" bindtap="newcontactResetTap" />
+            <button id="blankSave" formType="submit"/>
+            <button id="blankReset" formType="reset"/>
             <view class="section underline">
               <text class="section-title2">微信号</text>
               <input name="wxNumber" class="input" maxlength="30" placeholder-class="inputStyle" placeholder="请输入微信号" value="{{newContact.wxNumber}}" cursor-spacing="20" />
