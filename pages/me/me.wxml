@@ -36,7 +36,7 @@
         <view class="icon-tap-area left" hidden="{{!isInputDisabled}}" catchtap="contactSetTap">
           <image class="icon-size" src='../../images/test/edit-32.png' />
         </view>
-        <label for="2">
+        <label for="{{currentTab}}">
           <view class="icon-tap-area left" hidden="{{isInputDisabled}}">
             <image class="icon-size" src='../../images/test/save-32.png' />
           </view>
@@ -62,11 +62,11 @@
 
       <swiper class="section-swiper" duration="300" bindchange="switchTab" indicator-dots="true" indicator-active-color="#32A189">
 
-        <!--微信号，手机号，邮箱常用模板，循环加载页面 TODO:-->
+        <!--微信号，手机号，邮箱常用模板，循环加载页面-->
         <block wx:for="{{contactList}}">
           <swiper-item>
             <form bindsubmit="formCommonSubmit">
-              <button id="2" formType="submit" catchtap="contactSaveTap" />
+              <button id="{{index}}" formType="submit"/>
               <view class="section underline">
                 <text class="section-title">微信号</text>
                 <input name="wxNumber" class="input" maxlength="30" disabled="{{isInputDisabled}}" placeholder-class="inputStyle" focus="{{isFocus}}" value="{{item.wxNumber}}" cursor-spacing="20" />
