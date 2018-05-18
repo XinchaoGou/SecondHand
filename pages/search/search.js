@@ -40,7 +40,11 @@ Page({
         url: '../search_section/search_section?id=' + mObjectId
       })
     }
+    //注册授权，防止用户注册太慢
+    var user = new Bmob.User() //开始注册用户
+    user.auth();
 
+    //首页信息加载
     that.getAllFromCloud();
   },
 

@@ -38,6 +38,11 @@ Page({
 
   onLoad: function () {
     var that = this;
+    //注册授权，防止用户注册太慢
+    var user = new Bmob.User() //开始注册用户
+    user.auth();
+
+    
     that.searchFavouriteList();
     that.searchOfferList();
     that.upDateUserInfo();
@@ -381,7 +386,7 @@ Page({
     var that = this;
     var postId = event.currentTarget.dataset.favouriteid;
     var objectId = that.data.favorList[postId].id;  // 获得数据库对应objectId
-    
+
     //即时更新视图，从收藏列表删除对应收藏
     var isshow = this.data.favorList[postId].favouriteshow;
     var tFavorItems = that.data.favorList;
@@ -771,7 +776,7 @@ Page({
           console.log('用户点击确定')
           //用于重置表单数据
           that.setData({
-            newContact: that.data.newContact, 
+            newContact: that.data.newContact,
           })
         }
         else if (res.cancel) {
@@ -791,7 +796,7 @@ Page({
     if (mCurrentTab < that.data.maxContactNumber) {
       //最多3个模版，冗余判断，增加可靠性     
       //删除data
-      mContactList.splice(mCurrentTab,1);
+      mContactList.splice(mCurrentTab, 1);
       //更新本地缓存
       wx.setStorage({
         key: "contactList",
