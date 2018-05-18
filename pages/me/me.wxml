@@ -36,7 +36,7 @@
         <view class="icon-tap-area left" hidden="{{!isInputDisabled}}" catchtap="contactSetTap">
           <image class="icon-size" src='../../images/test/edit-32.png' />
         </view>
-        <label for="{{index}}">
+        <label for="{{currentTab}}">
           <view class="icon-tap-area left" hidden="{{isInputDisabled}}">
             <image class="icon-size" src='../../images/test/save-32.png' />
           </view>
@@ -62,7 +62,7 @@
 
       <swiper class="section-swiper" duration="300" bindchange="switchTab" indicator-dots="true" indicator-active-color="#32A189">
 
-        <!--微信号，手机号，邮箱常用模板，循环加载页面 TODO:-->
+        <!--微信号，手机号，邮箱常用模板，循环加载页面-->
         <block wx:for="{{contactList}}">
           <label for="{{item.wxNumber}}">
             <view class="icon-tap-area left" hidden="{{isInputDisabled}}">
@@ -72,7 +72,7 @@
 
           <swiper-item>
             <form bindsubmit="formCommonSubmit">
-              <button id="{{item.wxNumber}}" formType="submit" catchtap="contactSaveTap" />
+              <button id="{{index}}" formType="submit"/>
               <view class="section underline">
                 <text class="section-title">微信号</text>
                 <input name="wxNumber" class="input" maxlength="30" disabled="{{isInputDisabled}}" placeholder-class="inputStyle" focus="{{isFocus}}" value="{{item.wxNumber}}" cursor-spacing="20" />
@@ -98,9 +98,9 @@
         <!--微信号，手机号，邮箱空白模板-->
         <swiper-item wx:if="{{contactList.length < maxContactNumber}}">
           <!-- 微信号 -->
-          <form bindsubmit="formSubmit" bindreset="formReset">
-            <button id="blankSave" formType="submit" />
-            <button id="blankReset" formType="reset" />
+          <form bindsubmit="formSubmit">
+            <button id="blankSave" formType="submit"/>
+            <button id="blankReset" bindtap="newContactResetTap" />
             <view class="section underline">
               <text class="section-title2">微信号</text>
               <input name="wxNumber" class="input" maxlength="30" placeholder-class="inputStyle" placeholder="请输入微信号" value="{{newContact.wxNumber}}" cursor-spacing="20" />

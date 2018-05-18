@@ -39,7 +39,7 @@ Page({
       publisher: '',
       contact: {
         wxNumber: '',
-        phoneNumber: 0,
+        phoneNumber: '',
         eMail: ''
       },
 
@@ -138,7 +138,7 @@ Page({
         publisher: '',
         contact: {
           wxNumber: '',
-          phoneNumber: 0,
+          phoneNumber: '',
           eMail: ''
         },
 
@@ -538,7 +538,7 @@ Page({
         TopTips: '请输入物品详情介绍'
       });
     }
-    else if ((tOfferItem.contact.wxNumber == "") && (tOfferItem.contact.eMail == "") && (tOfferItem.contact.phoneNumber == 0)) {
+    else if ((tOfferItem.contact.wxNumber == "") && (tOfferItem.contact.eMail == "") && (tOfferItem.contact.phoneNumber == "")) {
       flag = false;
       this.setData({
         isShowTopTips: true,

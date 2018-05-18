@@ -700,22 +700,24 @@ Page({
     })
   },
   //保存当前修改为新模板，by yining
-  contactSaveTap: function (e) {
+  contactSaveTap: function (newContact) {
     var that = this;
     var mContactList = that.data.contactList;
+    var index = that.data.currentTab;
     wx.showModal({
       title: '保存确认',
       content: '您确认要保存现有修改吗？',
       success: function (res) {
         if (res.confirm) {
-          console.log('用户点击确定')
+          console.log('用户点击确定');
+          //修改对应模版
+          mContactList[index] = newContact;
+
           that.setData({
             inputTab: -1, //保存完毕，目前修改页重新置为-1
             isInputDisabled: true,//输入状态重新禁用
             isInputFinish: true,//修改状态设为已完成，为true
           })
-          //保存函数欠缺，TODO: 修改对应模版的值，
-          //by Xinchao
 
           that.upDateContact(mContactList);
         }
@@ -767,7 +769,10 @@ Page({
       success: function (res) {
         if (res.confirm) {
           console.log('用户点击确定')
-          //重置函数欠缺，TODO: by Xinchao
+          //用于重置表单数据
+          that.setData({
+            newContact: that.data.newContact, 
+          })
         }
         else if (res.cancel) {
           console.log('用户点击取消') //结束函数不删除条目
@@ -802,18 +807,14 @@ Page({
    * by xinchao 
    */
   formSubmit: function (e) {
-    console.log('form发生了submit事件，携带数据为：', e.detail.value);
     var that = this;
     that.newContactSaveTap(e.detail.value);
   },
-  formReset: function () {
-    console.log('form发生了reset事件')
-    //TODO:by Xinchao
-  },
+
   //常用联系模板的表单值
   formCommonSubmit: function (e) {
-    console.log('form发生了submit事件，携带数据为：', e.detail.value)
-    //TODO:by Xinchao
+    var that = this;
+    that.contactSaveTap(e.detail.value);
   },
 
 
