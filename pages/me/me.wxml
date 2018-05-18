@@ -36,9 +36,11 @@
         <view class="icon-tap-area left" hidden="{{!isInputDisabled}}" catchtap="contactSetTap">
           <image class="icon-size" src='../../images/test/edit-32.png' />
         </view>
-        <view class="icon-tap-area left" hidden="{{isInputDisabled}}" catchtap="contactSaveTap">
-          <image class="icon-size" src='../../images/test/save-32.png' />
-        </view>
+        <label for="2">
+          <view class="icon-tap-area left" hidden="{{isInputDisabled}}">
+            <image class="icon-size" src='../../images/test/save-32.png' />
+          </view>
+        </label>
         <view class="icon-tap-area right" catchtap="contactDeleteTap">
           <image class="icon-size" src='../../images/test/delete-32.png' />
         </view>
@@ -63,26 +65,28 @@
         <!--微信号，手机号，邮箱常用模板，循环加载页面 TODO:-->
         <block wx:for="{{contactList}}">
           <swiper-item>
+            <form bindsubmit="formCommonSubmit">
+              <button id="2" formType="submit" catchtap="contactSaveTap" />
+              <view class="section underline">
+                <text class="section-title">微信号</text>
+                <input name="wxNumber" class="input" maxlength="30" disabled="{{isInputDisabled}}" placeholder-class="inputStyle" focus="{{isFocus}}" value="{{item.wxNumber}}" cursor-spacing="20" />
+                <image class="arrow-r" src="../../images/more/enter.png" />
+              </view>
 
-            <view class="section underline">
-              <text class="section-title">微信号</text>
-              <input name="wxNumber" class="input" maxlength="30" disabled="{{isInputDisabled}}" placeholder-class="inputStyle" focus="{{isFocus}}" value="{{item.wxNumber}}" cursor-spacing="20" />
-              <image class="arrow-r" src="../../images/more/enter.png" />
-            </view>
+              <!-- 手机号码 -->
+              <view class="section underline">
+                <text class="section-title">手机号</text>
+                <input name="phoneNumber" type="number" class="input" disabled="{{isInputDisabled}}" cursor-spacing="20" placeholder-class="inputStyle" value="{{item.phoneNumber}}" />
+                <image class="arrow-r" src="../../images/more/enter.png" />
+              </view>
 
-            <!-- 手机号码 -->
-            <view class="section underline">
-              <text class="section-title">手机号</text>
-              <input name="phoneNumber" type="number" class="input" disabled="{{isInputDisabled}}" cursor-spacing="20" placeholder-class="inputStyle" value="{{item.phoneNumber}}" />
-              <image class="arrow-r" src="../../images/more/enter.png" />
-            </view>
-
-            <!-- 邮箱 -->
-            <view class="section underline">
-              <text class="section-title">邮箱</text>
-              <input name="eMail" class="input" disabled="{{isInputDisabled}}" placeholder-class="inputStyle" value="{{item.eMail}}" cursor-spacing="20" />
-              <image class="arrow-r" src="../../images/more/enter.png" />
-            </view>
+              <!-- 邮箱 -->
+              <view class="section underline">
+                <text class="section-title">邮箱</text>
+                <input name="eMail" class="input" disabled="{{isInputDisabled}}" placeholder-class="inputStyle" value="{{item.eMail}}" cursor-spacing="20" />
+                <image class="arrow-r" src="../../images/more/enter.png" />
+              </view>
+            </form>
           </swiper-item>
         </block>
         <!--微信号，手机号，邮箱空白模板-->
