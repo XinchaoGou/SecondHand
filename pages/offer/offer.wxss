@@ -1,6 +1,7 @@
 /* pages/offer/offer.wxss */
 @import '/style/weui.wxss';
 @import '/style/secondhand.wxss';
+@import '/style/secondhand2.wxss';
 
 page {
   width: 100%;
@@ -220,4 +221,9 @@ page {
   padding: 0 40rpx;
   margin-top: 20rpx;
   background-color: white;
+}
+
+.euro{
+  font-size:11pt;
+  color:#353535;
 }

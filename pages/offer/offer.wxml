@@ -79,7 +79,7 @@
 
         <view wx:if="{{isPriceShow}}" class="section underline">
           <input name="price" type="number" class="input" maxlength="100" confirm-hold="false" placeholder-class="inputStyle" placeholder="请输入价格" value="{{offerItem.price}}" confirm-type="done" cursor-spacing="20" />
-          <text class="input">€</text>
+          <text class="euro">€</text>
         </view>
 
       </view>
@@ -132,12 +132,21 @@
 
         <view hidden="{{currentTab<contactList.length}}" class="section pos-relative">
           <text class="section-title">联系方式</text>
-          <image class="setting1" catchtap="newContactSaveTap" src='../../images/test/save-32.png' />
-          <image class="delete1" catchtap="newContactResetTap" src='../../images/test/reset-32.png' />
+          <!--image class="setting1" catchtap="newContactSaveTap" src='../../images/test/save-32.png' />
+          <image class="delete1" catchtap="newContactResetTap" src='../../images/test/reset-32.png' /-->
+          <label for='blankSave'>
+            <view class="icon-tap-area left">
+              <image class="icon-size" src='../../images/test/save-32.png' />
+            </view>
+          </label>
+          <label for='blankReset'>
+            <view class="icon-tap-area right">
+              <image class="icon-size" src='../../images/test/reset-32.png' />
+            </view>
+          </label>
         </view>
 
         <swiper class="section-swiper" duration="300" bindchange="switchTab" indicator-dots="true" indicator-active-color="#32A189">
-
 
           <!--微信号，手机号，邮箱常用模板，循环加载页面 TODO:-->
           <block wx:for="{{contactList}}">
@@ -167,26 +176,29 @@
 
           <!--微信号，手机号，邮箱空白模板-->
           <swiper-item>
-            <!-- 微信号 -->
-            <view class="section underline">
-              <text class="section-title">微信号</text>
-              <input name="wxNumber" class="input" bindfocus="getWechatFocus" bindblur="loseWechatFocus" maxlength="30" placeholder-class="inputStyle" placeholder="请输入微信号" value="{{offerItem.contact.wxNumber}}" cursor-spacing="20" />
-              <image class="arrow-r" src="../../images/more/enter.png" />
-            </view>
+            <form bindsubmit="formSubmit">
+              <button id="blankSave" formType="submit" />
+              <!-- 微信号 -->
+              <view class="section underline">
+                <text class="section-title">微信号</text>
+                <input name="wxNumber" class="input" bindfocus="getWechatFocus" bindblur="loseWechatFocus" maxlength="30" placeholder-class="inputStyle" placeholder="请输入微信号" value="{{offerItem.contact.wxNumber}}" cursor-spacing="20" />
+                <image class="arrow-r" src="../../images/more/enter.png" />
+              </view>
 
-            <!-- 手机号码 -->
-            <view class="section underline">
-              <text class="section-title">手机号</text>
-              <input name="phoneNumber" type="number" class="input" bindfocus="getPhoneFocus" bindblur="losePhoneFocus" placeholder-class="inputStyle" placeholder="请输入号码" value="{{offerItem.contact.phoneNumber}}" cursor-spacing="20" />
-              <image class="arrow-r" src="../../images/more/enter.png" />
-            </view>
+              <!-- 手机号码 -->
+              <view class="section underline">
+                <text class="section-title">手机号</text>
+                <input name="phoneNumber" type="number" class="input" bindfocus="getPhoneFocus" bindblur="losePhoneFocus" placeholder-class="inputStyle" placeholder="请输入号码" value="{{offerItem.contact.phoneNumber}}" cursor-spacing="20" />
+                <image class="arrow-r" src="../../images/more/enter.png" />
+              </view>
 
-            <!-- 邮箱 -->
-            <view class="section underline">
-              <text class="section-title">邮箱</text>
-              <input name="eMail" class="input" bindfocus="getEmailFocus" bindblur="loseEmailFocus" placeholder-class="inputStyle" placeholder="请输入邮箱" value="{{offerItem.contact.eMail}}" cursor-spacing="20" />
-              <image class="arrow-r" src="../../images/more/enter.png" />
-            </view>
+              <!-- 邮箱 -->
+              <view class="section underline">
+                <text class="section-title">邮箱</text>
+                <input name="eMail" class="input" bindfocus="getEmailFocus" bindblur="loseEmailFocus" placeholder-class="inputStyle" placeholder="请输入邮箱" value="{{offerItem.contact.eMail}}" cursor-spacing="20" />
+                <image class="arrow-r" src="../../images/more/enter.png" />
+              </view>
+            </form>
           </swiper-item>
 
         </swiper>

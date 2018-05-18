@@ -1,8 +1,6 @@
 <!--pages/search_section/search_section.wxml-->
 <!-- search_section WXML-->
 <view class="container">
-  <image hidden="isLoadingHidden" style="height:200rpx;width:200rpx" src='../../images/more/loading.gif' />
-  <!--scroll-view class="scroll" scroll-y-->
   <!--1. 图片幻灯片显示模块-->
   <view class="swiper">
     <swiper indicator-dots="{{true}}" indicator-active-color="#32A189" autoplay="{{false}}" style="height:{{screenWidth}}px">
@@ -28,20 +26,20 @@
     <!--2.1  发布人联系方式和喜爱收藏显示模块-->
     <view class="offer-contact">
       <view class="contactmode" hover-class="contacthover" catchtap="wx_contact">
-        <image src="../../images/test/wechat.png" style="width:50rpx;height:40rpx" />
+        <image src="../../images/test/wechat.png" class="contactIcon1" />
         <text class="offer-title-11">微信</text>
       </view>
       <view class="contactmode" hover-class="contacthover" catchtap="phone_contact">
-        <image src="../../images/test/phone-64.png" style="width:40rpx;height:40rpx" />
+        <image src="../../images/test/phone-64.png" class="contactIcon2" />
         <text class="offer-title-11">电话</text>
       </view>
       <view class="contactmode" hover-class="contacthover" catchtap="mail_contact">
-        <image src="../../images/test/email-32.png" style="width:40rpx;height:40rpx" />
+        <image src="../../images/test/email-32.png" class="contactIcon2" />
         <text class="offer-title-11">邮件</text>
       </view>
       <view class="favourite" catchtap="favourite_touch">
-        <image wx:if="{{sectionItem.favouriteshow}}" style="height:50rpx; width:50rpx" src='../../images/test/favouriteon.png' />
-        <image wx:else style="height:50rpx; width:50rpx" src='../../images/test/favouriteoff.png' />
+        <image wx:if="{{sectionItem.favouriteshow}}" class="favor-image" src='../../images/test/favouriteon.png' />
+        <image wx:else class="favor-image" src='../../images/test/favouriteoff.png' />
       </view>
     </view>
 
@@ -79,12 +77,12 @@
     </view>
     <view class="offer-section">
       <text class="offer-title-11">交易地点</text>
+      <text class="offer-title-9">（长按可复制到剪贴板）</text>
     </view>
     <view class="offer-section1">
       <text class="offer-cont-11">{{sectionItem.address}}</text>
     </view>
   </view>
-  <!--/scroll-view-->
 </view>
 
 <map id="map" longitude="{{longitude}}" latitude="{{latitude}}" markers="{{markers}}" style="width: 100%; height: 300px;" controls="{{controls}}" bindcontroltap="controltap" show-location></map>

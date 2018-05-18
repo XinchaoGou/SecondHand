@@ -80,7 +80,6 @@
   justify-content: flex-start;
 }
 
-/*问题：是否这里可以采用text-align来达到相同的效果*/
 
 .content-bottom {
   width: 90%;

@@ -216,32 +216,7 @@ page {
   background-color: #b2b2b2;
 }
 
-.icon-tap-area {
-  position: absolute;
-  width: 150rpx;
-  height: 90rpx;
-}
 
-.icon-size {
-  height: 40rpx;
-  width: 40rpx;
-}
-
-.left {
-  right: 140rpx;
-  bottom: 0rpx;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.right {
-  right: -30rpx;
-  bottom: 0rpx;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 
 .top {
   right: 10rpx;

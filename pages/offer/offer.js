@@ -993,5 +993,8 @@ Page({
         console.log(res.errMsg)
       }
     })
+  },
+  formSubmit:function(e){
+    //TODO by Xinchao
   }
 })
