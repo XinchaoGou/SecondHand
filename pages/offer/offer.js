@@ -1123,8 +1123,27 @@ Page({
       }
     });
   },
+  /**
+   * 整个Offer页面重置
+   * by xinchao
+   */
   resetOfferForm: function (e) {
-    //整个offer页面表单的重置事件,TODO by Xinchao
-    console.log('进入了此函数')
+    var that = this;
+    wx.showModal({
+      title: '重置确认',
+      content: '您确认要将所有内容重置清空吗？',
+      success: function (res) {
+        if (res.confirm) {
+          console.log('用户点击确定')
+          //用于重置表单数据
+          that.clearData();
+        }
+        else if (res.cancel) {
+          console.log('用户点击取消') //结束函数不删除条目
+          return;
+        }
+      }
+    })
   }
+
 })
