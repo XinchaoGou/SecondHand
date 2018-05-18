@@ -59,7 +59,7 @@ Page({
     isHidePulldownRefresh: true,
     pastpos: 20,
     y_scroll: true,//控制页面是否可以竖向滚动的变量，by yining
-
+    toView:'',//控制scroll into view函数滑动到对应组件的id, by yining
     //类别的picker组件更换为多列选择器, by yining
     //picker组件的多列选择器
     typeArray: [['二手物品', '房屋租赁', '有偿帮带'], ['所有', '电子产品', '学习资料', '家具厨具', '交通工具', '其他'], ['']],
@@ -509,6 +509,7 @@ Page({
     if (tOfferItem.title == "") {
       flag = false;
       this.setData({
+        toView:'title',
         isShowTopTips: true,
         TopTips: '请输入标题'
       });
