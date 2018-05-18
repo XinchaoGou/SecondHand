@@ -7,7 +7,7 @@
     <!--头部搜索block1-->
     <view class="header-block1">
       <image class="favor-image" src="../../images/test/search.png" />
-      <text class="text" style="padding-left:20rpx">{{searchType}}</text>
+      <text class="font13 black" style="padding-left:20rpx">{{searchType}}</text>
     </view>
     <!--头部搜索block2-->
     <view class="header-block2">
@@ -16,8 +16,8 @@
   </view>
 
   <view class="loadingNum">
-    <text class="loading-text">{{searchCity}}</text>
-    <text class="loading-text1"> 查询到{{totalCount}}条结果</text>
+    <text class="font11 gray">{{searchCity}}</text>
+    <text class="font9 gray"> 查询到{{totalCount}}条结果</text>
   </view>
 
 
