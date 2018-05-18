@@ -64,15 +64,9 @@
 
         <!--微信号，手机号，邮箱常用模板，循环加载页面-->
         <block wx:for="{{contactList}}">
-          <label for="{{item.wxNumber}}">
-            <view class="icon-tap-area left" hidden="{{isInputDisabled}}">
-              <image class="icon-size" src='../../images/test/save-32.png' />
-            </view>
-          </label>
-
           <swiper-item>
             <form bindsubmit="formCommonSubmit">
-              <button id="{{index}}" formType="submit"/>
+              <button id="{{index}}" formType="submit" />
               <view class="section underline">
                 <text class="section-title">微信号</text>
                 <input name="wxNumber" class="input" maxlength="30" disabled="{{isInputDisabled}}" placeholder-class="inputStyle" focus="{{isFocus}}" value="{{item.wxNumber}}" cursor-spacing="20" />
@@ -99,7 +93,7 @@
         <swiper-item wx:if="{{contactList.length < maxContactNumber}}">
           <!-- 微信号 -->
           <form bindsubmit="formSubmit">
-            <button id="blankSave" formType="submit"/>
+            <button id="blankSave" formType="submit" />
             <button id="blankReset" bindtap="newContactResetTap" />
             <view class="section underline">
               <text class="section-title2">微信号</text>
@@ -139,10 +133,10 @@
     </view>
 
     <!--3.2 可隐藏显示的收藏信息加载区域-->
-    <view class="content1" wx:if="{{isShowFavourite}}">
-
+    <view class="content1" hidden="{{!isShowFavourite}}">
+      <text wx:if="{{favorList.length<1}}" class="font13 gray center">您还没有收藏任何内容</text>
       <!--3.2.1 收藏分条信息加载区域-->
-      <view class="content-item-before" hover-class="content-item-after" wx:for="{{favorList}}" wx:key="id" catchtap="favorItemTap" data-postid="{{index}}">
+      <view wx:for="{{favorList}}" wx:key="id" class="content-item-before" hover-class="content-item-after" catchtap="favorItemTap" data-postid="{{index}}">
 
         <!--3.2.1.1 二手物品图片-->
         <image mode="aspectFill" class="item-image" src="{{item.src}}" />
@@ -187,8 +181,9 @@
 
     <!--4.2.可隐藏显示的发布信息加载区域-->
     <view class="content1" wx:if="{{isShowOffer}}">
+      <text wx:if="{{offerList.length<1}}" class="font13 gray center">您还没有发布任何内容</text>
       <!--4.2.1 发布---分条---信息加载区域-->
-      <view class="content-item-before" hover-class="content-item-after" wx:for="{{offerList}}" wx:key="id" catchtap="offerItemTap" data-postid="{{index}}">
+      <view wx:for="{{offerList}}" wx:key="id" class="content-item-before" hover-class="content-item-after" catchtap="offerItemTap" data-postid="{{index}}">
 
         <!--4.2.1.1 二手物品图片-->
         <image mode="aspectFill" class="item-image" src="{{item.src}}" />

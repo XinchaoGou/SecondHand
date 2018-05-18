@@ -1,4 +1,3 @@
-
 /* 刘德苟自定义样式模板1 */
 
 .container {
@@ -7,17 +6,20 @@
   flex-direction: column;
   justify-content: flex-start;
 }
+
 .section-title {
   font-size: 13pt;
   width: 50%;
   color: #32a189;
   text-align: left;
 }
+
 .border {
   border: 1px solid rgb(239, 239, 244);
   background-color: white;
   border-radius: 20rpx;
 }
+
 .section {
   width: 100%;
   height: 90rpx;
@@ -28,17 +30,21 @@
   align-items: center;
   margin-bottom: 20rpx;
 }
+
 .underline {
   border-bottom: 1px solid rgb(239, 239, 244);
 }
+
 .arrow-r {
   width: 9rpx;
   height: 17rpx;
   margin-left: 12rpx;
 }
+
 .mt20 {
   margin-top: 20rpx;
 }
+
 .section-big {
   width: 100%;
   box-sizing: border-box;
@@ -49,6 +55,7 @@
   padding: 20rpx 40rpx;
   margin-top: 20rpx;
 }
+
 .border {
   border: 1px solid white;
   background-color: white;
@@ -61,12 +68,14 @@
   border-top-left-radius: 20rpx;
   border-top-right-radius: 20rpx;
 }
+
 .section-title2 {
   font-size: 11pt;
   width: 50%;
   color: #32a189;
   text-align: left;
 }
+
 .input {
   width: 100%;
   overflow: hidden;
@@ -74,13 +83,16 @@
   color: #353535;
   text-align: left;
 }
+
 .width {
   width: 100%;
 }
+
 .inputStyle {
   color: #888;
   font-size: 11pt;
 }
+
 .section-swiper {
   width: 100%;
   height: 380rpx;
@@ -90,6 +102,7 @@
   justify-content: space-between;
   align-items: flex-start;
 }
+
 .btn-left-hover {
   opacity: 0.3;
 }
@@ -97,6 +110,7 @@
 .btn-right-hover {
   opacity: 0.3;
 }
+
 .btn-left {
   width: 300rpx;
   height: 80rpx;
@@ -118,6 +132,7 @@
   background-color: #32a189;
   margin-right: 0rpx;
 }
+
 .setting1 {
   position: absolute;
   height: 40rpx;
@@ -125,6 +140,7 @@
   right: 140rpx;
   bottom: 20rpx;
 }
+
 .delete1 {
   position: absolute;
   height: 40rpx;
@@ -132,9 +148,11 @@
   right: 10rpx;
   bottom: 20rpx;
 }
-.pos-relative{
-  position:relative;
+
+.pos-relative {
+  position: relative;
 }
+
 .icon-tap-area {
   position: absolute;
   width: 150rpx;
@@ -160,4 +178,28 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.font9 {
+  font-size: 9pt;
+}
+
+.font11 {
+  font-size: 11pt;
+}
+
+.font13 {
+  font-size: 13pt;
+}
+
+.themecolor {
+  color: #32a189;
+}
+
+.black {
+  color: #353535;
+}
+
+.gray {
+  color: gray;
 }

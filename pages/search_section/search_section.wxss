@@ -97,14 +97,6 @@
   margin-bottom: 40rpx;
 }
 
-.contact-but {
-  background-color: #32a189;
-  position: absolute;
-  left: 20rpx;
-  color: white;
-  font-size: 11pt;
-}
-
 .offer-title-11 {
   color: #32a189;
   font-size: 13pt;
@@ -119,6 +111,7 @@
 
 .offer-cont-11 {
   font-size: 11pt;
+  margin-left: 10rpx;
 }
 
 .contactmode {
@@ -136,15 +129,6 @@
   border: 4rpx solid #32a189;
 }
 
-.contact-middle1 {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-  position: absolute;
-  left: 60%;
-}
-
 .favourite {
   width: 120rpx;
   height: 90rpx;
@@ -154,11 +138,6 @@
   display: flex;
   justify-content: flex-end;
   align-items: center;
-}
-
-.scroll {
-  width: 100%;
-  height: 100%;
 }
 
 .slide-image {
@@ -171,18 +150,6 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-}
-
-.offer-section1 {
-  box-sizing: border-box;
-  min-height: 60rpx;
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 2rpx solid rgb(239, 239, 244);
-  margin-bottom: 20rpx;
 }
 
 .newstyle {

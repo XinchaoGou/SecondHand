@@ -8,6 +8,9 @@
   background-color: white;
   box-sizing: border-box;
   margin-bottom: 20rpx;
+  display:flex;
+  justify-content: center;
+  align-items:flex-start;
 }
 
 /*此处有个小bug*/

@@ -1,6 +1,6 @@
 /* pages/search/search.wxss */
 @import '/style/secondhand2.wxss';
-
+@import '/style/secondhand.wxss';
 page{
   width:100%;
   height: 100%;
@@ -52,14 +52,7 @@ page{
   justify-content:space-around;
   align-items:flex-start;
 }
-.text{
-  color:#353535;
-  font-size:13pt;
-}
-.text2{
-  color:#353535;
-  font-size:9pt;
-}
+
 .icon{
   width:80rpx;
   height:80rpx;
@@ -109,8 +102,6 @@ page{
   display: inline-block;
   vertical-align: middle;
 }
-
-/*yining*/
 .loadingNum{
   padding-left:20rpx;
   padding-bottom:10rpx;

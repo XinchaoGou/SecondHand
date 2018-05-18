@@ -233,3 +233,6 @@ page {
   justify-content: flex-end;
   align-items: flex-end;
 }
+.center{
+  line-height: 100rpx;
+}

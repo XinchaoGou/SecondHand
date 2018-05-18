@@ -79,7 +79,7 @@
       <text class="offer-title-11">交易地点</text>
       <text class="offer-title-9">（长按可复制到剪贴板）</text>
     </view>
-    <view class="offer-section1">
+    <view class="offer-section">
       <text class="offer-cont-11">{{sectionItem.address}}</text>
     </view>
   </view>
