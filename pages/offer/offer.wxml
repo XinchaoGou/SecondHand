@@ -4,7 +4,7 @@
 <view class="container1">
   <scroll-view class="scroll-y" scroll-y="{{y_scroll}}" scroll-into-view="{{toView}}">
 
-    <form bindsubmit="submitForm" bindreset="resetOfferForm">
+    <form bindsubmit="submitForm">
 
       <!-- 1.表单验证 输入错误提示模块 正常情况下隐藏-->
       <view class="weui-toptips weui-toptips_warn" wx:if="{{isShowTopTips}}">{{TopTips}}</view>
@@ -225,7 +225,7 @@
           <button class="button" loading="{{isLoading}}" hover-start-time="200" disabled="{{isdisabled}}" formType="submit">发布</button>
         </view>
          <view class="submit-btn">
-          <button class="button" loading="{{isLoading}}" hover-start-time="200" disabled="{{isdisabled}}" formType="reset">重置</button>
+          <button class="button" loading="{{isLoading}}" hover-start-time="200" disabled="{{isdisabled}}" bindtap="resetOfferForm">重置</button>
         </view>
       </view>
 

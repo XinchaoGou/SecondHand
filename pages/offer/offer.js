@@ -1124,6 +1124,7 @@ Page({
     });
   },
   resetOfferForm: function (e) {
-    //整个offer页面表单的重置事件已经发生,TODO by Xinchao
+    //整个offer页面表单的重置事件,TODO by Xinchao
+    console.log('进入了此函数')
   }
 })
