@@ -42,7 +42,7 @@ Page({
     var user = new Bmob.User() //开始注册用户
     user.auth();
 
-    
+
     that.searchFavouriteList();
     that.searchOfferList();
     that.upDateUserInfo();
@@ -204,16 +204,38 @@ Page({
           wx.getUserInfo({
             success: function (res) {
               var userInfo = res.userInfo;
+              var userName = userInfo.nickName;
+              var userPic = userInfo.avatarUrl;
               that.setData({
                 userInfo: userInfo,
-                name: userInfo.nickName,
-                imgUrl: userInfo.avatarUrl,
+                name: userName,
+                imgUrl: userPic,
                 isUse: true,
               });
               wx.setStorage({
                 key: "userInfo",
                 data: userInfo
               });
+              //上传头像和昵称到数据库
+              //查询用户收藏列表
+              var User = Bmob.Object.extend("_User");
+              var query = new Bmob.Query(User);
+              query.get(Bmob.User.current().id, {
+                success: function (result) {
+                  // 查询成功
+                  console.log("查询当前用户头像昵称成功");
+                  result.set('userName', userName);
+                  result.set('userPic', userPic);
+                  result.save();
+
+                },
+                error: function (object, error) {
+                  // 查询失败
+                  console.log("查询当前用户头像昵称失败");
+                }
+              });
+
+
             }
           })
         }
