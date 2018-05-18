@@ -1,7 +1,9 @@
 <!--pages/me/me.wxml-->
 <view class="container">
-  <!-- 1.头像背景 -->
+
   <view class="weui-toptips weui-toptips_warn" wx:if="{{isShowTopTips}}">请先保存上一模板的修改</view>
+
+  <!-- 1.头像背景 -->
   <view class="head-background">
     <image class="userinfo-bgImg" src="../../images/test/Karlsruhe.jpg"></image>
   </view>
