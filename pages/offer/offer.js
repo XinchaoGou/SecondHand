@@ -42,7 +42,6 @@ Page({
         phoneNumber: '',
         eMail: ''
       },
-
       //type
       type0: '',
       type1: '',
@@ -74,8 +73,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    var that = this;
-    // that.getContactList();
+    var that = this; 
   },
 
   //获得用户的联系方式模版
@@ -141,7 +139,6 @@ Page({
           phoneNumber: '',
           eMail: ''
         },
-
         //type
         type0: '',
         type1: '',
