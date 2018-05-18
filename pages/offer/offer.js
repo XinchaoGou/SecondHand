@@ -51,7 +51,8 @@ Page({
       city: '',
     },
 
-
+    //模版数目
+    maxContactNumber: 3, //by xincaho
     //左右滑动切换模块，by yining
     currentTab: 0, //预设当前项的值
     //控制下拉刷新的提示内容的隐藏，by yining
@@ -73,7 +74,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    var that = this; 
+    var that = this;
   },
 
   //获得用户的联系方式模版
@@ -480,7 +481,6 @@ Page({
       content: content,
       contact: contact,
       publisher: publisher,
-
       //type
       type0: type0,
       type1: type1,
@@ -488,7 +488,6 @@ Page({
       //city
       province: province,
       city: city,
-
     }
     //使用新结构体存储表单数据
     that.setData({
@@ -723,6 +722,7 @@ Page({
 
   },
 
+  //by yining
   onPageScroll: function () {
     // Do something when page scroll
     var that = this;
@@ -991,7 +991,88 @@ Page({
       }
     })
   },
-  formSubmit:function(e){
-    //TODO by Xinchao
-  }
+
+  /**
+   * 用户点击保存新的联系方式
+   * by xinchao
+   */
+  formSubmit: function (e) {
+    var that = this;
+    that.newContactSaveTap(e.detail.value);
+  },
+  //保存新模版， by xinchao
+  newContactSaveTap: function (newContact) {
+    var that = this;
+    var mContactList = that.data.contactList;
+    if (mContactList.length >= that.data.maxContactNumber) {
+      // 模版数为3 不能增加新的模版,最好不用显示
+      wx.showToast({
+        title: '模版数目最多为3条！',
+        icon: 'none',
+        duration: 2000
+      })
+      return;
+    }
+
+    wx.showModal({
+      title: '保存确认',
+      content: '您确认要将此联系方式添加到常用模板吗？',
+      success: function (res) {
+        if (res.confirm) {
+          console.log('用户点击确定')
+          var mContact = newContact;
+          mContactList.push(mContact);
+          that.upDateContact(mContactList);
+        }
+        else if (res.cancel) {
+          console.log('用户点击取消') //结束函数不删除条目
+          return;
+        }
+      }
+    })
+  },
+  /**
+   * 上传用户联系方式数据到本地和缓存
+   * by xinchao 
+   */
+  upDateContact: function (mContactList) {
+    var that = this;
+    //查询用户收藏列表
+    var User = Bmob.Object.extend("_User");
+    var query = new Bmob.Query(User);
+    query.get(Bmob.User.current().id, {
+      success: function (result) {
+        // 查询成功
+        console.log("查询当前用户成功");
+        if (mContactList.length <= that.data.maxContactNumber) {
+          //已有模版数小于3
+          //上传数据库
+          result.set('contactList', mContactList);
+          result.save();
+          //更新data important 这里覆写了
+          var str = 'offerItem.contact'
+          that.setData({
+            contactList: mContactList,
+            [str]: {
+              wxNumber: '',
+              phoneNumber: '',
+              eMail: ''
+            }, //用于重置表单数据
+          });
+          //更新本地缓存
+          wx.setStorage({
+            key: "contactList",
+            data: mContactList
+          })
+
+        }
+      },
+      error: function (object, error) {
+        // 查询失败
+        console.log("查询当前用户失败");
+      }
+    });
+  },
+
+
 })
