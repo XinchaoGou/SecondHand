@@ -1123,6 +1123,7 @@ Page({
       }
     });
   },
-
-
+  resetOfferForm: function (e) {
+    //整个offer页面表单的重置事件已经发生,TODO by Xinchao
+  }
 })
