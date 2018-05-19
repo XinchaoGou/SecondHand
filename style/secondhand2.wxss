@@ -1,4 +1,5 @@
 /* 刘德苟自定义样式模板2 */
+
 .content1 {
   width: 100%;
   min-height: 100rpx;
@@ -8,9 +9,10 @@
   background-color: white;
   box-sizing: border-box;
   margin-bottom: 20rpx;
-  display:flex;
-  justify-content: center;
-  align-items:flex-start;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
 }
 
 /*此处有个小bug*/
@@ -67,7 +69,6 @@
   text-overflow: ellipsis;
 }
 
-
 .content-text-offertime {
   font-size: 10pt;
   color: "#888888";
@@ -83,7 +84,6 @@
   justify-content: flex-start;
 }
 
-
 .content-bottom {
   width: 90%;
   display: flex;
@@ -98,24 +98,27 @@
 
 .favourite {
   position: absolute;
-  z-index:300;
+  z-index: 300;
   right: -50rpx;
   bottom: 0rpx;
-  width:150rpx;
-  height:80rpx;
-  display:flex;
+  width: 150rpx;
+  height: 80rpx;
+  display: flex;
   justify-content: center;
-  align-items:flex-end;
+  align-items: flex-end;
 }
-.favor-image{
-  height:50rpx; 
-  width:50rpx;
+
+.favor-image {
+  height: 50rpx;
+  width: 50rpx;
 }
-.pos-relative{
-  position:relative;
+
+.pos-relative {
+  position: relative;
 }
-.item-image{
-  height:210rpx; 
-  width:280rpx;
-  border-radius:10rpx;
+
+.item-image {
+  height: 210rpx;
+  width: 280rpx;
+  border-radius: 10rpx;
 }
