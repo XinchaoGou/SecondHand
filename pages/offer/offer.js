@@ -279,7 +279,7 @@ Page({
     var tOfferItem = that.data.offerItem;
 
     //TODO:如果是修改模式，则修改对应的数据
-    if (isModify) {
+    if (that.data.isModify) {
       that.updateOffer();
       return;
     }
@@ -504,16 +504,16 @@ Page({
     //发布人联系方式
     var currentTab = that.data.currentTab;
     var contactList = that.data.contactList;
-    var contact = that.data.offerItem.contact;
-    if (currentTab < contactList.length) {
-      //使用模版
-      contact = contactList[currentTab];
-    } else {
-      contact = {
-        wxNumber: e.detail.value.wxNumber,
-        phoneNumber: e.detail.value.phoneNumber,
-        eMail: e.detail.value.eMail
-      }
+    var contact = {
+      wxNumber: e.detail.value.wxNumber,
+      phoneNumber: e.detail.value.phoneNumber,
+      eMail: e.detail.value.eMail
+    };
+    if (contactList) {
+      if (currentTab < contactList.length) {
+        //使用模版
+        contact = contactList[currentTab];
+      } 
     }
 
     //关联发布人
@@ -563,13 +563,13 @@ Page({
         TopTips: '请输入标题'
       });
     }
-    else if (tOfferItem.address == '点击选择位置') {
-      flag = false;
-      this.setData({
-        isShowTopTips: true,
-        TopTips: '请选择交易地点'
-      });
-    }
+    // else if (tOfferItem.address == '点击选择位置') {
+    //   flag = false;
+    //   this.setData({
+    //     isShowTopTips: true,
+    //     TopTips: '请选择交易地点'
+    //   });
+    // }
     else if (that.data.isPriceShow && !tOfferItem.price) { //设置价格，但是没有输入值
       flag = false;
       this.setData({

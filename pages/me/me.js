@@ -38,10 +38,19 @@ Page({
 
   onLoad: function () {
     var that = this;
-    //注册授权，防止用户注册太慢
-    var user = new Bmob.User() //开始注册用户
-    user.auth();
 
+    if (!Bmob.User.current()) {
+      var user = new Bmob.User() //开始注册用户
+      user.auth();
+
+      setTimeout(() => {
+        that.searchFavouriteList();
+        that.searchOfferList();
+        that.upDateUserInfo();
+        that.getContactList();
+      });
+      return;
+    }
 
     that.searchFavouriteList();
     that.searchOfferList();
@@ -257,15 +266,17 @@ Page({
         // 查询成功
         console.log("查询当前用户成功");
         var mContact = result.get('contactList');
-        //设置当前data
-        that.setData({
-          contactList: mContact,
-        });
-        //设置本地缓存
-        wx.setStorage({
-          key: "contactList",
-          data: mContact
-        })
+        if (mContact) {    //如果查询到，存储到本地和data 
+          //设置当前data
+          that.setData({
+            contactList: mContact,
+          });
+          //设置本地缓存
+          wx.setStorage({
+            key: "contactList",
+            data: mContact
+          })
+        }
 
       },
       error: function (object, error) {
