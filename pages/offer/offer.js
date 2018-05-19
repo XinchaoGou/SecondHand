@@ -80,9 +80,7 @@ Page({
    */
   onLoad: function (options) {
     var that = this;
-    //注册授权，防止用户注册太慢
-    var user = new Bmob.User() //开始注册用户
-    user.auth();
+
   },
 
   //获得用户的联系方式模版
@@ -284,7 +282,7 @@ Page({
     var tOfferItem = that.data.offerItem;
 
     //TODO:如果是修改模式，则修改对应的数据
-    if (isModify) {
+    if (that.data.isModify) {
       that.updateOffer();
       return;
     }
@@ -526,16 +524,16 @@ Page({
     //发布人联系方式
     var currentTab = that.data.currentTab;
     var contactList = that.data.contactList;
-    var contact = that.data.offerItem.contact;
-    if (currentTab < contactList.length) {
-      //使用模版
-      contact = contactList[currentTab];
-    } else {
-      contact = {
-        wxNumber: e.detail.value.wxNumber,
-        phoneNumber: e.detail.value.phoneNumber,
-        eMail: e.detail.value.eMail
-      }
+    var contact = {
+      wxNumber: e.detail.value.wxNumber,
+      phoneNumber: e.detail.value.phoneNumber,
+      eMail: e.detail.value.eMail
+    };
+    if (contactList) {
+      if (currentTab < contactList.length) {
+        //使用模版
+        contact = contactList[currentTab];
+      } 
     }
 
     //关联发布人
@@ -1154,7 +1152,12 @@ Page({
       }
     });
   },
+  /**
+   * 整个Offer页面重置
+   * by xinchao
+   */
   resetOfferForm: function (e) {
+<<<<<<< HEAD
     //整个offer页面表单的重置事件,TODO by Xinchao
     console.log('进入了此函数')
   },
@@ -1170,5 +1173,24 @@ Page({
         is_title_warn: false
       })
     }
+=======
+    var that = this;
+    wx.showModal({
+      title: '重置确认',
+      content: '您确认要将所有内容重置清空吗？',
+      success: function (res) {
+        if (res.confirm) {
+          console.log('用户点击确定')
+          //用于重置表单数据
+          that.clearData();
+        }
+        else if (res.cancel) {
+          console.log('用户点击取消') //结束函数不删除条目
+          return;
+        }
+      }
+    })
+>>>>>>> by_xinchao
   }
+
 })

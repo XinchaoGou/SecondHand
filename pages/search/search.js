@@ -40,9 +40,6 @@ Page({
         url: '../search_section/search_section?id=' + mObjectId
       })
     }
-    //注册授权，防止用户注册太慢
-    var user = new Bmob.User() //开始注册用户
-    user.auth();
 
     //首页信息加载
     that.getAllFromCloud();
@@ -56,11 +53,38 @@ Page({
     var that = this;
     that.getContentItemsFromCloud(0, that.data.callbackcount);
 
+    if (!Bmob.User.current()) {
+      console.log('未找到用户');
+      try { //清楚所有缓存
+        console.log('退出登陆');
+        Bmob.User.logOut();
+      } catch (e) {
+        console.log(e);
+      }
+      console.log('重新注册');
+      var user = new Bmob.User() //开始注册用户
+      user.auth();
+
+      setTimeout(() => {
+        //等待用户信息加载，延时6秒左右，失败的情况只能下拉刷新界面
+        const promise = that.getFavorListFromCloud();
+        promise.then(function (favourArray) {
+          var contentItems = that.data.contentItems;
+          that.setData({
+            contentItems: that.upDateFavorPic(contentItems, favourArray)
+
+          })
+        }, function (error) {
+          console.log(error); // failure
+        });
+      }, 6000);
+      return;
+    }
+
     //等待用户信息加载，延时5秒左右，失败的情况只能下拉刷新界面
     const promise = that.getFavorListFromCloud();
     promise.then(function (favourArray) {
       var contentItems = that.data.contentItems;
-      // that.upDateFavorPic(contentItems, favourArray);
       that.setData({
         contentItems: that.upDateFavorPic(contentItems, favourArray)
 
@@ -68,9 +92,10 @@ Page({
     }, function (error) {
       console.log(error); // failure
     });
-    // setTimeout(() => {
-    // }, 1000);
+
   },
+
+
 
   /**
    * 查询服务器，加载搜索条目列表
@@ -353,7 +378,7 @@ Page({
     return {
       title: '留德圈',
       path: 'pages/search/search',
-      imageUrl:'../../images/test/camera.png',
+      imageUrl: '../../images/test/camera.png',
       success: function (res) {
         // 转发成功
       },

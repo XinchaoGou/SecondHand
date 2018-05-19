@@ -38,11 +38,28 @@ Page({
 
   onLoad: function () {
     var that = this;
-    //注册授权，防止用户注册太慢
-    var user = new Bmob.User() //开始注册用户
-    user.auth();
 
-    
+    if (!Bmob.User.current()) {
+      console.log('未找到用户');
+      try { //清楚所有缓存
+        console.log('退出登陆');
+        Bmob.User.logOut();
+      } catch (e) {
+        console.log(e);
+      }
+      console.log('重新注册');
+      var user = new Bmob.User() //开始注册用户
+      user.auth();
+
+      setTimeout(() => {
+        that.searchFavouriteList();
+        that.searchOfferList();
+        that.upDateUserInfo();
+        that.getContactList();
+      });
+      return;
+    }
+
     that.searchFavouriteList();
     that.searchOfferList();
     that.upDateUserInfo();
@@ -204,16 +221,38 @@ Page({
           wx.getUserInfo({
             success: function (res) {
               var userInfo = res.userInfo;
+              var userName = userInfo.nickName;
+              var userPic = userInfo.avatarUrl;
               that.setData({
                 userInfo: userInfo,
-                name: userInfo.nickName,
-                imgUrl: userInfo.avatarUrl,
+                name: userName,
+                imgUrl: userPic,
                 isUse: true,
               });
               wx.setStorage({
                 key: "userInfo",
                 data: userInfo
               });
+              //上传头像和昵称到数据库
+              //查询用户收藏列表
+              var User = Bmob.Object.extend("_User");
+              var query = new Bmob.Query(User);
+              query.get(Bmob.User.current().id, {
+                success: function (result) {
+                  // 查询成功
+                  console.log("查询当前用户头像昵称成功");
+                  result.set('userName', userName);
+                  result.set('userPic', userPic);
+                  result.save();
+
+                },
+                error: function (object, error) {
+                  // 查询失败
+                  console.log("查询当前用户头像昵称失败");
+                }
+              });
+
+
             }
           })
         }
@@ -235,15 +274,17 @@ Page({
         // 查询成功
         console.log("查询当前用户成功");
         var mContact = result.get('contactList');
-        //设置当前data
-        that.setData({
-          contactList: mContact,
-        });
-        //设置本地缓存
-        wx.setStorage({
-          key: "contactList",
-          data: mContact
-        })
+        if (mContact) {    //如果查询到，存储到本地和data 
+          //设置当前data
+          that.setData({
+            contactList: mContact,
+          });
+          //设置本地缓存
+          wx.setStorage({
+            key: "contactList",
+            data: mContact
+          })
+        }
 
       },
       error: function (object, error) {
