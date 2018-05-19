@@ -1157,23 +1157,8 @@ Page({
    * by xinchao
    */
   resetOfferForm: function (e) {
-<<<<<<< HEAD
     //整个offer页面表单的重置事件,TODO by Xinchao
     console.log('进入了此函数')
-  },
-  titleInput: function (e) { //发布标题输入
-    var that = this;
-    if (e.detail.value == "") {
-      that.setData({
-        is_title_warn: true
-      })
-    }
-    else {
-      that.setData({
-        is_title_warn: false
-      })
-    }
-=======
     var that = this;
     wx.showModal({
       title: '重置确认',
@@ -1190,7 +1175,20 @@ Page({
         }
       }
     })
->>>>>>> by_xinchao
-  }
+  },
+
+  titleInput: function (e) { //发布标题输入
+    var that = this;
+    if (e.detail.value == "") {
+      that.setData({
+        is_title_warn: true
+      })
+    }
+    else {
+      that.setData({
+        is_title_warn: false
+      })
+    }
+  },
 
 })
