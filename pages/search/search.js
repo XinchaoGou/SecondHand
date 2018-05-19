@@ -231,7 +231,7 @@ Page({
         })
       }
 
-      //加载搜索类型
+      //加载搜索类型 TODO: 类型变换重新搜索
       var searchType = wx.getStorageSync('searchType');
       if (searchType) {
         var tArray = searchType.mArray;
@@ -248,7 +248,7 @@ Page({
           type2: type2,
         })
       }
-      //加载搜索城市
+      //加载搜索城市 TODO: 类型变换重新搜索
       var searchCity = wx.getStorageSync('searchCity');
       if (searchCity) {
         var tArray = searchCity.mArray;
@@ -534,6 +534,16 @@ Page({
           key: "totalCount",
           data: count
         });
+        if (count == 0) {
+          that.setData({
+            searchLoadingComplete: true,
+            contentItems: [],
+          });
+          wx.setStorage({
+            key: "contentItems",
+            data: []
+          });
+        }
       },
       error: function (error) {
         console.log("查询总条目数错误，从本地缓存读取数目");

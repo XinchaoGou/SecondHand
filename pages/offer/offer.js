@@ -1090,7 +1090,11 @@ Page({
   newContactSaveTap: function (newContact) {
     var that = this;
     var mContactList = that.data.contactList;
-    if (mContactList.length >= that.data.maxContactNumber) {
+    var length = 0;
+    if(mContactList.length){
+      length = mContactList.length;
+    } 
+    if (length>= that.data.maxContactNumber) {
       // 模版数为3 不能增加新的模版,最好不用显示
       wx.showToast({
         title: '模版数目最多为3条！',
@@ -1130,7 +1134,11 @@ Page({
       success: function (result) {
         // 查询成功
         console.log("查询当前用户成功");
-        if (mContactList.length <= that.data.maxContactNumber) {
+        var length = 0;
+        if(mContactList.length){
+          length = mContactList.length;
+        }
+        if (length <= that.data.maxContactNumber) {
           //已有模版数小于3
           //上传数据库
           result.set('contactList', mContactList);
