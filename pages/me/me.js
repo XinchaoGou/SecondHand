@@ -40,6 +40,14 @@ Page({
     var that = this;
 
     if (!Bmob.User.current()) {
+      console.log('未找到用户');
+      try { //清楚所有缓存
+        console.log('退出登陆');
+        Bmob.User.logOut();
+      } catch (e) {
+        console.log(e);
+      }
+      console.log('重新注册');
       var user = new Bmob.User() //开始注册用户
       user.auth();
 

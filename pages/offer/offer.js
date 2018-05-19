@@ -75,9 +75,7 @@ Page({
    */
   onLoad: function (options) {
     var that = this;
-    //注册授权，防止用户注册太慢
-    var user = new Bmob.User() //开始注册用户
-    user.auth();
+
   },
 
   //获得用户的联系方式模版
