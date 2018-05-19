@@ -55,9 +55,10 @@ Page({
 
     if (!Bmob.User.current()) {
       console.log('未找到用户');
-      try { //清楚所有缓存
+      try {
         console.log('退出登陆');
         Bmob.User.logOut();
+        wx.clearStorageSync()
       } catch (e) {
         console.log(e);
       }
@@ -79,19 +80,19 @@ Page({
         });
       }, 6000);
       return;
+    } else {
+      //等待用户信息加载，延时5秒左右，失败的情况只能下拉刷新界面
+      const promise = that.getFavorListFromCloud();
+      promise.then(function (favourArray) {
+        var contentItems = that.data.contentItems;
+        that.setData({
+          contentItems: that.upDateFavorPic(contentItems, favourArray)
+
+        })
+      }, function (error) {
+        console.log(error); // failure
+      });
     }
-
-    //等待用户信息加载，延时5秒左右，失败的情况只能下拉刷新界面
-    const promise = that.getFavorListFromCloud();
-    promise.then(function (favourArray) {
-      var contentItems = that.data.contentItems;
-      that.setData({
-        contentItems: that.upDateFavorPic(contentItems, favourArray)
-
-      })
-    }, function (error) {
-      console.log(error); // failure
-    });
 
   },
 
@@ -128,20 +129,20 @@ Page({
     query.lessThan('price', that.data.highPrice);
     query.greaterThan('price', that.data.lowPrice);
     //TODO:设置城市和物品类别的匹配
-    // query.equalTo("type0", that.data.type0);
-    // if (that.data.type1 != '所有') {
-    //   query.equalTo("type1", that.data.type1);
-    //   if (that.data.type2 != '所有') {
-    //     query.equalTo("type2", that.data.type2);      
-    //   }
-    // }
+    query.equalTo("type0", that.data.type0);
+    if (that.data.type1 != '所有') {
+      query.equalTo("type1", that.data.type1);
+      if (that.data.type2 != '所有') {
+        query.equalTo("type2", that.data.type2);      
+      }
+    }
 
-    // if (that.data.province != '德国所有地区') {
-    //   query.equalTo("province", that.data.province);
-    //   if (that.data.city != '所有地区') {
-    //     query.equalTo("city", that.data.city);
-    //   }
-    // }
+    if (that.data.province != '德国所有地区') {
+      query.equalTo("province", that.data.province);
+      if (that.data.city != '所有地区') {
+        query.equalTo("city", that.data.city);
+      }
+    }
 
     //设置查询分页大小
     console.log(pageindex, callbackcount);
@@ -230,7 +231,7 @@ Page({
         })
       }
 
-      //加载搜索类型
+      //加载搜索类型 TODO: 类型变换重新搜索
       var searchType = wx.getStorageSync('searchType');
       if (searchType) {
         var tArray = searchType.mArray;
@@ -247,7 +248,7 @@ Page({
           type2: type2,
         })
       }
-      //加载搜索城市
+      //加载搜索城市 TODO: 类型变换重新搜索
       var searchCity = wx.getStorageSync('searchCity');
       if (searchCity) {
         var tArray = searchCity.mArray;
@@ -533,6 +534,16 @@ Page({
           key: "totalCount",
           data: count
         });
+        if (count == 0) {
+          that.setData({
+            searchLoadingComplete: true,
+            contentItems: [],
+          });
+          wx.setStorage({
+            key: "contentItems",
+            data: []
+          });
+        }
       },
       error: function (error) {
         console.log("查询总条目数错误，从本地缓存读取数目");
