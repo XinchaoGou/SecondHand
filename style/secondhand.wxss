@@ -13,6 +13,18 @@
   color: #32a189;
   text-align: left;
 }
+.section-titlenegative {
+  font-size: 13pt;
+  width: 50%;
+  color: #32a189;
+  text-align: left;
+}
+.section-titleactive {
+  font-size: 13pt;
+  width: 50%;
+  color: #e64340;
+  text-align: left;
+}
 
 .border {
   border: 1px solid rgb(239, 239, 244);

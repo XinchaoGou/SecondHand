@@ -1,5 +1,5 @@
 <!--pages/offer/offer.wxml-->
-<!-- 二手信息发布 -->
+<!-- 二手信息发布-->
 
 <view class="container1">
   <scroll-view class="scroll-y" scroll-y="{{y_scroll}}" scroll-into-view="{{toView}}">
@@ -8,17 +8,17 @@
 
       <!-- 1.表单验证 输入错误提示模块 正常情况下隐藏-->
       <view class="weui-toptips weui-toptips_warn" wx:if="{{isShowTopTips}}">{{TopTips}}</view>
-      <view class="weui-toptips" style="color:#000000;background-color:#b2b2b2;z-index:2000;" hidden="true">下拉刷新可清空所有发布内容</view>
+      <!--view class="weui-toptips" style="color:#000000;background-color:#b2b2b2;z-index:2000;" hidden="true">下拉刷新可清空所有发布内容</view-->
 
       <!-- 2.发布内容主页面-->
 
       <!-- 2.1 发布标题 -->
-      <view id="title" class="section-big border" bindtap="inputTap" id="top">
+      <view id="title" class="section-big border" bindtap="inputTap">
         <view class="section">
-          <text class="section-title">发布标题</text>
+          <text class="section-title{{is_title_warn?'active':'negative'}}">发布标题</text>
         </view>
         <view class="section underline">
-          <input name="title" class="input" maxlength="30" placeholder-class="inputStyle" placeholder="请输入标题" value="{{offerItem.title}}" focus="{{isFocus}}" />
+          <input name="title" class="input" maxlength="30" placeholder-class="inputStyle" placeholder="请输入标题" value="{{offerItem.title}}" focus="{{isFocus}}" bindinput="titleInput"/>
           <image class="arrow-r" src="../../images/more/enter.png" />
         </view>
       </view>
@@ -56,7 +56,7 @@
         <!-- 2.2.2 交易地点 -->
         <view id="address" class="width" catchtap="addressChange" value="{{offerItem.address}}">
           <view class="section">
-            <text class="section-title">交易地点</text>
+            <text class="section-title{{is_address_warn?'active':'negative'}}">交易地点</text>
           </view>
           <!-- 2.2.3 交易地点换行 -->
           <view class="section underline">
@@ -69,7 +69,7 @@
         <!-- 2.2.4 点选是否设置物品价格 TODO-->
         <view id="price" class="section">
           <view>
-            <text class="section-title">设置价格</text>
+            <text class="section-title{{is_price_warn?'active':'negative'}}">设置价格</text>
             <text class="section-title2">（默认价格面议）</text>
           </view>
           <switch type="switch" checked="{{isPriceShow}}" color="#32A189" bindchange="switch1Change" name="switchHide" />
@@ -106,9 +106,9 @@
       </view>
 
       <!-- 2.3.3 物品详情多行文字输入模块-->
-      <view id="textarea" catchtap="toDetailPage" class="section-big border">
+      <view id="content" catchtap="toDetailPage" class="section-big border">
         <view class="section">
-          <text class="section-title">详情</text>
+          <text class="section-title{{is_content_warn&offerItem.content==''?'active':'negative'}}">详情</text>
         </view>
         <view wx:if="{{!isContent}}" class="section underline">
           <view class="inputStyle">点击输入详情</view>
@@ -121,7 +121,7 @@
 
       <!-- 3.联系方式 -->
       <!--点击同意后showInput取反，点击同意后方才显示，否则隐藏-->
-      <view class="section-big height border" wx:if="{{isAgree}}">
+      <view id="contact" class="section-big height border" wx:if="{{isAgree}}">
 
         <!--swiper组件左右滑动切换模板-->
         <!--swiper组件的current组件用于控制当前显示哪一页 -->
@@ -131,7 +131,7 @@
         </view>
 
         <view hidden="{{currentTab<contactList.length}}" class="section pos-relative">
-          <text class="section-title">联系方式</text>
+          <text class="section-title{{is_contact_warn?'active':'negative'}}">联系方式</text>
           <label for='blankSave'>
             <view class="icon-tap-area left">
               <image class="icon-size" src='../../images/test/save-32.png' />
@@ -221,10 +221,10 @@
             </view>
           </label>
         </checkbox-group>
-        <view class="submit-btn">
+        <view id="bottom" class="submit-btn">
           <button class="button" loading="{{isLoading}}" hover-start-time="200" disabled="{{isdisabled}}" formType="submit">发布</button>
         </view>
-         <view class="submit-btn">
+        <view class="submit-btn">
           <button class="button" loading="{{isLoading}}" hover-start-time="200" disabled="{{isdisabled}}" bindtap="resetOfferForm">重置</button>
         </view>
       </view>

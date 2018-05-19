@@ -60,6 +60,11 @@ Page({
     pastpos: 20,
     y_scroll: true,//控制页面是否可以竖向滚动的变量，by yining
     toView: '',//控制scroll into view函数滑动到对应组件的id, by yining
+    is_title_warn: false,
+    is_address_warn: false,
+    is_price_warn: false,
+    is_content_warn: false,
+    is_contact_warn: false,
     //类别的picker组件更换为多列选择器, by yining
     //picker组件的多列选择器
     typeArray: [['二手物品', '房屋租赁', '有偿帮带'], ['所有', '电子产品', '学习资料', '家具厨具', '交通工具', '其他'], ['']],
@@ -393,8 +398,14 @@ Page({
         })
       },
       fail: function (e) {
+        that.setData({
+          is_address_warn: true
+        })
       },
       complete: function (e) {
+        that.setData({
+          is_address_warn: false
+        })
       }
     })
   },
@@ -452,8 +463,19 @@ Page({
     var that = this;
     that.setData({
       isAgree: !that.data.isAgree,
-      currentTab: 0  //每次点开输入界面时，都显示第一个模板，by yining
+      currentTab: 0, //每次点开输入界面时，都显示第一个模板，by yining
+
     });
+    if (that.data.toView == '') {//保证每次点开联系方式输入界面时，页面滑动到最底端
+      that.setData({
+        toView: 'bottom'
+      });
+    }
+    else {
+      that.setData({
+        toView: ''
+      });
+    }
   },
 
   /**
@@ -558,37 +580,46 @@ Page({
     if (tOfferItem.title == "") {
       flag = false;
       this.setData({
-        toView: 'title',
         isShowTopTips: true,
-        TopTips: '请输入标题'
+        is_title_warn: true,
+        TopTips: '请输入发布标题',
+        toView: 'title'
       });
     }
     else if (tOfferItem.address == '点击选择位置') {
       flag = false;
       this.setData({
         isShowTopTips: true,
-        TopTips: '请选择交易地点'
+        is_address_warn: true,
+        TopTips: '请选择交易地点',
+        toView: 'address'
       });
     }
     else if (that.data.isPriceShow && !tOfferItem.price) { //设置价格，但是没有输入值
       flag = false;
       this.setData({
         isShowTopTips: true,
-        TopTips: '请输入价格'
+        is_price_warn: true,
+        TopTips: '请输入价格',
+        toView: 'price'
       });
     }
     else if (tOfferItem.content == "") {
       flag = false;
       this.setData({
         isShowTopTips: true,
-        TopTips: '请输入物品详情介绍'
+        is_content_warn: true,
+        TopTips: '请输入物品详情介绍',
+        toView: 'content'
       });
     }
     else if ((tOfferItem.contact.wxNumber == "") && (tOfferItem.contact.eMail == "") && (tOfferItem.contact.phoneNumber == "")) {
       flag = false;
       this.setData({
         isShowTopTips: true,
-        TopTips: '请至少输入一个联系方式'
+        is_content_warn: true,
+        TopTips: '请至少输入一个联系方式',
+        toView: 'contact'
       });
     }
     setTimeout(function () {
@@ -1126,5 +1157,18 @@ Page({
   resetOfferForm: function (e) {
     //整个offer页面表单的重置事件,TODO by Xinchao
     console.log('进入了此函数')
+  },
+  titleInput: function (e) { //发布标题输入
+    var that = this;
+    if (e.detail.value == "") {
+      that.setData({
+        is_title_warn: true
+      })
+    }
+    else {
+      that.setData({
+        is_title_warn: false
+      })
+    }
   }
 })
