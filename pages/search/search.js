@@ -129,20 +129,20 @@ Page({
     query.lessThan('price', that.data.highPrice);
     query.greaterThan('price', that.data.lowPrice);
     //TODO:设置城市和物品类别的匹配
-    // query.equalTo("type0", that.data.type0);
-    // if (that.data.type1 != '所有') {
-    //   query.equalTo("type1", that.data.type1);
-    //   if (that.data.type2 != '所有') {
-    //     query.equalTo("type2", that.data.type2);      
-    //   }
-    // }
+    query.equalTo("type0", that.data.type0);
+    if (that.data.type1 != '所有') {
+      query.equalTo("type1", that.data.type1);
+      if (that.data.type2 != '所有') {
+        query.equalTo("type2", that.data.type2);      
+      }
+    }
 
-    // if (that.data.province != '德国所有地区') {
-    //   query.equalTo("province", that.data.province);
-    //   if (that.data.city != '所有地区') {
-    //     query.equalTo("city", that.data.city);
-    //   }
-    // }
+    if (that.data.province != '德国所有地区') {
+      query.equalTo("province", that.data.province);
+      if (that.data.city != '所有地区') {
+        query.equalTo("city", that.data.city);
+      }
+    }
 
     //设置查询分页大小
     console.log(pageindex, callbackcount);
