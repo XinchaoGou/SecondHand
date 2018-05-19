@@ -41,9 +41,10 @@ Page({
 
     if (!Bmob.User.current()) {
       console.log('未找到用户');
-      try { //清楚所有缓存
+      try {
         console.log('退出登陆');
         Bmob.User.logOut();
+        wx.clearStorageSync()
       } catch (e) {
         console.log(e);
       }
@@ -58,12 +59,14 @@ Page({
         that.getContactList();
       });
       return;
+    } else {
+      console.log('注册成功')
+      that.searchFavouriteList();
+      that.searchOfferList();
+      that.upDateUserInfo();
+      that.getContactList();
     }
 
-    that.searchFavouriteList();
-    that.searchOfferList();
-    that.upDateUserInfo();
-    that.getContactList();
   },
 
   //重构为默认从本地缓存获取
@@ -274,17 +277,18 @@ Page({
         // 查询成功
         console.log("查询当前用户成功");
         var mContact = result.get('contactList');
-        if (mContact) {    //如果查询到，存储到本地和data 
-          //设置当前data
-          that.setData({
-            contactList: mContact,
-          });
-          //设置本地缓存
-          wx.setStorage({
-            key: "contactList",
-            data: mContact
-          })
+        if (!mContact) {    //如果查询到，存储到本地和data 
+          mContact = [];
         }
+        //设置当前data
+        that.setData({
+          contactList: mContact,
+        });
+        //设置本地缓存
+        wx.setStorage({
+          key: "contactList",
+          data: mContact
+        })
 
       },
       error: function (object, error) {

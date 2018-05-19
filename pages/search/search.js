@@ -55,9 +55,10 @@ Page({
 
     if (!Bmob.User.current()) {
       console.log('未找到用户');
-      try { //清楚所有缓存
+      try {
         console.log('退出登陆');
         Bmob.User.logOut();
+        wx.clearStorageSync()
       } catch (e) {
         console.log(e);
       }
@@ -79,19 +80,19 @@ Page({
         });
       }, 6000);
       return;
+    } else {
+      //等待用户信息加载，延时5秒左右，失败的情况只能下拉刷新界面
+      const promise = that.getFavorListFromCloud();
+      promise.then(function (favourArray) {
+        var contentItems = that.data.contentItems;
+        that.setData({
+          contentItems: that.upDateFavorPic(contentItems, favourArray)
+
+        })
+      }, function (error) {
+        console.log(error); // failure
+      });
     }
-
-    //等待用户信息加载，延时5秒左右，失败的情况只能下拉刷新界面
-    const promise = that.getFavorListFromCloud();
-    promise.then(function (favourArray) {
-      var contentItems = that.data.contentItems;
-      that.setData({
-        contentItems: that.upDateFavorPic(contentItems, favourArray)
-
-      })
-    }, function (error) {
-      console.log(error); // failure
-    });
 
   },
 
