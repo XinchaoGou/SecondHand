@@ -283,7 +283,7 @@ Page({
 
     //TODO:如果是修改模式，则修改对应的数据
     if (that.data.isModify) {
-      that.updateOffer();
+      that.updateOffer(urlArr);
       return;
     }
 
@@ -337,14 +337,14 @@ Page({
    * 修改数据库表单数据
    * by xinchao
    */
-  updateOffer: function () {
+  updateOffer: function (urlArr) {
     var that = this;
     var tOfferItem = that.data.offerItem;
 
     var Offer = Bmob.Object.extend("Offer");
     var query = new Bmob.Query(Offer);
 
-    query.get(offerItem.id, {
+    query.get(tOfferItem.id, {
       success: function (offer) {
         //上传表单数据到数据库
         offer.set("title", tOfferItem.title);
@@ -366,6 +366,13 @@ Page({
         offer.set("province", tOfferItem.province);
         offer.set("city", tOfferItem.city);
         offer.save();
+
+        //修改成功
+        wx.hideLoading();
+        common.dataLoading("修改成功", "success", function () {
+          that.clearData();
+        });
+
       },
       error: function (object, error) {
         console.log(error);
