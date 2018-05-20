@@ -10,17 +10,17 @@ page {
   position: relative;
 }
 
-.button {
-  width: 400rpx;
-  height: 80rpx;
-  line-height: 80rpx;
-  text-align: center;
-  font-size: 16px;
-  border: 0 none;
-  background: #32a189;
-  color: #fff;
-  margin: 30rpx auto;
-  border-radius: 50px;
+.pad40 {
+  padding: 0 40rpx;
+  padding-bottom: 40rpx;
+}
+
+.padtop40 {
+  padding-top: 40rpx;
+}
+
+.mg25 {
+  margin-top: 25rpx;
 }
 
 .add_pic {
@@ -62,17 +62,11 @@ page {
   background: url(http://bmob-cdn-14867.b0.upaiyun.com/2017/11/23/b93323e440f4c3998034dbb9011a1e1d.png) no-repeat;
   background-size: cover;
 }
+
 .scroll-y {
   width: 100%;
   height: 100%;
 }
-
-.submit-btn {
-  background: #fff;
-  overflow: hidden;
-}
-
-/*点击同意后的发布须知--弹窗样式*/
 
 .notice {
   position: fixed;
@@ -189,9 +183,11 @@ page {
   position: fixed;
   z-index: -100;
 }
+
 .height {
   height: 520rpx;
 }
+
 .textarea {
   max-height: 500rpx;
   font-size: 11pt;
@@ -200,6 +196,7 @@ page {
   text-indent: 2em;
   overflow: scroll;
 }
+
 .section2 {
   width: 100%;
   min-height: 90rpx;
@@ -211,6 +208,7 @@ page {
   align-items: center;
   margin-bottom: 20rpx;
 }
+
 .section-big2 {
   width: 100%;
   box-sizing: border-box;
@@ -223,7 +221,7 @@ page {
   background-color: white;
 }
 
-.euro{
-  font-size:11pt;
-  color:#353535;
+.euro {
+  font-size: 11pt;
+  color: #353535;
 }

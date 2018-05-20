@@ -2,23 +2,23 @@
 <!-- 二手信息发布-->
 
 <view class="container1">
-  <scroll-view class="scroll-y" scroll-y="{{y_scroll}}" scroll-into-view="{{toView}}">
+  <scroll-view class="scroll-y" scroll-y="{{y_scroll}}" scroll-into-view="{{toView}}" scroll-with-animation="true">
 
     <form bindsubmit="submitForm">
 
       <!-- 1.表单验证 输入错误提示模块 正常情况下隐藏-->
       <view class="weui-toptips weui-toptips_warn" wx:if="{{isShowTopTips}}">{{TopTips}}</view>
-      <!--view class="weui-toptips" style="color:#000000;background-color:#b2b2b2;z-index:2000;" hidden="true">下拉刷新可清空所有发布内容</view-->
+      <!--view class="weui-toptips" style="color:#000000;background-color:#b2b2b2;z-index:2000;" hidden="{{isHidePulldownRefresh}}">下拉刷新可清空所有发布内容</view-->
 
       <!-- 2.发布内容主页面-->
 
       <!-- 2.1 发布标题 -->
-      <view id="title" class="section-big border" bindtap="inputTap">
+      <view id="title" class="section-big border mg25" bindtap="inputTap">
         <view class="section">
           <text class="section-title{{is_title_warn?'active':'negative'}}">发布标题</text>
         </view>
         <view class="section underline">
-          <input name="title" class="input" maxlength="30" placeholder-class="inputStyle" placeholder="请输入标题" value="{{offerItem.title}}" focus="{{isFocus}}" bindinput="titleInput"/>
+          <input name="title" class="input" maxlength="30" bindfocus="getTitelFocus" bindblur="loseTitelFocus" placeholder-class="inputStyle" placeholder="请输入标题" value="{{offerItem.title}}" focus="{{isFocus}}" bindinput="titleInput" />
           <image class="arrow-r" src="../../images/more/enter.png" />
         </view>
       </view>
@@ -78,7 +78,8 @@
         <!-- 2.2.4.1 价格设置 -->
 
         <view wx:if="{{isPriceShow}}" class="section underline">
-          <input name="price" type="number" class="input" maxlength="100" confirm-hold="false" placeholder-class="inputStyle" placeholder="请输入价格" value="{{offerItem.price}}" confirm-type="done" cursor-spacing="20" />
+          <input name="price" type="number" class="input" maxlength="100" bindfocus="getPriceFocus" bindblur="losePriceFocus" bindinput="priceInput" confirm-hold="false" placeholder-class="inputStyle" placeholder="请输入价格" value="{{offerItem.price}}" confirm-type="done"
+            cursor-spacing="20" />
           <text class="euro">€</text>
         </view>
 
@@ -127,21 +128,29 @@
         <!--swiper组件的current组件用于控制当前显示哪一页 -->
         <!--swiper组件绑定bindchange事件switchTab，通过e.detail.current拿到当前页-->
         <view hidden="{{!(currentTab<contactList.length)}}" class="section">
-          <text class="section-title">常用联系模板{{currentTab+1}}</text>
+          <view>
+            <text class="section-title">常用联系模板{{currentTab+1}}</text>
+            <text class="section-title2">（长按编辑模板）</text>
+          </view>
         </view>
 
         <view hidden="{{currentTab<contactList.length}}" class="section pos-relative">
-          <text class="section-title{{is_contact_warn?'active':'negative'}}">联系方式</text>
-          <label for='blankSave'>
-            <view class="icon-tap-area left">
-              <image class="icon-size" src='../../images/test/save-32.png' />
-            </view>
-          </label>
-          <label for='blankReset'>
-            <view class="icon-tap-area right">
-              <image class="icon-size" src='../../images/test/reset-32.png' />
-            </view>
-          </label>
+          <view>
+            <text class="section-title{{((!is_wx_input)&(!is_phone_input)&(!is_email_input)&is_contact_warn)?'active':'negative'}}">联系方式</text>
+            <text hidden="{{is_wx_input|is_phone_input|is_email_input}}" class="section-title2">（请输入至少一种方式）</text>
+          </view>
+          <block wx:if="{{is_wx_input|is_phone_input|is_email_input}}">
+            <label for='blankSave'>
+              <view class="icon-tap-area left">
+                <image class="icon-size" src='../../images/test/save-32.png' />
+              </view>
+            </label>
+            <label for='blankReset'>
+              <view class="icon-tap-area right">
+                <image class="icon-size" src='../../images/test/reset-32.png' />
+              </view>
+            </label>
+          </block>
         </view>
 
         <swiper class="section-swiper" duration="300" bindchange="switchTab" indicator-dots="true" indicator-active-color="#32A189">
@@ -180,21 +189,21 @@
               <!-- 微信号 -->
               <view class="section underline">
                 <text class="section-title">微信号</text>
-                <input name="wxNumber" class="input" bindfocus="getWechatFocus" bindblur="loseWechatFocus" maxlength="30" placeholder-class="inputStyle" placeholder="请输入微信号" value="{{offerItem.contact.wxNumber}}" cursor-spacing="20" />
+                <input name="wxNumber" class="input" bindfocus="getWechatFocus" bindblur="loseWechatFocus" bindinput="wxNumberInput" maxlength="30" placeholder-class="inputStyle" placeholder="请输入微信号" value="{{offerItem.contact.wxNumber}}" cursor-spacing="20" />
                 <image class="arrow-r" src="../../images/more/enter.png" />
               </view>
 
               <!-- 手机号码 -->
               <view class="section underline">
                 <text class="section-title">手机号</text>
-                <input name="phoneNumber" type="number" class="input" bindfocus="getPhoneFocus" bindblur="losePhoneFocus" placeholder-class="inputStyle" placeholder="请输入号码" value="{{offerItem.contact.phoneNumber}}" cursor-spacing="20" />
+                <input name="phoneNumber" type="number" class="input" bindfocus="getPhoneFocus" bindblur="losePhoneFocus" bindinput="phoneInput" placeholder-class="inputStyle" placeholder="请输入号码" value="{{offerItem.contact.phoneNumber}}" cursor-spacing="20" />
                 <image class="arrow-r" src="../../images/more/enter.png" />
               </view>
 
               <!-- 邮箱 -->
               <view class="section underline">
                 <text class="section-title">邮箱</text>
-                <input name="eMail" class="input" bindfocus="getEmailFocus" bindblur="loseEmailFocus" placeholder-class="inputStyle" placeholder="请输入邮箱" value="{{offerItem.contact.eMail}}" cursor-spacing="20" />
+                <input name="eMail" class="input" bindfocus="getEmailFocus" bindblur="loseEmailFocus" bindinput="eMailInput" placeholder-class="inputStyle" placeholder="请输入邮箱" value="{{offerItem.contact.eMail}}" cursor-spacing="20" />
                 <image class="arrow-r" src="../../images/more/enter.png" />
               </view>
             </form>
@@ -208,7 +217,7 @@
       <view class="border mt20">
         <!--bindAgreeChange为点击同意的事件监听-->
         <checkbox-group bindchange="bindAgreeChange">
-          <label class="weui-agree" for="weuiAgree">
+          <label class="weui-agree pad40 padtop40" for="weuiAgree">
             <view class="weui-agree__text">
               <checkbox class="weui-agree__checkbox" id="weuiAgree" value="agree" checked="{{isAgree}}" />
               <view class="weui-agree__checkbox-icon">
@@ -221,12 +230,12 @@
             </view>
           </label>
         </checkbox-group>
-        <view id="bottom" class="submit-btn">
-          <button class="button" loading="{{isLoading}}" hover-start-time="200" disabled="{{isdisabled}}" formType="submit">发布</button>
+
+        <view id="bottom" class="section mt20 pad40">
+          <button class="btn-left" loading="{{isLoading}}" hover-start-time="200" disabled="{{isdisabled}}" bindtap="resetOfferForm">重置</button>
+          <button class="btn-right" loading="{{isLoading}}" hover-start-time="200" disabled="{{isdisabled}}" formType="submit">发布</button>
         </view>
-        <view class="submit-btn">
-          <button class="button" loading="{{isLoading}}" hover-start-time="200" disabled="{{isdisabled}}" bindtap="resetOfferForm">重置</button>
-        </view>
+
       </view>
 
     </form>

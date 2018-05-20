@@ -56,7 +56,7 @@ Page({
     //左右滑动切换模块，by yining
     currentTab: 0, //预设当前项的值
     //控制下拉刷新的提示内容的隐藏，by yining
-    isHidePulldownRefresh: true,
+    //isHidePulldownRefresh: true,
     pastpos: 20,
     y_scroll: true,//控制页面是否可以竖向滚动的变量，by yining
     toView: '',//控制scroll into view函数滑动到对应组件的id, by yining
@@ -65,9 +65,12 @@ Page({
     is_price_warn: false,
     is_content_warn: false,
     is_contact_warn: false,
+    is_wx_input: false,
+    is_phone_input: false,
+    is_email_input: false,
     //类别的picker组件更换为多列选择器, by yining
     //picker组件的多列选择器
-    typeArray: [['二手物品', '房屋租赁', '有偿帮带'], ['所有', '电子产品', '学习资料', '家具厨具', '交通工具', '其他'], ['']],
+    typeArray: [['二手交易', '房屋租赁', '有偿帮带', '美食外卖'], ['电子产品', '学习资料', '家具厨具', '交通工具', '健身娱乐', '服装箱包', '办公用品'], ['手机及配件', '电脑及配件', '相机及配件', '其他']],
     typeIndex: [0, 0, 0],
 
     //以下是City的数组定义
@@ -131,7 +134,7 @@ Page({
       //左右滑动切换模块，by yining
       currentTab: 0, //预设当前项的值
       //控制下拉刷新的提示内容的隐藏，by yining
-      isHidePulldownRefresh: true,
+      //isHidePulldownRefresh: true,
       //new Structure
       offerItem: {
         title: '',
@@ -154,6 +157,15 @@ Page({
         province: '',
         city: '',
       },
+      is_title_warn: false,
+      is_address_warn: false,
+      is_price_warn: false,
+      is_content_warn: false,
+      is_contact_warn: false,
+      is_wx_input: false,
+      is_phone_input: false,
+      is_email_input: false,
+      toView: ''
     })
   },
 
@@ -180,12 +192,13 @@ Page({
     }
     //设置禁用按钮
     that.setData({
+      is_contact_warn: false,//by yining,点击发布后无论成功与否，表单验证提示flag需清空
       isdisabled: true
     })
     //表单验证
     if (that.showTopTips(e)) {
       wx.showLoading({
-        title: '加载中',
+        title: '发布中',
       })
       // 上传图片到服务器获得URL
       const promise = that.upLoadPicToCloud();
@@ -196,7 +209,7 @@ Page({
         // failure
         console.log(error);
         wx.hideLoading();
-        common.dataLoading("发起失败", "loading");
+        common.dataLoading("发布失败", "loading");
         that.setData({
           //发布按钮启用
           isdisabled: false
@@ -315,7 +328,7 @@ Page({
         //添加成功，返回成功之后的objectId(注意，返回的属性名字是id,而不是objectId)
         console.log("发布成功, objectId:" + result.id);
         wx.hideLoading();
-        common.dataLoading("发起成功", "success", function () {
+        common.dataLoading("发布成功", "success", function () {
           that.clearData();
         });
       },
@@ -323,7 +336,7 @@ Page({
         // 添加失败
         console.log(error);
         wx.hideLoading();
-        common.dataLoading("发起失败", "loading");
+        common.dataLoading("发布失败", "loading");
         that.setData({
           //发布按钮启用
           isdisabled: false
@@ -369,7 +382,7 @@ Page({
 
         //修改成功
         wx.hideLoading();
-        common.dataLoading("修改成功", "success", function () {
+        common.dataLoading("修改发布成功", "success", function () {
           that.clearData();
         });
 
@@ -540,7 +553,7 @@ Page({
       if (currentTab < contactList.length) {
         //使用模版
         contact = contactList[currentTab];
-      } 
+      }
     }
 
     //关联发布人
@@ -622,8 +635,8 @@ Page({
       flag = false;
       this.setData({
         isShowTopTips: true,
-        is_content_warn: true,
-        TopTips: '请至少输入一个联系方式',
+        is_contact_warn: true,
+        TopTips: '请至少输入一种联系方式',
         toView: 'contact'
       });
     }
@@ -703,7 +716,6 @@ Page({
           isSrc: true,
           isContent: true,
           isAgree: true,
-
           isModify: true, //用于标识修改状态，发布时修改已有条目，同时修改状态切换界面删除内容
         })
 
@@ -811,28 +823,28 @@ Page({
   //by yining
   onPageScroll: function () {
     // Do something when page scroll
-    var that = this;
-    var query = wx.createSelectorQuery();
-    query.select('#top').boundingClientRect()
-    query.selectViewport().scrollOffset()
-    query.exec(function (res) {
-      res[0].top       // #the-id节点的上边界坐标
-      res[1].scrollTop // 显示区域的竖直滚动位置
-      // console.log(res[1].scrollTop, that.data.pastpos)
-      if (res[1].scrollTop < that.data.pastpos && res[1].scrollTop < 20 && res[1].scrollTop >= 0) {
-        that.setData({
-          isHidePulldownRefresh: false
-        })
-        setTimeout(function () {
-          that.setData({
-            isHidePulldownRefresh: true   //设置重启按钮
-          });
-        }, 700);
-      }
-      that.setData({
-        pastpos: res[1].scrollTop
-      })
-    })
+    /* var that = this;
+     var query = wx.createSelectorQuery();
+     query.select('#top').boundingClientRect()
+     query.selectViewport().scrollOffset()
+     query.exec(function (res) {
+       res[0].top       // #the-id节点的上边界坐标
+       res[1].scrollTop // 显示区域的竖直滚动位置
+       // console.log(res[1].scrollTop, that.data.pastpos)
+       if (res[1].scrollTop < that.data.pastpos && res[1].scrollTop < 20 && res[1].scrollTop >= 0) {
+         that.setData({
+           isHidePulldownRefresh: false
+         })
+         setTimeout(function () {
+           that.setData({
+             isHidePulldownRefresh: true   //设置重启按钮
+           });
+         }, 700);
+       }
+       that.setData({
+         pastpos: res[1].scrollTop
+       })
+     })*/
   },
   //以下代码来自开发者文档，加注释， by yining
   bindMultiPickerChange: function (e) {
@@ -864,16 +876,20 @@ Page({
         //判断第一列选取的是哪一大类
         switch (mData.typeIndex[0]) {
           case 0:
-            mData.typeArray[1] = ['所有', '电子产品', '学习资料', '家具厨具', '交通工具', '其他'];
-            mData.typeArray[2] = [];
+            mData.typeArray[1] = ['电子产品', '学习资料', '家具厨具', '交通工具', '健身娱乐', '服装箱包','办公用品'];
+            mData.typeArray[2] = ['手机及配件','电脑及配件','相机及配件','其他'];
             break;
           case 1:
             mData.typeArray[1] = ['仅限zwischen', '可nach'];
             mData.typeArray[2] = ['WG', 'Haus'];
             break;
           case 2:
-            mData.typeArray[1] = [];
-            mData.typeArray[2] = [];
+            mData.typeArray[1] = ['带到国内','带到德国'];
+            mData.typeArray[2] = [''];
+            break;
+          case 3:
+            mData.typeArray[1] = [''];
+            mData.typeArray[2] = [''];
             break;
         }
         mData.typeIndex[1] = 0;
@@ -887,22 +903,25 @@ Page({
             //判断第二列选择的是哪一小类
             switch (mData.typeIndex[1]) {
               case 0:
-                mData.typeArray[2] = [];
+                mData.typeArray[2] = ['手机及配件', '电脑及配件', '相机及配件', '其他'];
                 break;
               case 1:
-                mData.typeArray[2] = ['所有', '手机', '电脑', '其他'];
+                mData.typeArray[2] = ['教材', '笔记', '其他'];
                 break;
               case 2:
-                mData.typeArray[2] = ['所有', '教材', '笔记', '其他'];
+                mData.typeArray[2] = ['上门自取', '可考虑邮寄', '其他'];
                 break;
               case 3:
-                mData.typeArray[2] = ['所有', '台灯', '床垫', '电饭锅', '电磁炉', '其他'];
+                mData.typeArray[2] = ['自行车及配件', '汽车及配件', '其他'];
                 break;
               case 4:
-                mData.typeArray[2] = ['所有', '自行车', '汽车', '其他'];
+                mData.typeArray[2] = ['健身卡', '演唱会门票', '其他'];
                 break;
               case 5:
-                mData.typeArray[2] = [''];
+                mData.typeArray[2] = ['服装','箱包','其他'];
+                break;
+              case 6:
+                mData.typeArray[2] = ['文具用品', '办公设备','其他'];
                 break;
             }
             break;
@@ -915,6 +934,25 @@ Page({
                 break;
               case 1:
                 mData.typeArray[2] = ['WG', 'Haus'];
+                break;
+            }
+            break;
+          case 2:
+            //判断第二列选择的是哪一小类
+            switch (mData.typeIndex[1]) {
+              case 0:
+                mData.typeArray[2] = [''];
+                break;
+              case 1:
+                mData.typeArray[2] = [''];
+                break;
+            }
+            break;
+          case 3:
+            //判断第二列选择的是哪一小类
+            switch (mData.typeIndex[1]) {
+              case 0:
+                mData.typeArray[2] = [''];
                 break;
             }
             break;
@@ -1023,15 +1061,37 @@ Page({
 
   },
   //以下函数作用为在输入框获取焦点时，锁住页面不让其随意滑动，失去焦点时恢复正常，by yining
+  getTitleFocus: function (e) {
+    var that = this;
+    that.setData({
+      y_scroll: false
+    })
+  },
+  loseTitleFocus: function (e) {
+    var that = this;
+    that.setData({
+      y_scroll: true
+    })
+  },
+  getPriceFocus: function (e) {
+    var that = this;
+    that.setData({
+      y_scroll: false
+    })
+  },
+  losePriceFocus: function (e) {
+    var that = this;
+    that.setData({
+      y_scroll: true
+    })
+  },
   getEmailFocus: function (e) {
-    console.log('获取到焦点')
     var that = this;
     that.setData({
       y_scroll: false
     })
   },
   loseEmailFocus: function (e) {
-    console.log('失去了焦点')
     var that = this;
     that.setData({
       y_scroll: true
@@ -1044,7 +1104,6 @@ Page({
     })
   },
   loseWechatFocus: function (e) {
-    console.log('失去了焦点')
     var that = this;
     that.setData({
       y_scroll: true
@@ -1091,10 +1150,10 @@ Page({
     var that = this;
     var mContactList = that.data.contactList;
     var length = 0;
-    if(mContactList.length){
+    if (mContactList.length) {
       length = mContactList.length;
-    } 
-    if (length>= that.data.maxContactNumber) {
+    }
+    if (length >= that.data.maxContactNumber) {
       // 模版数为3 不能增加新的模版,最好不用显示
       wx.showToast({
         title: '模版数目最多为3条！',
@@ -1115,7 +1174,7 @@ Page({
           that.upDateContact(mContactList);
         }
         else if (res.cancel) {
-          console.log('用户点击取消') //结束函数不删除条目
+          console.log('用户点击取消') //结束函数
           return;
         }
       }
@@ -1135,7 +1194,7 @@ Page({
         // 查询成功
         console.log("查询当前用户成功");
         var length = 0;
-        if(mContactList.length){
+        if (mContactList.length) {
           length = mContactList.length;
         }
         if (length <= that.data.maxContactNumber) {
@@ -1177,7 +1236,7 @@ Page({
     var that = this;
     wx.showModal({
       title: '重置确认',
-      content: '您确认要将所有内容重置清空吗？',
+      content: '您确认要将发布内容重置清空吗？',
       success: function (res) {
         if (res.confirm) {
           console.log('用户点击确定')
@@ -1205,5 +1264,56 @@ Page({
       })
     }
   },
-
+  priceInput: function (e) {
+    var that = this;
+    if (e.detail.value == "") {
+      that.setData({
+        is_price_warn: true
+      })
+    }
+    else {
+      that.setData({
+        is_price_warn: false
+      })
+    }
+  },
+  wxNumberInput: function (e) {
+    var that = this;
+    if (e.detail.value == "") {
+      that.setData({
+        is_wx_input: false
+      })
+    }
+    else {
+      that.setData({
+        is_wx_input: true,
+      })
+    }
+  },
+  phoneInput: function (e) {
+    var that = this;
+    if (e.detail.value == "") {
+      that.setData({
+        is_phone_input: false
+      })
+    }
+    else {
+      that.setData({
+        is_phone_input: true
+      })
+    }
+  },
+  eMailInput: function (e) {
+    var that = this;
+    if (e.detail.value == "") {
+      that.setData({
+        is_email_input: false
+      })
+    }
+    else {
+      that.setData({
+        is_email_input: true
+      })
+    }
+  }
 })

@@ -11,7 +11,6 @@ Page({
     noteMaxLen: 600,//备注最多字数
     accept_disabled: true,//判断是否禁用accept按钮
     delete_disabled: true,//判断是否禁用delete按钮
-    screenWidth:0
   },
   /**
      * 物品内容，字数改变触发事件
@@ -61,14 +60,6 @@ Page({
       content: content,
       noteNowLen: parseInt(content.length)
     })
-    //调用api获取屏幕的宽高
-    wx.getSystemInfo({
-      success: function (res) {
-        that.setData({
-          screenWidth: res.windowWidth
-        });
-      }
-    });
   },
 
   /**

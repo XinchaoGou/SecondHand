@@ -9,7 +9,7 @@ Page({
     array: ['按距离远近', '按发布时间', '按价格从低到高', '按价格从高到低'],
     index: 0,
     //picker组件的多列选择器
-    multiArray: [['二手物品', '房屋租赁', '有偿帮带'], ['所有', '电子产品', '学习资料', '家具厨具', '交通工具', '其他'], ['']],
+    multiArray: [['所有种类', '二手物品', '房屋租赁', '有偿帮带', '美食外卖'], [''], ['']],
     multiIndex: [0, 0, 0],
     //以下是City的数组定义
     multiCityArray: [['德国所有地区', 'Baden-Württemberg', 'Bayern', 'Berlin', 'Brandenburg', 'Bremen', 'Hamburg', 'Hessen', 'Mecklenburg-Vorpommern', 'Niedersachsen', 'Nordrhein-Westfalen', 'Rheinland-Pfalz', 'Saarland', 'Sachsen', 'Sachsen-Anhalt', 'Schleswig-Holstein', 'Thüringen',], ['']],
@@ -26,7 +26,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-   
+
   },
 
   /**
@@ -68,8 +68,8 @@ Page({
       var searchOrder = wx.getStorageSync('searchOrder');
       if (searchOrder) {
         that.setData({
-          array:searchOrder.mArray,
-          index:searchOrder.mIndex
+          array: searchOrder.mArray,
+          index: searchOrder.mIndex
         })
       }
 
@@ -182,16 +182,24 @@ Page({
         //判断第一列选取的是哪一大类
         switch (data.multiIndex[0]) {
           case 0:
-            data.multiArray[1] = ['所有', '电子产品', '学习资料', '家具厨具', '交通工具', '其他'];
-            data.multiArray[2] = [];
+            data.multiArray[1] = [''];
+            data.multiArray[2] = [''];
             break;
           case 1:
-            data.multiArray[1] = ['仅限zwischen', '可nach'];
-            data.multiArray[2] = ['WG', 'Haus'];
+            data.multiArray[1] = ['所有', '电子产品', '学习资料', '家具厨具', '交通工具', '健身娱乐', '服装箱包', '办公用品'];
+            data.multiArray[2] = [''];
             break;
           case 2:
-            data.multiArray[1] = [];
-            data.multiArray[2] = [];
+            data.multiArray[1] = ['所有', '仅限zwischen', '可nach'];
+            data.multiArray[2] = [''];
+            break;
+          case 3:
+            data.multiArray[1] = ['所有', '带到国内', '带到德国'];
+            data.multiArray[2] = [''];
+            break;
+          case 4:
+            data.multiArray[1] = ['所有'];
+            data.multiArray[2] = [''];
             break;
         }
         data.multiIndex[1] = 0;
@@ -200,41 +208,68 @@ Page({
       //如果修改的列为第二列
       case 1:
         switch (data.multiIndex[0]) {
-          //此时如果第一列为第一个大类
-          case 0:
+          case 0://此时如果第一列为第一个大类
+            data.multiArray[1] = [''];
+            data.multiArray[2] = [''];
+            break;
+          case 1://此时如果第一列为第二个大类
             //判断第二列选择的是哪一小类
             switch (data.multiIndex[1]) {
               case 0:
-                data.multiArray[2] = [];
+                data.multiArray[2] = [''];
                 break;
               case 1:
-                data.multiArray[2] = ['所有', '手机', '电脑', '其他'];
+                data.multiArray[2] = ['所有', '手机及配件', '电脑及配件', '相机及配件', '其他'];
                 break;
               case 2:
                 data.multiArray[2] = ['所有', '教材', '笔记', '其他'];
                 break;
               case 3:
-                data.multiArray[2] = ['所有', '台灯', '床垫', '电饭锅', '电磁炉', '其他'];
+                data.multiArray[2] = ['所有', '上门自取', '可配送'];
                 break;
               case 4:
-                data.multiArray[2] = ['所有', '自行车', '汽车', '其他'];
+                data.multiArray[2] = ['所有', '自行车及配件', '汽车及配件', '其他'];
                 break;
               case 5:
+                data.multiArray[2] = ['所有', '健身卡', '门票', '其他'];
+                break;
+              case 6:
+                data.multiArray[2] = ['所有', '服装', '箱包', '其他'];
+                break;
+              case 7:
+                data.multiArray[2] = ['所有', '文具', '办公设备', '其他'];
+                break;
+            }
+            break;
+          //此时如果第一列为第三个大类
+          case 2:
+            //判断第二列选择的是哪一小类
+            switch (data.multiIndex[1]) {
+              case 0:
+                data.multiArray[2] = [''];
+                break;
+              case 1:
+                data.multiArray[2] = ['所有', 'WG', 'Haus'];
+                break;
+              case 2:
+                data.multiArray[2] = ['所有', 'WG', 'Haus'];
+                break;
+            }
+            break;
+          case 3:
+            //判断第二列选择的是哪一小类
+            switch (data.multiIndex[1]) {
+              case 0:
+                data.multiArray[2] = [''];
+                break;
+              case 1:
                 data.multiArray[2] = [''];
                 break;
             }
             break;
-          //此时如果第一列为第二个大类
-          case 1:
+          case 4:
             //判断第二列选择的是哪一小类
-            switch (data.multiIndex[1]) {
-              case 0:
-                data.multiArray[2] = ['WG', 'Haus'];
-                break;
-              case 1:
-                data.multiArray[2] = ['WG', 'Haus'];
-                break;
-            }
+            data.multiArray[2] = [''];
             break;
         }
         data.multiIndex[2] = 0;
@@ -425,7 +460,7 @@ Page({
   },
   //底部两按钮的监听函数，by yining，TODO by Xinchao
   delete_tap: function (e) {
-   //需要添加一键恢复默认值的功能
+    //需要添加一键恢复默认值的功能
   },
   accept_tap: function (e) {
     console.log('进入了此函数')
