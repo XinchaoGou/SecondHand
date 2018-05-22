@@ -129,11 +129,13 @@ Page({
     query.lessThan('price', that.data.highPrice);
     query.greaterThan('price', that.data.lowPrice);
     //设置城市和物品类别的匹配
-    query.equalTo("type0", that.data.type0);
-    if (that.data.type1 != '所有') {
-      query.equalTo("type1", that.data.type1);
-      if (that.data.type2 != '所有') {
-        query.equalTo("type2", that.data.type2);
+    if (that.data.type0 != '所有种类') {
+      query.equalTo("type0", that.data.type0);
+      if (that.data.type1 != '所有') {
+        query.equalTo("type1", that.data.type1);
+        if (that.data.type2 != '所有') {
+          query.equalTo("type2", that.data.type2);
+        }
       }
     }
 
