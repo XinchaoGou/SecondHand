@@ -243,10 +243,24 @@ Page({
       if (searchType) {
         var tArray = searchType.mArray;
         var tIndex = searchType.mIndex;
+
         var type0 = tArray[0][tIndex[0]];
         var type1 = tArray[1][tIndex[1]];
-        var type2 = tArray[2][tIndex[2]]
-        var str = type0 + ' ' + type1 + ' ' + type2
+        var type2 = tArray[2][tIndex[2]];
+
+        var str0 = '';
+        var str1 = '';
+        var str2 = '';
+        if (type0) {  //如果存在则赋值，否则默认为空字符串
+          str0 = type0;
+        }
+        if (type1) {  
+          str1 = type1;
+        }
+        if (type2) {  
+          str2 = type2;
+        }
+        var str = str0 + ' ' + str1 + ' ' + str2
 
         that.setData({
           searchType: str,
@@ -543,7 +557,7 @@ Page({
           key: "totalCount",
           data: count
         });
-        if (count == 0) {
+        if (count == 0) { //没搜索到则清空
           that.setData({
             searchLoadingComplete: true,
             contentItems: [],
