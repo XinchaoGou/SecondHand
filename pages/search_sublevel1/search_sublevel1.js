@@ -298,9 +298,9 @@ Page({
       //如果修改的列为第一列
       case 0:
         switch (data.multiCityIndex[0]) {
-          //判断第一列选择的是哪一类
+          //如果第一列目前选择的是第一类
           case 0:
-            data.multiCityArray[1] = [];
+            data.multiCityArray[1] = [''];
             break;
           case 1:
             data.multiCityArray[1] = ['所有地区', 'Stuttgart', 'Karlsruhe', 'Mannheim', 'Freiburg', 'Heidelberg', 'Tübingen', '其他城市'];
@@ -458,7 +458,7 @@ Page({
     }
     return data;
   },
-  //底部两按钮的监听函数，by yining，TODO by Xinchao
+  //底部两按钮的监听函数，by yining，TODO: by Xinchao
   delete_tap: function (e) {
     //需要添加一键恢复默认值的功能
   },
