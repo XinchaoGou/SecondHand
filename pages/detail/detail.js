@@ -80,7 +80,15 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-
+    console.log('此时要修改父页面的值')
+    var pages = getCurrentPages();
+    var currPage = pages[pages.length - 1]; //当前页面 
+    var prevPage = pages[pages.length - 2]; //上一个页面 //直接调用上一个页面的setData()方法，把数据存到上一个页面中去 
+    var str = 'offerItem.content';
+    prevPage.setData({
+      [str]: that.data.content,
+      isContent: true,
+    })
   },
 
   /**
