@@ -564,8 +564,10 @@ Page({
     var User = Bmob.Object.extend("_User");
     var publisher = Bmob.Object.createWithoutData("_User", Bmob.User.current().id);
 
-
     var tOfferItem = {
+      // FIXME: id 应该只有在需要的时候才会用
+      id: that.data.offerItem.id,
+
       title: title,
       address: address,
       location: location,
