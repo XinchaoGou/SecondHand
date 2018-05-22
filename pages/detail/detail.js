@@ -9,8 +9,7 @@ Page({
     content: "",
     noteNowLen: 0,//备注当前字数
     noteMaxLen: 600,//备注最多字数
-    accept_disabled: true,//判断是否禁用accept按钮
-    delete_disabled: true,//判断是否禁用delete按钮
+    is_disabled: true,//判断是否禁用accept和delete按钮
   },
   /**
      * 物品内容，字数改变触发事件
@@ -19,33 +18,23 @@ Page({
      * 从offer.js页面直接摘抄by yining
      */
   bindTextAreaChange: function (e) {
-
-    var pages = getCurrentPages();
-    var currPage = pages[pages.length - 1]; //当前页面 
-    var prevPage = pages[pages.length - 2]; //上一个页面 //直接调用上一个页面的setData()方法，把数据存到上一个页面中去 
+    var that = this;
     var value = e.detail.value,
       len = parseInt(value.length);
-    if (len > currPage.data.noteMaxLen)
+    if (len > that.data.noteMaxLen)
       return;
-    currPage.setData({
+    that.setData({
       content: value,
       noteNowLen: len
     })
-    var str = 'offerItem.content';
-    prevPage.setData({
-      [str]: value,
-      isContent: true,
-    })
     if (len > 0) {
-      currPage.setData({
-        accept_disabled: false,
-        delete_disabled: false
+      that.setData({
+        is_disabled: false
       })
     }
-    else{
-      currPage.setData({
-        accept_disabled: true,
-        delete_disabled: true
+    else {
+      that.setData({
+        is_disabled: true
       })
     }
   },
@@ -53,6 +42,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    console.log('监听detail页面onLoad函数')
     var that = this;
     var content = options.content;
     console.log(content);
@@ -73,7 +63,19 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    console.log('监听detail页面onShow函数')
+    var that = this;
+    console.log(that.data.content.length)
+    if (that.data.content.length > 0) {
+      that.setData({
+        is_disabled: false
+      })
+    }
+    else{
+      that.setData({
+        is_disabled: true
+      })
+    }
   },
 
   /**
@@ -86,14 +88,25 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
+    console.log('执行了卸载函数')
     var that = this;
     var pages = getCurrentPages();
     var prevPage = pages[pages.length - 2]; //上一个页面 //直接调用上一个页面的setData()方法，把数据存到上一个页面中去 
+    var value = that.data.content,
+      len = parseInt(value.length);
     var str = 'offerItem.content';
-    prevPage.setData({
-      [str]: that.data.content,
-      isContent: true,
-    })
+    if (len > 0) {
+      prevPage.setData({
+        [str]: value,
+        isContent: true
+      })
+    }
+    else{
+      prevPage.setData({
+        [str]: value,
+        isContent: false
+      })
+    }
   },
 
   /**
@@ -124,12 +137,12 @@ Page({
   delete_tap: function (e) {
     var that = this;
     that.setData({
-      content: ''
+      content: '',
+      is_disabled:true
     })
   },
   //by yining
   accept_tap: function (e) {
-    console.log('进入了此函数')
     wx.navigateBack({
       delta: 1
     })

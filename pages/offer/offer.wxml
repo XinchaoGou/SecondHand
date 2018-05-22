@@ -18,7 +18,7 @@
           <text class="section-title{{is_title_warn?'active':'negative'}}">发布标题</text>
         </view>
         <view class="section underline">
-          <input name="title" class="input" maxlength="30" bindfocus="getTitelFocus" bindblur="loseTitelFocus" placeholder-class="inputStyle" placeholder="请输入标题" value="{{offerItem.title}}" focus="{{isFocus}}" bindinput="titleInput" />
+          <input name="title" class="input" maxlength="30" bindfocus="getTitleFocus" bindblur="loseTitleFocus" placeholder-class="inputStyle" placeholder="请输入标题" value="{{offerItem.title}}" focus="{{isFocus}}" bindinput="titleInput" />
           <image class="arrow-r" src="../../images/more/enter.png" />
         </view>
       </view>
@@ -70,14 +70,14 @@
         <view id="price" class="section">
           <view>
             <text class="section-title{{is_price_warn?'active':'negative'}}">设置价格</text>
-            <text class="section-title2">（默认价格面议）</text>
+            <!--text class="section-title2">（默认价格面议）</text-->
           </view>
-          <switch type="switch" checked="{{isPriceShow}}" color="#32A189" bindchange="switch1Change" name="switchHide" />
+          <!--switch type="switch" checked="{{isPriceShow}}" color="#32A189" bindchange="switch1Change" name="switchHide" /-->
         </view>
 
         <!-- 2.2.4.1 价格设置 -->
 
-        <view wx:if="{{isPriceShow}}" class="section underline">
+        <view class="section underline">
           <input name="price" type="number" class="input" maxlength="100" bindfocus="getPriceFocus" bindblur="losePriceFocus" bindinput="priceInput" confirm-hold="false" placeholder-class="inputStyle" placeholder="请输入价格" value="{{offerItem.price}}" confirm-type="done"
             cursor-spacing="20" />
           <text class="euro">€</text>
@@ -86,7 +86,7 @@
       </view>
 
       <!-- 2.3 物品内容以及添加图片显示模块 -->
-      <view class="section-big2">
+      <view class="section-big2 mt10">
 
         <!-- 2.3.1 显示已添加图片 TODO-->
         <scroll-view class="scrollx" scroll-x>
@@ -107,7 +107,7 @@
       </view>
 
       <!-- 2.3.3 物品详情多行文字输入模块-->
-      <view id="content" catchtap="toDetailPage" class="section-big border">
+      <view id="content" catchtap="toDetailPage" class="section-big border3 mt10">
         <view class="section">
           <text class="section-title{{is_content_warn&offerItem.content==''?'active':'negative'}}">详情</text>
         </view>

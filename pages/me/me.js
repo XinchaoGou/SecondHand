@@ -20,17 +20,28 @@ Page({
     },
     //模版数目
     maxContactNumber: 3,
-
     //页面隐藏设计添加的变量，by yining
     isShowOffer: false,
     isShowFavourite: false,
     isShowContact: false,
-    currentTab: 0,//获取联系方式的swiper组件的当前页，从0开始
-    isInputDisabled: true,//控制input组件禁用的变量，true时禁用
-    inputTab: -1,//记录是哪一页的input组件可以使用
-    isInputFinish: true,//判断编辑状态是否结束
-    isShowTopTips: false,//判断是否应该弹出警告
-    isFocus: false,//获取首行焦点
+    //获取联系方式的swiper组件的当前页，从0开始
+    currentTab: 0,
+    //控制input组件禁用的变量，true时禁用
+    isInputDisabled: true,
+    //记录是哪一页的input组件可以使用，目前正在编辑的联系方式模板
+    inputTab: -1,
+    //判断编辑状态是否结束
+    isInputFinish: true,
+    //判断是否应该弹出警告
+    isShowTopTips: false,
+    TopTips: '',
+    //获取首行焦点
+    isFocus: false,
+    //控制空白模板输入有无的变量
+    is_wx_input: false,
+    is_phone_input: false,
+    is_email_input: false,
+
     //微信api更改之后
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     isUse: false,
@@ -38,7 +49,7 @@ Page({
 
   onLoad: function () {
     var that = this;
-
+    console.log("监听me页面onLoad加载")
     if (!Bmob.User.current()) {
       console.log('未找到用户');
       try {
@@ -71,6 +82,7 @@ Page({
 
   //重构为默认从本地缓存获取
   onShow: function () {
+    console.log("监听me页面onShow加载")
     var that = this;
     try {
       //加载收藏列表
@@ -124,6 +136,9 @@ Page({
     } catch (e) {
       console.log('本地缓存favorList，offerList，userInfo,contactList读取失败');
     }
+    that.setData({
+      isInputDisabled:true
+    })
   },
   /*
    * 查询用户的所有发布
@@ -723,6 +738,7 @@ Page({
     //弹出warning
     else {
       that.setData({
+        TopTips: '请先保存上一模板的修改',
         isShowTopTips: true
       })
       setTimeout(function () {
@@ -750,33 +766,50 @@ Page({
     })
   },
   //保存当前修改为新模板，by yining
+  /*wxNumber: '',
+  phoneNumber: '',
+  eMail: ''*/
   contactSaveTap: function (newContact) {
     var that = this;
     var mContactList = that.data.contactList;
     var index = that.data.currentTab;
-    wx.showModal({
-      title: '保存确认',
-      content: '您确认要保存现有修改吗？',
-      success: function (res) {
-        if (res.confirm) {
-          console.log('用户点击确定');
-          //修改对应模版
-          mContactList[index] = newContact;
+    if (newContact.wxNumber == "" && newContact.phoneNumber == "" && newContact.eMail == ""){
+      that.setData({
+        TopTips: '请至少输入一种联系方式',
+        isShowTopTips: true
+      })
+      setTimeout(function () {
+        that.setData({
+          isShowTopTips: false
+        });
+      }, 700);
+    }
+    else{
+      wx.showModal({
+        title: '保存确认',
+        content: '您确认要保存现有修改吗？',
+        success: function (res) {
+          if (res.confirm) {
+            console.log('用户点击确定');
+            //修改对应模版
+            mContactList[index] = newContact;
 
-          that.setData({
-            inputTab: -1, //保存完毕，目前修改页重新置为-1
-            isInputDisabled: true,//输入状态重新禁用
-            isInputFinish: true,//修改状态设为已完成，为true
-          })
+            that.setData({
+              inputTab: -1, //保存完毕，目前修改页重新置为-1
+              isInputDisabled: true,//输入状态重新禁用
+              isInputFinish: true,//修改状态设为已完成，为true
+            })
 
-          that.upDateContact(mContactList);
+            that.upDateContact(mContactList);
+          }
+          else if (res.cancel) {
+            console.log('用户点击取消') //结束函数不删除条目
+            return;
+          }
         }
-        else if (res.cancel) {
-          console.log('用户点击取消') //结束函数不删除条目
-          return;
-        }
-      }
-    })
+      })
+    }
+    
   },
   //保存新模版， by xinchao
   newContactSaveTap: function (newContact) {
@@ -791,7 +824,7 @@ Page({
       })
       return;
     }
-
+    if(newContact)
     wx.showModal({
       title: '保存确认',
       content: '您确认要将此联系方式添加到常用模板吗？',
@@ -815,13 +848,16 @@ Page({
     var that = this;
     wx.showModal({
       title: '重置确认',
-      content: '您确认要将所有内容重置清空吗？',
+      content: '您确认要将联系方式重置清空吗？',
       success: function (res) {
         if (res.confirm) {
           console.log('用户点击确定')
           //用于重置表单数据
           that.setData({
             newContact: that.data.newContact,
+            is_wx_input: false,//by yining, 这三个变量用于控制保存和重置按钮显示，只有输入至少一种联系方式时才显示
+            is_phone_input: false,
+            is_email_input: false
           })
         }
         else if (res.cancel) {
@@ -867,5 +903,44 @@ Page({
     that.contactSaveTap(e.detail.value);
   },
 
+  wxNumberInput: function (e) {
+    var that = this;
+    if (e.detail.value == "") {
+      that.setData({
+        is_wx_input: false
+      })
+    }
+    else {
+      that.setData({
+        is_wx_input: true,
+      })
+    }
+  },
+  phoneInput: function (e) {
+    var that = this;
+    if (e.detail.value == "") {
+      that.setData({
+        is_phone_input: false
+      })
+    }
+    else {
+      that.setData({
+        is_phone_input: true
+      })
+    }
+  },
+  eMailInput: function (e) {
+    var that = this;
+    if (e.detail.value == "") {
+      that.setData({
+        is_email_input: false
+      })
+    }
+    else {
+      that.setData({
+        is_email_input: true
+      })
+    }
+  },
 
 })

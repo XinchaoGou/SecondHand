@@ -10,7 +10,7 @@ Page({
     //标题
     isFocus: false,
     //价格
-    isPriceShow: false,
+    //isPriceShow: false,
     isPriceFocus: false,
     //用户输入了物品详情
     isContent: false,
@@ -57,7 +57,7 @@ Page({
     currentTab: 0, //预设当前项的值
     //控制下拉刷新的提示内容的隐藏，by yining
     //isHidePulldownRefresh: true,
-    pastpos: 20,
+    //pastpos: 20,
     y_scroll: true,//控制页面是否可以竖向滚动的变量，by yining
     toView: '',//控制scroll into view函数滑动到对应组件的id, by yining
     is_title_warn: false,
@@ -123,7 +123,7 @@ Page({
     var that = this;
     that.setData({
       isShowTopTips: false,
-      isPriceShow: false,
+      //isPriceShow: false,
       isContent: false,//添加的
       isSrc: false,
       is9: false,
@@ -619,7 +619,7 @@ Page({
         toView: 'address'
       });
     }
-    else if (that.data.isPriceShow && !tOfferItem.price) { //设置价格，但是没有输入值
+    else if (!tOfferItem.price) {
       flag = false;
       this.setData({
         isShowTopTips: true,
@@ -702,6 +702,7 @@ Page({
    * 不单单是显示，还有要上传服务器的东西,可以把所有数据都刷新
    */
   onShow: function () {
+    console.log('监听offer页面加载')
     var that = this;
     try {
       //加载用户联系方式
@@ -826,31 +827,8 @@ Page({
 
   },
 
-  //by yining
   onPageScroll: function () {
-    // Do something when page scroll
-    /* var that = this;
-     var query = wx.createSelectorQuery();
-     query.select('#top').boundingClientRect()
-     query.selectViewport().scrollOffset()
-     query.exec(function (res) {
-       res[0].top       // #the-id节点的上边界坐标
-       res[1].scrollTop // 显示区域的竖直滚动位置
-       // console.log(res[1].scrollTop, that.data.pastpos)
-       if (res[1].scrollTop < that.data.pastpos && res[1].scrollTop < 20 && res[1].scrollTop >= 0) {
-         that.setData({
-           isHidePulldownRefresh: false
-         })
-         setTimeout(function () {
-           that.setData({
-             isHidePulldownRefresh: true   //设置重启按钮
-           });
-         }, 700);
-       }
-       that.setData({
-         pastpos: res[1].scrollTop
-       })
-     })*/
+
   },
   //以下代码来自开发者文档，加注释， by yining
   bindMultiPickerChange: function (e) {
@@ -1150,6 +1128,14 @@ Page({
   formSubmit: function (e) {
     var that = this;
     that.newContactSaveTap(e.detail.value);
+  },
+  formReset: function (e) {
+    var that = this;
+    that.setData({
+      is_wx_input:false,
+      is_phone_input:false,
+      is_email_input:false
+    })
   },
   //保存新模版， by xinchao
   newContactSaveTap: function (newContact) {
