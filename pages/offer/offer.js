@@ -204,7 +204,11 @@ Page({
       const promise = that.upLoadPicToCloud();
       promise.then(function (urlArr) {
         //上传发布到服务器, 里面完成后会启用按钮
-        that.upLoadOfferToCloud(urlArr);
+        if (that.data.isModify) {
+          that.updateOffer(urlArr);
+        } else {
+          that.upLoadOfferToCloud(urlArr);
+        }
       }, function (error) {
         // failure
         console.log(error);
@@ -294,12 +298,11 @@ Page({
     var that = this;
     var tOfferItem = that.data.offerItem;
 
-    //TODO:如果是修改模式，则修改对应的数据
-    if (that.data.isModify) {
-      that.updateOffer(urlArr);
-      return;
-    }
-
+    // //TODO:如果是修改模式，则修改对应的数据
+    // if (that.data.isModify) {
+    //   that.updateOffer(urlArr);
+    //   return;
+    // }
     //上传表单数据到数据库
     var Offer = Bmob.Object.extend("Offer");
     var offer = new Offer();
@@ -343,6 +346,7 @@ Page({
         })
       }
     });
+
 
   },
 
@@ -876,15 +880,15 @@ Page({
         //判断第一列选取的是哪一大类
         switch (mData.typeIndex[0]) {
           case 0:
-            mData.typeArray[1] = ['电子产品', '学习资料', '家具厨具', '交通工具', '健身娱乐', '服装箱包','办公用品'];
-            mData.typeArray[2] = ['手机及配件','电脑及配件','相机及配件','其他'];
+            mData.typeArray[1] = ['电子产品', '学习资料', '家具厨具', '交通工具', '健身娱乐', '服装箱包', '办公用品'];
+            mData.typeArray[2] = ['手机及配件', '电脑及配件', '相机及配件', '其他'];
             break;
           case 1:
             mData.typeArray[1] = ['仅限zwischen', '可nach'];
             mData.typeArray[2] = ['WG', 'Haus'];
             break;
           case 2:
-            mData.typeArray[1] = ['带到国内','带到德国'];
+            mData.typeArray[1] = ['带到国内', '带到德国'];
             mData.typeArray[2] = [''];
             break;
           case 3:
@@ -918,10 +922,10 @@ Page({
                 mData.typeArray[2] = ['健身卡', '演唱会门票', '其他'];
                 break;
               case 5:
-                mData.typeArray[2] = ['服装','箱包','其他'];
+                mData.typeArray[2] = ['服装', '箱包', '其他'];
                 break;
               case 6:
-                mData.typeArray[2] = ['文具用品', '办公设备','其他'];
+                mData.typeArray[2] = ['文具用品', '办公设备', '其他'];
                 break;
             }
             break;
