@@ -128,12 +128,12 @@ Page({
     //设置价格限制
     query.lessThan('price', that.data.highPrice);
     query.greaterThan('price', that.data.lowPrice);
-    //TODO:设置城市和物品类别的匹配
+    //设置城市和物品类别的匹配
     query.equalTo("type0", that.data.type0);
     if (that.data.type1 != '所有') {
       query.equalTo("type1", that.data.type1);
       if (that.data.type2 != '所有') {
-        query.equalTo("type2", that.data.type2);      
+        query.equalTo("type2", that.data.type2);
       }
     }
 
@@ -149,7 +149,7 @@ Page({
     query.limit(callbackcount);
     query.skip(callbackcount * pageindex);
 
-    //查询条目数量
+    //查询条目数量，必须设置好条件才查询总数目
     if (pageindex == 0) {
       that.searchTotalCount(query);
     }
@@ -186,6 +186,13 @@ Page({
           that.setData({
             contentItems: offerArray
           });
+          //FIXME: 这里可以看如果已经时总数目了，可以设置加载完成的显示
+          if (offerArray.length == that.data.totalCount) {
+            //加载完毕，已全部加载
+            that.setData({
+              searchLoadingComplete: true
+            });
+          }
           wx.setStorage({
             key: "contentList",
             data: offerArray
@@ -357,6 +364,8 @@ Page({
     var newPageIndex = that.data.pageindex + 1;
     that.getContentItemsFromCloud(newPageIndex, that.data.callbackcount);
     //未搜索到底则递增分页
+    //TODO: 这里能不能改变一下判断条件，看总数目是不是已经达到了，但是如果没有10条，是不是不会触发这个函数
+    //或者也许可以这里不判断是否完成
     if (!that.data.searchLoadingComplete) {
       that.setData({
         pageindex: newPageIndex,

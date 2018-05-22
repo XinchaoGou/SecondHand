@@ -119,12 +119,18 @@ Page({
   onShareAppMessage: function () {
 
   },
+
+  //by yining 
+  /**
+   * modified by xinchao
+   */
   delete_tap: function (e) {
     var that = this;
     that.setData({
       content: ''
     })
   },
+  //by yining
   accept_tap: function (e) {
     console.log('进入了此函数')
     wx.navigateBack({
