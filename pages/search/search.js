@@ -25,6 +25,8 @@ Page({
     searchCity: '德国所有地区',
     //搜索种类
     searchType: '所有种类',
+
+    isNewSearch: false,
   },
 
   /**
@@ -293,14 +295,14 @@ Page({
         var tIndex = searchOrder.mIndex;
         var str = tArray[tIndex];
         var mSearchCondition = that.data.searchCondition;
-        if (mSearchCondition != str) {
-          //如果搜索条件改变，要重新排列
-          that.setData({
-            searchCondition: str
-          });
-          that.onPullDownRefresh();
-          return;
-        }
+        that.setData({
+          searchCondition: str
+        });
+        // if (mSearchCondition != str) {
+        //   //如果搜索条件改变，要重新排列
+        //   that.onPullDownRefresh();
+        //   return;
+        // }
       }
       //加载价格设置
       var priceRange = wx.getStorageSync('priceRange');
@@ -309,28 +311,37 @@ Page({
         var mHighPrice = that.data.highPrice;
         var lowPrice = priceRange.lowshowprice;
         var highPrice = priceRange.highshowprice;
-        if ((lowPrice != mLowPrice) || (highPrice != mHighPrice)) {
-          //如果搜索条件改变，要重新排列
-          that.setData({
-            lowPrice: lowPrice,
-            highPrice: highPrice
-          });
-          that.onPullDownRefresh();
-          return;
-        }
+        that.setData({
+          lowPrice: lowPrice,
+          highPrice: highPrice
+        });
+        // if ((lowPrice != mLowPrice) || (highPrice != mHighPrice)) {
+        //   //如果搜索条件改变，要重新排列
+        //   that.onPullDownRefresh();
+        //   return;
+        // }
       }
 
     } catch (e) {
       console.log('search条件本地缓存读取失败');
     }
 
-    //如果搜索条件没变化，是从其他页面跳转，那就更新一下与本地缓存同步
-    //TODO: 从缓存获取条目
-    var contentItems = that.data.contentItems;
-    var favorList = that.data.favorList;
-    that.setData({
-      contentItems: that.upDateFavorPic(contentItems, favorList)
-    })
+    if (that.data.isNewSearch) { //设置界面跳转过来，刷新信息，重置开关，
+      //刷新信息
+      that.onPullDownRefresh();
+      //重置开关
+      that.setData({
+        isNewSearch: false,
+      })
+    } else {
+      //如果搜索条件没变化，是从其他页面跳转，那就更新一下与本地缓存同步
+      var contentItems = that.data.contentItems;
+      var favorList = that.data.favorList;
+      that.setData({
+        contentItems: that.upDateFavorPic(contentItems, favorList)
+      })
+    }
+
 
   },
 
