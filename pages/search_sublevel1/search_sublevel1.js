@@ -461,6 +461,32 @@ Page({
   //底部两按钮的监听函数，by yining，TODO: by Xinchao
   delete_tap: function (e) {
     //需要添加一键恢复默认值的功能
+    var that = this;
+    wx.showModal({
+      title: '重置确认',
+      content: '您确认要恢复搜索设置为默认吗？',
+      success: function (res) {
+        if (res.confirm) {
+          console.log('用户点击确定')
+          that.setData({
+            lowprice: 0,
+            highprice: 70, //FIXME: 因为被刘大傻写死了！
+            array: ['按发布时间', '按价格从低到高', '按价格从高到低'],
+            index: 0,
+            //picker组件的多列选择器
+            multiArray: [['所有种类', '二手物品', '房屋租赁', '有偿帮带', '美食外卖'], [''], ['']],
+            multiIndex: [0, 0, 0],
+            //以下是City的数组定义
+            multiCityArray: [['德国所有地区', 'Baden-Württemberg', 'Bayern', 'Berlin', 'Brandenburg', 'Bremen', 'Hamburg', 'Hessen', 'Mecklenburg-Vorpommern', 'Niedersachsen', 'Nordrhein-Westfalen', 'Rheinland-Pfalz', 'Saarland', 'Sachsen', 'Sachsen-Anhalt', 'Schleswig-Holstein', 'Thüringen',], ['']],
+            multiCityIndex: [0, 0],
+          })
+        }
+        else if (res.cancel) {
+          console.log('用户点击取消') //结束函数不删除条目
+          return;
+        }
+      }
+    })
   },
   accept_tap: function (e) {
     console.log('进入了此函数')
