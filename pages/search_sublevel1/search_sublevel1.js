@@ -26,7 +26,13 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    //设置主界面变量，
+    var that = this;
+    var pages = getCurrentPages();
+    var prevPage = pages[pages.length - 2]; //上一个页面 //直接调用上一个页面的setData()方法，把数据存到上一个页面中去 
+    prevPage.setData({
+      isNewSearch : true,
+    })
   },
 
   /**
