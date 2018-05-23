@@ -138,7 +138,8 @@ Page({
     }
     that.setData({
       isInputDisabled:true,//页面每次重新渲染时，将保存图标改为编辑图标，编辑过程改为已完成
-      isInputFinish: true
+      isInputFinish: true,
+      inputTab:-1,
     })
   },
   /*
