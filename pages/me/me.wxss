@@ -232,3 +232,6 @@ page {
 .center{
   line-height: 100rpx;
 }
+.width80{
+  width:80pt;
+}

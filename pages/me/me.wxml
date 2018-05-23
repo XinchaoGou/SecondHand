@@ -198,7 +198,7 @@
         <!--4.2.1.2 二手物品交易信息-->
         <view class="content-block2 pos-relative">
 
-          <text class='content-text-title'>{{item.title}}</text>
+          <text class='content-text-title width80'>{{item.title}}</text>
           <view class="icon-tap-area top" catchtap="offerSetTap" data-postid="{{index}}">
             <image class="icon-size" src='../../images/test/edit-32.png' />
           </view>

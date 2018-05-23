@@ -176,8 +176,7 @@ Page({
       data: sectionItem
     })
   },
-
-  //根据屏幕的宽高等比例缩放计算图片的宽高，by yining
+  //该函数待处理
   imageLoad: function (e) {
     var that = this;
     console.log(that.data.isLoadingHidden)
@@ -521,5 +520,19 @@ Page({
     return localItem;
   },
 
+  address_clip: function (e) {
+    var that = this;
+    var address = that.data.sectionItem.address;
+    wx.setClipboardData({
+      data: address,
+      success: function (res) {
+        wx.showToast({
+          title: '复制地址到剪贴板成功！\n' + address,
+          icon: 'none',
+          duration: 2000
+        })
+      }
+    })
+  },
 
 })
