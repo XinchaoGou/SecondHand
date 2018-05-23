@@ -119,8 +119,8 @@ page{
   text-align: center;
 }
 .loading{
-  width:50rpx;
-  height:50rpx;
+  width:200rpx;
+  height:100rpx;
 }
 
 

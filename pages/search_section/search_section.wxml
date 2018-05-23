@@ -6,7 +6,7 @@
     <swiper indicator-dots="{{true}}" indicator-active-color="#32A189" autoplay="{{false}}" style="height:{{screenWidth}}px">
       <block wx:for="{{sectionItem.picUrlArray}}">
         <swiper-item class="swiper2">
-          <image mode="aspectFill" src="{{item}}" class="slide-image" bindload="imageLoad" style="width:{{screenWidth}}px; height:{{screenWidth}}px;" bindtap="imgOverView" data-index="{{index}}" />
+          <image mode="aspectFill" src="{{item}}" class="slide-image" style="width:{{screenWidth}}px; height:{{screenWidth}}px;" bindtap="imgOverView" data-index="{{index}}" />
           <!--此处需要查询image-align的相关功能-->
         </swiper-item>
       </block>
