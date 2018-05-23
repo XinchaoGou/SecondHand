@@ -213,5 +213,8 @@
 }
 
 .gray {
-  color: gray;
+  color:gray;
+}
+.lightgray{
+  color:#b2b2b2;
 }

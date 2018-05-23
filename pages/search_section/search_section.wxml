@@ -25,18 +25,31 @@
 
     <!--2.1  发布人联系方式和喜爱收藏显示模块-->
     <view class="offer-contact">
-      <view class="contactmode" hover-class="contacthover" catchtap="wx_contact">
+      <view wx:if="{{!(sectionItem.contact.wxNumber=='')}}" class="contactmode" catchtap="wx_contact">
         <image src="../../images/test/wechat.png" class="contactIcon1" />
-        <text class="offer-title-11">微信</text>
+        <view class="ml-10 font11 themecolor">微信</view>
       </view>
-      <view class="contactmode" hover-class="contacthover" catchtap="phone_contact">
+      <view wx:else class="contactmode">
+        <image src="../../images/test/wechat-gray.png" class="contactIcon1" />
+        <text class="ml-10 font11 lightgray">微信</text>
+      </view>
+      <view wx:if="{{!(sectionItem.contact.phoneNumber=='')}}" class="contactmode" catchtap="phone_contact">
         <image src="../../images/test/phone-64.png" class="contactIcon2" />
-        <text class="offer-title-11">电话</text>
+        <view class="ml-10 font11 themecolor">电话</view>
       </view>
-      <view class="contactmode" hover-class="contacthover" catchtap="mail_contact">
+      <view wx:else class="contactmode">
+        <image src="../../images/test/phone-gray-64.png" class="contactIcon2" />
+        <text class="ml-10 font11 lightgray">电话</text>
+      </view>
+      <view wx:if="{{!(sectionItem.contact.eMail=='')}}" class="contactmode" catchtap="mail_contact">
         <image src="../../images/test/email-32.png" class="contactIcon2" />
-        <text class="offer-title-11">邮件</text>
+        <text class="ml-10 font11 themecolor">邮件</text>
       </view>
+      <view wx:else class="contactmode">
+        <image src="../../images/test/email-gray-32.png" class="contactIcon2" />
+        <text class="ml-10 font11 lightgray">邮件</text>
+      </view>
+
       <view class="favourite" catchtap="favourite_touch">
         <image wx:if="{{sectionItem.favouriteshow}}" class="favor-image" src='../../images/test/favouriteon.png' />
         <image wx:else class="favor-image" src='../../images/test/favouriteoff.png' />
@@ -53,15 +66,15 @@
   <view class="offer-info">
 
     <view class="offer-section">
-      <text class="offer-title-11">发布时间</text>
+      <text class="ml-10 font11 themecolor">发布时间</text>
       <text class="offer-cont-11">{{sectionItem.date}}</text>
     </view>
     <view class="offer-section">
-      <text class="offer-title-11">价格</text>
+      <text class="ml-10 font11 themecolor">价格</text>
       <text class="offer-cont-11">{{sectionItem.price}} €</text>
     </view>
     <view class="offer-section">
-      <text class="offer-title-11">物品种类</text>
+      <text class="ml-10 font11 themecolor">物品种类</text>
       <text class="offer-cont-11">{{sectionItem.type0  + '  ' +  sectionItem.type1  + '  ' +  sectionItem.type2}}</text>
     </view>
 
@@ -70,15 +83,15 @@
   <!--4.发布内容地图-->
   <view class="offer-info newstyle">
     <view class="offer-section">
-      <text class="offer-title-11">同城范围</text>
+      <text class="ml-10 font11 themecolor">同城范围</text>
     </view>
     <view class="offer-section">
       <text class="offer-cont-11">{{sectionItem.province + '  ' + sectionItem.city}}</text>
     </view>
     <view class="width100" bindtap='address_clip'>
       <view class="offer-section">
-        <text class="offer-title-11">交易地点</text>
-        <text class="offer-title-9">（点击可将地址复制到剪贴板）</text>
+        <text class="ml-10 font11 themecolor">交易地点</text>
+        <text class="ml-10 font9 themecolor">（点击可将地址复制到剪贴板）</text>
       </view>
       <view class="offer-section">
         <text class="offer-cont-11">{{sectionItem.address}}</text>
@@ -87,11 +100,4 @@
   </view>
 </view>
 
-<map id="map" 
-longitude="{{longitude}}" 
-latitude="{{latitude}}" 
-markers="{{markers}}" 
-style="width: 100%; height: 300px;" 
-controls="{{controls}}" 
-bindcontroltap="controltap" 
-show-location />
+<map id="map" longitude="{{longitude}}" latitude="{{latitude}}" markers="{{markers}}" style="width: 100%; height: 300px;" controls="{{controls}}" bindcontroltap="controltap" show-location />

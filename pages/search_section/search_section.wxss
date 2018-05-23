@@ -1,6 +1,6 @@
 /* pages/search_section/search_section.wxss */
 @import '/style/secondhand2.wxss';
-
+@import '/style/secondhand.wxss';
 .container {
   width: 100%;
   background-color: #efeff4;
@@ -98,17 +98,11 @@
   margin-bottom: 40rpx;
 }
 
-.offer-title-11 {
-  color: #32a189;
-  font-size: 13pt;
+.ml-10 {
   margin-left: 10rpx;
 }
 
-.offer-title-9 {
-  color: #32a189;
-  font-size: 9pt;
-  margin-left: 10rpx;
-}
+
 
 .offer-cont-11 {
   font-size: 11pt;
@@ -123,11 +117,6 @@
   justify-content: flex-start;
   align-items: center;
   margin-right: 50rpx;
-}
-
-.contacthover {
-  border-radius: 20rpx;
-  border: 4rpx solid #32a189;
 }
 
 .favourite {

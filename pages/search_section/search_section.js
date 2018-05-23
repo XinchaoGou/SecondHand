@@ -233,6 +233,7 @@ Page({
   onShow: function () {
     var that = this;
     that.loadLocalData(that.data.objectId);
+
   },
 
   /**
