@@ -190,8 +190,8 @@ Page({
           that.setData({
             contentItems: offerArray
           });
-          //FIXME: 这里可以看如果已经时总数目了，可以设置加载完成的显示
-          if (offerArray.length == that.data.totalCount) {
+          //这里可以看如果已经时总数目了，可以设置加载完成的显示
+          if (offerArray.length >= that.data.totalCount) {
             //加载完毕，已全部加载
             that.setData({
               searchLoadingComplete: true
@@ -240,7 +240,14 @@ Page({
         that.setData({
           contentItems: contentItems
         })
+        if (contentItems.length >= that.data.totalCount) {
+          //加载完毕，已全部加载
+          that.setData({
+            searchLoadingComplete: true
+          });
+        }
       }
+
 
       //加载搜索类型 TODO: 类型变换重新搜索
       var searchType = wx.getStorageSync('searchType');
