@@ -122,6 +122,15 @@ page{
   width:200rpx;
   height:100rpx;
 }
+.searchfont{
+  padding-left:20rpx;
+  font-size:13pt;
+  color:#353535;
+  width: 169pt;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
 
 
 

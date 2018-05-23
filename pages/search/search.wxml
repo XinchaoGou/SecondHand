@@ -7,7 +7,7 @@
     <!--头部搜索block1-->
     <view class="header-block1">
       <image class="favor-image" src="../../images/test/search.png" />
-      <text class="font13 black" style="padding-left:20rpx">{{searchType}}</text>
+      <text class="searchfont">{{searchType}}</text>
     </view>
     <!--头部搜索block2-->
     <view class="header-block2">
