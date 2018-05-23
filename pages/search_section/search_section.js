@@ -41,7 +41,7 @@ Page({
     isLoadingHidden: false,
 
     //地图加载相关
-    latitude: 0,
+    latitude: 0, //用来确定地图中心显示点的坐标
     longitude: 0,
     markers: [],
     controls: [{
@@ -159,6 +159,10 @@ Page({
     }) > -1) {
       sectionItem.favouriteshow = true;
     }
+
+    //缩放显示地图
+    that.includePoints();
+
     that.setData({
       //条目信息
       sectionItem: sectionItem,
@@ -176,6 +180,36 @@ Page({
       data: sectionItem
     })
   },
+
+  /**
+   * 自动缩放显示所有点
+   * by xinchao
+   */
+  includePoints: function () {
+    var that = this;
+
+    //获取当前位置
+    wx.getLocation({
+      type: 'wgs84',
+      success: function (res) {
+        var mLatitude = res.latitude
+        var mLongitude = res.longitude
+        that.mapCtx = wx.createMapContext('map')
+        that.mapCtx.includePoints({
+          padding: [20], //这里修改地图标记和边缘的间隔
+          points: [{
+            latitude: that.data.latitude, //标记坐标
+            longitude: that.data.longitude,
+          }, {
+            latitude: mLatitude,
+            longitude: mLongitude,
+          }]
+        })
+      }
+    })
+  },
+
+
   //该函数待处理
   /*imageLoad: function (e) {
     var that = this;
