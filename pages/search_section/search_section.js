@@ -177,14 +177,14 @@ Page({
     })
   },
   //该函数待处理
-  imageLoad: function (e) {
+  /*imageLoad: function (e) {
     var that = this;
     console.log(that.data.isLoadingHidden)
     console.log('图片加载')
     that.setData({
       isLoadingHidden: true
     })
-  },
+  },*/
 
   /**
    * 生命周期函数--监听页面初次渲染完成

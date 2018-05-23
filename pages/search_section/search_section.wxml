@@ -75,14 +75,16 @@
     <view class="offer-section">
       <text class="offer-cont-11">{{sectionItem.province + '  ' + sectionItem.city}}</text>
     </view>
-    <view class="offer-section" catchtap='address_clip'>
-      <text class="offer-title-11">交易地点</text>
-      <text class="offer-title-9">（点击可将地址复制到剪贴板）</text>
-    </view>
-    <view class="offer-section">
-      <text class="offer-cont-11">{{sectionItem.address}}</text>
+    <view class="width100" bindtap='address_clip'>
+      <view class="offer-section">
+        <text class="offer-title-11">交易地点</text>
+        <text class="offer-title-9">（点击可将地址复制到剪贴板）</text>
+      </view>
+      <view class="offer-section">
+        <text class="offer-cont-11">{{sectionItem.address}}</text>
+      </view>
     </view>
   </view>
 </view>
 
-<map id="map" longitude="{{longitude}}" latitude="{{latitude}}" markers="{{markers}}" style="width: 100%; height: 300px;" controls="{{controls}}" bindcontroltap="controltap"  show-location />
+<map id="map" longitude="{{longitude}}" latitude="{{latitude}}" markers="{{markers}}" style="width: 100%; height: 300px;" controls="{{controls}}" bindcontroltap="controltap" show-location />

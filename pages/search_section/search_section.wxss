@@ -1,5 +1,6 @@
 /* pages/search_section/search_section.wxss */
 @import '/style/secondhand2.wxss';
+
 .container {
   width: 100%;
   background-color: #efeff4;
@@ -157,11 +158,17 @@
   border-bottom-right-radius: 0rpx;
   margin-bottom: 0rpx;
 }
-.contactIcon1{
-  width:50rpx;
-  height:40rpx;
+
+.contactIcon1 {
+  width: 50rpx;
+  height: 40rpx;
 }
-.contactIcon2{
-  width:40rpx;
-  height:40rpx;
+
+.contactIcon2 {
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.width100 {
+  width: 100%;
 }
