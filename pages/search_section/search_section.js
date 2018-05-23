@@ -44,6 +44,7 @@ Page({
     latitude: 0,
     longitude: 0,
     markers: [],
+    inPoints: [],
     controls: [{
       id: 1,
       iconPath: '/images/test/define-location-64.png',
@@ -153,6 +154,16 @@ Page({
     var StrLatitude = 'markers[0].latitude';
     var StrLongitude = 'markers[0].longitude';
     var StrName = 'markers[0].name';
+    var inPoints = [ 
+      { 
+          longitude: longitude, 
+          latitude: latitude 
+       }, 
+      { 
+          longitude: StrLongitude, 
+          latitude: StrLatitude 
+       } 
+  ] 
     sectionItem.favouriteshow = false;
     if (that.data.favorList.findIndex((favorItem) => {
       return favorItem.id == sectionItem.id;
@@ -160,6 +171,7 @@ Page({
       sectionItem.favouriteshow = true;
     }
     that.setData({
+      inPoints: inPoints,
       //条目信息
       sectionItem: sectionItem,
       picNumber: sectionItem.picUrlArray.length,

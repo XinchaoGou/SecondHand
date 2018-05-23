@@ -87,4 +87,4 @@
   </view>
 </view>
 
-<map id="map" longitude="{{longitude}}" latitude="{{latitude}}" markers="{{markers}}" style="width: 100%; height: 300px;" controls="{{controls}}" bindcontroltap="controltap" show-location />
+<map id="map" longitude="{{longitude}}" latitude="{{latitude}}" markers="{{markers}}" style="width: 100%; height: 300px;" controls="{{controls}}" include-points="{{inPoints}}" bindcontroltap="controltap" show-location />
