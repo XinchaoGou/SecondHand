@@ -76,14 +76,14 @@
               <button id="{{index}}" formType="submit" />
               <view class="section underline">
                 <text class="section-title">微信号</text>
-                <input name="wxNumber" class="input" maxlength="30" disabled="{{isInputDisabled}}"  placeholder-class="inputStyle" focus="{{isFocus}}" value="{{item.wxNumber}}" cursor-spacing="20" />
+                <input name="wxNumber" class="input" maxlength="30" disabled="{{isInputDisabled}}" placeholder-class="inputStyle" focus="{{isFocus}}" value="{{item.wxNumber}}" cursor-spacing="20" />
                 <image class="arrow-r" src="../../images/more/enter.png" />
               </view>
 
               <!-- 手机号码 -->
               <view class="section underline">
                 <text class="section-title">手机号</text>
-                <input name="phoneNumber" type="number" class="input" disabled="{{isInputDisabled}}"  cursor-spacing="20" placeholder-class="inputStyle" value="{{item.phoneNumber}}" />
+                <input name="phoneNumber" type="number" class="input" disabled="{{isInputDisabled}}" cursor-spacing="20" placeholder-class="inputStyle" value="{{item.phoneNumber}}" />
                 <image class="arrow-r" src="../../images/more/enter.png" />
               </view>
 
@@ -178,7 +178,7 @@
 
     <!--4.1 我的发布标题栏-->
     <view class="userItem" catchtap="tooffer">
-      <image class="userItemImg" src="../../images/test/clipboard-32.png" />
+      <image class="userItemImg" src="../../images/test/message-32.png" />
       <view class="text">
         <text class="userItemText">我的发布</text>
       </view>
@@ -217,6 +217,23 @@
       </view>
 
     </view>
+  </view>
+
+  <view class="largeblock">
+
+    <!--4.1 我的发布标题栏-->
+    <label for='advice'>
+      <view class="userItem">
+        <image class="userItemImg" src="../../images/test/at-32.png" />
+        <view class="text">
+          <text class="userItemText">意见反馈</text>
+        </view>
+        <image class="userItemArrow" src="../../images/test/right.png" />
+      </view>
+    </label>
+    <button id="advice" open-type="contact"></button>
+
+
   </view>
 
 </view>

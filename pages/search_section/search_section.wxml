@@ -89,9 +89,9 @@
       <text class="offer-cont-11">{{sectionItem.province + '  ' + sectionItem.city}}</text>
     </view>
     <view class="width100" bindtap='address_clip'>
-      <view class="offer-section">
+      <view class="offer-section flexstart">
         <text class="ml-10 font11 themecolor">交易地点</text>
-        <text class="ml-10 font9 themecolor">（点击可将地址复制到剪贴板）</text>
+        <text class="ml-10 font10 themecolor">（点击可将地址复制到剪贴板）</text>
       </view>
       <view class="offer-section">
         <text class="offer-cont-11">{{sectionItem.address}}</text>

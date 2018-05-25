@@ -131,7 +131,10 @@ page{
   white-space: nowrap;
   text-overflow: ellipsis;
 }
-
+.favor-image1{
+  width:30rpx;
+  height:40rpx;
+}
 
 
 

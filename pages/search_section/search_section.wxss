@@ -80,6 +80,9 @@
   border-bottom: 2rpx solid rgb(239, 239, 244);
   margin-bottom: 20rpx;
 }
+.flexstart{
+  justify-content: flex-start;
+}
 
 .offer-title {
   color: #32a189;

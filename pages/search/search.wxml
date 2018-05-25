@@ -11,7 +11,7 @@
     </view>
     <!--头部搜索block2-->
     <view class="header-block2">
-      <image class="favor-image" src="../../images/test/map-5-64.png" />
+      <image class="favor-image1" src="../../images/test/location.png" />
     </view>
   </view>
 

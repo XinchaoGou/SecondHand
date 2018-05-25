@@ -134,7 +134,7 @@ page {
   width: 40rpx;
   height: 40rpx;
   left: 20rpx;
-  top: 35rpx;
+  top: 36rpx;
   position: absolute;
 }
 

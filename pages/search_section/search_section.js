@@ -50,8 +50,8 @@ Page({
       position: {
         left: 10,
         top: 20,
-        width: 20,
-        height: 20
+        width: 30,
+        height: 30
       },
       clickable: true
     }],
@@ -196,7 +196,7 @@ Page({
         var mLongitude = res.longitude
         that.mapCtx = wx.createMapContext('map')
         that.mapCtx.includePoints({
-          padding: [20], //这里修改地图标记和边缘的间隔
+          padding: [50], //这里修改地图标记和边缘的间隔
           points: [{
             latitude: that.data.latitude, //标记坐标
             longitude: that.data.longitude,
@@ -208,18 +208,6 @@ Page({
       }
     })
   },
-
-
-  //该函数待处理
-  /*imageLoad: function (e) {
-    var that = this;
-    console.log(that.data.isLoadingHidden)
-    console.log('图片加载')
-    that.setData({
-      isLoadingHidden: true
-    })
-  },*/
-
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -454,6 +442,13 @@ Page({
    * by xinchao
    */
   controltap: function (event) {
+    //判断是否获得了用户地理位置授权，by yining
+    wx.getSetting({
+      success: (res) => {
+        if (!res.authSetting['scope.userLocation'])
+          that.openConfirm()
+      }
+    })
     var that = this;
     var StrLatitude = 'markers[0].latitude';
     var StrLongitude = 'markers[0].longitude';
@@ -461,6 +456,7 @@ Page({
     var latitude = that.data.latitude;
     var longitude = that.data.longitude;
     var title = that.data.sectionItem.title;
+    that.includePoints();
     that.setData({
       //地图相关
       latitude: latitude,
@@ -470,7 +466,26 @@ Page({
       [StrName]: title,
     })
   },
-
+  //若用户拒绝授权，则每次点击交易位置时出现对话框，询问是否打开定位权限，若选择“确定”进入设置页面，by yining
+  openConfirm: function () {
+    wx.showModal({
+      content: '未没打开定位权限将无法同时查看当前位置与交易地点，是否去设置打开？',
+      confirmText: "确认",
+      cancelText: "取消",
+      success: function (res) {
+        console.log(res);
+        //点击“确认”时打开设置页面
+        if (res.confirm) {
+          console.log('用户点击确认')
+          wx.openSetting({
+            success: (res) => { }
+          })
+        } else {
+          console.log('用户点击取消')
+        }
+      }
+    });
+  },
   /**
    * 点击图片放大预览
    * by xinchao

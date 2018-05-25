@@ -24,6 +24,7 @@ Page({
     isShowOffer: false,
     isShowFavourite: false,
     isShowContact: false,
+    //isShowDevelop: false,
     //获取联系方式的swiper组件的当前页，从0开始
     currentTab: 0,
     //控制input组件禁用的变量，true时禁用
@@ -137,9 +138,9 @@ Page({
       console.log('本地缓存favorList，offerList，userInfo,contactList读取失败');
     }
     that.setData({
-      isInputDisabled:true,//页面每次重新渲染时，将保存图标改为编辑图标，编辑过程改为已完成
+      isInputDisabled: true,//页面每次重新渲染时，将保存图标改为编辑图标，编辑过程改为已完成
       isInputFinish: true,
-      inputTab:-1,
+      inputTab: -1,
     })
   },
   /*
@@ -640,7 +641,8 @@ Page({
       //如果原来是false，要展开收藏列表，则折叠其他列表
       that.setData({
         isShowOffer: false,
-        isShowContact: false
+        isShowContact: false,
+        //isShowDevelop: false,
       })
     }
     this.setData({
@@ -656,7 +658,8 @@ Page({
       //如果原来是false，要展开发布列表，则折叠其他列表
       that.setData({
         isShowFavourite: false,
-        isShowContact: false
+        isShowContact: false,
+        //isShowDevelop: false,
       })
     }
     this.setData({
@@ -775,7 +778,7 @@ Page({
     var that = this;
     var mContactList = that.data.contactList;
     var index = that.data.currentTab;
-    if (newContact.wxNumber == "" && newContact.phoneNumber == "" && newContact.eMail == ""){
+    if (newContact.wxNumber == "" && newContact.phoneNumber == "" && newContact.eMail == "") {
       that.setData({
         TopTips: '请至少输入一种联系方式',
         isShowTopTips: true
@@ -786,7 +789,7 @@ Page({
         });
       }, 700);
     }
-    else{
+    else {
       wx.showModal({
         title: '保存确认',
         content: '您确认要保存现有修改吗？',
@@ -811,7 +814,7 @@ Page({
         }
       })
     }
-    
+
   },
   //保存新模版， by xinchao
   newContactSaveTap: function (newContact) {
@@ -826,23 +829,23 @@ Page({
       })
       return;
     }
-    if(newContact)
-    wx.showModal({
-      title: '保存确认',
-      content: '您确认要将此联系方式添加到常用模板吗？',
-      success: function (res) {
-        if (res.confirm) {
-          console.log('用户点击确定')
-          var mContact = newContact;
-          mContactList.push(mContact);
-          that.upDateContact(mContactList);
+    if (newContact)
+      wx.showModal({
+        title: '保存确认',
+        content: '您确认要将此联系方式添加到常用模板吗？',
+        success: function (res) {
+          if (res.confirm) {
+            console.log('用户点击确定')
+            var mContact = newContact;
+            mContactList.push(mContact);
+            that.upDateContact(mContactList);
+          }
+          else if (res.cancel) {
+            console.log('用户点击取消') //结束函数不删除条目
+            return;
+          }
         }
-        else if (res.cancel) {
-          console.log('用户点击取消') //结束函数不删除条目
-          return;
-        }
-      }
-    })
+      })
   },
 
   //重置模版

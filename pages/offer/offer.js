@@ -60,11 +60,12 @@ Page({
     //pastpos: 20,
     y_scroll: true,//控制页面是否可以竖向滚动的变量，by yining
     toView: '',//控制scroll into view函数滑动到对应组件的id, by yining
+    is_global_warn: false,
     is_title_warn: false,
     is_address_warn: false,
     is_price_warn: false,
     is_content_warn: false,
-    is_contact_warn: false,
+    //is_contact_warn: false,
     is_wx_input: false,
     is_phone_input: false,
     is_email_input: false,
@@ -157,11 +158,12 @@ Page({
         province: '',
         city: '',
       },
+      is_global_warn: false,
       is_title_warn: false,
       is_address_warn: false,
       is_price_warn: false,
       is_content_warn: false,
-      is_contact_warn: false,
+      //is_contact_warn: false,
       is_wx_input: false,
       is_phone_input: false,
       is_email_input: false,
@@ -192,7 +194,8 @@ Page({
     }
     //设置禁用按钮
     that.setData({
-      is_contact_warn: false,//by yining,点击发布后无论成功与否，表单验证提示flag需清空
+      //is_contact_warn: false,//by yining,点击发布后无论成功与否，表单验证提示flag需清空
+      is_global_warn: false,
       isdisabled: true
     })
     //表单验证
@@ -421,7 +424,14 @@ Page({
       },
       fail: function (e) {
         that.setData({
-          is_address_warn: true
+          is_address_warn: true,
+        })
+        //判断是否获得了用户地理位置授权，by yining
+        wx.getSetting({
+          success: (res) => {
+            if (!res.authSetting['scope.userLocation'])
+              that.openConfirm()
+          }
         })
       },
       complete: function (e) {
@@ -430,6 +440,29 @@ Page({
         })
       }
     })
+
+
+  },
+
+  //若用户拒绝授权，则每次点击交易位置时出现对话框，询问是否打开定位权限，若选择“确定”进入设置页面，by yining
+  openConfirm: function () {
+    wx.showModal({
+      content: '未没打开定位权限将无法设置交易地点，是否去设置打开？',
+      confirmText: "确认",
+      cancelText: "取消",
+      success: function (res) {
+        console.log(res);
+        //点击“确认”时打开设置页面
+        if (res.confirm) {
+          console.log('用户点击确认')
+          wx.openSetting({
+            success: (res) => { }
+          })
+        } else {
+          console.log('用户点击取消')
+        }
+      }
+    });
   },
 
   /**
@@ -605,6 +638,7 @@ Page({
       flag = false;
       this.setData({
         isShowTopTips: true,
+        is_global_warn: true,
         is_title_warn: true,
         TopTips: '请输入发布标题',
         toView: 'title'
@@ -614,6 +648,7 @@ Page({
       flag = false;
       this.setData({
         isShowTopTips: true,
+        is_global_warn: true,
         is_address_warn: true,
         TopTips: '请选择交易地点',
         toView: 'address'
@@ -623,6 +658,7 @@ Page({
       flag = false;
       this.setData({
         isShowTopTips: true,
+        is_global_warn: true,
         is_price_warn: true,
         TopTips: '请输入价格',
         toView: 'price'
@@ -632,6 +668,7 @@ Page({
       flag = false;
       this.setData({
         isShowTopTips: true,
+        is_global_warn: true,
         is_content_warn: true,
         TopTips: '请输入物品详情介绍',
         toView: 'content'
@@ -641,7 +678,8 @@ Page({
       flag = false;
       this.setData({
         isShowTopTips: true,
-        is_contact_warn: true,
+        is_global_warn: true,
+        //is_contact_warn: true,
         TopTips: '请至少输入一种联系方式',
         toView: 'contact'
       });
@@ -1132,9 +1170,10 @@ Page({
   formReset: function (e) {
     var that = this;
     that.setData({
-      is_wx_input:false,
-      is_phone_input:false,
-      is_email_input:false
+      is_global_warn: false,
+      is_wx_input: false,
+      is_phone_input: false,
+      is_email_input: false
     })
   },
   //保存新模版， by xinchao

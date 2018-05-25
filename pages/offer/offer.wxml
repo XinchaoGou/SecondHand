@@ -15,7 +15,7 @@
       <!-- 2.1 发布标题 -->
       <view id="title" class="section-big border mg25" bindtap="inputTap">
         <view class="section">
-          <text class="section-title{{is_title_warn?'active':'negative'}}">发布标题</text>
+          <text class="section-title{{is_title_warn&is_global_warn?'active':'negative'}}">发布标题</text>
         </view>
         <view class="section underline">
           <input name="title" class="input" maxlength="30" bindfocus="getTitleFocus" bindblur="loseTitleFocus" placeholder-class="inputStyle" placeholder="请输入标题" value="{{offerItem.title}}" focus="{{isFocus}}" bindinput="titleInput" />
@@ -56,7 +56,7 @@
         <!-- 2.2.2 交易地点 -->
         <view id="address" class="width" catchtap="addressChange" value="{{offerItem.address}}">
           <view class="section">
-            <text class="section-title{{is_address_warn?'active':'negative'}}">交易地点</text>
+            <text class="section-title{{is_address_warn&is_global_warn?'active':'negative'}}">交易地点</text>
           </view>
           <!-- 2.2.3 交易地点换行 -->
           <view class="section underline">
@@ -69,7 +69,7 @@
         <!-- 2.2.4 点选是否设置物品价格 TODO-->
         <view id="price" class="section">
           <view>
-            <text class="section-title{{is_price_warn?'active':'negative'}}">设置价格</text>
+            <text class="section-title{{is_price_warn&is_global_warn?'active':'negative'}}">设置价格</text>
             <!--text class="section-title2">（默认价格面议）</text-->
           </view>
           <!--switch type="switch" checked="{{isPriceShow}}" color="#32A189" bindchange="switch1Change" name="switchHide" /-->
@@ -109,7 +109,7 @@
       <!-- 2.3.3 物品详情多行文字输入模块-->
       <view id="content" catchtap="toDetailPage" class="section-big border3 mt10">
         <view class="section">
-          <text class="section-title{{is_content_warn&offerItem.content==''?'active':'negative'}}">详情</text>
+          <text class="section-title{{is_content_warn&is_global_warn&offerItem.content==''?'active':'negative'}}">详情</text>
         </view>
         <view wx:if="{{!isContent}}" class="section underline">
           <view class="inputStyle">点击输入详情</view>
@@ -136,7 +136,7 @@
 
         <view hidden="{{currentTab<contactList.length}}" class="section pos-relative">
           <view>
-            <text class="section-title{{((!is_wx_input)&(!is_phone_input)&(!is_email_input)&is_contact_warn)?'active':'negative'}}">联系方式</text>
+            <text class="section-title{{((!is_wx_input)&(!is_phone_input)&(!is_email_input)&is_global_warn)?'active':'negative'}}">联系方式</text>
             <text hidden="{{is_wx_input|is_phone_input|is_email_input}}" class="section-title2">（请输入至少一种方式）</text>
           </view>
           <block wx:if="{{is_wx_input|is_phone_input|is_email_input}}">
