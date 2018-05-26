@@ -18,7 +18,7 @@
           <text class="section-title{{is_title_warn&is_global_warn?'active':'negative'}}">发布标题</text>
         </view>
         <view class="section underline">
-          <input name="title" class="input" maxlength="30" bindfocus="getTitleFocus" bindblur="loseTitleFocus" placeholder-class="inputStyle" placeholder="请输入标题" value="{{offerItem.title}}" focus="{{isFocus}}" bindinput="titleInput" />
+          <input name="title" class="input" maxlength="30" bindfocus="getTitleFocus" bindblur="loseTitleFocus" placeholder-class="inputStyle" placeholder="请输入标题" value="{{offerItem.title}}" focus="{{isTitleFocus}}" bindinput="titleInput" />
           <image class="arrow-r" src="../../images/more/enter.png" />
         </view>
       </view>
@@ -80,7 +80,7 @@
         <view class="section underline">
           <input name="price" type="number" class="input" maxlength="100" bindfocus="getPriceFocus" bindblur="losePriceFocus" bindinput="priceInput" confirm-hold="false" placeholder-class="inputStyle" placeholder="请输入价格" value="{{offerItem.price}}" confirm-type="done"
             cursor-spacing="20" />
-          <text class="euro">€</text>
+          <text class="font11 black">€</text>
         </view>
 
       </view>

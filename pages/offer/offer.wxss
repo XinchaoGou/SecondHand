@@ -221,10 +221,6 @@ page {
   background-color: white;
 }
 
-.euro {
-  font-size: 11pt;
-  color: #353535;
-}
 .mt10{
   margin-top:10rpx;
 }

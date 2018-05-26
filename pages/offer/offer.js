@@ -8,9 +8,8 @@ Page({
     isShowTopTips: false,
     TopTips: '',
     //标题
-    isFocus: false,
+    isTitleFocus: false,
     //价格
-    //isPriceShow: false,
     isPriceFocus: false,
     //用户输入了物品详情
     isContent: false,
@@ -83,7 +82,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    var that = this;
 
   },
 
@@ -194,7 +192,8 @@ Page({
     }
     //设置禁用按钮
     that.setData({
-      //is_contact_warn: false,//by yining,点击发布后无论成功与否，表单验证提示flag需清空
+      //is_contact_warn: false,
+      //by yining,点击发布后无论成功与否，表单验证提示flag需清空
       is_global_warn: false,
       isdisabled: true
     })
@@ -313,9 +312,9 @@ Page({
     offer.set("address", tOfferItem.address);
     var location = new Bmob.GeoPoint({ latitude: tOfferItem.location.latitude, longitude: tOfferItem.location.longitude });
     offer.set("location", location);
-    if (that.data.isPriceShow) { //价格设置才会上传，否则比如没设置价格，后台传了值，不能上传，价格为空也不上传
-      offer.set("price", parseFloat(tOfferItem.price));
-    }
+    //if (that.data.isPriceShow) { //价格设置才会上传，否则比如没设置价格，后台传了值，不能上传，价格为空也不上传
+    offer.set("price", parseFloat(tOfferItem.price));
+    //}
     offer.set("content", tOfferItem.content);
     offer.set("publisher", tOfferItem.publisher);
     offer.set("picUrlArray", urlArr);
@@ -371,9 +370,9 @@ Page({
         offer.set("address", tOfferItem.address);
         var location = new Bmob.GeoPoint({ latitude: tOfferItem.location.latitude, longitude: tOfferItem.location.longitude });
         offer.set("location", location);
-        if (that.data.isPriceShow) { //价格设置才会上传，否则比如没设置价格，后台传了值，不能上传，价格为空也不上传
-          offer.set("price", parseFloat(tOfferItem.price));
-        }
+        //if (that.data.isPriceShow) { //价格设置才会上传，否则比如没设置价格，后台传了值，不能上传，价格为空也不上传
+        offer.set("price", parseFloat(tOfferItem.price));
+        //}
         offer.set("content", tOfferItem.content);
         offer.set("publisher", tOfferItem.publisher);
         offer.set("picUrlArray", urlArr);
@@ -447,7 +446,7 @@ Page({
   //若用户拒绝授权，则每次点击交易位置时出现对话框，询问是否打开定位权限，若选择“确定”进入设置页面，by yining
   openConfirm: function () {
     wx.showModal({
-      content: '未没打开定位权限将无法设置交易地点，是否去设置打开？',
+      content: '未打开定位权限将无法设置交易地点，是否去设置打开？',
       confirmText: "确认",
       cancelText: "取消",
       success: function (res) {
@@ -654,7 +653,7 @@ Page({
         toView: 'address'
       });
     }
-    else if (!tOfferItem.price) {
+    else if (tOfferItem.price == "") {
       flag = false;
       this.setData({
         isShowTopTips: true,
@@ -693,28 +692,12 @@ Page({
     return flag;
   },
 
-  /*
-  * 设置价格switch组件事件监听函数，by yining
-  */
-  switch1Change: function (e) {
-    var that = this;
-    if (e.detail.value == false) {
-      that.setData({
-        isPriceShow: false
-      })
-    } else if (e.detail.value == true) {
-      that.setData({
-        isPriceShow: true
-      })
-    }
-  },
-
   //用来方便点击标题大框就聚焦
   //by yining
   inputTap: function () {
     var that = this;
     that.setData({
-      isFocus: !that.data.isFocus
+      isTitleFocus: !that.data.isTitleFocus
     })
   },
 
@@ -765,10 +748,10 @@ Page({
         })
 
         //价格相关
-        var isPriceShow = true;
-        if (!offerForm.price) { //如果价格面议则为空，发布条目里应该没有price的信息
+        //var isPriceShow = true;//TO DO
+        /*f (!offerForm.price) { //如果价格面议则为空，发布条目里应该没有price的信息
           isPriceShow = false;
-        }
+        }*/
 
         //类别列表
         var typeArray = that.data.typeArray;
@@ -788,7 +771,7 @@ Page({
         var modifiedUrl = offerForm.picUrlArray;
 
         that.setData({
-          isPriceShow: isPriceShow,
+          //isPriceShow: isPriceShow,
 
           cityIndex: [
             pIndex,
