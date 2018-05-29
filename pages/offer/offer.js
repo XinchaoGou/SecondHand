@@ -335,6 +335,11 @@ Page({
         wx.hideLoading();
         common.dataLoading("发布成功", "success", function () {
           that.clearData();
+          //TODO:
+          wx.switchTab({
+            url: '../me/me'
+          })
+
         });
       },
       error: function (result, error) {
@@ -390,6 +395,11 @@ Page({
         wx.hideLoading();
         common.dataLoading("修改发布成功", "success", function () {
           that.clearData();
+          //TODO:
+          wx.switchTab({
+            url: '../me/me'
+          })
+
         });
 
       },
