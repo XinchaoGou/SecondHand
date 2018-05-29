@@ -375,9 +375,16 @@ Page({
   //分享 TODO: 默认分享首页
   onShareAppMessage: function () {
     return {
-      title: '自定义分享标题',
-      desc: '自定义分享描述',
-      path: '/page/user?id=123'
+      title: '老瞄',
+      desc: '找二手，上老喵！找房子，上老喵！\n找帮带，上老喵！找外卖，上老瞄！\n喵一眼，啥都有',
+      path: '/pages/search/search',
+      imageUrl: '../../images/test/camera.png',
+      success: function (res) {
+        // 转发成功
+      },
+      fail: function (res) {
+        // 转发失败
+      }
     }
   },
 

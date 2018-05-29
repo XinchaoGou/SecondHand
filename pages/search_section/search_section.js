@@ -262,14 +262,17 @@ Page({
 
   /**
    * 用户点击右上角分享
+   * 分享 TODO: 默认分享首页
    */
   onShareAppMessage: function () {
     var that = this;
     var title = that.data.sectionItem.title;
+    var content = that.data.searchItem.content;
     var offerId = that.data.sectionItem.id;
 
     return {
       title: title,
+      desc: content,
       path: 'pages/search/search?id=' + offerId,
       success: function (res) {
         // 转发成功

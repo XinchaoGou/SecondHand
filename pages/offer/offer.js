@@ -300,11 +300,6 @@ Page({
     var that = this;
     var tOfferItem = that.data.offerItem;
 
-    // //TODO:如果是修改模式，则修改对应的数据
-    // if (that.data.isModify) {
-    //   that.updateOffer(urlArr);
-    //   return;
-    // }
     //上传表单数据到数据库
     var Offer = Bmob.Object.extend("Offer");
     var offer = new Offer();
@@ -395,7 +390,6 @@ Page({
         wx.hideLoading();
         common.dataLoading("修改发布成功", "success", function () {
           that.clearData();
-          //TODO:
           wx.switchTab({
             url: '../me/me'
           })
