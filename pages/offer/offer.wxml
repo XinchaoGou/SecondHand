@@ -127,10 +127,10 @@
         <!--swiper组件左右滑动切换模板-->
         <!--swiper组件的current组件用于控制当前显示哪一页 -->
         <!--swiper组件绑定bindchange事件switchTab，通过e.detail.current拿到当前页-->
-        <view hidden="{{!(currentTab<contactList.length)}}" class="section">
+        <view hidden="{{!(currentTab<contactList.length)}}" class="section" bindlongpress="contactLongTap">
           <view>
             <text class="section-title">常用联系模板{{currentTab+1}}</text>
-            <text class="section-title2">（长按编辑模板）</text>
+            <text class="section-title2">（长按此处编辑模板）</text>
           </view>
         </view>
 
@@ -157,7 +157,7 @@
 
           <!--微信号，手机号，邮箱常用模板，循环加载页面 TODO:-->
           <block wx:for="{{contactList}}">
-            <swiper-item bindlongpress="contactLongTap">
+            <swiper-item>
               <!-- 微信号 -->
               <view class="section underline">
                 <text class="section-title">微信号</text>

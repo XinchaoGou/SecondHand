@@ -550,10 +550,11 @@ Page({
     var that = this;
     that.setData({
       is_notice_status: false,
-      isAgree: true
+      isAgree: true,
+      currentTab: 0, //每次点开输入界面时，都显示第一个模板，by yining
+      toView: 'bottom',
     });
   },
-
   /**
    * 将要发布的信息存入结构体
    * by xinchao

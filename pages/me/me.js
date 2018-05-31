@@ -955,4 +955,23 @@ Page({
     }
   },
 
+  clearStorage:function(e){
+    var that=this;
+    wx.showModal({
+      title: '缓存清除',
+      content: '清除缓存可以加快小程序运行,但需要重新登录',
+      success: function (res) {
+        if (res.confirm) {
+          console.log('用户点击确定')
+          //TO DO: by Xinchao
+        }
+        else if (res.cancel) {
+          console.log('用户点击取消') //结束函数不删除条目
+          return;
+        }
+      }
+    })
+    
+  }
+
 })
