@@ -477,6 +477,8 @@ Page({
           that.setData({
             lowprice: 0,
             highprice: 70, //FIXME: 因为被刘大傻写死了！
+            lowshowprice: 0,
+            highshowprice: 2000,
             array: ['按发布时间', '按价格从低到高', '按价格从高到低'],
             index: 0,
             //picker组件的多列选择器
