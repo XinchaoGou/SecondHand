@@ -648,7 +648,7 @@ Page({
         toView: 'title'
       });
     }
-    else if (tOfferItem.address == '点击选择位置') {
+    else if (tOfferItem.address == '点击选择位置' || tOfferItem.address =='') {
       flag = false;
       this.setData({
         isShowTopTips: true,
