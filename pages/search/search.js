@@ -56,17 +56,18 @@ Page({
     that.getContentItemsFromCloud(0, that.data.callbackcount);
 
     if (!Bmob.User.current()) {
-      console.log('未找到用户');
-      try {
-        console.log('退出登陆');
-        Bmob.User.logOut();
-        wx.clearStorageSync()
-      } catch (e) {
-        console.log(e);
-      }
-      console.log('重新注册');
-      var user = new Bmob.User() //开始注册用户
-      user.auth();
+      // console.log('未找到用户');
+      // try {
+      //   console.log('退出登陆');
+      //   Bmob.User.logOut();
+      //   wx.clearStorageSync()
+      // } catch (e) {
+      //   console.log(e);
+      // }
+      // setTimeout(() => {
+      // }, 2000);
+      console.log('未找到用户，重新注册');
+      that.reLogin();
 
       setTimeout(() => {
         //等待用户信息加载，延时6秒左右，失败的情况只能下拉刷新界面
@@ -79,11 +80,14 @@ Page({
           })
         }, function (error) {
           console.log(error); // failure
+          console.log('用户信息加载超时，重新登陆' + error); // failure
         });
       }, 6000);
       return;
+
     } else {
       //等待用户信息加载，延时5秒左右，失败的情况只能下拉刷新界面
+      console.log('找到用户' + Bmob.User.current().id);
       const promise = that.getFavorListFromCloud();
       promise.then(function (favourArray) {
         var contentItems = that.data.contentItems;
@@ -92,7 +96,8 @@ Page({
 
         })
       }, function (error) {
-        console.log(error); // failure
+        console.log('用户id失效，重新登陆'+error); // failure
+        that.reLogin();
       });
     }
 
@@ -265,10 +270,10 @@ Page({
         if (type0) {  //如果存在则赋值，否则默认为空字符串
           str0 = type0;
         }
-        if (type1) {  
+        if (type1) {
           str1 = type1;
         }
-        if (type2) {  
+        if (type2) {
           str2 = type2;
         }
         var str = str0 + ' ' + str1 + ' ' + str2
@@ -522,12 +527,20 @@ Page({
   getFavorListFromCloud: function () {
     var that = this;
     return new Promise(function (resolve, reject) {
+      if (!Bmob.User.current()) {
+        //如果未找到用户，刷新
+        console.log('搜索收藏列表时未找到用户重新刷新，重新注册');
+        that.reLogin();
+        // setTimeout(() => {
+        // }, 2000);
+        return;
+      }
       var User = Bmob.Object.extend("_User");
       var query = new Bmob.Query(User);
       query.get(Bmob.User.current().id, {
         success: function (result) {
           // 查询用户成功
-          console.log("查询当前用户成功");
+          console.log("getFavorListFromCloud查询当前用户成功");
           var relation = result.relation('like');
           var query = relation.query();
           query.descending('createdAt');  //排序
@@ -555,7 +568,8 @@ Page({
           });
         },
         error: function (object, error) {
-          console.log("查询当前用户失败");
+          console.log("getFavorListFromCloud查询当前用户失败，重新注册");
+          that.reLogin();
           reject(error);
         }
       });
@@ -623,7 +637,7 @@ Page({
     var str = 'contentItems[' + postId + '].favouriteshow';
     that.setData({
       [str]: !isshow
-    })
+    });
 
     //本地缓存也要更改！
     var mContentList = null;
@@ -653,11 +667,13 @@ Page({
         //实现数据库端like的同步
         if (!isshow) {
           //点击之前为false，点击之后为true，表示收藏
+          console.log('添加收藏');
           relation.add(result);
           //修改favorList,可能有bug
           favorList.push(that.data.contentItems[postId]);
         } else {
           //取消收藏
+          console.log('取消收藏');
           relation.remove(result);
           var index = favorList.findIndex((favorItem) => {
             return favorItem.id == that.data.contentItems[postId].id;
@@ -676,7 +692,7 @@ Page({
       },
       error: function (object, error) {
         // 查询失败
-        console.log(error);
+        console.log('收藏失败' + error);
       }
     });
   },
@@ -698,6 +714,55 @@ Page({
     wx.navigateTo({
       url: '../search_section/search_section?id=' + objectId
     })
+  },
+
+  reLogin: function () {
+    try {
+      console.log('退出登陆');
+      Bmob.User.logOut();
+      wx.clearStorageSync()
+    } catch (e) {
+      console.log(e);
+    }
+
+    wx.login({
+      success: function (res) {
+        var user = new Bmob.User();//实例化          
+        user.loginWithWeapp(res.code).then(
+          function(user) {
+            var openid = user.get('authData').weapp.openid
+            wx.setStorageSync('openid', openid)
+            //保存用户其他信息到用户表
+            wx.getUserInfo({
+              success: function(result) {
+                var userInfo = result.userInfo
+                var nickName = userInfo.nickName
+                var avatarUrl = userInfo.avatarUrl
+                var u = Bmob.Object.extend('_User')
+                var query = new Bmob.Query(u)
+                query.get(user.id, {
+                  success: function(result) {
+                    result.set('nickName', nickName)
+                    result.set('userPic', avatarUrl)
+                    result.set('openid', openid)
+                    result.save()
+                  }
+                })
+              }
+            })
+          },
+          function(err) {
+            console.log(err, 'errr')
+          }
+        )
+      },
+      fail: function () {
+        // fail
+      },
+      complete: function () {
+        // complete
+      }
+    });
   },
 
 })
