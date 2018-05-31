@@ -185,7 +185,7 @@ page {
 }
 
 .height {
-  height: 520rpx;
+  height: 540rpx;
 }
 
 .textarea {

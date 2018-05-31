@@ -48,7 +48,7 @@
         </view>
       </view>
 
-      <view hidden="{{currentTab<contactList.length || contactList.length >= 3}}" class="section pos-relative">
+      <view id="contact" hidden="{{currentTab<contactList.length || contactList.length >= 3}}" class="section pos-relative">
         <view>
           <text class="section-title">空白模板</text>
           <text hidden="{{is_wx_input|is_phone_input|is_email_input}}" class="section-title2">（请输入至少一种联系方式）</text>
@@ -233,22 +233,4 @@
     </label>
     <button id="advice" open-type="contact"></button>
   </view>
-
-  <view class="largeblock">
-
-    <!--4.1 我的发布标题栏-->
-    <label for='storage'>
-      <view class="userItem">
-        <image class="userItemImg" src="../../images/test/settings-8-32.png" />
-        <view class="text">
-          <text class="userItemText">清除缓存</text>
-        </view>
-        <image class="userItemArrow" src="../../images/test/right.png" />
-      </view>
-    </label>
-    <button id="storage" bindtap="clearStorage"></button>
-
-
-  </view>
-
 </view>

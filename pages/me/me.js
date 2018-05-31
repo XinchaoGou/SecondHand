@@ -142,6 +142,7 @@ Page({
       isInputFinish: true,
       inputTab: -1,
     })
+
   },
   /*
    * 查询用户的所有发布
@@ -677,6 +678,15 @@ Page({
   tocontact: function () {
     var that = this;
     var switch3 = that.data.isShowContact;
+
+    /*var query = wx.createSelectorQuery()
+    query.select('#contact').boundingClientRect()
+    query.selectViewport().scrollOffset()
+    query.exec(function (res) {
+      res[0].top       // #the-id节点的上边界坐标
+      res[1].scrollTop // 显示区域的竖直滚动位置
+    })*/
+
     if (!switch3) {
       //如果原来是false，要展开联系方式列表，则折叠其他列表
       that.setData({
@@ -684,7 +694,8 @@ Page({
         isShowOffer: false,
         currentTab: 0
       })
-
+      //与页面渲染速度有关，于是设置一个延时执行页面滚动方法
+      setTimeout(() => { wx.pageScrollTo({ scrollTop: 900 }); }, 200);
     }
     this.setData({
       isShowContact: !switch3
@@ -954,24 +965,4 @@ Page({
       })
     }
   },
-
-  clearStorage:function(e){
-    var that=this;
-    wx.showModal({
-      title: '缓存清除',
-      content: '清除缓存可以加快小程序运行,但需要重新登录',
-      success: function (res) {
-        if (res.confirm) {
-          console.log('用户点击确定')
-          //TO DO: by Xinchao
-        }
-        else if (res.cancel) {
-          console.log('用户点击取消') //结束函数不删除条目
-          return;
-        }
-      }
-    })
-    
-  }
-
 })
