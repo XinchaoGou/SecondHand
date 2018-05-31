@@ -64,9 +64,11 @@ Page({
       } catch (e) {
         console.log(e);
       }
-      console.log('重新注册');
-      var user = new Bmob.User() //开始注册用户
-      user.auth();
+      setTimeout(() => {
+        console.log('重新注册');
+        var user = new Bmob.User() //开始注册用户
+        user.auth();
+      }, 2000);
 
       setTimeout(() => {
         //等待用户信息加载，延时6秒左右，失败的情况只能下拉刷新界面
@@ -79,11 +81,14 @@ Page({
           })
         }, function (error) {
           console.log(error); // failure
+          console.log('用户信息失效，重新登陆'+error); // failure
         });
       }, 6000);
       return;
+
     } else {
       //等待用户信息加载，延时5秒左右，失败的情况只能下拉刷新界面
+      console.log('找到用户'+Bmob.User.current().id);
       const promise = that.getFavorListFromCloud();
       promise.then(function (favourArray) {
         var contentItems = that.data.contentItems;
@@ -92,7 +97,21 @@ Page({
 
         })
       }, function (error) {
-        console.log(error); // failure
+        // console.log('promise 收藏列表失败'+error); // failure
+        // try {
+        //   console.log('退出登陆');
+        //   Bmob.User.logOut();
+        //   wx.clearStorageSync()
+        // } catch (e) {
+        //   console.log(e);
+        // }
+        // console.log('重新注册');
+        // setTimeout(() => {
+        //   var user = new Bmob.User() //开始注册用户
+        //   user.auth();
+        // }, 2000);
+
+        
       });
     }
 
@@ -522,6 +541,13 @@ Page({
   getFavorListFromCloud: function () {
     var that = this;
     return new Promise(function (resolve, reject) {
+      // if (!Bmob.User.current()) {
+      //   //如果未找到用户，刷新
+      //   console.log('搜索收藏列表时未找到用户重新刷新');
+      //   var user = new Bmob.User() //开始注册用户
+      //   user.auth();
+      //   return;
+      // }
       var User = Bmob.Object.extend("_User");
       var query = new Bmob.Query(User);
       query.get(Bmob.User.current().id, {
@@ -623,7 +649,7 @@ Page({
     var str = 'contentItems[' + postId + '].favouriteshow';
     that.setData({
       [str]: !isshow
-    })
+    });
 
     //本地缓存也要更改！
     var mContentList = null;
