@@ -328,7 +328,7 @@ Page({
         //添加成功，返回成功之后的objectId(注意，返回的属性名字是id,而不是objectId)
         console.log("发布成功, objectId:" + result.id);
         wx.hideLoading();
-        common.dataLoading("发布成功，即将前往“我的”页面", "success", function () {
+        common.dataLoading("发布成功", "success", function () {
           that.clearData();
           setTimeout(() => {
             wx.switchTab({
@@ -389,7 +389,7 @@ Page({
 
         //修改成功
         wx.hideLoading();
-        common.dataLoading("修改发布成功，即将前往“我的”页面", "success", function () {
+        common.dataLoading("修改发布成功", "success", function () {
           that.clearData();
           setTimeout(() => {
             wx.switchTab({
