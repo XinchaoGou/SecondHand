@@ -330,10 +330,11 @@ Page({
         wx.hideLoading();
         common.dataLoading("发布成功", "success", function () {
           that.clearData();
-          //TODO:
-          wx.switchTab({
-            url: '../me/me'
-          })
+          setTimeout(() => {
+            wx.switchTab({
+              url: '../me/me'
+            })
+          }, 1000);
 
         });
       },
@@ -390,9 +391,11 @@ Page({
         wx.hideLoading();
         common.dataLoading("修改发布成功", "success", function () {
           that.clearData();
-          wx.switchTab({
-            url: '../me/me'
-          })
+          setTimeout(() => {
+            wx.switchTab({
+              url: '../me/me'
+            })
+          }, 1000);
 
         });
 
@@ -648,7 +651,7 @@ Page({
         toView: 'title'
       });
     }
-    else if (tOfferItem.address == '点击选择位置' || tOfferItem.address =='') {
+    else if (tOfferItem.address == '点击选择位置' || tOfferItem.address == '') {
       flag = false;
       this.setData({
         isShowTopTips: true,
