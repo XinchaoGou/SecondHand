@@ -83,7 +83,17 @@
 .flexstart{
   justify-content: flex-start;
 }
-
+.offer-section1 {
+  box-sizing: border-box;
+  min-height: 60rpx;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2rpx solid rgb(239, 239, 244);
+  margin-bottom: 20rpx;
+}
 .offer-title {
   color: #32a189;
   font-size: 13pt;

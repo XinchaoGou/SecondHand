@@ -93,7 +93,7 @@
         <text class="ml-10 font11 themecolor">交易地点</text>
         <text class="ml-10 font10 themecolor">（点击可将地址复制到剪贴板）</text>
       </view>
-      <view class="offer-section">
+      <view class="offer-section1">
         <text class="offer-cont-11">{{sectionItem.address}}</text>
       </view>
     </view>

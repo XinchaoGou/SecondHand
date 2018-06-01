@@ -234,3 +234,5 @@
     <button id="advice" open-type="contact"></button>
   </view>
 </view>
+
+<!--view class="bottombar" /-->
