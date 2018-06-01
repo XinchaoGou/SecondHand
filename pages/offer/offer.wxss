@@ -69,10 +69,6 @@ page {
 }
 
 .notice {
-  position: fixed;
-  z-index: 100;
-  bottom: 30rpx;
-  left: 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -175,6 +171,9 @@ page {
   height: 100%;
   position: fixed;
   z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .covernegative {

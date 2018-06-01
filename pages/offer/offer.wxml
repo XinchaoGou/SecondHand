@@ -56,7 +56,8 @@
         <!-- 2.2.2 交易地点 -->
         <view id="address" class="width" catchtap="addressChange" value="{{offerItem.address}}">
           <view class="section">
-            <text class="section-title{{is_address_warn&is_global_warn?'active':'negative'}}">交易地点</text>
+            <text wx:if="{{typeArray[0][typeIndex[0]]=='房屋租赁'}}" class="section-title{{is_address_warn&is_global_warn?'active':'negative'}}">房屋地点</text>
+            <text wx:else class="section-title{{is_address_warn&is_global_warn?'active':'negative'}}">交易地点</text>
           </view>
           <!-- 2.2.3 交易地点换行 -->
           <view class="section underline">
@@ -254,10 +255,10 @@
         <view class="notice-q">1、为什么需要填写联系方式等信息？</view>
         <view class="notice-a">
           <text>填写真实有效的联系信息更加有利于同城交易的进行。</text>
-          <text>联系方式有三种选择，分别是微信号，手机号以及邮箱，这三种联系方式在目前生活中是最为普遍的。</text>
-          <text>当有用户报名您的发布时，即可查看您填写的联系信息，以便加入者与您联系,没有加入的用户无法查看您的联系信息。</text>
+          <text>联系方式有三种选择，分别是微信号，手机号以及邮箱。</text>
+          <text>请至少输入一种联系方式，这样当有用户看到您的发布时，即可查看您填写的联系信息并与您联系。</text>
         </view>
-        <view class="notice-q">2、发起内容的有哪些限制？</view>
+        <view class="notice-q">2、发布内容的有哪些限制？</view>
         <view class="notice-a">
           <text>发布内容应该在法律允许的范围内，如果发布内容违反了相关的法律法规，一经发现，本软件有权限对该发布进行删除操作。</text>
         </view>

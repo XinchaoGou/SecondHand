@@ -382,7 +382,6 @@ Page({
     wx.stopPullDownRefresh() //停止下拉刷新
   },
 
-
   //分享 TODO: 默认分享首页
   onShareAppMessage: function () {
     return {
@@ -867,6 +866,12 @@ Page({
             var mContact = newContact;
             mContactList.push(mContact);
             that.upDateContact(mContactList);
+            //控制空白模板输入有无的变量
+            that.setData({
+              is_wx_input: false,
+              is_phone_input: false,
+              is_email_input: false,
+            })
           }
           else if (res.cancel) {
             console.log('用户点击取消') //结束函数不删除条目
