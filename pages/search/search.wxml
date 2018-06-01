@@ -40,7 +40,7 @@
         <view class="content-bottom">
           <text class='content-text-price'>€ {{item.price}}</text>
 
-          <view class="favourite" catchtap="favourite_touch" data-favouriteid="{{index}}">
+          <view class="favourite1" catchtap="favourite_touch" data-favouriteid="{{index}}">
             <image wx:if="{{item.favouriteshow}}" class="favor-image" src='../../images/test/favouriteon.png' />
             <image wx:else class="favor-image" src='../../images/test/favouriteoff.png' />
           </view>

@@ -135,6 +135,17 @@ page{
   width:30rpx;
   height:40rpx;
 }
+.favourite1{
+  position: absolute;
+  z-index: 300;
+  right: -50rpx;
+  bottom: 0rpx;
+  width: 150rpx;
+  height: 80rpx;
+  display: flex;
+  justify-content:center;
+  align-items: flex-end;
+}
 
 
 

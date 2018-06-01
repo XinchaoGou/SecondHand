@@ -90,7 +90,9 @@
     </view>
     <view class="width100" bindtap='address_clip'>
       <view class="offer-section flexstart">
-        <text class="ml-10 font11 themecolor">交易地点</text>
+      
+        <text wx:if="{{sectionItem.type0=='房屋租赁'}}" class="ml-10 font11 themecolor">房屋地点</text>
+        <text wx:else class="ml-10 font11 themecolor">交易地点</text>
         <text class="ml-10 font10 themecolor">（点击可将地址复制到剪贴板）</text>
       </view>
       <view class="offer-section1">

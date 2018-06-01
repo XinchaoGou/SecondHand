@@ -453,7 +453,7 @@ Page({
   //若用户拒绝授权，则每次点击交易位置时出现对话框，询问是否打开定位权限，若选择“确定”进入设置页面，by yining
   openConfirm: function () {
     wx.showModal({
-      content: '未打开定位权限将无法设置交易地点，是否去设置打开？',
+      content: '未打开定位权限将无法设置地点，是否去设置打开？',
       confirmText: "确认",
       cancelText: "取消",
       success: function (res) {
@@ -657,7 +657,7 @@ Page({
         isShowTopTips: true,
         is_global_warn: true,
         is_address_warn: true,
-        TopTips: '请选择交易地点',
+        TopTips: '请选择具体地点',
         toView: 'address'
       });
     }

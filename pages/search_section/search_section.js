@@ -196,7 +196,7 @@ Page({
         var mLongitude = res.longitude
         that.mapCtx = wx.createMapContext('map')
         that.mapCtx.includePoints({
-          padding: [50], //这里修改地图标记和边缘的间隔
+          padding: [80], //这里修改地图标记和边缘的间隔
           points: [{
             latitude: that.data.latitude, //标记坐标
             longitude: that.data.longitude,
