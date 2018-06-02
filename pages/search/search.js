@@ -425,7 +425,7 @@ Page({
   onShareAppMessage: function () {
 
     return {
-      title: '老瞄',
+      title: '老喵',
       desc: '找二手，上老喵！找房子，上老喵！\n找帮带，上老喵！找外卖，上老瞄！\n喵一眼，啥都有',
       path: '/pages/search/search',
       imageUrl: '../../images/test/poster.png',
