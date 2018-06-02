@@ -50,9 +50,13 @@
   </view>
 
   <view class="weui-load" hidden="{{!searchLoadingComplete}}">
-    <text class="weui-loadmore__tips" style="padding-bottom:20rpx;font-size:10pt;color:gray;">当前内容已全部加载</text>
+    <text class="weui-loadmore__tips">当前内容已全部加载</text>
   </view>
   <view class="weui-loadmore" hidden="{{searchLoadingComplete}}">
+    <view>
+      <view class="weui-loading" />
+      <view class="weui-loadmore__tips1">正在加载</view>
+    </view>
     <image src='../../images/test/LOGO-1.png' class="loading" />
   </view>
 

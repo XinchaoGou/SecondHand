@@ -1,0 +1,57 @@
+.weui-toptips {
+  position: fixed;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 5px;
+  font-size: 14px;
+  text-align: center;
+  color: #fff;
+  z-index: 5000;
+  word-wrap: break-word;
+  word-break: break-all;
+}
+
+.weui-toptips_warn {
+  background-color: #e64340;
+}
+.weui-agree {
+  display: block;
+  padding: 0.5em 15px;
+  font-size: 13px;
+}
+
+.weui-agree__text {
+  color: #888888;
+  font-size:11pt;
+}
+
+.weui-agree__link {
+  display: inline;
+  font-size:11pt;
+  color: #32A189;
+}
+
+.weui-agree__checkbox {
+  position: absolute;
+  left: -9999px;
+}
+
+.weui-agree__checkbox-icon {
+  position: relative;
+  top: 8rpx;
+  display: inline-block;
+  border: 2rpx solid #d1d1d1;
+  background-color: #fff;
+  border-radius: 6rpx;
+  width: 35rpx;
+  height: 35rpx;
+}
+
+.weui-agree__checkbox-icon-check {
+  position: absolute;
+  top: 2rpx;
+  left: 2rpx;
+}

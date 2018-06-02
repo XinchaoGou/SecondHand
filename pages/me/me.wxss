@@ -1,5 +1,5 @@
 /* pages/me/me.wxss */
-@import '/style/weui.wxss';
+@import '/style/stylefromweui.wxss';
 @import '/style/secondhand.wxss';
 @import '/style/secondhand2.wxss';
 
