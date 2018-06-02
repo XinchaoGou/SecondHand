@@ -6,16 +6,16 @@
   <!-- 1.头像背景 -->
   <view class="head-background">
     <!--image class="userinfo-bgImg" src="../../images/test/Karlsruhe.jpg"></image-->
-  </view>
-
-  <!-- 2.用户信息 -->
-
-  <view class="userinfo">
-    <button wx:if="{{canIUse}}" id="user" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo" disabled="{{isUse}}" />
-    <label for='user'>
+    <label class="user-back" for='user'>
       <image class="userinfo-avatar" src="{{imgUrl}}" />
       <text class="userinfo-nickname">{{name}}</text>
     </label>
+  </view>
+  <button wx:if="{{canIUse}}" id="user" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo" disabled="{{isUse}}" />
+  <!-- 2.用户信息 -->
+
+  <view class="userinfo">
+
   </view>
 
   <!--5.我的联系方式模板-->

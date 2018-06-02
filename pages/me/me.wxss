@@ -5,25 +5,37 @@
 
 page {
   width: 100%;
-  height:100%;
+  height: 100%;
   background-color: #efeff4;
 }
-.bottombar{
-  position:fixed;
-  z-index:20;
-  bottom:0rpx;
-  height:100rpx;
-  width:100%;
+
+.bottombar {
+  position: fixed;
+  z-index: 20;
+  bottom: 0rpx;
+  height: 100rpx;
+  width: 100%;
   background-color: #efeff4;
 }
+
 /*头像--背景样式，引入*/
 
 .head-background {
-  height: 300rpx;
-  margin-top: -40rpx;
+  height: 400rpx;
   width: 100%;
   position: relative;
   background-color: #32a189;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.user-back {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
 }
 
 .leftArrow {
@@ -42,44 +54,35 @@ page {
   float: right;
 }
 
-/*头像--图片样式 引入*/
-
-.userinfo-bgImg {
+/*.userinfo-bgImg {
   width: 100%;
   height: 300rpx;
   overflow:hidden;
-}
+}*/
 
 /*用户信息--背景样式 引入*/
 
 .userinfo {
   width: 100%;
-  height: 100rpx;
+  height: 40rpx;
   background: rgb(239, 239, 244);
-  margin-top: -7rpx;
-  padding-bottom: 15rpx;
 }
 
 /*用户信息--图片样式 引入*/
 
 .userinfo-avatar {
-  position: absolute;
   width: 160rpx;
   height: 160rpx;
-  margin: 20rpx;
   border-radius: 50%;
-  margin-top: -80rpx;
-  margin-bottom: 0;
-  background-color: #f6f6f6;
+  background-color: #efeff4;
 }
 
 /*用户信息--昵称--文字样式 引入*/
 
 .userinfo-nickname {
-  font-size: 13pt;
-  color: #32a189;
-  padding: 24rpx 20rpx 0 200rpx;
-  float: left;
+  font-size: 11pt;
+  color: #fff;
+  margin-top:20rpx;
 }
 
 /*用户信息--昵称--文字样式 该样式引入*/
@@ -134,8 +137,8 @@ page {
   width: 100%;
   height: 90rpx;
   position: relative;
-  padding-top:10rpx;
-  padding-bottom:10rpx;
+  padding-top: 10rpx;
+  padding-bottom: 10rpx;
 }
 
 .userItemImg {
@@ -157,7 +160,7 @@ page {
   margin-left: 70rpx;
   font-size: 13pt;
   color: #32a189;
-  line-height:90rpx;
+  line-height: 90rpx;
 }
 
 .userItemArrow {
@@ -220,8 +223,6 @@ page {
   background-color: #b2b2b2;
 }
 
-
-
 .top {
   right: 10rpx;
   top: 0rpx;
@@ -237,9 +238,11 @@ page {
   justify-content: flex-end;
   align-items: flex-end;
 }
-.center{
+
+.center {
   line-height: 100rpx;
 }
-.width80{
-  width:80pt;
+
+.width80 {
+  width: 80pt;
 }

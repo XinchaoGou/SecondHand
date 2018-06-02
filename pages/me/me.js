@@ -5,7 +5,7 @@ var app = getApp();
 Page({
 
   data: {
-    imgUrl: '../../images/test/user_default.png',
+    imgUrl: '../../images/test/logo3.png',
     name: '点击头像登录',
     userInfo: {},
     favorList: [],

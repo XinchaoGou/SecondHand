@@ -53,7 +53,7 @@
     <text class="weui-loadmore__tips" style="padding-bottom:20rpx;font-size:10pt;color:gray;">当前内容已全部加载</text>
   </view>
   <view class="weui-loadmore" hidden="{{searchLoadingComplete}}">
-    <image src='../../images/test/loading.gif' class="loading" />
+    <image src='../../images/test/LOGO-1.png' class="loading" />
   </view>
 
 </view>
