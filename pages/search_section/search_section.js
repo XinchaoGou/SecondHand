@@ -267,7 +267,7 @@ Page({
   onShareAppMessage: function () {
     var that = this;
     var title = that.data.sectionItem.title;
-    var content = that.data.searchItem.content;
+    var content = that.data.sectionItem.content;
     var offerId = that.data.sectionItem.id;
 
     return {
