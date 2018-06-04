@@ -12,6 +12,11 @@
       </block>
     </swiper>
 
+    <label class="bgshare" for="share">
+      <image class="size" src='../../images/test/share.png' />
+    </label>
+    <button id="share" open-type='share' />
+
     <!--1.1 图片幻灯片底部文字显示模块-->
     <view class="swiper-bottom">
       <text class="swiper-text">€ {{sectionItem.price}}</text>
@@ -90,7 +95,7 @@
     </view>
     <view class="width100" bindtap='address_clip'>
       <view class="offer-section flexstart">
-      
+
         <text wx:if="{{sectionItem.type0=='房屋租赁'}}" class="ml-10 font11 themecolor">房屋地点</text>
         <text wx:else class="ml-10 font11 themecolor">交易地点</text>
         <text class="ml-10 font10 themecolor">（点击可将地址复制到剪贴板）</text>
