@@ -174,3 +174,19 @@
 .width100 {
   width: 100%;
 }
+.bgshare{
+  position:absolute;
+  right:20rpx;
+  top:30rpx;
+  width:100rpx;
+  height:100rpx;
+  background-color: #32a189;
+  border-radius: 50%;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
+.size{
+  height:50rpx;
+  width:50rpx;
+}
