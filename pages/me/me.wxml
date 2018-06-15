@@ -231,7 +231,7 @@
         <image class="userItemArrow" src="../../images/test/right.png" />
       </view>
     </label>
-    <button id="advice" open-type="contact"></button>
+    <button id="advice" open-type="feedback"></button>
   </view>
 </view>
 
