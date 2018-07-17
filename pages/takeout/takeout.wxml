@@ -55,6 +55,8 @@
 
 <!-- 购物车容器 -->
 <view class="modal">
+    <!-- 遮蔽待处理-->
+    <!-- <view animation="{{animationMask}}" class="modal-mask {{maskVisual}}" bindtap="cascadeDismiss"></view>-->
 	<view animation="{{animationData}}" class="modal-content" style="height: {{cartHeight}}px; bottom: -{{cartHeight}}px;">
 	    <view class="modal-header">
 	        <text class="modal-title">购物车</text>

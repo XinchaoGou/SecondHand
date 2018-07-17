@@ -9,7 +9,7 @@ var cart_offset = 90;
 var food_row_height = 49;
 Page({
   data: {
-    categoryStates: [],
+    // categoryStates: [],
     cartData: {},
     cartObjects: [],
     maskVisual: 'hidden',
@@ -29,23 +29,23 @@ Page({
     // that.loadCategory();
     that.loadFood();
   },
-  loadCategory: function () {
-    var query = new Bmob.Query('Category');
-    query.ascending('priority');
-    query.limit(Number.MAX_VALUE);
-    query.find().then(function (categoryObjects) {
-      // console.log(categoryObjects);
-      var categoryStates = [];
-      for (var i = 0; i < categoryObjects.length; i++) {
-        categoryStates.push(false);
-      }
-      // categoryStates[0] = true;
-      that.setData({
-        categoryObjects: categoryObjects,
-        categoryStates: categoryStates
-      });
-    });
-  },
+  // loadCategory: function () {
+  //   var query = new Bmob.Query('Category');
+  //   query.ascending('priority');
+  //   query.limit(Number.MAX_VALUE);
+  //   query.find().then(function (categoryObjects) {
+  //     // console.log(categoryObjects);
+  //     var categoryStates = [];
+  //     for (var i = 0; i < categoryObjects.length; i++) {
+  //       categoryStates.push(false);
+  //     }
+  //     // categoryStates[0] = true;
+  //     that.setData({
+  //       categoryObjects: categoryObjects,
+  //       categoryStates: categoryStates
+  //     });
+  //   });
+  // },
   loadFood: function (category) {
     var query = new Bmob.Query('Food');
     if (category != undefined) {
@@ -59,28 +59,28 @@ Page({
       });
     });
   },
-  switchCategory: function (e) {
-    // 获取分类id并切换分类
-    var index = e.currentTarget.dataset.index;
-    var categoryId = that.data.categoryObjects[index].id;
-    // console.log(categoryId);
-    var category = Bmob.Object.createWithoutData('Category', categoryId);
-    // 更改分类项高亮状态
-    var categoryStates = that.data.categoryStates;
-    categoryStates = categoryStates.map(function (item, i) {
-      if (index == i) {
-        item = true;
-      } else {
-        item = false;
-      }
-      return item;
-    });
-    that.setData({
-      category: category,
-      categoryStates: categoryStates
-    });
-    that.loadFood(category);
-  },
+  // switchCategory: function (e) {
+  //   // 获取分类id并切换分类
+  //   var index = e.currentTarget.dataset.index;
+  //   var categoryId = that.data.categoryObjects[index].id;
+  //   // console.log(categoryId);
+  //   var category = Bmob.Object.createWithoutData('Category', categoryId);
+  //   // 更改分类项高亮状态
+  //   var categoryStates = that.data.categoryStates;
+  //   categoryStates = categoryStates.map(function (item, i) {
+  //     if (index == i) {
+  //       item = true;
+  //     } else {
+  //       item = false;
+  //     }
+  //     return item;
+  //   });
+  //   that.setData({
+  //     category: category,
+  //     categoryStates: categoryStates
+  //   });
+  //   that.loadFood(category);
+  // },
   checkout: function () {
     // 将对象序列化
     var cartObjects = [];
@@ -93,8 +93,9 @@ Page({
       cartObjects.push(cart);
     });
 
+    //TODO: 跳转账单页面
     wx.navigateTo({
-      url: '../../order/checkout/checkout?quantity=' + that.data.quantity + '&amount=' + that.data.amount + '&express_fee=' + that.data.express_fee + '&carts=' + JSON.stringify(cartObjects)
+      url: '../checkout/checkout?quantity=' + that.data.quantity + '&amount=' + that.data.amount + '&express_fee=' + that.data.express_fee + '&carts=' + JSON.stringify(cartObjects)
     });
   },
   add: function (e) {
