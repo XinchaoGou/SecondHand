@@ -5,7 +5,8 @@
     "pages/offer/offer",
     "pages/me/me",
     "pages/search_sublevel1/search_sublevel1",
-    "pages/detail/detail"
+    "pages/detail/detail",
+    "pages/takeout/takeout"
   ],
   "window": {
     "navigationBarBackgroundColor": "#32A189",

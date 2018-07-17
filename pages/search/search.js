@@ -96,7 +96,7 @@ Page({
 
         })
       }, function (error) {
-        console.log('用户id失效，重新登陆'+error); // failure
+        console.log('用户id失效，重新登陆' + error); // failure
         that.reLogin();
       });
     }
@@ -710,6 +710,17 @@ Page({
       wx.setStorageSync('sectionItem', that.data.contentItems[postId])
     } catch (e) {
     }
+
+    //TODO: 如果是外卖跳转其他页面,外卖的索引待定！
+    if (that.data.contentItems[postId].type0 == "美食外卖") {
+      //跳转条目详情
+      wx.navigateTo({
+        url: '../takeout/takeout?id=' + objectId
+      })
+      return;
+    }
+
+
     //跳转条目详情
     wx.navigateTo({
       url: '../search_section/search_section?id=' + objectId
@@ -729,19 +740,19 @@ Page({
       success: function (res) {
         var user = new Bmob.User();//实例化          
         user.loginWithWeapp(res.code).then(
-          function(user) {
+          function (user) {
             var openid = user.get('authData').weapp.openid
             wx.setStorageSync('openid', openid)
             //保存用户其他信息到用户表
             wx.getUserInfo({
-              success: function(result) {
+              success: function (result) {
                 var userInfo = result.userInfo
                 var nickName = userInfo.nickName
                 var avatarUrl = userInfo.avatarUrl
                 var u = Bmob.Object.extend('_User')
                 var query = new Bmob.Query(u)
                 query.get(user.id, {
-                  success: function(result) {
+                  success: function (result) {
                     result.set('nickName', nickName)
                     result.set('userPic', avatarUrl)
                     result.set('openid', openid)
@@ -751,7 +762,7 @@ Page({
               }
             })
           },
-          function(err) {
+          function (err) {
             console.log(err, 'errr')
           }
         )

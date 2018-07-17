@@ -28,6 +28,17 @@ App({
       })
     }
   },
+
+  //TODO:  测试用后续删除
+  loadSeller: function (cb) {
+    var query = new Bmob.Query('Seller');
+    query.find().then(function (sellerObjects) {
+      var seller = sellerObjects[0];
+      cb(seller);
+    });
+  },
+
+
   globalData: {
     userInfo: null
   }
