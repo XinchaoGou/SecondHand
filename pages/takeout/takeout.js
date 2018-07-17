@@ -1,13 +1,4 @@
 // pages/takeout/takeout.js
-/**
- *
- * 配套视频教程请移步微信->小程序->灵动云课堂
- * 关注订阅号【huangxiujie85】，第一时间收到教程推送
- *
- * @link http://blog.it577.net
- * @author 黄秀杰
- */
-
 var Bmob = require('../../utils/bmob.js');
 var that;
 // 最大行数
@@ -222,20 +213,20 @@ Page({
     });
   },
   cascadeDismiss: function () {
-    // // 购物车关闭动画
-    // that.animation.translateY(that.data.cartHeight).step();
-    // that.setData({
-    //   animationData: that.animation.export()
-    // });
-    // // 遮罩渐变动画
-    // that.animationMask.opacity(0).step();
-    // that.setData({
-    //   animationMask: that.animationMask.export(),
-    // });
-    // // 隐藏遮罩层
-    // that.setData({
-    //   maskVisual: 'hidden'
-    // });
+    // 购物车关闭动画
+    that.animation.translateY(that.data.cartHeight).step();
+    that.setData({
+      animationData: that.animation.export()
+    });
+    // 遮罩渐变动画
+    that.animationMask.opacity(0).step();
+    that.setData({
+      animationMask: that.animationMask.export(),
+    });
+    // 隐藏遮罩层
+    that.setData({
+      maskVisual: 'hidden'
+    });
   },
   amount: function () {
     var cartObjects = that.data.cartObjects;

@@ -40,3 +40,41 @@
 	</view>
 </view>
 
+<!-- 购物车 -->
+<view class="ft">
+	<view class="cart-container" bindtap="cascadeToggle">
+		<view class="badge badge-offset" wx:if="{{quantity}}">{{quantity}}</view>
+		<image src="/images/cart.png" class="cart" />
+	</view>
+	<view class="fee" bindtap="cascadeToggle">
+		<view wx:if="{{amount}}" class="food-fee">{{amount}}</view>
+		<view wx:if="{{amount}}" class="express-fee">{{seller.express_fee}}</view>
+	</view>
+	<view class="checkout {{amount - seller.min_amount >= 0 && amount > 0 ? '' : 'checkout-disabled'}}" bindtap="{{amount - seller.min_amount >= 0 && amount > 0 ? 'checkout' : ''}}">{{amount - seller.min_amount >= 0 ? '去结算' : '还差' + (seller.min_amount - amount) + '元起送'}}</view>
+</view>
+
+<!-- 购物车容器 -->
+<view class="modal">
+	<view animation="{{animationData}}" class="modal-content" style="height: {{cartHeight}}px; bottom: -{{cartHeight}}px;">
+	    <view class="modal-header">
+	        <text class="modal-title">购物车</text>
+	        <image src="/images/close.png" class="modal-close" bindtap="cascadeDismiss" />
+	    </view>
+	    <scroll-view class="modal-body" scroll-y="true" style="height: {{scrollHeight}}px;">
+	    	<view class="item" wx:for="{{cartObjects}}" wx:key="">
+	    		<view class="title">{{item.food.title}}</view>
+	    		<view class="fee">{{item.food.price * item.quantity}}</view>
+	    		<view class="stepper">
+					<!-- 减号 -->
+					<image src="/images/subtract.png" class="symbol" bindtap="subtract" wx:if="{{cartData[item.food.objectId]}}" data-food-id="{{item.food.objectId}}" />
+					<!-- 数量 -->
+					<view class="value">{{cartData[item.food.objectId]}}</view>
+					<!-- 加号 -->
+					<image src="/images/add.png" class="symbol" bindtap="add" data-food-id="{{item.food.objectId}}" />
+				</view>
+	    	</view>
+    	</scroll-view>
+	</view>
+</view>
+
+
