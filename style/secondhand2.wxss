@@ -37,11 +37,12 @@
 
 .content-block2 {
   width: 50%;
-  height: 200rpx;
+  height: 260rpx;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-between;
+  padding-left: 30rpx;
 }
 
 .largeblock {
@@ -118,7 +119,7 @@
 }
 
 .item-image {
-  height: 210rpx;
-  width: 280rpx;
+  height: 270rpx;
+  width: 360rpx;
   border-radius: 10rpx;
 }
