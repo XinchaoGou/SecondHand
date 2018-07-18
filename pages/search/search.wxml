@@ -20,6 +20,11 @@
     <text class="font9 gray"> 查询到{{totalCount}}条结果</text>
   </view>
 
+  <view class="module">
+    <view class="module-item{{index==CurrentsId? 'area-selected' : ''}}" wx:for="{{moduleItems}}" catchtap="moduleTap" data-postid="{{index}}">
+      <text class="module-text">{{item}}</text>
+    </view>
+  </view>
 
   <view class="content">
     <!--二手信息加载区域-->
@@ -34,6 +39,7 @@
         <text class='content-text-title'>{{item.title}}</text>
         <view class="location-time">
           <text class='content-text-location'>{{item.address}}</text>
+          <text class='content-text-location'>具体城市</text>
           <text class='content-text-offertime'>{{item.date}}</text>
         </view>
 
@@ -46,7 +52,9 @@
           </view>
         </view>
       </view>
+
     </view>
+
   </view>
 
   <view class="weui-load" hidden="{{!searchLoadingComplete}}">
