@@ -10,13 +10,13 @@
 .section-title {
   font-size: 13pt;
   width: 50%;
-  color: #32a189;
+  color: #009688;
   text-align: left;
 }
 .section-titlenegative {
   font-size: 13pt;
   width: 50%;
-  color: #32a189;
+  color: #009688;
   text-align: left;
 }
 .section-titleactive {
@@ -84,7 +84,7 @@
 .section-title2 {
   font-size: 11pt;
   width: 50%;
-  color: #32a189;
+  color: #009688;
   text-align: left;
 }
 
@@ -207,7 +207,7 @@
 }
 
 .themecolor {
-  color: #32a189;
+  color: #009688;
 }
 
 .black {
@@ -219,4 +219,7 @@
 }
 .lightgray{
   color:#b2b2b2;
+}
+.white{
+  color:white;
 }

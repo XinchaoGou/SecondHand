@@ -6,7 +6,12 @@ var that;
 
 Page({
 	data: {
-		personCountIndex: 0
+		personCountIndex: 0,
+    //左右滑动切换模块，by yining
+    currentTab: 0, //预设当前项的值
+    //联系方式模板的数组变量，by xinchao
+    contactList: [],
+    address:'',
 	},
 	onLoad: function (options) {
 		that = this;
@@ -114,5 +119,89 @@ Page({
 			})
 		});
 
-	}
+	},
+  // 滚动切换联系方式标签样式，by yining
+  switchTab: function (e) {
+
+    var index = e.detail.current;//当前所在页面的 index
+    this.setData({
+      currentTab: e.detail.current,
+    });
+  },
+  wxNumberInput: function (e) {
+    var that = this;
+    if (e.detail.value == "") {
+      that.setData({
+        is_wx_input: false
+      })
+    }
+    else {
+      that.setData({
+        is_wx_input: true,
+      })
+    }
+  },
+  phoneInput: function (e) {
+    var that = this;
+    if (e.detail.value == "") {
+      that.setData({
+        is_phone_input: false
+      })
+    }
+    else {
+      that.setData({
+        is_phone_input: true
+      })
+    }
+  },
+  eMailInput: function (e) {
+    var that = this;
+    if (e.detail.value == "") {
+      that.setData({
+        is_email_input: false
+      })
+    }
+    else {
+      that.setData({
+        is_email_input: true
+      })
+    }
+  },
+  addressChange: function (e) {
+    var that = this;
+    wx.chooseLocation({
+      success: function (res) {
+        //电脑调试的时候，经纬度为空，手机上可以运行
+        var str = 'offerItem.address';
+        var str_location = 'offerItem.location';
+        var latitude = res.latitude;
+        var longitude = res.longitude;
+        var location = {
+          latitude: latitude,
+          longitude: longitude
+        };
+        that.setData({
+          [str]: res.name,
+          [str_location]: location
+        })
+      },
+      fail: function (e) {
+        that.setData({
+          is_address_warn: true,
+        })
+        //判断是否获得了用户地理位置授权，by yining
+        wx.getSetting({
+          success: (res) => {
+            if (!res.authSetting['scope.userLocation'])
+              that.openConfirm()
+          }
+        })
+      },
+      complete: function (e) {
+        that.setData({
+          is_address_warn: false
+        })
+      }
+    })
+  }
 })

@@ -189,7 +189,7 @@ page {
 .module-item{
   width:150rpx;
   height:150rpx;
-  background-color:gray;
+  background-color:#808080;
   border-radius: 10rpx;
   display:flex;
   justify-content: center;
@@ -202,9 +202,26 @@ page {
   display:flex;
   justify-content: center;
   align-items:center;
-  background-color:burlywood;
+  background-color:#deb887;
 }
 .module-text{
   font-size: 13pt;
   color:white;
+}
+.browse{
+  font-size:13pt;
+  color:white;
+}
+.eye{
+  height:40rpx;
+  width:40rpx;
+  margin-right:15rpx;
+}
+.imagebottom{
+  position:absolute;
+  bottom:5rpx;
+  right:20rpx;
+  display:flex;
+  flex-direction: row;
+  align-items: center;
 }

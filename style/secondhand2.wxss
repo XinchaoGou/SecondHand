@@ -34,7 +34,14 @@
   margin-bottom: 20rpx;
   background-color: white;
 }
-
+.content-block1{
+  width: 50%;
+  height: 270rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
 .content-block2 {
   width: 50%;
   height: 260rpx;
@@ -54,7 +61,7 @@
 
 .content-text-title {
   font-size: 13pt;
-  color: #32a189;
+  color: #009688;
   width: 100pt;
   overflow: hidden;
   white-space: nowrap;
@@ -120,6 +127,6 @@
 
 .item-image {
   height: 270rpx;
-  width: 360rpx;
+  width: 100%;
   border-radius: 10rpx;
 }

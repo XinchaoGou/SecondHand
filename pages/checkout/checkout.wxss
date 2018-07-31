@@ -8,7 +8,9 @@
  */
 
 /*checkout.wxss*/
-
+@import '/style/stylefromweui.wxss';
+@import '/style/secondhand.wxss';
+@import '/style/secondhand2.wxss';
 .container {
 	margin-bottom: 120rpx;
 }
@@ -52,12 +54,12 @@
 /*备注信息*/
 .remark {
 	background: white;
-	margin-top: 10px;
-
 }
 
 .title-label {
 	flex: 1;
+  color:#009688;
+  
 }
 
 .arrow {
@@ -66,10 +68,15 @@
 
 .subtitle-label {
 	text-align: right;
-	margin-right: 30px;
-	flex: 4;
+	margin-right: 20px;
+	flex: 2;
+  color:#888;
 }
-
+.subtitle-label2 {
+	margin-right: 20px;
+	flex: 2;
+  color:#888;
+}
 /*备注文字截取*/
 .remark-title {
 	overflow: hidden; 
@@ -114,7 +121,7 @@ picker {
 
 .footer .checkout {
 	width: 30%;
-	background: #38ca73;
+	background: #32a189;
 	text-align: center;
 }
 
@@ -184,44 +191,47 @@ picker {
 
 .info {
 	background: white;
-	margin-top: 10px;
 }
 
 /*商品信息*/
 .info .header {
 	display: flex;
+  box-sizing: border-box;
 	flex-direction: row;
 	justify-content: flex-start;
 	align-items: center;
 	font-size: 14px;
 	color: #3d3d3d;
 	border-bottom: 1px solid #eee;
+  padding:10rpx 0;
 }
 
 /*logo图标*/
 .logo {
-	width: 30px;
-	height: 30px;
-	margin: 5px;
+	width: 40px;
+	height: 40px;
+	margin-left: 30rpx;
 }
 
 /*每行*/
 .item {
+  box-sizing: border-box;
 	display: flex;
 	flex-direction: row;
+  justify-content: space-between;
 	line-height: 40px;
 	color: #666;
 	border-bottom: 1px solid #eee;
-	margin-left: 10px;
+	margin-left:20rpx;
 	font-size: 14px;
+  padding:0 20rpx;
 	/*relative供arrow参照用*/
 	position: relative;
-	/*justify-content: space-between;*/
 }
 
-.item:last-child {
+/*.item:last-child {
 	border-bottom: 0;
-}
+}*/
 
 .arrow {
 	content: " ";
@@ -245,10 +255,14 @@ picker {
 
 /*商品名称*/
 .title {
-	margin-left: 10px;
-	flex: 8;
+  margin-left:60rpx;
+  width:60%;
 }
-
+.title2{
+  margin-left:20rpx;
+  font-weight: bold;
+  font-size:11pt;
+}
 /*数量*/
 .quantity {
 	color: #ccc;
@@ -261,40 +275,32 @@ picker {
 }
 
 /*价格*/
-.price {
-	margin-right: 5px;
-}
+
 
 .price:before {
-	content: "￥"
+	content: "€"
 }
 
 /*配送费*/
 .express-label {
-	/*width: 90%;*/
-	margin-left: 10px;
-	flex: 9;
-}
-
-.express-fee {
-	/*width: 10%;*/
-	margin-right: 5px;
-	flex: 1;
+	margin-left: 60rpx;
 }
 
 .express-fee:before {
-	content: "￥"
+	content: "€"
 }
 
 .item .amount {
 	width: 100%;
 	text-align: right;
-	padding-right: 10px;
 }
-
+.amount-label{
+  width:60%;
+  color:#009688;
+}
 /*待支付*/
 .item .amount:before {
-	content: "待支付 ￥";
+	content: "€";
 }
 
 /*初始隐藏*/
@@ -324,4 +330,32 @@ picker {
 	font-size: 16px;
 	color: #ccc;
 	text-align: center;
+}
+.section-title {
+  line-height: 40px;
+  font-size: 14px;
+}
+.section-title2{
+  line-height: 40px;
+  font-size: 14px;
+}
+.section-titlenegative {
+  line-height: 40px;
+  font-size: 14px;
+}
+.section-titleactive {
+  line-height: 40px;
+  font-size: 14px;
+}
+.section-big {
+  margin-top:0rpx;
+}
+.section{
+  height:80rpx;
+}
+.input{
+  font-size: 14px;
+}
+.inputStyle{
+  font-size: 14px;
 }

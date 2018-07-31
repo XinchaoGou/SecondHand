@@ -19,7 +19,7 @@
     <text class="font11 gray">{{searchCity}}</text>
     <text class="font9 gray"> 查询到{{totalCount}}条结果</text>
   </view>
-
+  <!--导航区模块-->
   <view class="module">
     <view class="module-item{{index==CurrentsId? 'area-selected' : ''}}" wx:for="{{moduleItems}}" catchtap="moduleTap" data-postid="{{index}}">
       <text class="module-text">{{item}}</text>
@@ -30,9 +30,13 @@
     <!--二手信息加载区域-->
     <view class="content-item" wx:for="{{contentItems}}" wx:key="id" catchtap="itemTap" data-postid="{{index}}">
       <!--二手物品图片-->
-
-      <image mode="aspectFill" class="item-image" src="{{item.src}}" />
-
+      <view class="content-block1 pos-relative">
+        <image mode="aspectFill" class="item-image" src="{{item.src}}" />
+        <view class="imagebottom">
+          <image class="eye" src="../../images/eye.png" />
+          <text class="browse">99</text>
+        </view>
+      </view>
       <!--二手物品交易信息-->
       <view class="content-block2 pos-relative">
 

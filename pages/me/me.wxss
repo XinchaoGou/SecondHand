@@ -159,7 +159,7 @@ page {
 .userItemText {
   margin-left: 70rpx;
   font-size: 13pt;
-  color: #32a189;
+  color: #009688;
   line-height: 90rpx;
 }
 
