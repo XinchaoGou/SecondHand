@@ -12,6 +12,7 @@ Page({
     //联系方式模板的数组变量，by xinchao
     contactList: [],
     address:'',
+    remark:"",
 	},
 	onLoad: function (options) {
 		that = this;
@@ -203,5 +204,12 @@ Page({
         })
       }
     })
-  }
+  },
+  toDetailPage: function (e) {
+    var that = this;
+    var content = that.data.remark;
+    wx.navigateTo({
+      url: '../detail/detail?content=' + remark
+    })
+  },
 })

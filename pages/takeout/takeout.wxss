@@ -389,5 +389,26 @@ page {
 }
 
 .modal-body .fee:before {
-	content: '￥';
 }/* pages/takeout/takeout.wxss */
+
+.example {
+  margin-top:10rpx;
+  display: flex;
+  box-sizing: border-box;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  height: 50rpx;
+}
+
+.marquee_box {
+  width: 100%;
+  height:100%;
+  position: relative;
+}
+
+.marquee_text {
+  white-space: nowrap;
+  position:absolute;
+  color:#666;
+}

@@ -1,14 +1,21 @@
 <!-- 首页 -->
 <!-- 店招 -->
 <view class="hd">
-  <image class="logo" src="{{seller.logo_url || '/images/cart.png'}}" />
+  <image class="logo" src="{{seller.logo_url || '../../images/cart.png'}}" />
   <view class="banner">
     <view class="seller">{{seller.name}}</view>
     <view class="notice">{{seller.notice}}</view>
     <view class="business-time">营业时间 {{seller.business_start}} - {{seller.business_end}}</view>
   </view>
 </view>
-
+<view class="example">
+  <view class="marquee_box">
+    <view class="marquee_text" style="{{orientation}}:{{marqueeDistance2}}px;font-size:{{size}}px;">
+      <text>{{text}}</text>
+      <text hidden="{{!marquee2copy_status}}" style="padding-left:{{marquee2_margin}}px;">{{text}}</text>
+    </view>
+  </view>
+</view>
 <!-- 菜品 -->
 <view class="bd">
   <!-- 菜品列表 -->
@@ -72,7 +79,7 @@
           <!-- 数量 -->
           <view class="value">{{cartData[item.food.objectId]}}</view>
           <!-- 加号 -->
-          <image src="/images/adding.png" class="symbol" bindtap="add" data-food-id="{{item.food.objectId}}" />
+          <image src="/images/add.png" class="symbol" bindtap="add" data-food-id="{{item.food.objectId}}" />
         </view>
       </view>
     </scroll-view>
