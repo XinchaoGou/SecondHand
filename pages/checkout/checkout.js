@@ -173,8 +173,8 @@ Page({
     wx.chooseLocation({
       success: function (res) {
         //电脑调试的时候，经纬度为空，手机上可以运行
-        var str = 'offerItem.address';
-        var str_location = 'offerItem.location';
+        var str = 'address';
+        //var str_location = 'offerItem.location';
         var latitude = res.latitude;
         var longitude = res.longitude;
         var location = {
@@ -183,7 +183,7 @@ Page({
         };
         that.setData({
           [str]: res.name,
-          [str_location]: location
+          //[str_location]: location
         })
       },
       fail: function (e) {
@@ -207,9 +207,29 @@ Page({
   },
   toDetailPage: function (e) {
     var that = this;
-    var content = that.data.remark;
+    var remark = that.data.remark;
     wx.navigateTo({
-      url: '../detail/detail?content=' + remark
+      url: '../remark/remark?content=' + remark
     })
+  },
+  //若用户拒绝授权，则每次点击交易位置时出现对话框，询问是否打开定位权限，若选择“确定”进入设置页面，by yining
+  openConfirm: function () {
+    wx.showModal({
+      content: '未打开定位权限将无法设置地点，是否去设置打开？',
+      confirmText: "确认",
+      cancelText: "取消",
+      success: function (res) {
+        console.log(res);
+        //点击“确认”时打开设置页面
+        if (res.confirm) {
+          console.log('用户点击确认')
+          wx.openSetting({
+            success: (res) => { }
+          })
+        } else {
+          console.log('用户点击取消')
+        }
+      }
+    });
   },
 })
