@@ -9,14 +9,12 @@
   </view>
 </view>
 <view class="example">
-  <view class="marquee_box">
-    <view class="marquee_text" style="{{orientation}}:{{marqueeDistance2}}px;font-size:{{size}}px;">
-      <text>{{text}}</text>
-      <text hidden="{{!marquee2copy_status}}" style="padding-left:{{marquee2_margin}}px;">{{text}}</text>
-    </view>
-  </view>
+  <view class="marquee_text" style="{{orientation}}:{{marqueeDistance2}}px;font-size:{{size}}px;">
+    {{text}}</view>
+  <view class="marquee_text" style="{{orientation}}:{{marqueeDistance2}}px;font-size:{{size}}px;" hidden="{{!marquee2copy_status}}">{{text}}</view>
 </view>
 <!-- 菜品 -->
+<!--padding-left:{{marquee2_margin}}px;-->
 <view class="bd">
   <!-- 菜品列表 -->
   <view class="food-container">
