@@ -8,7 +8,7 @@ Page({
    */
   data: {
     /*定义search页面的导航分类色块的内容*/
-    moduleItems: ['外卖', '二手', '租房', '帮带'],
+    moduleItems: ['美食', '二手', '租房', '帮带'],
     /*此变量定义了当前选中的导航分类色块的index，0代表外卖，1代表二手，3代表租房，4代表帮带，-1代表全体种类*/
     CurrentsId: -1,
     /*isOutTake: false,
@@ -831,7 +831,7 @@ Page({
         CurrentsId: postId
       })
       switch (that.data.moduleItems[postId]) {
-        case '外卖':
+        case '美食':
           typeArray[1] = ['所有'];
           typeArray[2] = [''];
           typeIndex[0] = 4;

@@ -661,6 +661,8 @@ Page({
         isShowContact: false,
         //isShowDevelop: false,
       })
+      //与页面渲染速度有关，于是设置一个延时执行页面滚动方法
+      setTimeout(() => { wx.pageScrollTo({ scrollTop: 0 }); }, 200);
     }
     this.setData({
       isShowFavourite: !switch1
