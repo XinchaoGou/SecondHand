@@ -33,7 +33,7 @@ Page({
     //搜索种类
     searchType: '所有种类',
 
-    isNewSearch: false,
+    // isNewSearch: false,
   },
 
   /**
@@ -271,6 +271,34 @@ Page({
         var type1 = tArray[1][tIndex[1]];
         var type2 = tArray[2][tIndex[2]];
 
+        //根据搜索类型改变四个方框亮暗
+        switch (type0) {
+          case "美食外卖":
+            that.setData({
+              CurrentsId: 0,
+            });
+            break;
+          case "二手物品":
+            that.setData({
+              CurrentsId: 1
+            })
+            break;
+          case "房屋租赁":
+            that.setData({
+              CurrentsId: 2
+            })
+            break;
+          case "有偿帮带":
+            that.setData({
+              CurrentsId: 3
+            })
+            break;
+          default :
+          that.setData({
+            CurrentsId: -1
+          })
+        }
+
         var str0 = '';
         var str1 = '';
         var str2 = '';
@@ -345,21 +373,28 @@ Page({
       console.log('search条件本地缓存读取失败');
     }
 
-    if (that.data.isNewSearch) { //设置界面跳转过来，刷新信息，重置开关，
-      //刷新信息
-      that.onPullDownRefresh();
-      //重置开关
-      that.setData({
-        isNewSearch: false,
-      })
-    } else {
-      //如果搜索条件没变化，是从其他页面跳转，那就更新一下与本地缓存同步
-      var contentItems = that.data.contentItems;
-      var favorList = that.data.favorList;
-      that.setData({
-        contentItems: that.upDateFavorPic(contentItems, favorList)
-      })
-    }
+
+    // if (that.data.isNewSearch) { //设置界面跳转过来，刷新信息，重置开关，
+    //   //刷新信息
+    //   that.onPullDownRefresh();
+    //   //重置开关
+    //   that.setData({
+    //     isNewSearch: false,
+    //   })
+    // } else {
+    //   //如果搜索条件没变化，是从其他页面跳转，那就更新一下与本地缓存同步
+    //   var contentItems = that.data.contentItems;
+    //   var favorList = that.data.favorList;
+    //   that.setData({
+    //     contentItems: that.upDateFavorPic(contentItems, favorList)
+    //   })
+    // }
+          //刷新信息
+          that.onPullDownRefresh();
+          // //重置开关
+          // that.setData({
+          //   isNewSearch: false,
+          // })
 
 
   },
@@ -786,38 +821,48 @@ Page({
     var that = this;
     var postId = event.currentTarget.dataset.postid;
     var currentsId = that.data.CurrentsId;
-    /*switch (postId) {
+    switch (postId) {
       case 0:
         that.setData({
-          isOutTake:!that.data.isOutTake
+          type0 : "美食外卖",
+          type1 : "所有",
+          searchType : "美食外卖"
         });
         break;
       case 1:
         that.setData({
-          isSecondHand:!that.data.isSecondHand
+          type0 : "二手物品",
+          type1 : "所有",
+          searchType : "二手物品"
         })
         break;
       case 2:
         that.setData({
-          isHausRent:!that.data.isHausRent
+          type0 : "房屋租赁",
+          type1 : "所有",
+          searchType : "房屋租赁"
         })
         break;
       case 3:
         that.setData({
-          isHelpBuy:!that.data.isHelpBuy
+          type0 : "有偿帮带",
+          type1 : "所有", //TODO
+          searchType : "有偿帮带"
         })
         break;
-    }*/
+    }
     if (currentsId == postId) {
       that.setData({
-        CurrentsId: -1
+        CurrentsId: -1,
+        type0 : "所有种类",
+        searchType : "所有种类"
       })
     } else {
       that.setData({
         CurrentsId: postId
       })
     }
-    that.onShow();
+    that.onPullDownRefresh();
   }
 
 })
