@@ -1,0 +1,18 @@
+<!--pages/remark/remark.wxml-->
+<view class="container3">
+  <view class="section-big3 border">
+
+    <view class="section t-name">
+      <text class="section-title">外卖订单备注</text>
+    </view>
+
+    <view class="section2 underline my-nick">
+      <textarea name="content" class="textarea" placeholder-class="inputStyle" placeholder="请输入详情，字数限制在{{noteMaxLen}}字以内" value="{{content}}" bindinput="bindTextAreaChange" maxlength="{{noteMaxLen}}" cursor-spacing="20" />
+      <view class="chnumber">{{noteNowLen}}/{{noteMaxLen}}</view>
+    </view>
+    <view class="section mt20">
+      <button class="btn-left" hover-class="btn-left-hover" loading="{{loading}}" disabled="{{is_disabled}}" bindtap="delete_tap"> 清除内容 </button>
+      <button class="btn-right" hover-class="btn-right-hover" loading="{{loading}}" disabled="{{is_disabled}}"bindtap="accept_tap"> 确认返回 </button>
+    </view>
+  </view>
+</view>

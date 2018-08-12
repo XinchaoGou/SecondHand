@@ -34,7 +34,7 @@
         <image mode="aspectFill" class="item-image" src="{{item.src}}" />
         <view class="imagebottom">
           <image class="eye" src="../../images/eye.png" />
-          <text class="browse">99</text>
+          <text class="browse">99人看过</text>
         </view>
       </view>
       <!--二手物品交易信息-->

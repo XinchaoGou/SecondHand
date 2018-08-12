@@ -19,7 +19,7 @@
       </view>
     </view>
     <!-- 配送费 -->
-    <view class="item">
+    <view class="item disperse">
       <view class="express-label">配送费</view>
       <view class="express-fee">{{express_fee}}</view>
     </view>
@@ -36,19 +36,23 @@
       <picker bindchange="bindPickerChange" value="{{personCountIndex}}" range="{{personCountArray}}">
         <view class="subtitle-label">{{personCountArray[personCountIndex]}}</view>
       </picker>
-      <view class="arrow"></view>
+      <image class="arrow-r" src="../../images/more/enter.png" />
     </view>
-    <view class="item disperse" bindtap="naviToRemark">
+    <view class="item disperse" bindtap="naviToRemark" catchtap="toDetailPage">
       <view class="title-label">订单备注</view>
       <view class="subtitle-label remark-title">{{remark ? remark : '口味，偏好等'}}</view>
-      <view class="arrow"></view>
+      <image class="arrow-r" src="../../images/more/enter.png" />
     </view>
-    <view class="item disperse">
+    <view class="item next">
       <view class="title-label">配送地址</view>
+      <view wx:if="{{true}}" class="title-label2">(卖家指定)</view>
     </view>
-    <view class="item disperse" catchtap="addressChange">
+    <view wx:if="{{false}}" class="item disperse" catchtap="addressChange">
       <view class="subtitle-label2 remark-title">{{address ? address : '点击选择位置'}}</view>
-      <view class="arrow"></view>
+      <image class="arrow-r" src="../../images/more/enter.png" />
+    </view>
+    <view wx:else="{{true}}" class="item disperse">
+      <view class="subtitle-label2 remark-title">KIT图书馆后门五点半取</view>
     </view>
     <!-- 3.联系方式 -->
     <!--点击同意后showInput取反，点击同意后方才显示，否则隐藏-->

@@ -209,7 +209,7 @@ page {
   color:white;
 }
 .browse{
-  font-size:13pt;
+  font-size:11pt;
   color:white;
 }
 .eye{

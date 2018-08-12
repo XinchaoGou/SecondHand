@@ -13,7 +13,17 @@ Page({
     cartData: {},
     cartObjects: [],
     maskVisual: 'hidden',
-    amount: 0
+    amount: 0,
+    //以下变量用于控制水平滚动显示一行文字
+    text: '七月二十五日中午菜单已出',
+    marqueePace: 1,//滚动速度
+    marqueeDistance: 0,//初始滚动距离
+    marqueeDistance2: 0,
+    marquee2copy_status: false,
+    marquee2_margin: 120,
+    size: 14,
+    orientation: 'left',//滚动方向
+    interval: 20 // 时间间隔
   },
   onLoad: function () {
     that = this;
@@ -241,5 +251,64 @@ Page({
       amount: amount.toFixed(2),
       quantity: quantity
     });
+  },
+
+  //以下是文字滚动显示的相关事件函数
+  onShow: function () {
+    // 页面显示
+    var that = this;
+    var length = that.data.text.length * that.data.size;//文字长度
+    var windowWidth = wx.getSystemInfoSync().windowWidth;// 屏幕宽度
+    that.setData({
+      length: length,
+      windowWidth: windowWidth,
+      marquee2_margin: length < windowWidth ? windowWidth - length : that.data.marquee2_margin//当文字长度小于屏幕长度时，需要增加补白
+    });
+    that.run1();// 水平一行字滚动完了再按照原来的方向滚动
+    that.run2();// 第一个字消失后立即从右边出现
+  },
+
+  run1: function () {
+    var that = this;
+    var interval = setInterval(function () {
+      if (-that.data.marqueeDistance < that.data.length) {
+        that.setData({
+          marqueeDistance: that.data.marqueeDistance - that.data.marqueePace,
+        });
+      } else {
+        clearInterval(interval);
+        that.setData({
+          marqueeDistance: that.data.windowWidth
+        });
+        that.run1();
+      }
+    }, that.data.interval);
+  },
+
+  run2: function () {
+    var that = this;
+    var interval = setInterval(function () {
+      if (-that.data.marqueeDistance2 < that.data.length) {
+        // 如果文字滚动到出现marquee2_margin=30px的白边，就接着显示
+        that.setData({
+          marqueeDistance2: that.data.marqueeDistance2 - that.data.marqueePace,
+          marquee2copy_status: that.data.length + that.data.marqueeDistance2 <= that.data.windowWidth + that.data.marquee2_margin,
+        });
+      } else {
+        if (-that.data.marqueeDistance2 >= that.data.marquee2_margin) { // 当第二条文字滚动到最左边时
+          that.setData({
+            marqueeDistance2: that.data.marquee2_margin // 直接重新滚动
+          });
+          clearInterval(interval);
+          that.run2();
+        } else {
+          clearInterval(interval);
+          that.setData({
+            marqueeDistance2: -that.data.windowWidth
+          });
+          that.run2();
+        }
+      }
+    }, that.data.interval);
   }
 })

@@ -8,7 +8,7 @@ Page({
    */
   data: {
     /*定义search页面的导航分类色块的内容*/
-    moduleItems: ['外卖', '二手', '租房', '帮带'],
+    moduleItems: ['美食', '二手', '租房', '帮带'],
     /*此变量定义了当前选中的导航分类色块的index，0代表外卖，1代表二手，3代表租房，4代表帮带，-1代表全体种类*/
     CurrentsId: -1,
     /*isOutTake: false,
@@ -32,14 +32,13 @@ Page({
     searchCity: '德国所有地区',
     //搜索种类
     searchType: '所有种类',
-
     isNewSearch: false,
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     var that = this;
     if (options.id) {
       console.log('是转发options.id ' + options.id);
@@ -58,7 +57,7 @@ Page({
    * 封装首页信息加载
    * by xinchao
    */
-  getAllFromCloud: function () {
+  getAllFromCloud: function() {
     var that = this;
     that.getContentItemsFromCloud(0, that.data.callbackcount);
 
@@ -79,13 +78,13 @@ Page({
       setTimeout(() => {
         //等待用户信息加载，延时6秒左右，失败的情况只能下拉刷新界面
         const promise = that.getFavorListFromCloud();
-        promise.then(function (favourArray) {
+        promise.then(function(favourArray) {
           var contentItems = that.data.contentItems;
           that.setData({
             contentItems: that.upDateFavorPic(contentItems, favourArray)
 
           })
-        }, function (error) {
+        }, function(error) {
           console.log(error); // failure
           console.log('用户信息加载超时，重新登陆' + error); // failure
         });
@@ -96,13 +95,13 @@ Page({
       //等待用户信息加载，延时5秒左右，失败的情况只能下拉刷新界面
       console.log('找到用户' + Bmob.User.current().id);
       const promise = that.getFavorListFromCloud();
-      promise.then(function (favourArray) {
+      promise.then(function(favourArray) {
         var contentItems = that.data.contentItems;
         that.setData({
           contentItems: that.upDateFavorPic(contentItems, favourArray)
 
         })
-      }, function (error) {
+      }, function(error) {
         console.log('用户id失效，重新登陆' + error); // failure
         that.reLogin();
       });
@@ -118,7 +117,7 @@ Page({
    * callbackcount : 每页返回数据数目
    * by xincaho
    */
-  getContentItemsFromCloud: function (pageindex, callbackcount) {
+  getContentItemsFromCloud: function(pageindex, callbackcount) {
     var that = this;
     var searchCondition = that.data.searchCondition;
     //查询数据库获得发布物品信息
@@ -172,7 +171,7 @@ Page({
 
     // 查询所有数据
     query.find({
-      success: function (results) {
+      success: function(results) {
         if (results.length == 0) {
           that.setData({
             searchLoadingComplete: true
@@ -191,8 +190,8 @@ Page({
             offerItem.favouriteshow = false;
             //重要，如果在收藏列表中设置图标点亮
             if (that.data.favorList.findIndex((favorItem) => {
-              return favorItem.id == object.id;
-            }) > -1) {
+                return favorItem.id == object.id;
+              }) > -1) {
               offerItem.favouriteshow = true;
             }
 
@@ -216,7 +215,7 @@ Page({
 
         }
       },
-      error: function (error) {
+      error: function(error) {
         console.log("查询失败: " + error.code + " " + error.message);
       }
     });
@@ -227,7 +226,7 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
 
   },
 
@@ -236,7 +235,7 @@ Page({
    * TODO: 搜索改变要重新刷新
    * by xinchao
    */
-  onShow: function () {
+  onShow: function() {
     var that = this;
     try {
       var favorList = wx.getStorageSync('favorList');
@@ -260,7 +259,6 @@ Page({
         }
       }
 
-
       //加载搜索类型 TODO: 类型变换重新搜索
       var searchType = wx.getStorageSync('searchType');
       if (searchType) {
@@ -277,6 +275,35 @@ Page({
         if (type0) { //如果存在则赋值，否则默认为空字符串
           str0 = type0;
         }
+        //by yining
+        switch (type0) {
+          case '所有种类':
+            that.setData({
+              CurrentsId: -1
+            });
+            break;
+          case '二手物品':
+            that.setData({
+              CurrentsId: 1
+            })
+            break;
+          case '房屋租赁':
+            that.setData({
+              CurrentsId: 2
+            })
+            break;
+          case '有偿帮带':
+            that.setData({
+              CurrentsId: 3
+            })
+            break;
+          case '美食外卖':
+            that.setData({
+              CurrentsId: 0
+            })
+            break;
+        }
+        //以上by yining
         if (type1) {
           str1 = type1;
         }
@@ -367,14 +394,14 @@ Page({
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
@@ -382,7 +409,7 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    * by xinchao
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
     var that = this;
     wx.vibrateShort(); // 使手机振动15ms  
     wx.showNavigationBarLoading() //在标题栏中显示加载
@@ -405,7 +432,7 @@ Page({
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
     var that = this;
     var newPageIndex = that.data.pageindex + 1;
     that.getContentItemsFromCloud(newPageIndex, that.data.callbackcount);
@@ -428,17 +455,17 @@ Page({
    * 用户点击右上角分享
    * TODO: 分享图片和名字要重新设置
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
     return {
       title: '老喵',
       desc: '找二手，上老喵！找房子，上老喵！\n找帮带，上老喵！找外卖，上老瞄！\n喵一眼，啥都有',
       path: '/pages/search/search',
       imageUrl: '../../images/test/poster.png',
-      success: function (res) {
+      success: function(res) {
         // 转发成功
       },
-      fail: function (res) {
+      fail: function(res) {
         // 转发失败
       }
     }
@@ -449,7 +476,7 @@ Page({
    * object
    * by xinchao
    */
-  cloudDataToLocal: function (object) {
+  cloudDataToLocal: function(object) {
     var that = this;
     //获得发布条目内容详情
     var id = object.id;
@@ -508,10 +535,10 @@ Page({
    * 根据favorList 更新视图的收藏图标
    * by xinchao
    */
-  upDateFavorPic: function (contentItems, favorList) {
+  upDateFavorPic: function(contentItems, favorList) {
 
     var that = this;
-    contentItems.forEach(function (e) {
+    contentItems.forEach(function(e) {
       var index = favorList.findIndex((favorItem) => {
         return favorItem.id == e.id;
       })
@@ -530,9 +557,9 @@ Page({
    * 从服务器获得收藏列表
    * by xinchao
    */
-  getFavorListFromCloud: function () {
+  getFavorListFromCloud: function() {
     var that = this;
-    return new Promise(function (resolve, reject) {
+    return new Promise(function(resolve, reject) {
       if (!Bmob.User.current()) {
         //如果未找到用户，刷新
         console.log('搜索收藏列表时未找到用户重新刷新，重新注册');
@@ -544,14 +571,14 @@ Page({
       var User = Bmob.Object.extend("_User");
       var query = new Bmob.Query(User);
       query.get(Bmob.User.current().id, {
-        success: function (result) {
+        success: function(result) {
           // 查询用户成功
           console.log("getFavorListFromCloud查询当前用户成功");
           var relation = result.relation('like');
           var query = relation.query();
           query.descending('createdAt'); //排序
           query.find({
-            success: function (list) {
+            success: function(list) {
               // 查询用户收藏成功
               console.log("查询到" + list.length + "条收藏");
               var favourArray = [];
@@ -573,7 +600,7 @@ Page({
             }
           });
         },
-        error: function (object, error) {
+        error: function(object, error) {
           console.log("getFavorListFromCloud查询当前用户失败，重新注册");
           that.reLogin();
           reject(error);
@@ -586,10 +613,10 @@ Page({
    * 查询条目数量
    * by xinchao
    */
-  searchTotalCount: function (query) {
+  searchTotalCount: function(query) {
     var that = this;
     query.count({
-      success: function (count) {
+      success: function(count) {
         console.log("共有 " + count + " 条记录");
         that.setData({
           totalCount: count
@@ -609,11 +636,11 @@ Page({
           });
         }
       },
-      error: function (error) {
+      error: function(error) {
         console.log("查询总条目数错误，从本地缓存读取数目");
         wx.getStorage({
           key: 'totalCount',
-          success: function (res) {
+          success: function(res) {
             that.setData({
               totalCount: res.data
             });
@@ -624,7 +651,7 @@ Page({
   },
 
   /*通往搜索sublevel1子页面入口，出现了问题，堆栈方面的，需要后续处理 by yining*/
-  tosubsearch: function () {
+  tosubsearch: function() {
     wx.navigateTo({
       url: '../search_sublevel1/search_sublevel1'
     })
@@ -634,7 +661,7 @@ Page({
    * 点击收藏图标绑定事件，修改图标，修改数据库
    * by xinchao
    */
-  favourite_touch: function (event) {
+  favourite_touch: function(event) {
     var that = this;
     var postId = event.currentTarget.dataset.favouriteid;
     var objectId = that.data.contentItems[postId].id; // 获得数据库对应objectId
@@ -666,7 +693,7 @@ Page({
     var Offer = Bmob.Object.extend("Offer");
     var query = new Bmob.Query(Offer);
     query.get(objectId, {
-      success: function (result) {
+      success: function(result) {
         //将对应ObjectId 的 Offer关联到收藏
         var user = Bmob.User.current();
         var relation = user.relation("like");
@@ -696,7 +723,7 @@ Page({
         })
 
       },
-      error: function (object, error) {
+      error: function(object, error) {
         // 查询失败
         console.log('收藏失败' + error);
       }
@@ -707,15 +734,14 @@ Page({
    * 点击某一个条目查看详情
    * by xinchao
    */
-  itemTap: function (event) {
+  itemTap: function(event) {
     var that = this;
     var postId = event.currentTarget.dataset.postid;
     var objectId = that.data.contentItems[postId].id; // 获得数据库对应objectId
     console.log('跳转详情' + objectId);
     try {
       wx.setStorageSync('sectionItem', that.data.contentItems[postId])
-    } catch (e) {
-    }
+    } catch (e) {}
 
     //TODO: 如果是外卖跳转其他页面,外卖的索引待定！
     if (that.data.contentItems[postId].type0 == "美食外卖") {
@@ -733,7 +759,7 @@ Page({
     })
   },
 
-  reLogin: function () {
+  reLogin: function() {
     try {
       console.log('退出登陆');
       Bmob.User.logOut();
@@ -743,22 +769,22 @@ Page({
     }
 
     wx.login({
-      success: function (res) {
+      success: function(res) {
         var user = new Bmob.User(); //实例化          
         user.loginWithWeapp(res.code).then(
-          function (user) {
+          function(user) {
             var openid = user.get('authData').weapp.openid
             wx.setStorageSync('openid', openid)
             //保存用户其他信息到用户表
             wx.getUserInfo({
-              success: function (result) {
+              success: function(result) {
                 var userInfo = result.userInfo
                 var nickName = userInfo.nickName
                 var avatarUrl = userInfo.avatarUrl
                 var u = Bmob.Object.extend('_User')
                 var query = new Bmob.Query(u)
                 query.get(user.id, {
-                  success: function (result) {
+                  success: function(result) {
                     result.set('nickName', nickName)
                     result.set('userPic', avatarUrl)
                     result.set('openid', openid)
@@ -768,56 +794,75 @@ Page({
               }
             })
           },
-          function (err) {
+          function(err) {
             console.log(err, 'errr')
           }
         )
       },
-      fail: function () {
+      fail: function() {
         // fail
       },
-      complete: function () {
+      complete: function() {
         // complete
       }
     });
   },
   /*监听导航色块的点击，不断更新currentsid的变量值，by yining*/
-  moduleTap: function (event) {
+  moduleTap: function(event) {
     var that = this;
     var postId = event.currentTarget.dataset.postid;
     var currentsId = that.data.CurrentsId;
-    /*switch (postId) {
-      case 0:
-        that.setData({
-          isOutTake:!that.data.isOutTake
-        });
-        break;
-      case 1:
-        that.setData({
-          isSecondHand:!that.data.isSecondHand
-        })
-        break;
-      case 2:
-        that.setData({
-          isHausRent:!that.data.isHausRent
-        })
-        break;
-      case 3:
-        that.setData({
-          isHelpBuy:!that.data.isHelpBuy
-        })
-        break;
-    }*/
+    var typeArray = [];
+    var typeIndex = [];
+
+    typeArray[0] = ['所有种类', '二手物品', '房屋租赁', '有偿帮带', '美食外卖'];
+    typeIndex[1] = 0;
+    typeIndex[2] = 0;
+
     if (currentsId == postId) {
       that.setData({
         CurrentsId: -1
       })
+      typeArray[1] = [''];
+      typeArray[2] = [''];
+      typeIndex[0] = 0;
     } else {
       that.setData({
         CurrentsId: postId
       })
+      switch (that.data.moduleItems[postId]) {
+        case '美食':
+          typeArray[1] = ['所有'];
+          typeArray[2] = [''];
+          typeIndex[0] = 4;
+          break;
+        case '二手':
+          typeArray[1] = ['所有', '电子产品', '学习资料', '家具厨具', '交通工具', '健身娱乐', '服装箱包', '办公用品'];
+          typeArray[2] = [''];
+          typeIndex[0] = 1;
+          break;
+        case '租房':
+          typeArray[1] = ['所有', '仅限zwischen', '可nach'];
+          typeArray[2] = [''];
+          typeIndex[0] = 2;
+          break;
+        case '帮带':
+          typeArray[1] = ['所有', '带到国内', '带到德国'];
+          typeArray[2] = [''];
+          typeIndex[0] = 3;
+          break;
+      }
     }
+    //搜索类别
+    wx.setStorage({
+      key: "searchType",
+      data: {
+        mArray: typeArray,
+        mIndex: typeIndex
+      }
+    });
     that.onShow();
+    that.onPullDownRefresh();
   }
 
 })
